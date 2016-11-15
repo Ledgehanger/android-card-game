@@ -5,7 +5,6 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 
 
