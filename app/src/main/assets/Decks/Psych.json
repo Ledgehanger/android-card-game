@@ -1,0 +1,42 @@
+[
+  {
+    "_id": 11,
+    "name": "Support Worker",
+    "attack": 1,
+    "defense": 2,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "ev" : 12
+  },
+  {
+    "_id": 12,
+    "name": "Psychiatrist",
+    "attack": 1,
+    "defense": 2,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "ev" : 13
+  },
+  {
+    "_id": 13,
+    "name": "Professor",
+    "attack": 1,
+    "defense": 2,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "ev"    : 0
+  },
+  {
+    "_id": 14,
+    "name": "David Kier Building",
+    "attack": 1,
+    "defense": 2,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "ev"     : 0
+  }
+]
