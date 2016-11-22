@@ -1,0 +1,51 @@
+[
+  {
+    "_id": 1,
+    "name": "Mechanical Engineering",
+    "attack": 2,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "evCost" : 3,
+    "ev" : 2,
+    "type": "Engineering"
+  },
+  {
+    "_id": 2,
+    "name": "Electrical Engineering",
+    "attack": 3,
+    "defense": 5,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 5,
+    "ev" : 3,
+    "type": "Engineering"
+  },
+  {
+    "_id": 3,
+    "name": "Aerospace Engineering",
+    "attack": 3,
+    "defense": 7,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"    : 0,
+    "type": "Engineering"
+  },
+  {
+    "_id": 4,
+    "name": "Ashby Building",
+    "attack": 1,
+    "defense": 2,
+    "evcost" : 5,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"     : 0,
+    "type": "Engineering"
+  }
+]

@@ -1,43 +1,43 @@
 [
   {
-    "_id": 13,
-    "name": "Assistant Psychology",
+    "_id": 20,
+    "name": "Nursing",
     "attack": 2,
     "defense": 3,
-    "ability": "PsychLevel1",
+    "ability": "MedicalLevel1",
     "picture": "http://placehold.it/32x32",
     "inDeck" : true,
-    "ev" : 14,
+    "ev" : 21,
     "evcost" : 3,
-    "type": "Psych"
+    "type": "Medical"
   },
   {
-    "_id": 14,
-    "name": "Clinical Psychology",
-    "attack": 4,
-    "defense": 3,
-    "ability": "PsychLevel2",
+    "_id": 21,
+    "name": "Medicine",
+    "attack": 3,
+    "defense": 4,
+    "ability": "MedicalLevel2",
     "picture": "http://placehold.it/32x32",
     "inDeck" : false,
-    "ev" : 15,
+    "ev" : 22,
     "evcost" : 5,
-    "type": "Psych"
+    "type": "Medical"
   },
   {
-    "_id": 15,
-    "name": "Psychology Fellowship",
-    "attack": 4,
+    "_id": 22,
+    "name": "Specialist Medicine",
+    "attack": 3,
     "defense": 4,
-    "ability": "PsychLevel13",
+    "ability": "MedicalLevel3",
     "picture": "http://placehold.it/32x32",
     "inDeck" : false,
     "ev"    : 0,
     "evcost" : 0,
-    "type": "Psych"
+    "type": "Medical"
   },
   {
-    "_id": 16,
-    "name": "David Kier Building",
+    "_id": 23,
+    "name": "Medical Biology Centre",
     "attack": 0,
     "defense": 4,
     "ability": "DEFAULT",
@@ -45,6 +45,6 @@
     "inDeck" : true,
     "ev"     : 0,
     "evcost" : 0,
-    "type": "Psych"
+    "type": "Medical"
   }
 ]

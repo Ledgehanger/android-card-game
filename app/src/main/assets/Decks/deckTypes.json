@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Psych",
+    "path": "Decks/Psych.json",
+    "img": "examplefornow"
+  },
+  {
+    "name": "Engineering",
+    "path": "Decks/Engineering.json",
+    "img": "examplefornow"
+  },
+  {
+    "name": "Theology",
+    "path": "Decks/Theology.json",
+    "img": "examplefornow"
+  },
+  {
+    "name": "Medical",
+    "path": "Decks/Medical.json",
+    "img": "examplefornow"
+  },
+  {
+    "name": "CS",
+    "path": "Decks/CS.json",
+    "img": "examplefornow"
+  },
+  {
+    "name": "Law",
+    "path": "Decks/Law.json",
+    "img": "examplefornow"
+  },
+  {
+    "name": "Neutral",
+    "path": "Decks/Neutral.json",
+    "img": "examplefornow"
+  }
+]
