@@ -1,6 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 

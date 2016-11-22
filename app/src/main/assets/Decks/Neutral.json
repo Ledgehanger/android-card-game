@@ -1,0 +1,38 @@
+[
+  {
+    "_id": 17,
+    "name": "Lanyon Building",
+    "attack": 0,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "evCost" : 0,
+    "ev" : 0,
+    "type": "Neutral"
+  },
+  {
+    "_id": 18,
+    "name": "McClay Library",
+    "attack": 0,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "evCost" : 0,
+    "ev" : 0,
+    "type": "Neutral"
+  },
+  {
+    "_id": 19,
+    "name": "Student's Union",
+    "attack": 0,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "evCost" : 0,
+    "ev"    : 0,
+    "type": "Neutral"
+  }
+]

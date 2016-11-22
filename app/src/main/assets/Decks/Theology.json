@@ -1,0 +1,51 @@
+[
+  {
+    "_id": 9,
+    "name": "Priest",
+    "attack": 2,
+    "defense": 2,
+    "ability": "TheologyLevel1",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "evCost" : 3,
+    "ev" : 10,
+    "type": "Theology"
+  },
+  {
+    "_id": 10,
+    "name": "Pope",
+    "attack": 4,
+    "defense": 3,
+    "ability": "TheologyLevel2",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 5,
+    "ev" : 11,
+    "type": "Theology"
+  },
+  {
+    "_id": 11,
+    "name": "God",
+    "attack": 4,
+    "defense": 4,
+    "ability": "TheologyLevel3",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"    : 0,
+    "type": "Theology"
+  },
+  {
+    "_id": 12,
+    "name": "Institute of Theology",
+    "attack": 1,
+    "defense": 0,
+    "evcost" : 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"     : 0,
+    "type": "Theology"
+  }
+]

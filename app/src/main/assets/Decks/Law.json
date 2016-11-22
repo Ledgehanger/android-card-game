@@ -1,0 +1,50 @@
+[
+  {
+    "_id"    : 24,
+    "name"   : "Paralegal",
+    "attack" : 4,
+    "defense": 1,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "evCost" : 3,
+    "ev"     : 25,
+    "type"   : "Law"
+  },
+  {
+    "_id"    : 25,
+    "name"   : "Lawyer",
+    "attack" : 5,
+    "defense": 3,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 5,
+    "ev"     : 26,
+    "type"   : "Law"
+  },
+  {
+    "_id"    : 26,
+    "name"   : "Judge",
+    "attack" : 6,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"     : 0,
+    "type"   : "Law"
+  },
+  {
+    "_id"    : 27,
+    "name"   : "Law Building",
+    "attack" : 0,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"     : 0,
+    "type"   : "Law"
+  }
+]

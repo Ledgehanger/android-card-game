@@ -5,6 +5,10 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -37,7 +41,7 @@ public class AssetStore {
      */
     private HashMap<String, Sound> mSounds;
     private SoundPool mSoundPool;
-
+    private HashMap<String, JSONArray> mJson;
     /**
      * File IO
      */
@@ -50,7 +54,7 @@ public class AssetStore {
     /**
      * Create a new asset store
      *
-     * @param Game Context to which this File IO will use
+     * @param //Game Context to which this File IO will use
      */
     public AssetStore(FileIO fileIO) {
         mFileIO = fileIO;
@@ -59,6 +63,7 @@ public class AssetStore {
         mSounds = new HashMap<String, Sound>();
         mSoundPool = new SoundPool(Sound.MAX_CONCURRENT_SOUNDS,
                 AudioManager.STREAM_MUSIC, 0);
+        mJson = new HashMap<String,JSONArray>();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -80,7 +85,14 @@ public class AssetStore {
         mBitmaps.put(assetName, asset);
         return true;
     }
+    // TODO: 17/11/2016 Add json to json hashmap
+    public boolean add(String assetName, JSONArray asset){
+        if (mJson.containsKey(assetName))
+            return false;
 
+        mJson.put(assetName,asset);
+        return true;
+    }
     /**
      * Add the specified music asset to the store
      *
@@ -177,7 +189,17 @@ public class AssetStore {
 
         return success;
     }
+// TODO: 17/11/2016 Add json loader
 
+    public boolean loadAndAddJson(String AssetName, String JsonFile){
+        boolean success = true;
+        try {
+
+            JSONArray json = mFileIO.loadJson(JsonFile);
+            success = add(AssetName,json);
+        }catch (IOException ex){}
+        return success;
+    }
     /**
      * Retrieve the specified bitmap asset from the store
      *
@@ -206,5 +228,16 @@ public class AssetStore {
      */
     public Sound getSound(String assetName) {
         return mSounds.get(assetName);
+    }
+
+
+    /**
+     * Retrieve the specified json asset from the store
+     *
+     * @param assetName Name of the asset to retrieve
+     * @return json asset, null if the named asset could not be found
+     */
+    public JSONArray getJson(String assetName) {
+        return mJson.get(assetName);
     }
 }

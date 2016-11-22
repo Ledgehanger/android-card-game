@@ -1,0 +1,51 @@
+[
+  {
+    "_id": 5,
+    "name": "BIT",
+    "attack": 3,
+    "defense": 2,
+    "ability": "CSLevel1",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "evCost" : 3,
+    "ev" : 6,
+    "type": "CS"
+  },
+  {
+    "_id": 6,
+    "name": "Computer Science",
+    "attack": 3,
+    "defense": 3,
+    "ability": "CSLevel2",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 5,
+    "ev" : 7,
+    "type": "CS"
+  },
+  {
+    "_id": 7,
+    "name": "Software Engineering",
+    "attack": 3,
+    "defense": 5,
+    "ability": "CSLevel3",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"    : 0,
+    "type": "CS"
+  },
+  {
+    "_id": 8,
+    "name": "Computer Science Buidling",
+    "attack": 1,
+    "defense": 0,
+    "evcost" : 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "evCost" : 0,
+    "ev"     : 0,
+    "type": "CS"
+  }
+]

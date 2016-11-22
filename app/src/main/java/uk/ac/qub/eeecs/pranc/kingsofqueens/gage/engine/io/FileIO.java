@@ -10,12 +10,14 @@ import android.graphics.BitmapFactory.Options;
 import android.media.SoundPool;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-
+import org.json.JSONArray;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
@@ -54,7 +56,7 @@ public class FileIO {
 
 	/**
 	 * Create a new File IO service
-	 * 
+	 *
 	 * @param context
 	 *            Context to which this File IO will use
 	 */
@@ -71,7 +73,7 @@ public class FileIO {
 
 	/**
 	 * Open an input stream to the named asset stored in the APK file.
-	 * 
+	 *
 	 * @param assetName
 	 *            Name of the asset to open for reading
 	 * @return InputStream that can be used to read the asset
@@ -84,7 +86,7 @@ public class FileIO {
 
 	/**
 	 * Load the specified bitmap using the specified format from the APK file.
-	 * 
+	 *
 	 * @param fileName
 	 *            Name of the bitmap to be loaded
 	 * @param format
@@ -124,10 +126,31 @@ public class FileIO {
 
 		return bitmap;
 	}
+	//Mark : Json Loader
+	public JSONArray loadJson(String fileName)
+			throws IOException {
+		String result = "";
+		JSONArray jObject = new JSONArray();
+		try {
+			InputStream inputStream = mAssetManager.open(fileName);
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = br.readLine()) != null)
+			{
+				sb.append(line + "\n");
+			}
+			result = sb.toString();
+			jObject = new JSONArray(result);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
+		return jObject;
+	}
 	/**
 	 * Load in the specified music file.
-	 * 
+	 *
 	 * @param filename
 	 *            Name of the music asset to be loaded
 	 * @return Loaded Music instance, or null if the effect could not be loaded
@@ -142,11 +165,11 @@ public class FileIO {
 					+ "Could not load music [" + filename + "]";
 			throw new IOException(message);
 		}
-	}	
-	
+	}
+
 	/**
 	 * Load in the specified sound effect file.
-	 * 
+	 *
 	 * @param filename
 	 *            Name of the sound asset to be loaded
 	 * @return Loaded Sound instance, or null if clip could not be loaded
@@ -163,15 +186,15 @@ public class FileIO {
 					+ "Could not load sound [" + filename + "]";
 			throw new IOException(message);
 		}
-	}	
-	
+	}
+
 	// /////////////////////////////////////////////////////////////////////////
 	// Device Storage IO //
 	// /////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Open an input stream to the name file in device storage.
-	 * 
+	 *
 	 * @param fileName
 	 *            Name of the file to open for reading
 	 * @return InputStream that can be used to read the file
@@ -184,7 +207,7 @@ public class FileIO {
 
 	/**
 	 * Open an output stream to the name file in device storage.
-	 * 
+	 *
 	 * @param fileName
 	 *            Name of the file to open for writing
 	 * @return OutputStream that can be used to write to the file
@@ -201,7 +224,7 @@ public class FileIO {
 
 	/**
 	 * Get the shared preferences for the app.
-	 * 
+	 *
 	 * @return Shared preferences instance
 	 */
 	public SharedPreferences getPreferences() {

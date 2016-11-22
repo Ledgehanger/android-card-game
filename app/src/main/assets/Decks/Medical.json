@@ -1,0 +1,50 @@
+[
+  {
+    "_id": 20,
+    "name": "Nursing",
+    "attack": 2,
+    "defense": 3,
+    "ability": "MedicalLevel1",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "ev" : 21,
+    "evcost" : 3,
+    "type": "Medical"
+  },
+  {
+    "_id": 21,
+    "name": "Medicine",
+    "attack": 3,
+    "defense": 4,
+    "ability": "MedicalLevel2",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "ev" : 22,
+    "evcost" : 5,
+    "type": "Medical"
+  },
+  {
+    "_id": 22,
+    "name": "Specialist Medicine",
+    "attack": 3,
+    "defense": 4,
+    "ability": "MedicalLevel3",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "ev"    : 0,
+    "evcost" : 0,
+    "type": "Medical"
+  },
+  {
+    "_id": 23,
+    "name": "Medical Biology Centre",
+    "attack": 0,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "ev"     : 0,
+    "evcost" : 0,
+    "type": "Medical"
+  }
+]

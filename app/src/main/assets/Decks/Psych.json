@@ -1,0 +1,50 @@
+[
+  {
+    "_id": 13,
+    "name": "Assistant Psychology",
+    "attack": 2,
+    "defense": 3,
+    "ability": "PsychLevel1",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "ev" : 14,
+    "evcost" : 3,
+    "type": "Psych"
+  },
+  {
+    "_id": 14,
+    "name": "Clinical Psychology",
+    "attack": 4,
+    "defense": 3,
+    "ability": "PsychLevel2",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "ev" : 15,
+    "evcost" : 5,
+    "type": "Psych"
+  },
+  {
+    "_id": 15,
+    "name": "Psychology Fellowship",
+    "attack": 4,
+    "defense": 4,
+    "ability": "PsychLevel13",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : false,
+    "ev"    : 0,
+    "evcost" : 0,
+    "type": "Psych"
+  },
+  {
+    "_id": 16,
+    "name": "David Kier Building",
+    "attack": 0,
+    "defense": 4,
+    "ability": "DEFAULT",
+    "picture": "http://placehold.it/32x32",
+    "inDeck" : true,
+    "ev"     : 0,
+    "evcost" : 0,
+    "type": "Psych"
+  }
+]
