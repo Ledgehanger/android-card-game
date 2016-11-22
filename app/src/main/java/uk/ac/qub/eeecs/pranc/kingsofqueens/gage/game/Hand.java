@@ -39,12 +39,15 @@ public class Hand {
         }
         return needCards;
     }
+
     //Updates the position of the cards on the player screen as they are played
     public void CardPositionUpdate(){
 
 
     }
-
+    //When cards are played they need to be removed from the Hand
+    public void removeCard(int cardPostion){
+        Hand[cardPosition] = null;
 
 
     }

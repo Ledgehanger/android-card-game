@@ -14,6 +14,7 @@ public class Card {
     String imgFile;
     int EV;
     boolean inDeck;
+    int handPosition = 0;
 
     public Card(int id, String name, int attack, int defense,
                 String ability, String imgFile, int EV,boolean inDeck) {
