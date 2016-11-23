@@ -1,8 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.HashMap;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 /**
  * Created by markm on 20/11/2016.
@@ -10,17 +9,36 @@ import java.util.HashMap;
 
 public class DeckSelection {
     // TODO:MM 20/11/2016 Change so its genrated instead of card harded
-    HashMap<String,String> deckName = new HashMap<String, String>();
-
+    public String name;
+    public String path;
+    public String imgPath;
+    private Rect button;
+    private Bitmap bitImage;
     public DeckSelection(){
-        deckName.put("Psych","Example.png");
+        name = "";
+        path = "";
+        imgPath = "";
     }
 
+    public DeckSelection(String name, String path, String imgPath) {
+        this.name = name;
+        this.path = path;
+        this.imgPath = imgPath;
+    }
 
+    public Rect getButton() {
+        return button;
+    }
 
+    public void setButton(Rect button) {
+        this.button = button;
+    }
 
+    public Bitmap getBitImage() {
+        return bitImage;
+    }
 
-
-
-
+    public void setBitImage(Bitmap bitImage) {
+        this.bitImage = bitImage;
+    }
 }

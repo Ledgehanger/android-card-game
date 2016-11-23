@@ -26,4 +26,5 @@ public class Card {
         this.EV = EV;
         this.inDeck = inDeck;
     }
+
 }

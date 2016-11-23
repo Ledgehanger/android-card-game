@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ScreenManager;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.PickDeckScreen;
 
 import static android.R.attr.name;
 
@@ -49,15 +51,20 @@ public class MainActivity extends Activity {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // Set the content view to use a simple frame layout
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_fragment);
 
         // Add in the main game fragment
         FragmentManager fm = getFragmentManager();
-        mGame = (Game) fm.findFragmentById(R.id.activity_main_id);
+        mGame = (Game)fm.findFragmentById(R.id.activity_fragment_id);
 
-        mGame.getAssetManager().loadAndAddJson("Psych","Psych.json");
+        if (mGame == null) {
+            mGame = new CardGame();
+            fm.beginTransaction().add(R.id.activity_fragment_id, mGame)
+                    .commit();
+        }
 
-        mGame.getAssetManager().getJson("Psych");
+
+
 
 
     }

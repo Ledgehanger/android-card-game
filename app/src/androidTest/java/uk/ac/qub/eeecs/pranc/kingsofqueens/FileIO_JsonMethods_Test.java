@@ -33,10 +33,10 @@ public class FileIO_JsonMethods_Test {
             Card[] card1 = mDeck.jsonToCardCollection(as, "Psych");
             Card[] card2 = mDeck.jsonToCardCollection(as, "Psych");
 
-            assertEquals(11, card1[0].id);
-            assertEquals(12, card1[1].id);
-            assertEquals(13, card1[2].id);
-            assertEquals(14, card1[3].id);
+            assertEquals(13, card1[0].id);
+            assertEquals(14, card1[1].id);
+            assertEquals(15, card1[2].id);
+            assertEquals(16, card1[3].id);
         }
 
 
