@@ -31,10 +31,9 @@ public class CardGame extends Game {
         // Call the Game's onCreateView to get the view to be returned.
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        // Create and add a stub game screen to the screen manager. We don't
-        // want to do this within the onCreate method as the menu screen
-        // will layout the buttons based on the size of the view.
-        MainMenu stubMenuScreen = new MainMenu("test",this);
+        // Create and add a stub game screen to the screen manager.
+        // Start up with MainMenu
+        MainMenu stubMenuScreen = new MainMenu("MainMenuScreen",this);
         mScreenManager.addScreen(stubMenuScreen);
 
         return view;
@@ -43,12 +42,12 @@ public class CardGame extends Game {
     @Override
     public boolean onBackPressed() {
         // If we are already at the menu screen then exit
-        if(mScreenManager.getCurrentScreen().getName().equals("MenuScreen"))
+        if(mScreenManager.getCurrentScreen().getName().equals("MainMenuScreen"))
             return false;
 
         // Go back to the menu screen
         getScreenManager().removeScreen(mScreenManager.getCurrentScreen().getName());
-        PickDeckScreen menuScreen = new PickDeckScreen(this);
+        MainMenu menuScreen = new MainMenu("MainMenuScreen",this);
         getScreenManager().addScreen(menuScreen);
         return true;
     }
