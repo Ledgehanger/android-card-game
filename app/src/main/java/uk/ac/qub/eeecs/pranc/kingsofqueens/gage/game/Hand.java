@@ -20,6 +20,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 public class Hand {
     //The max number of cards a player can have in their hand is 3 cards(temp)
     final static int maxHandSize = 3;
+    //These are the cooirdinates for the Cards on the field
     final static float posX = 290;
     final static float pos1Y = 195;
     final static float pos2Y = 235;
@@ -47,7 +48,7 @@ public class Hand {
     }
     //When cards are played they need to be removed from the Hand
     public void removeCard(int cardPostion){
-        Hand[cardPosition] = null;
+        Hand[0] = null;
 
 
     }
