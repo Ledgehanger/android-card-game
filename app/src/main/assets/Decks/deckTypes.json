@@ -7,17 +7,17 @@
   {
     "name": "Engineering",
     "path": "Decks/Engineering.json",
-    "img": "img/MainMenuImages/devBtn.png"
+    "img": "img/MainMenuImages/optionBtn.png"
   },
   {
     "name": "Theology",
     "path": "Decks/Theology.json",
-    "img": "img/MainMenuImages/devBtn.png"
+    "img": "img/MainMenuImages/playBtn.png"
   },
   {
     "name": "Medical",
     "path": "Decks/Medical.json",
-    "img": "img/MainMenuImages/devBtn.png"
+    "img": "img/MainMenuImages/optionBtn.png"
   },
   {
     "name": "CS",
