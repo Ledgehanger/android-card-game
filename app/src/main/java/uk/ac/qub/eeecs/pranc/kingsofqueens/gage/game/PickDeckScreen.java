@@ -67,8 +67,8 @@ public class PickDeckScreen extends GameScreen {
 
             }
 
-            deck1Picked = checkInput(touchEvent, Deck1, deck1Picked);
-            deck2Picked = checkInput(touchEvent, Deck1, deck2Picked);
+            deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
+            deck2Picked = checkInputDeckChoices(touchEvent, Deck1, deck2Picked);
 
             if(Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                     index--;
@@ -83,7 +83,7 @@ public class PickDeckScreen extends GameScreen {
                     //replace with the game
                     mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
                     //pass down the decks they have picked
-                    
+
                     MainMenu menuScreen = new MainMenu("MainMenuScreen",mGame);
                     mGame.getScreenManager().addScreen(menuScreen);
                 }
@@ -121,7 +121,6 @@ public class PickDeckScreen extends GameScreen {
                 Left = new Rect(spacingX, spacingY, 2 * spacingX, 2 * spacingY);
                 Right = new Rect(4 * spacingX, spacingY, 5 * spacingX, 2 * spacingY);
                 Play = new Rect(350,500,850,650);
-                //(630,31,900,100)
             }
 
             iGraphics2D.clear(Color.rgb(255,255,255));
@@ -142,7 +141,7 @@ public class PickDeckScreen extends GameScreen {
             iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].name).getBitImage(),null,
                             DeckButton,null);
             iGraphics2D.drawBitmap(rightArrow,null,Right,null);
-
+            //Check if we should draw Deck Choices and play button
             if(deck1Picked){
                 iGraphics2D.drawBitmap(Deck1.Image,null, Deck1.button,null);
             }
@@ -164,7 +163,7 @@ public class PickDeckScreen extends GameScreen {
     }
 
 
-    private boolean checkInput(TouchEvent touchEvent, DeckPickerRect deck, boolean valid) {
+    private boolean checkInputDeckChoices(TouchEvent touchEvent, DeckPickerRect deck, boolean valid) {
         if (valid == true) {
             if (deck.button.contains((int) touchEvent.x, (int) touchEvent.y)
                     && touchEvent.type == 0) {
