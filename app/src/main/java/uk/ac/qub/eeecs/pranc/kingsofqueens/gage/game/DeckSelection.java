@@ -8,12 +8,14 @@ import android.graphics.Rect;
  */
 
 public class DeckSelection {
-    // TODO:MM 20/11/2016 Change so its genrated instead of card harded
+
     public String name;
     public String path;
     public String imgPath;
+
     private Rect button;
     private Bitmap bitImage;
+
     public DeckSelection(){
         name = "";
         path = "";

@@ -31,7 +31,7 @@ public class PickDeckScreen extends GameScreen {
     boolean deck1Picked = false, deck2Picked = false;
     private int index = 0;
     private String currentDeck;
-    DeckPickerRect DeckChose1 = new DeckPickerRect(), DeckChose2 = new DeckPickerRect();
+    DeckPickerRect Deck1 = new DeckPickerRect(), Deck2 = new DeckPickerRect();
 
     public PickDeckScreen(Game newGame)
     {
@@ -54,36 +54,36 @@ public class PickDeckScreen extends GameScreen {
             TouchEvent touchEvent = touchEvents.get(0);
 
             if(DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                if(deck1Picked == false && !DeckChose2.deckName.equals(currentDeck)){
+                if(deck1Picked == false && !Deck2.deckName.equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
-
-                    DeckChose1 = new DeckPickerRect(new Rect(279,31,600,100), test.getBitImage(),currentDeck);
+                    Deck1 = new DeckPickerRect(new Rect(279,31,600,100), test.getBitImage(),currentDeck);
                     deck1Picked = true;
-                }else if(deck2Picked == false && deck1Picked == true && !DeckChose1.deckName.equals(currentDeck)){
+                }
+                else if(deck2Picked == false && deck1Picked == true && !Deck1.deckName.equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
-                    DeckChose2 = new DeckPickerRect(new Rect(630,31,900,100), test.getBitImage(),currentDeck);
+                    Deck2 = new DeckPickerRect(new Rect(630,31,900,100), test.getBitImage(),currentDeck);
                     deck2Picked = true;
                 }
 
             }
 
-            deck1Picked = checkInput(touchEvent,DeckChose1, deck1Picked);
-            deck2Picked = checkInput(touchEvent,DeckChose1, deck2Picked);
+            deck1Picked = checkInput(touchEvent, Deck1, deck1Picked);
+            deck2Picked = checkInput(touchEvent, Deck1, deck2Picked);
 
             if(Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                     index--;
             }
-
             if(Right.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                     index++;
             }
-           
+
 
             if(deck1Picked && deck2Picked){
                 if(Play.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                     //replace with the game
                     mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
                     //pass down the decks they have picked
+                    
                     MainMenu menuScreen = new MainMenu("MainMenuScreen",mGame);
                     mGame.getScreenManager().addScreen(menuScreen);
                 }
@@ -144,10 +144,10 @@ public class PickDeckScreen extends GameScreen {
             iGraphics2D.drawBitmap(rightArrow,null,Right,null);
 
             if(deck1Picked){
-                iGraphics2D.drawBitmap(DeckChose1.Image,null,DeckChose1.button,null);
+                iGraphics2D.drawBitmap(Deck1.Image,null, Deck1.button,null);
             }
             if(deck2Picked){
-                iGraphics2D.drawBitmap(DeckChose2.Image,null,DeckChose2.button,null);
+                iGraphics2D.drawBitmap(Deck2.Image,null, Deck2.button,null);
             }
             if(deck1Picked && deck2Picked){
                 Bitmap playButton = aStore.getBitmap("Play");
