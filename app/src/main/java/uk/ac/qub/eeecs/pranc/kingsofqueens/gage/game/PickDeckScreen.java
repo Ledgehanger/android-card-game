@@ -7,18 +7,15 @@ import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.DeckPickerRect;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.LayerViewport;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.ScreenViewport;
 
 /**
  * Created by markm on 22/11/2016.
@@ -30,11 +27,11 @@ public class PickDeckScreen extends GameScreen {
 
     private AssetStore aStore;
     HashMap<String,DeckSelection> DeckHashMap = new HashMap<String,DeckSelection>();
-    private Rect DeckButton,Left,Right,choice1,choice2;
-    boolean choice1Check = false, choice2Check = false;
+    private Rect DeckButton,Left,Right,Play;
+    boolean deck1Picked = false, deck2Picked = false;
     private int index = 0;
     private String currentDeck;
-
+    DeckPickerRect DeckChose1 = new DeckPickerRect(), DeckChose2 = new DeckPickerRect();
 
     public PickDeckScreen(Game newGame)
     {
@@ -42,6 +39,8 @@ public class PickDeckScreen extends GameScreen {
         newGame.getAssetManager().loadAndAddJson("Decks", "Decks/deckTypes.json");
         newGame.getAssetManager().loadAndAddBitmap("Left","img/LeftArrow.png");
         newGame.getAssetManager().loadAndAddBitmap("Right","img/RightArrow.png");
+        newGame.getAssetManager().loadAndAddBitmap("Play","img/MainMenuImages/playBtn.png");
+
         aStore = newGame.getAssetManager();
     }
 
@@ -55,15 +54,21 @@ public class PickDeckScreen extends GameScreen {
             TouchEvent touchEvent = touchEvents.get(0);
 
             if(DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                if(choice1Check == false){
+                if(deck1Picked == false && !DeckChose2.deckName.equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
 
-
+                    DeckChose1 = new DeckPickerRect(new Rect(279,31,600,100), test.getBitImage(),currentDeck);
+                    deck1Picked = true;
+                }else if(deck2Picked == false && deck1Picked == true && !DeckChose1.deckName.equals(currentDeck)){
+                    DeckSelection test = DeckHashMap.get(currentDeck);
+                    DeckChose2 = new DeckPickerRect(new Rect(630,31,900,100), test.getBitImage(),currentDeck);
+                    deck2Picked = true;
                 }
-                if(choice2Check == false && choice1Check == true){
 
-                }
             }
+
+            deck1Picked = checkInput(touchEvent,DeckChose1, deck1Picked);
+            deck2Picked = checkInput(touchEvent,DeckChose1, deck2Picked);
 
             if(Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                     index--;
@@ -72,6 +77,19 @@ public class PickDeckScreen extends GameScreen {
             if(Right.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                     index++;
             }
+           
+
+            if(deck1Picked && deck2Picked){
+                if(Play.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                    //replace with the game
+                    mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
+                    //pass down the decks they have picked
+                    MainMenu menuScreen = new MainMenu("MainMenuScreen",mGame);
+                    mGame.getScreenManager().addScreen(menuScreen);
+                }
+            }
+
+
         }
 
     }
@@ -91,7 +109,6 @@ public class PickDeckScreen extends GameScreen {
                     if (!DeckHashMap.containsKey(deck.name)) {
                         aStore.loadAndAddBitmap(deck.imgPath,deck.imgPath);
                         deck.setBitImage(aStore.getBitmap(deck.imgPath));
-                        //deck.setButton(new Rect(deckLeft,deckRight,deckTop,deckBot));
                         DeckHashMap.put(deck.name, deck);
                     }
                 }
@@ -103,6 +120,8 @@ public class PickDeckScreen extends GameScreen {
                 DeckButton = new Rect(2 * spacingX, spacingY, 4 * spacingX, 2 * spacingY);
                 Left = new Rect(spacingX, spacingY, 2 * spacingX, 2 * spacingY);
                 Right = new Rect(4 * spacingX, spacingY, 5 * spacingX, 2 * spacingY);
+                Play = new Rect(350,500,850,650);
+                //(630,31,900,100)
             }
 
             iGraphics2D.clear(Color.rgb(255,255,255));
@@ -110,6 +129,7 @@ public class PickDeckScreen extends GameScreen {
             // Used to manage the going throw decks
             if(index >= decks.length) index = 0;
             if(index < 0) index = decks.length - 1;
+
             //store the current deck name for lookup in the hashmap
             currentDeck = decks[index].name;
 
@@ -122,15 +142,39 @@ public class PickDeckScreen extends GameScreen {
             iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].name).getBitImage(),null,
                             DeckButton,null);
             iGraphics2D.drawBitmap(rightArrow,null,Right,null);
+
+            if(deck1Picked){
+                iGraphics2D.drawBitmap(DeckChose1.Image,null,DeckChose1.button,null);
+            }
+            if(deck2Picked){
+                iGraphics2D.drawBitmap(DeckChose2.Image,null,DeckChose2.button,null);
+            }
+            if(deck1Picked && deck2Picked){
+                Bitmap playButton = aStore.getBitmap("Play");
+
+                iGraphics2D.drawBitmap(playButton, null, Play, null);
+            }
+
         }
         catch (Exception e)
         {
             String msg = e.getMessage();
             Log.d(msg, "draw: ");
         }
+    }
 
+
+    private boolean checkInput(TouchEvent touchEvent, DeckPickerRect deck, boolean valid) {
+        if (valid == true) {
+            if (deck.button.contains((int) touchEvent.x, (int) touchEvent.y)
+                    && touchEvent.type == 0) {
+                valid = false;
+            }
+        }
+        return valid;
+    }
 
     }
 
 
-}
+
