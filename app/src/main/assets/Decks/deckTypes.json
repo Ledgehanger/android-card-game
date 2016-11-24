@@ -28,10 +28,5 @@
     "name": "Law",
     "path": "Decks/Law.json",
     "img": "img/MainMenuImages/devBtn.png"
-  },
-  {
-    "name": "Neutral",
-    "path": "Decks/Neutral.json",
-    "img": "img/MainMenuImages/devBtn.png"
   }
 ]

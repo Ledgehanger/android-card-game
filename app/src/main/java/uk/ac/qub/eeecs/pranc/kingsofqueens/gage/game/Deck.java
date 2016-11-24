@@ -22,6 +22,7 @@ public class Deck {
     private List<String> deckType;
     public Queue<Card> Deck = new LinkedList<Card>();
     public boolean deckIsEmpety = true;
+    Card [] Deck1 , Deck2, NeutralDeck;
 
     public Deck(){
         //setDeck(Deck1,Deck2);
@@ -29,20 +30,35 @@ public class Deck {
 
     // TODO: 20/11/2016  Update this for a Card Array
     public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
+        game.getAssetManager().loadAndAddJson("Neutral","Decks/Neutral.json");
         return  game.getAssetManager().loadAndAddJson(pDeck1,"Decks/"+pDeck1+".json") &&
                 game.getAssetManager().loadAndAddJson(pDeck2,"Decks/"+pDeck2+".json");
     }
 
-    public void setDeck(Card[] Deck1, Card[] Deck2){
+    public void setDeck(){
         for (Card s: Deck1) {
-            Deck.add(s);
+            if(s.inDeck == true) {
+                for (int i = 0; i < 3; i++) {
+                    Deck.add(s);
+                }
+            }
         }
         for (Card s: Deck2) {
-            Deck.add(s);
+            if(s.inDeck == true) {
+                for (int i = 0; i < 3; i++) {
+                    Deck.add(s);
+                }
+            }
+        }
+        for(Card s: NeutralDeck){
+            if(s.inDeck == true) {
+                for (int i = 0; i < 2; i++) {
+                    Deck.add(s);
+                }
+            }
         }
         deckIsEmpety = Deck.peek() == null;
-        if(!deckIsEmpety){
-        }
+
     }
 
     public Card [] drawCards(int draws){
@@ -58,6 +74,16 @@ public class Deck {
         return hand;
     }
 
+    public boolean setDeckUp(AssetStore assetStore, String DeckName1, String DeckName2){
+        Deck1 = jsonToCardCollection(assetStore, DeckName1);
+        Deck2 = jsonToCardCollection(assetStore, DeckName2);
+        NeutralDeck = jsonToCardCollection(assetStore, "Neutral");
+        if (Deck1 == null && Deck2 == null)
+            return false;
+
+        setDeck();
+        return deckIsEmpety;
+    }
     public Card[] jsonToCardCollection(AssetStore assetStore, String JsonFileName){
         JSONArray jsonArray = assetStore.getJson(JsonFileName);
         Card [] deck = new Card[jsonArray.length()];

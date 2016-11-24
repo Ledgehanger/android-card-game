@@ -27,7 +27,7 @@ public class DeckSelection_Test {
     AssetStore as;
     DeckSelection mDeck;
     static String [] deckNames =
-            {"Psych","Engineering", "Theology","Medical","CS", "Law", "Neutral"};
+            {"Psych","Engineering", "Theology","Medical","CS", "Law"};
 
 
     @Test
