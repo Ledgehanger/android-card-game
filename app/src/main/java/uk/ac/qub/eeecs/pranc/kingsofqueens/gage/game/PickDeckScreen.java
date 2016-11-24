@@ -68,7 +68,7 @@ public class PickDeckScreen extends GameScreen {
             }
 
             deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
-            deck2Picked = checkInputDeckChoices(touchEvent, Deck1, deck2Picked);
+            deck2Picked = checkInputDeckChoices(touchEvent, Deck2, deck2Picked);
 
             if(Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                     index--;
@@ -172,6 +172,7 @@ public class PickDeckScreen extends GameScreen {
             if (deck.button.contains((int) touchEvent.x, (int) touchEvent.y)
                     && touchEvent.type == 0) {
                 valid = false;
+                deck.deckName = "";
             }
         }
         return valid;

@@ -2,31 +2,31 @@
   {
     "name": "Psych",
     "path": "Decks/Psych.json",
-    "img": "img/MainMenuImages/devBtn.png"
+    "img": "img/PickDeckImages/psych.png"
   },
   {
     "name": "Engineering",
     "path": "Decks/Engineering.json",
-    "img": "img/MainMenuImages/optionBtn.png"
+    "img": "img/PickDeckImages/engineering.png"
   },
   {
     "name": "Theology",
     "path": "Decks/Theology.json",
-    "img": "img/MainMenuImages/playBtn.png"
+    "img": "img/PickDeckImages/theology.png"
   },
   {
     "name": "Medical",
     "path": "Decks/Medical.json",
-    "img": "img/MainMenuImages/optionBtn.png"
+    "img": "img/PickDeckImages/medical.png"
   },
   {
     "name": "CS",
     "path": "Decks/CS.json",
-    "img":"img/MainMenuImages/devBtn.png"
+    "img":"img/PickDeckImages/cs.png"
   },
   {
     "name": "Law",
     "path": "Decks/Law.json",
-    "img": "img/MainMenuImages/devBtn.png"
+    "img" : "img/PickDeckImages/law.png"
   }
 ]
