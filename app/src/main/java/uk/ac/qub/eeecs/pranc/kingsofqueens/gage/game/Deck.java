@@ -83,8 +83,7 @@ public class Deck {
                 String imgFile  = object.getString("picture");
                 int EV          = object.getInt("ev");
                 boolean inDeck  = object.getBoolean("inDeck");
-                String type     = object.getString("type");
-                deck[index] = new Card(id,type,defense,attack,EV,imgFile);
+                deck[index] = new Card(id,name,attack,defense,ability,imgFile,EV,inDeck);
             }
         }catch(JSONException e){
             // TODO: Exception

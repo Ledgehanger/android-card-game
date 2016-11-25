@@ -39,7 +39,6 @@ public class Deck_Test {
     @Test
     public void drawTestForReturnValueSize() throws Exception{
         setUpDeck();
-        int size = mDeck.getSize() - 3;
         Card[] hand = mDeck.drawCards(3);
         assertEquals(3, hand.length);
 

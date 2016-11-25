@@ -31,7 +31,6 @@ public class FileIO_JsonMethods_Test {
             Deck mDeck = new Deck();
             as.loadAndAddJson("Psych", "Decks/Psych.json");
             Card[] card1 = mDeck.jsonToCardCollection(as, "Psych");
-            Card[] card2 = mDeck.jsonToCardCollection(as, "Psych");
 
             assertEquals(13, card1[0].id);
             assertEquals(14, card1[1].id);

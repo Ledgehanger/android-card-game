@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.core.deps.guava.util.concurrent.ExecutionError;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class DeckSelection_Test {
     AssetStore as;
     DeckSelection mDeck;
     static String [] deckNames =
-            {"Psych","Engineering", "Theology","Medical","CS", "Law", "Neutral"};
+            {"Psych","Engineering", "Theology","Medical","CS", "Law"};
 
 
     @Test
@@ -35,17 +36,26 @@ public class DeckSelection_Test {
         mDeck = new DeckSelection();
         as = new AssetStore(new FileIO(appContext));
 
-        as.loadAndAddJson("Decks", "Decks/deckTypes.json");
+        assertEquals(true,as.loadAndAddJson("Decks", "Decks/deckTypes.json"));
+    }
+
+    public void testThatAllKnownDecksLoaded() throws Exception{
+        setUpDeck();
         ArrayList<String> names = new ArrayList<String>();
         DeckSelection [] newDecks = as.jsonToDeckCollection("Decks");
 
         for (DeckSelection d : newDecks){
-          names.add(d.name);
+            names.add(d.name);
         }
-
+        int total = 0;
         Set<String> MY_SET = new HashSet<String>(Arrays.asList(deckNames));
         for (String name : names) {
+            total++;
             assertEquals(true, MY_SET.contains(name));
         }
+        assertEquals(deckNames.length, total);
+
     }
+
+
 }
