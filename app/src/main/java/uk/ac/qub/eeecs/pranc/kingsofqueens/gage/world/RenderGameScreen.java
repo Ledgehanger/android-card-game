@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.spaceDemo;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
 import android.graphics.Color;
 
