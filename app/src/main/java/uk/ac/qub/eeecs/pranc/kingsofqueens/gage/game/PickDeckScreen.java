@@ -88,7 +88,8 @@ public class PickDeckScreen extends GameScreen {
                     playerDeck.setDeckUp(mGame.getAssetManager(), Deck1.deckName, Deck2.deckName);
 
 
-                    RenderGameScreen gameScreen = new RenderGameScreen(mGame);
+                    //RenderGameScreen gameScreen = new RenderGameScreen(mGame); for now rediect back to main screen as render doesn't have it images yet
+                    MainMenu gameScreen = new MainMenu("Replace with above",mGame);
                     mGame.getScreenManager().addScreen(gameScreen);
                 }
             }
