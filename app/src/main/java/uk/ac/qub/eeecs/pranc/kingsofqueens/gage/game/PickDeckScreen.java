@@ -56,12 +56,12 @@ public class PickDeckScreen extends GameScreen {
             if(DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
                 if(deck1Picked == false && !Deck2.deckName.equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
-                    Deck1 = new DeckPickerRect(new Rect(279,31,600,100), test.getBitImage(),currentDeck);
+                    Deck1 = new DeckPickerRect(new Rect(300,31,600,120), test.getBitImage(),currentDeck);
                     deck1Picked = true;
                 }
                 else if(deck2Picked == false && deck1Picked == true && !Deck1.deckName.equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
-                    Deck2 = new DeckPickerRect(new Rect(630,31,900,100), test.getBitImage(),currentDeck);
+                    Deck2 = new DeckPickerRect(new Rect(600,31,900,120), test.getBitImage(),currentDeck);
                     deck2Picked = true;
                 }
 
