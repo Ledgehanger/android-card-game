@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.spaceDemo;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
 import uk.ac.qub.eeecs.gage.ai.SteeringBehaviours;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
