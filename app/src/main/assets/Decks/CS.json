@@ -43,7 +43,7 @@
     "evcost" : 4,
     "ability": "DEFAULT",
     "picture": "http://placehold.it/32x32",
-    "inDeck" : false,
+    "inDeck" : true,
     "evCost" : 0,
     "ev"     : 0,
     "type": "CS"

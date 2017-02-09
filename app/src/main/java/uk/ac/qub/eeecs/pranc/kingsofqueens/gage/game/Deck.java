@@ -11,52 +11,75 @@ import java.util.Queue;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Gen_Algorithm;
 public class Deck {
+
     private List<String> deckType;
-    public Queue<Card> Deck = new LinkedList<Card>();
     public boolean deckIsEmpety = true;
+
     Card [] Deck1 , Deck2, NeutralDeck;
-    public Deck(){
-        //setDeck(Deck1,Deck2);
-    }
-    // TODO: 20/11/2016  Update this for a Card Array
+
+    private final int SIZE_OF_CLASS_DECK = 3;
+    private final int SIZE_OF_NEUTRAL_DECK = 2;
+    private final int DECK_SIZE = 18;
+
+    public ArrayList<Card> deck2 = new ArrayList<Card> ();
+
+    public Deck(){}
     public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
         game.getAssetManager().loadAndAddJson("Neutral","Decks/Neutral.json");
         return  game.getAssetManager().loadAndAddJson(pDeck1,"Decks/"+pDeck1+".json") &&
                 game.getAssetManager().loadAndAddJson(pDeck2,"Decks/"+pDeck2+".json");
     }
-    public void setDeck(){
-        for (Card s: Deck1) {
-            if(s.inDeck == true) {
-                for (int i = 0; i < 3; i++) {
-                    Deck.add(s);
-                }
-            }
-        }
-        for (Card s: Deck2) {
-            if(s.inDeck == true) {
-                for (int i = 0; i < 3; i++) {
-                    Deck.add(s);
-                }
-            }
-        }
-        for(Card s: NeutralDeck){
-            if(s.inDeck == true) {
-                for (int i = 0; i < 2; i++) {
-                    Deck.add(s);
-                }
-            }
-        }
-        deckIsEmpety = Deck.peek() == null;
+
+    public ArrayList<Card> shuffle(ArrayList<Card> pDeck){
+        Gen_Algorithm.KnuthShuffle(pDeck);
+        return pDeck;
     }
+
+    public void setDeck(){
+        int total = 0;
+        while(total < DECK_SIZE) {
+            for (Card s : Deck1) {
+                if (s.inDeck == true) {
+                    for (int i = 0; i < SIZE_OF_CLASS_DECK; i++) {
+                        deck2.add(s);
+                        total++;
+                    }
+                }
+            }
+            for (Card s : Deck2) {
+                if (s.inDeck == true) {
+                    for (int i = 0; i < SIZE_OF_CLASS_DECK; i++) {
+                        deck2.add(s);
+                        total++;
+                    }
+                }
+            }
+            for (Card s : NeutralDeck) {
+                if (s.inDeck == true) {
+                    for (int i = 0; i < SIZE_OF_NEUTRAL_DECK; i++) {
+                        deck2.add(s);
+                        total++;
+                     }
+                }
+            }
+        }
+        deckIsEmpety = deck2.size() <= 0;
+        if(!deckIsEmpety)
+            deck2 = shuffle(deck2);
+    }
+
+
     public Card [] drawCards(int draws){
         Card [] hand = new Card[draws];
         for(int i = 0; i < draws; i++){
-            if(Deck.isEmpty()){
+            if(deck2.size() > 0){
                 deckIsEmpety = true;
                 return hand;
             }
-            hand[i] = Deck.poll();
+            hand[i] = deck2.get(1);
+            deck2.remove(1);
         }
         return hand;
     }
@@ -68,6 +91,7 @@ public class Deck {
         setDeck();
         return deckIsEmpety;
     }
+
     public Card[] jsonToCardCollection(AssetStore assetStore, String JsonFileName){
         JSONArray jsonArray = assetStore.getJson(JsonFileName);
         Card [] deck = new Card[jsonArray.length()];
@@ -93,6 +117,6 @@ public class Deck {
         return deck;
     }
     public int getSize() {
-        return Deck.size();
+        return deck2.size();
     }
 }

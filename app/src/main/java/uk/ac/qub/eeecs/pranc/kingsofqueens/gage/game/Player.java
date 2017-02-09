@@ -10,6 +10,7 @@ public class Player {
     float x, y;
     String image;
     boolean isAlive;
+    int evTotal;
 
     public boolean DamageTaken(int Totaldamage) {
         HP -= Totaldamage;
@@ -23,6 +24,7 @@ public class Player {
         this.y = y;
         this.image = image;
         this.isAlive = isAlive;
+        evTotal = 0;
     }
 
 

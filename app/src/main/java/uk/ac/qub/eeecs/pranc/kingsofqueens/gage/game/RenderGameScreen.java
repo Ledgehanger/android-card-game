@@ -33,7 +33,7 @@ public class RenderGameScreen extends GameScreen {
     private final int NUM_CARD_SPACES = 12; //NEED TO DRAW GRID FOR CARDS
     private List<PlayerCards> mCards; //TO IMPLEMENT CARD CLASS
 
-    public RenderGameScreen(Game game) {
+    public RenderGameScreen(Game game) throws Exception{
         super("RenderGameScreen", game);
 
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
@@ -49,8 +49,8 @@ public class RenderGameScreen extends GameScreen {
                     * mScreenViewport.height / mScreenViewport.width, 240);
 
         AssetStore assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("QueensBackground", "img/QueensBackground.png");
-        assetManager.loadAndAddBitmap("HealthMonitor", "img/HealthMonitor.png");
+        assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
+        assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
         assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/pph.png");
 
         mQueensBackground = new GameObject(LEVEL_WIDTH / 2.0f,
@@ -106,7 +106,7 @@ public class RenderGameScreen extends GameScreen {
         mQueensBackground.draw(elapsedTime, graphics2D, mLayerViewport,
                 mScreenViewport);
 
-        mPlayerCards.draw(elapsedTime, graphics2D, mLayerViewport,
-                mScreenViewport);
+       // mPlayerCards.draw(elapsedTime, graphics2D, mLayerViewport,
+          //      mScreenViewport);
     }
 }
