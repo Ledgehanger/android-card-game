@@ -26,7 +26,7 @@ import android.graphics.Rect;
 import android.app.AlertDialog;
 import java.util.ArrayList;
 import java.util.List;
-public class Card {
+public class Card{
     /* Initial properties
     * id - Gets card information from JSON file(Ability,Initial Health and Attack, name etc.)
     * type - defines what deck a card comes from (Comp - 0, Psych - 1, Theo - 2, Law - 3, Med - 4, Eng - 5, GenB - 6)

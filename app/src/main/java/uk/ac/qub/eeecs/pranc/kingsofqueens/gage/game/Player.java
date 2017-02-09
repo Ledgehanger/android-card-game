@@ -5,22 +5,24 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  */
 
 public class Player {
-    int HP = 100;
+    int hp = 100;
     int ID;
     float x, y;
     String image;
     boolean isAlive;
     int evTotal;
+    Deck playerDeck;
+    Hand playerHand;
 
     public boolean DamageTaken(int Totaldamage) {
-        HP -= Totaldamage;
-        return isAlive = HP > 0;
+        hp -= Totaldamage;
+        return isAlive = hp > 0;
     }
 
 
     public Player(float x, int HP, float y, String image, boolean isAlive) {
         this.x = x;
-        this.HP = HP;
+        this.hp = HP;
         this.y = y;
         this.image = image;
         this.isAlive = isAlive;

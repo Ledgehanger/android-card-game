@@ -32,9 +32,8 @@ public class Deck {
                 game.getAssetManager().loadAndAddJson(pDeck2,"Decks/"+pDeck2+".json");
     }
 
-    public ArrayList<Card> shuffle(ArrayList<Card> pDeck){
-        Gen_Algorithm.KnuthShuffle(pDeck);
-        return pDeck;
+    public void shuffle(){
+        Gen_Algorithm.KnuthShuffle(deck2);
     }
 
     public void setDeck(){
@@ -67,19 +66,19 @@ public class Deck {
         }
         deckIsEmpety = deck2.size() <= 0;
         if(!deckIsEmpety)
-            deck2 = shuffle(deck2);
+            shuffle();
     }
 
 
     public Card [] drawCards(int draws){
         Card [] hand = new Card[draws];
         for(int i = 0; i < draws; i++){
-            if(deck2.size() > 0){
+            if(deck2.size() <= 0){
                 deckIsEmpety = true;
                 return hand;
             }
-            hand[i] = deck2.get(1);
-            deck2.remove(1);
+            hand[i] = deck2.get(0);
+            deck2.remove(0);
         }
         return hand;
     }
@@ -120,3 +119,5 @@ public class Deck {
         return deck2.size();
     }
 }
+
+
