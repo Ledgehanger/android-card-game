@@ -25,4 +25,5 @@ public class RenderGameScreen extends GameScreen {
     
     private void renderScore(GraphicsHelper g){
         
+        
     }
