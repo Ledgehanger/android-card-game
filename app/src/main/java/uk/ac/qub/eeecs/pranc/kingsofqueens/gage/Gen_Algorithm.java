@@ -1,5 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
 import java.util.ArrayList;
+
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 /**
  * Created by markm on 06/02/2017.
@@ -16,5 +18,23 @@ public class Gen_Algorithm {
             array.set(randomPostion,array.get(count));
             array.set(count, swap);
         }
+    }
+
+    public static Ability findAbility(String path){
+        try{
+            Ability toReturn;
+            toReturn = (Ability) Class.forName(path).newInstance();
+            return toReturn;
+        }catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 }

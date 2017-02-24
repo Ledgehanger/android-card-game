@@ -5,11 +5,14 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  */
 
 public class Player {
+
     int hp = 100;
     int ID;
     float x, y;
     String image;
     boolean isAlive;
+
+
     int evTotal;
     Deck playerDeck;
     Hand playerHand;
@@ -36,6 +39,32 @@ public class Player {
         } else {
             return false;
         }
+    }
+
+
+    public int getEvTotal() {
+        return evTotal;
+    }
+
+    public void setEvTotal(int evTotal) {
+        this.evTotal = evTotal;
+    }
+
+    public void addToEvTotal(int add){
+        this.evTotal += add;
+    }
+
+    public void healPlayer(int heal){
+        for(int i = 0; i < heal; i++){
+            if(hp < 20){
+                hp++;
+            }else
+                break;
+        }
+    }
+
+    public int getHp(){
+        return this.hp;
     }
 }
 
