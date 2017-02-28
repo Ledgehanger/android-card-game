@@ -5,7 +5,9 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  * Will Contain various methods which relate to the use of card in the game
  * Methods desc to come later
  */
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Gen_Algorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
@@ -55,6 +57,7 @@ public class Card{
     public float height;
     public Bitmap cardImg;
     public String imgPath;
+    public Ability ability;
     Game sGame;
     // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here 
     AssetStore aStore; 
@@ -132,7 +135,7 @@ public class Card{
         width=0;
     }
 
-    public Card(int id, String type, int hp, int atk, int evolveLevel, int evCost, boolean inDeck, String imgPath) {
+    public Card(int id, String type, int hp, int atk, int evolveLevel, int evCost, boolean inDeck, String imgPath,String Ability) {
         this.id = id;
         this.type = type;
         this.hp = hp;
@@ -141,7 +144,11 @@ public class Card{
         this.evCost = evCost;
         this.inDeck = inDeck;
         this.imgPath = imgPath;
+        this.ability = Gen_Algorithm.findAbility(Ability);
     }
+
+
+
 
     //Methods
     public void drawCard(Card card,int hp, int atk)

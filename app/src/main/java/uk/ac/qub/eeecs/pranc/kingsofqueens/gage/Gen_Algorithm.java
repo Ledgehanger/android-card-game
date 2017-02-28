@@ -9,7 +9,10 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 
 public class Gen_Algorithm {
     // Based on Knuth's shuffle algorithm
-
+    public enum field {
+        top,
+        bottom
+    }
     public static void KnuthShuffle(ArrayList<Card> array){
         int totalSize = array.size();
         for(int count = 0; count < totalSize; count++){
@@ -28,13 +31,16 @@ public class Gen_Algorithm {
         }catch (InstantiationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return null;
         } catch (IllegalAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return null;
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return null;
         }
-        return null;
+
     }
 }

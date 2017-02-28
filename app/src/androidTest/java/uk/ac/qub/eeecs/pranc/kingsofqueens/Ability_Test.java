@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNull;
 public class Ability_Test {
     Player test;
     Ability ability;
-    String AddPath = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AddEvAbility";
+    String AddPath  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AddEvAbility";
     String HealPath = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.HealAbility";
 
 

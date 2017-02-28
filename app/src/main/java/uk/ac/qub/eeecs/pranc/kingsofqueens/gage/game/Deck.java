@@ -1,4 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,7 +11,7 @@ import java.util.ArrayList;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Gen_Algorithm;
-
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 
 public class Deck{
 
@@ -18,7 +21,7 @@ public class Deck{
     private final int SIZE_OF_CLASS_DECK = 3;
     private final int SIZE_OF_NEUTRAL_DECK = 2;
     private final int DECK_SIZE = 18;
-
+    private Rect deckRect;
     public ArrayList<Card> playerDeck = new ArrayList<Card> ();
 
     public Deck(){}
@@ -115,12 +118,23 @@ public class Deck{
         return playerDeck.size();
     }
 
-    public void drawDeck(Gen_Algorithm.field side){
-            if(side == Gen_Algorithm.field.top){
+    public Rect drawDeck(Gen_Algorithm.field side, Bitmap DeckImg, IGraphics2D iGraphics2D) {
 
-            }else{
+        if (deckRect == null) {
+            int left = 350;
+            int right = 450;
+            int top = 500;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
+            int bot = 650;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
 
-            }
+            deckRect = new Rect(left, top, right, bot);
+            iGraphics2D.drawBitmap(DeckImg, null, deckRect, null);
+        }
+        if (side == Gen_Algorithm.field.top) {
+
+        } else {
+
+        }
+        return deckRect;
     }
 
     private void drawTop(){

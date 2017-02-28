@@ -31,7 +31,14 @@ public class Player {
         this.isAlive = isAlive;
         evTotal = 0;
     }
+    public Player(String image, Deck playerDeck ) {
 
+        this.hp = 20;
+        this.image = image;
+        this.isAlive = true;
+        this.evTotal = 0;
+        this.playerDeck = playerDeck;
+}
 
     public static boolean createWinner(int HP1, int HP2) {
         if (HP1 > HP2) {
