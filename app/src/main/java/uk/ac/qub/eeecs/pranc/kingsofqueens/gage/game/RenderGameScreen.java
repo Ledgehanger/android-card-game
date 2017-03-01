@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+
 /**
  * Created by markm on 25/11/2016.
  */
@@ -36,14 +37,14 @@ public class RenderGameScreen extends GameScreen {
 
     private Player player, playerAI;
 
-    public RenderGameScreen(Game game, Deck playerDeck) throws Exception{
+    public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
         super("RenderGameScreen", game);
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
 
         Deck aiDeck = new Deck();
         aiDeck.generateAIDeck(game);
 
-        playerAI = new Player("",aiDeck);
+        playerAI = new Player("", aiDeck);
         player = new Player("", playerDeck);
 
 
@@ -86,7 +87,6 @@ public class RenderGameScreen extends GameScreen {
         //Drawing decks
 
 
-
         // unknown code
 //        mPlayerCards.update(elapsedTime);
 //
@@ -120,18 +120,15 @@ public class RenderGameScreen extends GameScreen {
         iGraphics2D.clear(Color.BLACK);
         iGraphics2D.clipRect(mScreenViewport.toRect());
 
-       mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport,mScreenViewport);
+        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
         //Draw Deck
         Bitmap deck = mGame.getAssetManager().getBitmap("deckimg");
         Bitmap deck2 = mGame.getAssetManager().getBitmap("deckimg");
 
-        Rect deckRect = player.playerDeck.drawDeck(Gen_Algorithm.field.bottom,deck,iGraphics2D);
+        Rect deckRect = player.playerDeck.drawDeck(Gen_Algorithm.field.bottom, deck, iGraphics2D);
         iGraphics2D.drawBitmap(deck, null, deckRect, null);
 
-        Rect deckRect2 = playerAI.playerDeck.drawDeck(Gen_Algorithm.field.top,deck,iGraphics2D);
+        Rect deckRect2 = playerAI.playerDeck.drawDeck(Gen_Algorithm.field.top, deck, iGraphics2D);
         iGraphics2D.drawBitmap(deck2, null, deckRect2, null);
-
-       // mPlayerCards.draw(elapsedTime, graphics2D, mLayerViewport,
-          //      mScreenViewport);
     }
 }
