@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
  * Created by markm on 20/11/2016.
  */
 
+//TODO Create unit test for ai deck
 @RunWith(AndroidJUnit4.class)
 public class Deck_Test {
     AssetStore as;

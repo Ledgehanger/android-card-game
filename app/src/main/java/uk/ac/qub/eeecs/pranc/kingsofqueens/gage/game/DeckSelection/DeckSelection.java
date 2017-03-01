@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -9,9 +9,9 @@ import android.graphics.Rect;
 
 public class DeckSelection {
 
-    public String name;
-    public String path;
-    public String imgPath;
+    private String name;
+    private String path;
+    private String imgPath;
 
     private Rect button;
     private Bitmap bitImage;
@@ -42,5 +42,17 @@ public class DeckSelection {
 
     public void setBitImage(Bitmap bitImage) {
         this.bitImage = bitImage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getImgPath() {
+        return imgPath;
     }
 }

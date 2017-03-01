@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
@@ -68,6 +69,26 @@ public class Deck{
             shuffle();
     }
 
+    public void generateAIDeck(Game game){
+        game.getAssetManager().loadAndAddJson("Neutral","Decks/Neutral.json");
+        int firstChoice = -1;
+        String [] pickedDecks = new String[2];
+        String [] deckNames =
+                {"Psych","Engineering", "Theology","Medical","CS", "Law"
+                };
+        Random rand = new Random();
+
+        for(int i = 0; i < 2; i++){
+        int randomNumber = firstChoice;
+        while(randomNumber == firstChoice){
+            randomNumber = rand.nextInt(deckNames.length);
+        }
+            game.getAssetManager().loadAndAddJson(deckNames[randomNumber],"Decks/"+deckNames[randomNumber]+".json");
+            firstChoice = randomNumber;
+            pickedDecks[i] = deckNames[randomNumber];
+        }
+        setDeckUp(game.getAssetManager(), pickedDecks[0], pickedDecks[1]);
+    }
 
     public Card [] drawFromDeck(int draws){
         Card [] hand = new Card[draws];
@@ -119,31 +140,37 @@ public class Deck{
     }
 
     public Rect drawDeck(Gen_Algorithm.field side, Bitmap DeckImg, IGraphics2D iGraphics2D) {
-
+        float top, bot, est;
+        int left, right, topI, botI;
         if (deckRect == null) {
-            int left = 350;
-            int right = 450;
-            int top = 500;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
-            int bot = 650;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
+            if (side == Gen_Algorithm.field.top) {
+                top = 0;
+                bot = iGraphics2D.getSurfaceHeight();
 
-            deckRect = new Rect(left, top, right, bot);
-            iGraphics2D.drawBitmap(DeckImg, null, deckRect, null);
+                est = iGraphics2D.getSurfaceWidth() - iGraphics2D.getSurfaceWidth();
+                left = (int) est;
+                right = (int) est + 100;
+                topI = (int) top;
+                botI = (int) ((bot) - (bot / 1.5)) - 75;
+                deckRect = new Rect(left, topI, right, botI);
+
+            } else {
+                top = iGraphics2D.getSurfaceHeight() / 2;
+                bot = iGraphics2D.getSurfaceHeight();
+
+                est = iGraphics2D.getSurfaceWidth() - iGraphics2D.getSurfaceWidth();
+                left = (int) est;
+                right = (int) est + 100;
+                topI = (int) ((top) + (top / 4) + 105);//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
+                botI = (int) bot;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
+                deckRect = new Rect(left, topI, right, botI);
+            }
         }
-        if (side == Gen_Algorithm.field.top) {
 
-        } else {
-
-        }
         return deckRect;
     }
 
-    private void drawTop(){
 
-    }
-
-    private void drawBottom(){
-
-    }
 }
 
 

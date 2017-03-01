@@ -1,5 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+import android.graphics.Rect;
+
 /**
  * Created by Nicola on 22/11/2016.
  */
@@ -16,6 +18,7 @@ public class Player {
     int evTotal;
     Deck playerDeck;
     Hand playerHand;
+    Rect playerIcon, playerHp;
 
     public boolean DamageTaken(int Totaldamage) {
         hp -= Totaldamage;
@@ -73,6 +76,9 @@ public class Player {
     public int getHp(){
         return this.hp;
     }
+
+
+
 }
 
 

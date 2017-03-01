@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
+
 /**
  * Created by markm on 06/02/2017.
  */
@@ -43,4 +45,5 @@ public class Gen_Algorithm {
         }
 
     }
+
 }

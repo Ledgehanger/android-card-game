@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;

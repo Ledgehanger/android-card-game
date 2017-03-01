@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.audio.Music;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.audio.Sound;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection.DeckSelection;
 
 /**
  * Asset store for holding loaded assets.
@@ -86,7 +86,7 @@ public class AssetStore {
         mBitmaps.put(assetName, asset);
         return true;
     }
-    // TODO: 17/11/2016 Add json to json hashmap
+
     public boolean add(String assetName, JSONArray asset){
         if (mJson.containsKey(assetName))
             return false;
@@ -190,7 +190,7 @@ public class AssetStore {
 
         return success;
     }
-// TODO: 17/11/2016 Add json loader
+
 
     public boolean loadAndAddJson(String AssetName, String JsonFile){
         boolean success = true;
@@ -244,7 +244,7 @@ public class AssetStore {
 
     public DeckSelection[] jsonToDeckCollection(String JsonFileName){
         JSONArray jsonArray = this.getJson(JsonFileName);
-        DeckSelection [] deck = new DeckSelection[jsonArray.length()];
+        DeckSelection[] deck = new DeckSelection[jsonArray.length()];
         try {
             for (int index = 0; index < jsonArray.length(); index++) {
                 JSONObject object = jsonArray.getJSONObject(index);
