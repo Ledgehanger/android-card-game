@@ -55,12 +55,12 @@ public class PickDeckScreen extends GameScreen {
             TouchEvent touchEvent = touchEvents.get(0);
 
             if(DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                if(deck1Picked == false && !Deck2.deckName.equals(currentDeck)){
+                if(deck1Picked == false && !Deck2.getDeckName().equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
                     Deck1 = new DeckPickerRect(new Rect(300,31,600,120), test.getBitImage(),currentDeck);
                     deck1Picked = true;
                 }
-                else if(deck2Picked == false && deck1Picked == true && !Deck1.deckName.equals(currentDeck)){
+                else if(deck2Picked == false && deck1Picked == true && !Deck1.getDeckName().equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
                     Deck2 = new DeckPickerRect(new Rect(600,31,900,120), test.getBitImage(),currentDeck);
                     deck2Picked = true;
@@ -85,8 +85,8 @@ public class PickDeckScreen extends GameScreen {
                     mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
                     //pass down the decks they have picked
                     Deck playerDeck = new Deck();
-                    playerDeck.loadDecksIntoAssestManger(mGame,Deck1.deckName, Deck2.deckName);
-                    playerDeck.setDeckUp(mGame.getAssetManager(), Deck1.deckName, Deck2.deckName);
+                    playerDeck.loadDecksIntoAssestManger(mGame,Deck1.getDeckName(), Deck2.getDeckName());
+                    playerDeck.setDeckUp(mGame.getAssetManager(), Deck1.getDeckName(), Deck2.getDeckName());
 
                     try {
                         RenderGameScreen gameScreen = new RenderGameScreen(mGame,playerDeck);
@@ -151,10 +151,10 @@ public class PickDeckScreen extends GameScreen {
             iGraphics2D.drawBitmap(rightArrow,null,Right,null);
             //Check if we should draw Deck Choices and play button
             if(deck1Picked){
-                iGraphics2D.drawBitmap(Deck1.Image,null, Deck1.button,null);
+                iGraphics2D.drawBitmap(Deck1.getImage(),null, Deck1.getButton(),null);
             }
             if(deck2Picked){
-                iGraphics2D.drawBitmap(Deck2.Image,null, Deck2.button,null);
+                iGraphics2D.drawBitmap(Deck2.getImage(),null, Deck2.getButton(),null);
             }
             if(deck1Picked && deck2Picked){
                 Bitmap playButton = aStore.getBitmap("Play");
@@ -173,10 +173,10 @@ public class PickDeckScreen extends GameScreen {
 
     private boolean checkInputDeckChoices(TouchEvent touchEvent, DeckPickerRect deck, boolean valid) {
         if (valid == true) {
-            if (deck.button.contains((int) touchEvent.x, (int) touchEvent.y)
+            if (deck.getButton().contains((int) touchEvent.x, (int) touchEvent.y)
                     && touchEvent.type == 0) {
                 valid = false;
-                deck.deckName = "";
+                deck.setDeckName("");
             }
         }
         return valid;

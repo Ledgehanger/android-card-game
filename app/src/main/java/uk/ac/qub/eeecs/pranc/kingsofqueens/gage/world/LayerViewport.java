@@ -123,18 +123,18 @@ public class LayerViewport {
 	}
 	
 	/**
-	 * Return the top bound
+	 * Return the TOP bound
 	 * 
-	 * @return top side location of the viewport
+	 * @return TOP side location of the viewport
 	 */
 	public float getTop() {
 		return y + halfHeight;				
 	}
 	
 	/**
-	 * Return the bottom bound
+	 * Return the BOTTOM bound
 	 * 
-	 * @return bottom side location of the viewport
+	 * @return BOTTOM side location of the viewport
 	 */
 	public float getBottom() {
 		return y - halfHeight;				

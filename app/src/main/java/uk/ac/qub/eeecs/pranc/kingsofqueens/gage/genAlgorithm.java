@@ -1,21 +1,25 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by markm on 06/02/2017.
  */
 
-public class Gen_Algorithm {
+public class genAlgorithm {
     // Based on Knuth's shuffle algorithm
     public enum field {
-        top,
-        bottom
+        TOP,
+        BOTTOM
     }
-    public static void KnuthShuffle(ArrayList<Card> array){
+    public static void KnuthShuffle(List<Card> array){
         int totalSize = array.size();
         for(int count = 0; count < totalSize; count++){
             int randomPostion = count + (int) (Math.random() * (totalSize - count));
@@ -31,16 +35,13 @@ public class Gen_Algorithm {
             toReturn = (Ability) Class.forName(path).newInstance();
             return toReturn;
         }catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG, "InstantiationException: "+ e.getMessage());
             return null;
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            } catch (IllegalAccessException e) {
+            Log.e(TAG, "IllegalAccessException: " + e.getMessage());
             return null;
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG, "Can not find Class: " + path);
             return null;
         }
 

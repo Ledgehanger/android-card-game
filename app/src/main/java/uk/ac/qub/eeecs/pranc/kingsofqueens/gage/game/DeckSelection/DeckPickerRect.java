@@ -9,9 +9,9 @@ import android.graphics.Rect;
 
 public class DeckPickerRect {
 
-    public Rect button;
-    public Bitmap Image;
-    public String deckName;
+    private Rect button;
+    private Bitmap Image;
+    private String deckName;
 
     public DeckPickerRect(){
         deckName = "";
@@ -29,6 +29,22 @@ public class DeckPickerRect {
     public DeckPickerRect(Rect button, Bitmap image, String deckName) {
         this.button = button;
         Image = image;
+        this.deckName = deckName;
+    }
+
+    public Rect getButton() {
+        return button;
+    }
+
+    public Bitmap getImage() {
+        return Image;
+    }
+
+    public String getDeckName() {
+        return deckName;
+    }
+
+    public void setDeckName(String deckName) {
         this.deckName = deckName;
     }
 }
