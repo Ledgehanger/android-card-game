@@ -54,7 +54,7 @@ public class Deck_Test {
         setUpDeck();
         mDeck.drawFromDeck(100);
         assertEquals(0, mDeck.getSize());
-        assertEquals(true, mDeck.deckIsEmpty);
+        assertEquals(true, mDeck.isDeckIsEmpty());
     }
 
 }

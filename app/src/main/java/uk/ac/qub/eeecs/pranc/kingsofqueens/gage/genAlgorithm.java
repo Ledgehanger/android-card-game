@@ -13,13 +13,13 @@ import static android.content.ContentValues.TAG;
  * Created by markm on 06/02/2017.
  */
 
-public class genAlgorithm {
+public class GenAlgorithm {
     // Based on Knuth's shuffle algorithm
     public enum field {
         TOP,
         BOTTOM
     }
-    public static void KnuthShuffle(List<Card> array){
+    public static void knuthShuffle(List<Card> array){
         int totalSize = array.size();
         for(int count = 0; count < totalSize; count++){
             int randomPostion = count + (int) (Math.random() * (totalSize - count));

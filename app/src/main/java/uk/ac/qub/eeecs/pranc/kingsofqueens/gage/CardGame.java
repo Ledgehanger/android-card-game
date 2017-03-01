@@ -6,13 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainMenu;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.PickDeckScreen;
+
 
 /**
  * Created by markm on 22/11/2016.
  */
 
 public class CardGame extends Game {
+
+    public static final String MENUSCREEN = "MainMenuScreen";
 
     public CardGame(){
         super();
@@ -33,7 +35,7 @@ public class CardGame extends Game {
 
         // Create and add a stub game screen to the screen manager.
         // Start up with MainMenu
-        MainMenu stubMenuScreen = new MainMenu("MainMenuScreen",this);
+        MainMenu stubMenuScreen = new MainMenu(MENUSCREEN,this);
         mScreenManager.addScreen(stubMenuScreen);
 
         return view;
@@ -42,12 +44,12 @@ public class CardGame extends Game {
     @Override
     public boolean onBackPressed() {
         // If we are already at the menu screen then exit
-        if(mScreenManager.getCurrentScreen().getName().equals("MainMenuScreen"))
+        if(mScreenManager.getCurrentScreen().getName().equals(MENUSCREEN))
             return false;
 
         // Go back to the menu screen
         getScreenManager().removeScreen(mScreenManager.getCurrentScreen().getName());
-        MainMenu menuScreen = new MainMenu("MainMenuScreen",this);
+        MainMenu menuScreen = new MainMenu(MENUSCREEN,this);
         getScreenManager().addScreen(menuScreen);
         return true;
     }

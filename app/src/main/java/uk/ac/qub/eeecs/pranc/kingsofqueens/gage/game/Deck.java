@@ -11,7 +11,7 @@ import java.util.Random;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 
 import static android.content.ContentValues.TAG;
@@ -19,38 +19,38 @@ import static android.content.ContentValues.TAG;
 public class Deck{
 
 
-    public boolean deckIsEmpty = true;
+    private boolean deckIsEmpty = true;
 
-    private static final int SizeOfClassDeck = 3;
-    private static final int SizeOfNeutralDeck = 2;
-    private static final int SizeOfDeck = 18;
-    private static final String Neutral = "Neutral";
-    private static final String NeutralPath = "Decks/Neutral.json";
-    private static final String DeckPath = "Decks/";
-    private static final String Json = ".json";
+    private static final int SIZEOFCLASSDECK = 3;
+    private static final int SIZEOFNEUTRALDECK = 2;
+
+    private static final String NEUTRAL = "Neutral";
+    private static final String NEUTRALPATH = "Decks/Neutral.json";
+    private static final String DECKPATH = "Decks/";
+    private static final String JSON = ".json";
 
     private Rect deckRect;
-    public ArrayList<Card> playerDeck = new ArrayList<Card> ();
+    private ArrayList<Card> playerDeck = new ArrayList<> ();
 
     public Deck(){
         deckRect = null;
     }
     public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
-        game.getAssetManager().loadAndAddJson(Neutral,NeutralPath);
-        return  game.getAssetManager().loadAndAddJson(pDeck1, DeckPath + pDeck1 + Json) &&
-                game.getAssetManager().loadAndAddJson(pDeck2, DeckPath + pDeck2 + Json);
+        game.getAssetManager().loadAndAddJson(NEUTRAL, NEUTRALPATH);
+        return  game.getAssetManager().loadAndAddJson(pDeck1, DECKPATH + pDeck1 + JSON) &&
+                game.getAssetManager().loadAndAddJson(pDeck2, DECKPATH + pDeck2 + JSON);
     }
 
     public void shuffle(){
-        genAlgorithm.KnuthShuffle(playerDeck);
+        GenAlgorithm.knuthShuffle(playerDeck);
     }
 
-    public void setDeck( Card [] Deck1,  Card [] Deck2,  Card [] NeutralDeck){
+    public void setDeck( Card [] pDeck1,  Card [] pDeck2,  Card [] pNeutralDeck){
 
 
-        AddToArrayList(Deck1);
-        AddToArrayList(Deck2);
-        AddToArrayList(NeutralDeck);
+        addCardsToDeck(pDeck1      , SIZEOFCLASSDECK);
+        addCardsToDeck(pDeck2      , SIZEOFCLASSDECK);
+        addCardsToDeck(pNeutralDeck, SIZEOFNEUTRALDECK);
 
         deckIsEmpty = playerDeck.isEmpty();
 
@@ -58,18 +58,20 @@ public class Deck{
             shuffle();
     }
 
-    private void AddToArrayList(Card[] Deck1) {
-        for (Card s : Deck1) {
-            if (s.inDeck == true) {
-                for (int i = 0; i < SizeOfClassDeck; i++) {
+    private void addCardsToDeck(Card[] pDeck1, int pTimesAdded) {
+        for (Card s : pDeck1) {
+            if (s.inDeck) {
+                for (int i = 0; i < pTimesAdded; i++) {
                     playerDeck.add(s);
                 }
             }
         }
     }
 
+
+
     public void generateAIDeck(Game game){
-        game.getAssetManager().loadAndAddJson(Neutral,NeutralPath);
+        game.getAssetManager().loadAndAddJson(NEUTRAL, NEUTRALPATH);
         int firstChoice = -1;
         String [] pickedDecks = new String[2];
         String [] deckNames =
@@ -82,7 +84,7 @@ public class Deck{
         while(randomNumber == firstChoice){
             randomNumber = rand.nextInt(deckNames.length);
         }
-            game.getAssetManager().loadAndAddJson(deckNames[randomNumber], DeckPath+deckNames[randomNumber]+ Json);
+            game.getAssetManager().loadAndAddJson(deckNames[randomNumber], DECKPATH +deckNames[randomNumber]+ JSON);
             firstChoice = randomNumber;
             pickedDecks[i] = deckNames[randomNumber];
         }
@@ -104,7 +106,7 @@ public class Deck{
     public boolean setDeckUp(AssetStore assetStore, String pDeckName1, String pDeckName2){
         Card [] deck1 = jsonToCardCollection(assetStore, pDeckName1);
         Card [] deck2 = jsonToCardCollection(assetStore, pDeckName2);
-        Card [] neutralDeck = jsonToCardCollection(assetStore, Neutral);
+        Card [] neutralDeck = jsonToCardCollection(assetStore, NEUTRAL);
 
         setDeck(deck1,deck2,neutralDeck);
         return deckIsEmpty;
@@ -121,10 +123,10 @@ public class Deck{
                 int defense     = object.getInt("defense");
                 String ability  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities." + object.getString("ability");
                 String imgFile  = object.getString("picture");
-                int EV          = object.getInt("ev");
+                int ev          = object.getInt("ev");
                 boolean inDeck  = object.getBoolean("inDeck");
                 String type     = object.getString("type");
-                deck[index] = new Card(id,type,defense,attack,EV,0,inDeck,imgFile,ability);
+                deck[index] = new Card(id,type,defense,attack,ev,0,inDeck,imgFile,ability);
             }
         }catch(JSONException e){
             Log.e(TAG, "findAbility: ");
@@ -135,7 +137,7 @@ public class Deck{
         return playerDeck.size();
     }
 
-    public Rect drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D) {
+    public Rect drawDeck(GenAlgorithm.field side, IGraphics2D iGraphics2D) {
         float top;
         float bot;
         float leftSide;
@@ -146,7 +148,7 @@ public class Deck{
         int botI;
 
         if (deckRect == null) {
-            if (side == genAlgorithm.field.TOP) {
+            if (side == GenAlgorithm.field.TOP) {
                 top = 0;
                 bot = iGraphics2D.getSurfaceHeight();
 
@@ -173,6 +175,9 @@ public class Deck{
         return deckRect;
     }
 
+    public boolean isDeckIsEmpty() {
+        return deckIsEmpty;
+    }
 
 }
 
