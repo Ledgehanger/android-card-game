@@ -25,7 +25,6 @@ public class Deck{
     private static final int SIZEOFNEUTRALDECK = 2;
 
     private static final String NEUTRAL = "Neutral";
-    private static final String NEUTRALPATH = "Decks/Neutral.json";
     private static final String DECKPATH = "Decks/";
     private static final String JSON = ".json";
 
@@ -35,10 +34,15 @@ public class Deck{
     public Deck(){
         deckRect = null;
     }
+    // Refactor json string joining into a method so it gets called instead of d// doing it over and over again
     public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
-        game.getAssetManager().loadAndAddJson(NEUTRAL, NEUTRALPATH);
-        return  game.getAssetManager().loadAndAddJson(pDeck1, DECKPATH + pDeck1 + JSON) &&
-                game.getAssetManager().loadAndAddJson(pDeck2, DECKPATH + pDeck2 + JSON);
+        addJsonToAssetManager(game,NEUTRAL);
+        return addJsonToAssetManager(game,pDeck1) && addJsonToAssetManager(game,pDeck2);
+
+    }
+
+    public boolean addJsonToAssetManager(Game game,String deckName) {
+        return game.getAssetManager().loadAndAddJson(deckName, DECKPATH + deckName + JSON);
     }
 
     public void shuffle(){
@@ -68,10 +72,9 @@ public class Deck{
         }
     }
 
-
-
+    //Move to AI Class
     public void generateAIDeck(Game game){
-        game.getAssetManager().loadAndAddJson(NEUTRAL, NEUTRALPATH);
+        game.getAssetManager().loadAndAddJson(NEUTRAL, DECKPATH + NEUTRAL + JSON);
         int firstChoice = -1;
         String [] pickedDecks = new String[2];
         String [] deckNames =
@@ -84,7 +87,7 @@ public class Deck{
         while(randomNumber == firstChoice){
             randomNumber = rand.nextInt(deckNames.length);
         }
-            game.getAssetManager().loadAndAddJson(deckNames[randomNumber], DECKPATH +deckNames[randomNumber]+ JSON);
+            addJsonToAssetManager(game,deckNames[randomNumber]);
             firstChoice = randomNumber;
             pickedDecks[i] = deckNames[randomNumber];
         }
