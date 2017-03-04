@@ -12,7 +12,7 @@ public class PlayerAi extends Player {
 
     public PlayerAi(String image, Game pGame)
     {
-        super(image);
+        super(image,pGame);
         generateAIDeck(pGame);
     }
 

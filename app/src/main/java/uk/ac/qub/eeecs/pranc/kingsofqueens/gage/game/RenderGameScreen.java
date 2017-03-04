@@ -45,8 +45,8 @@ public class RenderGameScreen extends GameScreen {
 
 
 
-        playerAI = new PlayerAi("",game);
-        player = new Player("", playerDeck);
+        playerAI = new PlayerAi("PlayerAiIcon",game);
+        player = new Player("PlayerIcon", game, playerDeck);
 
 
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
