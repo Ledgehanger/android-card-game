@@ -42,10 +42,10 @@ public class RenderGameScreen extends GameScreen {
         super("RenderGameScreen", game);
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
 
-        Deck aiDeck = new Deck();
-        aiDeck.generateAIDeck(game);
 
-        playerAI = new Player("", aiDeck);
+
+
+        playerAI = new PlayerAi("",game);
         player = new Player("", playerDeck);
 
 
@@ -85,7 +85,7 @@ public class RenderGameScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
 
 
-        //Drawing decks
+
 
 
         // unknown code
@@ -131,5 +131,7 @@ public class RenderGameScreen extends GameScreen {
 
         Rect deckRect2 = playerAI.playerDeck.drawDeck(GenAlgorithm.field.TOP, iGraphics2D);
         iGraphics2D.drawBitmap(deck2, null, deckRect2, null);
+
+
     }
 }

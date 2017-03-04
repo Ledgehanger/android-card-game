@@ -13,6 +13,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameObject;
 
 import static android.content.ContentValues.TAG;
 
@@ -21,18 +22,24 @@ public class Deck{
 
     private boolean deckIsEmpty = true;
 
-    private static final int SIZEOFCLASSDECK = 3;
-    private static final int SIZEOFNEUTRALDECK = 2;
+    public static final int SIZEOFCLASSDECK = 3;
+    public static final int SIZEOFNEUTRALDECK = 2;
 
-    private static final String NEUTRAL = "Neutral";
-    private static final String DECKPATH = "Decks/";
-    private static final String JSON = ".json";
+    public static final String NEUTRAL = "Neutral";
+    public static final String DECKPATH = "Decks/";
+    public static final String JSON = ".json";
 
     private Rect deckRect;
     private ArrayList<Card> playerDeck = new ArrayList<> ();
 
     public Deck(){
         deckRect = null;
+    }
+
+    public Deck(Game pGame,String pDeck1, String pDeck2){
+
+        loadDecksIntoAssestManger(pGame,pDeck1, pDeck2);
+        setDeckUp(pGame.getAssetManager(), pDeck1, pDeck2);
     }
     // Refactor json string joining into a method so it gets called instead of d// doing it over and over again
     public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
@@ -72,27 +79,6 @@ public class Deck{
         }
     }
 
-    //Move to AI Class
-    public void generateAIDeck(Game game){
-        game.getAssetManager().loadAndAddJson(NEUTRAL, DECKPATH + NEUTRAL + JSON);
-        int firstChoice = -1;
-        String [] pickedDecks = new String[2];
-        String [] deckNames =
-                {"Psych","Engineering", "Theology","Medical","CS", "Law"
-                };
-        Random rand = new Random();
-
-        for(int i = 0; i < 2; i++){
-        int randomNumber = firstChoice;
-        while(randomNumber == firstChoice){
-            randomNumber = rand.nextInt(deckNames.length);
-        }
-            addJsonToAssetManager(game,deckNames[randomNumber]);
-            firstChoice = randomNumber;
-            pickedDecks[i] = deckNames[randomNumber];
-        }
-        setDeckUp(game.getAssetManager(), pickedDecks[0], pickedDecks[1]);
-    }
 
     public Card [] drawFromDeck(int draws){
         Card [] hand = new Card[draws];

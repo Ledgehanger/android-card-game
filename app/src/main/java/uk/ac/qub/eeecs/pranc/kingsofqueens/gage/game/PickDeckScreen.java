@@ -84,9 +84,8 @@ public class PickDeckScreen extends GameScreen {
                     //replace with the game
                     mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
                     //pass down the decks they have picked
-                    Deck playerDeck = new Deck();
-                    playerDeck.loadDecksIntoAssestManger(mGame,Deck1.getDeckName(), Deck2.getDeckName());
-                    playerDeck.setDeckUp(mGame.getAssetManager(), Deck1.getDeckName(), Deck2.getDeckName());
+                    Deck playerDeck = new Deck(mGame,Deck1.getDeckName(), Deck2.getDeckName());
+
 
                     try {
                         RenderGameScreen gameScreen = new RenderGameScreen(mGame,playerDeck);
