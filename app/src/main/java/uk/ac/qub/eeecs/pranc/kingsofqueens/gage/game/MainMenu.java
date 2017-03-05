@@ -61,8 +61,8 @@ public class MainMenu extends GameScreen
             if(boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0)
             {
                 mGame.getScreenManager().removeScreen(this.getName());
-                //go to options screen
-                //sGame.getScreenManager().addScreen(BuildOptionsScreen);
+                OptionsScreen game = new OptionsScreen(mGame);
+                mGame.getScreenManager().addScreen(game);
             }
         }
     }
@@ -75,12 +75,8 @@ public class MainMenu extends GameScreen
             Bitmap koqTitle=aStore.getBitmap("Title");
             Bitmap playGame=aStore.getBitmap("playBtn");
             Bitmap options=aStore.getBitmap("optionsBtn");
-            /*
-            Music Song = aStore.getMusic("DISC5_02");
-            Song.play();
-            Song.setVolume(2);
-            Song.setLopping(true);
-            */
+
+
             if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null)
             {
                 int titleLeft= 0;
@@ -89,8 +85,6 @@ public class MainMenu extends GameScreen
                 int titlebottom= 139;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
 
                 boundTitle= new Rect(titleLeft,titletop,titleRight,titlebottom);
-
-
 
                 int optionsLeft=(iGraphics2D.getSurfaceWidth()-options.getWidth());
                 int optionsRight=optionsLeft+options.getWidth();

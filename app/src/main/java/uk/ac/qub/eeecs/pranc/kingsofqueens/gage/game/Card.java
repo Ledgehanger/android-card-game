@@ -44,25 +44,29 @@ public class Card {
     Rect cardArea;
     public int id;
     public String type;
+    public String name;
+    public String ability;
     public int hp;
     public int atk;
     public int evolveLevel;
     public int evCost;
     public boolean inDeck;
-    public float x;
-    public float y;
+    public int x;
+    public int y;
     public float width;
     public float height;
     public Bitmap cardImg;
     public String imgPath;
-    Game sGame;
+    Game newGame;
     // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here 
     AssetStore aStore; 
     /* =sGame.getAssetManager(); Doing this breaks the testable of the deck class comment
     out for now to have a quick fix
      */
-    AssetManager aManager;
+    private AssetManager aManager;
     CanvasGraphics2D cg2D = new CanvasGraphics2D(aManager);
+
+
     //Getters and Setters
     public void setID(int id){this.id=id;}
     public int getID(){return id;}
@@ -78,10 +82,10 @@ public class Card {
     public int getEvCost(){return evCost;}
     public void setInDeck(boolean inDeck){this.inDeck=inDeck;}
     public boolean getInDeck(){return inDeck;}
-    public void setX(float x){this.x=x;}
-    public float getX(){return x;}
-    public void setY(float y){this.y=y;}
-    public float getY(){return y;}
+    public void setX(int x){this.x=x;}
+    public int getX(){return x;}
+    public void setY(int y){this.y=y;}
+    public int getY(){return y;}
     public void setWidth(float width){this.width=width;}
     public float getWidth(){return width;}
     public void setHeight(float height){this.height=height;}
@@ -91,11 +95,24 @@ public class Card {
     public String getImgPath() {
         return imgPath;
     }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
+    public String getAbility() {
+        return ability;
+    }
+    public void setAbility(String ability) {
+        this.ability = ability;
+    }
+
     //Constructor
-    public Card(int id, String type, int hp, int atk, int evolveLevel, boolean inDeck, int evCost, float x, float y, float height,
+    public Card(int id, String type, int hp, int atk, int evolveLevel, boolean inDeck, int evCost, int x, int y, float height,
                 float width, Bitmap cardImg)
     {
         this.id=id;
@@ -110,6 +127,18 @@ public class Card {
         this.width=width;
         this.cardImg=cardImg;
     }
+
+    public Card(int id, String name, int atk, int hp,String ability, String imgPath, int evCost, boolean inDeck) {
+        this.id = id;
+        this.name = name;
+        this.atk = atk;
+        this.hp = hp;
+        this.ability=ability;
+        this.imgPath = imgPath;
+        this.evCost = evCost;
+        this.inDeck = inDeck;
+    }
+
     public Card(int id, String type, int hp, int atk, int evCost, String imgPath) {
         this.id = id;
         this.type = type;
@@ -144,23 +173,6 @@ public class Card {
     }
 
     //Methods
-    public void drawCard(Card card,int hp, int atk)
-    {
-        Paint text=new Paint();
-        int id = card.getID();
-        String holdImgID=Integer.toString(id);
-        String holdHP=Integer.toString(hp);
-        String holdATK=Integer.toString(atk);
-        Bitmap cardImg= sGame.getAssetManager().getBitmap(holdImgID);
-        int cardLeft=cardImg.getWidth();
-        int cardRight=cardLeft+cardImg.getWidth();
-        int cardTop=(cg2D.getSurfaceHeight()/2);
-        int cardBottom= cardTop+cardImg.getHeight();
-        cardArea=new Rect(cardLeft,cardTop,cardRight,cardBottom);
-        cg2D.drawBitmap(cardImg,null,cardArea,null);
-        cg2D.drawText(holdHP,cardLeft,cardBottom,text);
-        cg2D.drawText(holdATK,cardRight,cardBottom,text);
-    }
     //Method used to modify HP card depending on if it gets damaged or healed
     public int modHP(Card card,int modHP)
     {
@@ -173,7 +185,7 @@ public class Card {
         }
         else
         {
-            drawCard(card,hp,atk);
+            //drawCardImage(card,hp,atk);
         }
         return hp;
     }
@@ -183,7 +195,7 @@ public class Card {
         int atk=card.getATK();
         atk=modATK+atk;
         int hp=card.getHP();
-        drawCard(card,hp,atk);
+        //drawCard(card,hp,atk);
         return atk;
     }
     //Method used to evolve card to next level
@@ -193,7 +205,7 @@ public class Card {
         try
         {
             String JsonFileName = type;
-            JSONArray array = sGame.getAssetManager().getJson(JsonFileName);
+            JSONArray array = newGame.getAssetManager().getJson(JsonFileName);
             int evID = 0;
             int goThrough = 0;
             do {
@@ -202,7 +214,9 @@ public class Card {
                 goThrough++;
             }
             while (id != evID);
+
             JSONObject evCard = array.getJSONObject(goThrough);
+
             evID=evCard.getInt("_id");
             String name=evCard.getString("name");
             int evATK= evCard.getInt("attack");
@@ -212,7 +226,9 @@ public class Card {
             int ev = evCard.getInt("ev");
             int newEVCost = evCard.getInt("evCost");
             String type = evCard.getString("type");
+
             Card sendCard = new Card(evID,type,evHP,evATK,newEVCost,imgFile);
+
             evolve.setID(evID);
             evolve.setType(type);
             evolve.setHP(evHP);
@@ -228,10 +244,24 @@ public class Card {
     //Method used to destroy card when HP is 0 or less
     public void destroyCard(Card card)
     {
+
     }
-    /*Ability Methods
-     * Comp - Disable
-      * Psych - Control
-      * Theo - EV Gain
-      * Med - Heal*/
+
+    public void drawCardImage(String imgPath,String HP, String ATK, int x, int y)
+    {
+        Rect holdCard;
+        Bitmap cardImage;
+        cardImage = newGame.getAssetManager().getBitmap(imgPath);
+
+        int cardLeft=(cg2D.getSurfaceWidth()-x);
+        int cardRight=x;
+        int cardTop=(cg2D.getSurfaceHeight()/2);
+        int cardBottom= cardTop+y;
+
+        holdCard=new Rect(cardLeft,cardTop,cardRight,cardBottom);
+
+        cg2D.drawBitmap(cardImage,null,holdCard,null);
+        cg2D.drawText(HP,cardLeft,cardBottom,null);
+        cg2D.drawText(ATK,cardRight,cardBottom,null);
+    }
 }
