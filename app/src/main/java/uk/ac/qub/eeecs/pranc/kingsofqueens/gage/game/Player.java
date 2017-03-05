@@ -1,30 +1,47 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+import android.graphics.Rect;
+
 /**
  * Created by Nicola on 22/11/2016.
  */
 
 public class Player {
-    int HP = 100;
+
+    int hp = 100;
     int ID;
     float x, y;
     String image;
     boolean isAlive;
 
+
+    int evTotal;
+    Deck playerDeck;
+    Hand playerHand;
+    Rect playerIcon, playerHp;
+
     public boolean DamageTaken(int Totaldamage) {
-        HP -= Totaldamage;
-        return isAlive = HP > 0;
+        hp -= Totaldamage;
+        return isAlive = hp > 0;
     }
 
 
     public Player(float x, int HP, float y, String image, boolean isAlive) {
         this.x = x;
-        this.HP = HP;
+        this.hp = HP;
         this.y = y;
         this.image = image;
         this.isAlive = isAlive;
+        evTotal = 0;
     }
+    public Player(String image, Deck playerDeck ) {
 
+        this.hp = 20;
+        this.image = image;
+        this.isAlive = true;
+        this.evTotal = 0;
+        this.playerDeck = playerDeck;
+}
 
     public static boolean createWinner(int HP1, int HP2) {
         if (HP1 > HP2) {
@@ -33,6 +50,35 @@ public class Player {
             return false;
         }
     }
+
+
+    public int getEvTotal() {
+        return evTotal;
+    }
+
+    public void setEvTotal(int evTotal) {
+        this.evTotal = evTotal;
+    }
+
+    public void addToEvTotal(int add){
+        this.evTotal += add;
+    }
+
+    public void healPlayer(int heal){
+        for(int i = 0; i < heal; i++){
+            if(hp < 20){
+                hp++;
+            }else
+                break;
+        }
+    }
+
+    public int getHp(){
+        return this.hp;
+    }
+
+
+
 }
 
 

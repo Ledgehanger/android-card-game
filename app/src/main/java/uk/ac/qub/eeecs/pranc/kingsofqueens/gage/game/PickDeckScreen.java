@@ -8,13 +8,14 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.List;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.DeckPickerRect;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection.DeckPickerRect;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection.DeckSelection;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 
 /**
@@ -54,12 +55,12 @@ public class PickDeckScreen extends GameScreen {
             TouchEvent touchEvent = touchEvents.get(0);
 
             if(DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                if(deck1Picked == false && !Deck2.deckName.equals(currentDeck)){
+                if(deck1Picked == false && !Deck2.getDeckName().equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
                     Deck1 = new DeckPickerRect(new Rect(300,31,600,120), test.getBitImage(),currentDeck);
                     deck1Picked = true;
                 }
-                else if(deck2Picked == false && deck1Picked == true && !Deck1.deckName.equals(currentDeck)){
+                else if(deck2Picked == false && deck1Picked == true && !Deck1.getDeckName().equals(currentDeck)){
                     DeckSelection test = DeckHashMap.get(currentDeck);
                     Deck2 = new DeckPickerRect(new Rect(600,31,900,120), test.getBitImage(),currentDeck);
                     deck2Picked = true;
@@ -84,14 +85,16 @@ public class PickDeckScreen extends GameScreen {
                     mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
                     //pass down the decks they have picked
                     Deck playerDeck = new Deck();
-                    playerDeck.loadDecksIntoAssestManger(mGame,Deck1.deckName, Deck2.deckName);
-                    playerDeck.setDeckUp(mGame.getAssetManager(), Deck1.deckName, Deck2.deckName);
+                    playerDeck.loadDecksIntoAssestManger(mGame,Deck1.getDeckName(), Deck2.getDeckName());
+                    playerDeck.setDeckUp(mGame.getAssetManager(), Deck1.getDeckName(), Deck2.getDeckName());
 
-
-                    //RenderGameScreen gameScreen = new RenderGameScreen(mGame); for now rediect back to main screen as render doesn't have it images yet
-                    MainMenu gameScreen = new MainMenu("Replace with above",mGame);
-                    mGame.getScreenManager().addScreen(gameScreen);
-                }
+                    try {
+                        RenderGameScreen gameScreen = new RenderGameScreen(mGame,playerDeck);
+                        mGame.getScreenManager().addScreen(gameScreen);
+                    }catch(Exception e)   {
+                        Log.d(e.toString(), "update: ");
+                    }
+                    }
             }
 
 
@@ -101,7 +104,7 @@ public class PickDeckScreen extends GameScreen {
 
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
-        DeckSelection [] decks = aStore.jsonToDeckCollection("Decks");
+        DeckSelection[] decks = aStore.jsonToDeckCollection("Decks");
 
         try
         {
@@ -111,10 +114,10 @@ public class PickDeckScreen extends GameScreen {
             if(DeckHashMap.isEmpty()) {
                 //Create bitmaps for every object in decks and add it to the hashmap
                 for (DeckSelection deck : decks) {
-                    if (!DeckHashMap.containsKey(deck.name)) {
-                        aStore.loadAndAddBitmap(deck.imgPath,deck.imgPath);
-                        deck.setBitImage(aStore.getBitmap(deck.imgPath));
-                        DeckHashMap.put(deck.name, deck);
+                    if (!DeckHashMap.containsKey(deck.getName())) {
+                        aStore.loadAndAddBitmap(deck.getImgPath(),deck.getImgPath());
+                        deck.setBitImage(aStore.getBitmap(deck.getImgPath()));
+                        DeckHashMap.put(deck.getName(), deck);
                     }
                 }
 
@@ -135,23 +138,23 @@ public class PickDeckScreen extends GameScreen {
             if(index < 0) index = decks.length - 1;
 
             //store the current deck name for lookup in the hashmap
-            currentDeck = decks[index].name;
+            currentDeck = decks[index].getName();
 
             //check if bitmap is null and if it is create that bitmap
-            if(DeckHashMap.get(decks[index].name).getBitImage() ==  null)
-                DeckHashMap.get(decks[index].name).setBitImage(aStore.getBitmap(decks[index].imgPath));
+            if(DeckHashMap.get(decks[index].getName()).getBitImage() ==  null)
+                DeckHashMap.get(decks[index].getName()).setBitImage(aStore.getBitmap(decks[index].getImgPath()));
 
             //Draw the images
             iGraphics2D.drawBitmap(leftArrow,null,Left,null);
-            iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].name).getBitImage(),null,
+            iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].getName()).getBitImage(),null,
                             DeckButton,null);
             iGraphics2D.drawBitmap(rightArrow,null,Right,null);
             //Check if we should draw Deck Choices and play button
             if(deck1Picked){
-                iGraphics2D.drawBitmap(Deck1.Image,null, Deck1.button,null);
+                iGraphics2D.drawBitmap(Deck1.getImage(),null, Deck1.getButton(),null);
             }
             if(deck2Picked){
-                iGraphics2D.drawBitmap(Deck2.Image,null, Deck2.button,null);
+                iGraphics2D.drawBitmap(Deck2.getImage(),null, Deck2.getButton(),null);
             }
             if(deck1Picked && deck2Picked){
                 Bitmap playButton = aStore.getBitmap("Play");
@@ -170,10 +173,10 @@ public class PickDeckScreen extends GameScreen {
 
     private boolean checkInputDeckChoices(TouchEvent touchEvent, DeckPickerRect deck, boolean valid) {
         if (valid == true) {
-            if (deck.button.contains((int) touchEvent.x, (int) touchEvent.y)
+            if (deck.getButton().contains((int) touchEvent.x, (int) touchEvent.y)
                     && touchEvent.type == 0) {
                 valid = false;
-                deck.deckName = "";
+                deck.setDeckName("");
             }
         }
         return valid;

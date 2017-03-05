@@ -1,98 +1,187 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
-import android.content.res.AssetManager;
+import android.graphics.Rect;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.File;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
+import java.util.Random;
+
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
-public class Deck {
-    private List<String> deckType;
-    public Queue<Card> Deck = new LinkedList<Card>();
-    public boolean deckIsEmpety = true;
-    Card [] Deck1 , Deck2, NeutralDeck;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+
+import static android.content.ContentValues.TAG;
+
+public class Deck{
+
+
+    private boolean deckIsEmpty = true;
+
+    private static final int SIZEOFCLASSDECK = 3;
+    private static final int SIZEOFNEUTRALDECK = 2;
+
+    private static final String NEUTRAL = "Neutral";
+    private static final String DECKPATH = "Decks/";
+    private static final String JSON = ".json";
+
+    private Rect deckRect;
+    private ArrayList<Card> playerDeck = new ArrayList<> ();
+
     public Deck(){
-        //setDeck(Deck1,Deck2);
+        deckRect = null;
     }
-    // TODO: 20/11/2016  Update this for a Card Array
+    // Refactor json string joining into a method so it gets called instead of d// doing it over and over again
     public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
-        game.getAssetManager().loadAndAddJson("Neutral","Decks/Neutral.json");
-        return  game.getAssetManager().loadAndAddJson(pDeck1,"Decks/"+pDeck1+".json") &&
-                game.getAssetManager().loadAndAddJson(pDeck2,"Decks/"+pDeck2+".json");
+        addJsonToAssetManager(game,NEUTRAL);
+        return addJsonToAssetManager(game,pDeck1) && addJsonToAssetManager(game,pDeck2);
+
     }
-    public void setDeck(){
-        for (Card s: Deck1) {
-            if(s.inDeck == true) {
-                for (int i = 0; i < 3; i++) {
-                    Deck.add(s);
-                }
-            }
-        }
-        for (Card s: Deck2) {
-            if(s.inDeck == true) {
-                for (int i = 0; i < 3; i++) {
-                    Deck.add(s);
-                }
-            }
-        }
-        for(Card s: NeutralDeck){
-            if(s.inDeck == true) {
-                for (int i = 0; i < 2; i++) {
-                    Deck.add(s);
-                }
-            }
-        }
-        deckIsEmpety = Deck.peek() == null;
+
+    public boolean addJsonToAssetManager(Game game,String deckName) {
+        return game.getAssetManager().loadAndAddJson(deckName, DECKPATH + deckName + JSON);
     }
-    public Card [] drawCards(int draws){
+
+    public void shuffle(){
+        GenAlgorithm.knuthShuffle(playerDeck);
+    }
+
+    public void setDeck( Card [] pDeck1,  Card [] pDeck2,  Card [] pNeutralDeck){
+
+
+        addCardsToDeck(pDeck1      , SIZEOFCLASSDECK);
+        addCardsToDeck(pDeck2      , SIZEOFCLASSDECK);
+        addCardsToDeck(pNeutralDeck, SIZEOFNEUTRALDECK);
+
+        deckIsEmpty = playerDeck.isEmpty();
+
+        if(!deckIsEmpty)
+            shuffle();
+    }
+
+    private void addCardsToDeck(Card[] pDeck1, int pTimesAdded) {
+        for (Card s : pDeck1) {
+            if (s.inDeck) {
+                for (int i = 0; i < pTimesAdded; i++) {
+                    playerDeck.add(s);
+                }
+            }
+        }
+    }
+
+    //Move to AI Class
+    public void generateAIDeck(Game game){
+        game.getAssetManager().loadAndAddJson(NEUTRAL, DECKPATH + NEUTRAL + JSON);
+        int firstChoice = -1;
+        String [] pickedDecks = new String[2];
+        String [] deckNames =
+                {"Psych","Engineering", "Theology","Medical","CS", "Law"
+                };
+        Random rand = new Random();
+
+        for(int i = 0; i < 2; i++){
+        int randomNumber = firstChoice;
+        while(randomNumber == firstChoice){
+            randomNumber = rand.nextInt(deckNames.length);
+        }
+            addJsonToAssetManager(game,deckNames[randomNumber]);
+            firstChoice = randomNumber;
+            pickedDecks[i] = deckNames[randomNumber];
+        }
+        setDeckUp(game.getAssetManager(), pickedDecks[0], pickedDecks[1]);
+    }
+
+    public Card [] drawFromDeck(int draws){
         Card [] hand = new Card[draws];
         for(int i = 0; i < draws; i++){
-            if(Deck.isEmpty()){
-                deckIsEmpety = true;
+            if(playerDeck.isEmpty()){
+                deckIsEmpty = true;
                 return hand;
             }
-            hand[i] = Deck.poll();
+            hand[i] = playerDeck.get(0);
+            playerDeck.remove(0);
         }
         return hand;
     }
-    public boolean setDeckUp(AssetStore assetStore, String DeckName1, String DeckName2){
-        Deck1 = jsonToCardCollection(assetStore, DeckName1);
-        Deck2 = jsonToCardCollection(assetStore, DeckName2);
-        NeutralDeck = jsonToCardCollection(assetStore, "Neutral");
+    public boolean setDeckUp(AssetStore assetStore, String pDeckName1, String pDeckName2){
+        Card [] deck1 = jsonToCardCollection(assetStore, pDeckName1);
+        Card [] deck2 = jsonToCardCollection(assetStore, pDeckName2);
+        Card [] neutralDeck = jsonToCardCollection(assetStore, NEUTRAL);
 
-        setDeck();
-        return deckIsEmpety;
+        setDeck(deck1,deck2,neutralDeck);
+        return deckIsEmpty;
     }
-    public Card[] jsonToCardCollection(AssetStore assetStore, String JsonFileName){
-        JSONArray jsonArray = assetStore.getJson(JsonFileName);
+
+    public Card[] jsonToCardCollection(AssetStore pAssetStore, String pJsonFileName){
+        JSONArray jsonArray = pAssetStore.getJson(pJsonFileName);
         Card [] deck = new Card[jsonArray.length()];
         try {
             for (int index = 0; index < jsonArray.length(); index++) {
                 JSONObject object = jsonArray.getJSONObject(index);
                 int id          = object.getInt("_id");
-                String name     = object.getString("name");
                 int attack      = object.getInt("attack");
                 int defense     = object.getInt("defense");
-                String ability  = object.getString("ability");
+                String ability  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities." + object.getString("ability");
                 String imgFile  = object.getString("picture");
-                int EV          = object.getInt("ev");
-                //int EvCost        = object.getInt("evCost");
+                int ev          = object.getInt("ev");
                 boolean inDeck  = object.getBoolean("inDeck");
                 String type     = object.getString("type");
-                deck[index] = new Card(id,type,defense,attack,EV,0,inDeck,imgFile);
+                deck[index] = new Card(id,type,defense,attack,ev,0,inDeck,imgFile,ability);
             }
         }catch(JSONException e){
-            // TODO: Exception
-            String p = e.toString();
+            Log.e(TAG, "findAbility: ");
         }
         return deck;
     }
     public int getSize() {
-        return Deck.size();
+        return playerDeck.size();
     }
+
+    public Rect drawDeck(GenAlgorithm.field side, IGraphics2D iGraphics2D) {
+        float top;
+        float bot;
+        float leftSide;
+
+        int left;
+        int right;
+        int topI;
+        int botI;
+
+        if (deckRect == null) {
+            if (side == GenAlgorithm.field.TOP) {
+                top = 0;
+                bot = iGraphics2D.getSurfaceHeight();
+
+                leftSide = 0;
+                left = (int) leftSide;
+                right = (int) leftSide + 100;
+                topI = (int) top;
+                botI = (int) ((bot) - (bot / 1.5)) - 75;
+                deckRect = new Rect(left, topI, right, botI);
+
+            } else {
+                top = iGraphics2D.getSurfaceHeight() / 2;
+                bot = iGraphics2D.getSurfaceHeight();
+
+                leftSide = 0;
+                left = (int) leftSide;
+                right = (int) leftSide + 100;
+                topI = (int) ((top) + (top / 4) + 105);
+                botI = (int) bot;
+                deckRect = new Rect(left, topI, right, botI);
+            }
+        }
+
+        return deckRect;
+    }
+
+    public boolean isDeckIsEmpty() {
+        return deckIsEmpty;
+    }
+
 }
+
+

@@ -5,28 +5,21 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  * Will Contain various methods which relate to the use of card in the game
  * Methods desc to come later
  */
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.app.AlertDialog;
-import java.util.ArrayList;
-import java.util.List;
-public class Card {
+
+public class Card{
     /* Initial properties
     * id - Gets card information from JSON file(Ability,Initial Health and Attack, name etc.)
     * type - defines what deck a card comes from (Comp - 0, Psych - 1, Theo - 2, Law - 3, Med - 4, Eng - 5, GenB - 6)
@@ -35,8 +28,8 @@ public class Card {
     * evolveState - Defines which evolve state card is in (Stage 1 - 1, Stage 2-2, State 3-3)
     * canEvolve - Used as precaution since some cards cant evolve e.g Building card.
     *
-    * x - X position of card on screen(Positive x goes right across screen, Start pos - top left)
-    * y - Y position of card on screen(Positive y goes down screen, Start pos - top left)
+    * x - X position of card on screen(Positive x goes right across screen, Start pos - TOP left)
+    * y - Y position of card on screen(Positive y goes down screen, Start pos - TOP left)
     * width - Width of card (Will be scaled when not in use)
     * height - Height of card (Will be scaled when not in use)
     * cardImg - Image of card
@@ -161,7 +154,7 @@ public class Card {
         width=0;
     }
 
-    public Card(int id, String type, int hp, int atk, int evolveLevel, int evCost, boolean inDeck, String imgPath) {
+    public Card(int id, String type, int hp, int atk, int evolveLevel, int evCost, boolean inDeck, String imgPath,String Ability) {
         this.id = id;
         this.type = type;
         this.hp = hp;
@@ -170,7 +163,11 @@ public class Card {
         this.evCost = evCost;
         this.inDeck = inDeck;
         this.imgPath = imgPath;
+        this.ability = GenAlgorithm.findAbility(Ability);
     }
+
+
+
 
     //Methods
     //Method used to modify HP card depending on if it gets damaged or healed

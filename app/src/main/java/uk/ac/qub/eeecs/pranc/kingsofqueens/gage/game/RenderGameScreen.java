@@ -1,17 +1,19 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+
 /**
  * Created by markm on 25/11/2016.
  */
 
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
@@ -33,8 +35,19 @@ public class RenderGameScreen extends GameScreen {
     private final int NUM_CARD_SPACES = 12; //NEED TO DRAW GRID FOR CARDS
     private List<PlayerCards> mCards; //TO IMPLEMENT CARD CLASS
 
-    public RenderGameScreen(Game game) {
+
+    private Player player, playerAI;
+
+    public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
         super("RenderGameScreen", game);
+        game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+
+        Deck aiDeck = new Deck();
+        aiDeck.generateAIDeck(game);
+
+        playerAI = new Player("", aiDeck);
+        player = new Player("", playerDeck);
+
 
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
                 game.getScreenHeight());
@@ -49,8 +62,8 @@ public class RenderGameScreen extends GameScreen {
                     * mScreenViewport.height / mScreenViewport.width, 240);
 
         AssetStore assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("QueensBackground", "img/QueensBackground.png");
-        assetManager.loadAndAddBitmap("HealthMonitor", "img/HealthMonitor.png");
+        assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
+        assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
         assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/pph.png");
 
         mQueensBackground = new GameObject(LEVEL_WIDTH / 2.0f,
@@ -71,6 +84,11 @@ public class RenderGameScreen extends GameScreen {
 
     public void update(ElapsedTime elapsedTime) {
 
+
+        //Drawing decks
+
+
+        // unknown code
         mPlayerCards.update(elapsedTime);
 
         BoundingBox playerBound = mPlayerCards.getBound();
@@ -98,15 +116,20 @@ public class RenderGameScreen extends GameScreen {
             mLayerViewport.y -= (mLayerViewport.getTop() - LEVEL_HEIGHT);
     }
 
-    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+    public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
-        graphics2D.clear(Color.BLACK);
-        graphics2D.clipRect(mScreenViewport.toRect());
+        iGraphics2D.clear(Color.BLACK);
+        iGraphics2D.clipRect(mScreenViewport.toRect());
 
-        mQueensBackground.draw(elapsedTime, graphics2D, mLayerViewport,
-                mScreenViewport);
+        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        //Draw Deck
+        Bitmap deck = mGame.getAssetManager().getBitmap("deckimg");
+        Bitmap deck2 = mGame.getAssetManager().getBitmap("deckimg");
 
-        mPlayerCards.draw(elapsedTime, graphics2D, mLayerViewport,
-                mScreenViewport);
+        Rect deckRect = player.playerDeck.drawDeck(GenAlgorithm.field.BOTTOM, iGraphics2D);
+        iGraphics2D.drawBitmap(deck, null, deckRect, null);
+
+        Rect deckRect2 = playerAI.playerDeck.drawDeck(GenAlgorithm.field.TOP, iGraphics2D);
+        iGraphics2D.drawBitmap(deck2, null, deckRect2, null);
     }
 }

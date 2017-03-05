@@ -79,6 +79,7 @@ public class MainMenu extends GameScreen
 
             if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null)
             {
+
                 int titleLeft= 0;
                 int titleRight= iGraphics2D.getSurfaceWidth();
                 int titletop= 60;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);

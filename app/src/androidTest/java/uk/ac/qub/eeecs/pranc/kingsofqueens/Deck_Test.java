@@ -7,7 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.CardGame;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
@@ -19,6 +18,7 @@ import static org.junit.Assert.assertEquals;
  * Created by markm on 20/11/2016.
  */
 
+//TODO Create unit test for ai deck
 @RunWith(AndroidJUnit4.class)
 public class Deck_Test {
     AssetStore as;
@@ -38,7 +38,7 @@ public class Deck_Test {
     @Test
     public void drawTestForReturnValueSize() throws Exception{
         setUpDeck();
-        Card[] hand = mDeck.drawCards(3);
+        Card[] hand = mDeck.drawFromDeck(3);
         assertEquals(3, hand.length);
 
     }
@@ -46,15 +46,15 @@ public class Deck_Test {
     public void drawTestForDeckSize() throws Exception{
         setUpDeck();
         int size = mDeck.getSize() - 3;
-        mDeck.drawCards(3);
+        mDeck.drawFromDeck(3);
         assertEquals(size, mDeck.getSize());
     }
     @Test
     public void OverDrawTest() throws Exception{
         setUpDeck();
-        mDeck.drawCards(100);
+        mDeck.drawFromDeck(100);
         assertEquals(0, mDeck.getSize());
-        assertEquals(true, mDeck.deckIsEmpety);
+        assertEquals(true, mDeck.isDeckIsEmpty());
     }
 
 }

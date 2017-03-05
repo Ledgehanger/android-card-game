@@ -51,7 +51,7 @@ public class CollisionDetector {
 			// Determine the side of *least intersection*
 			float minOverlap = Float.MAX_VALUE;
 
-			// Check the top side
+			// Check the TOP side
 			float tOverlap = (two.y + two.halfHeight)
 					- (one.y - one.halfHeight);
 			if (tOverlap > 0 && tOverlap < minOverlap) {
@@ -59,7 +59,7 @@ public class CollisionDetector {
 				minOverlap = tOverlap;
 			}
 
-			// Check the bottom side
+			// Check the BOTTOM side
 			float bOverlap = (one.y + one.halfHeight)
 					- (two.y - two.halfHeight);
 			if (bOverlap > 0 && bOverlap < minOverlap) {
@@ -110,7 +110,7 @@ public class CollisionDetector {
 			// Determine the side of *least intersection*
 			float collisionDepth = Float.MAX_VALUE;
 
-			// Check the top side
+			// Check the TOP side
 			float tOverlap = (two.y + two.halfHeight)
 					- (one.y - one.halfHeight);
 			if (tOverlap > 0.0f && tOverlap < collisionDepth) {
@@ -118,7 +118,7 @@ public class CollisionDetector {
 				collisionDepth = tOverlap;
 			}
 
-			// Check the bottom side
+			// Check the BOTTOM side
 			float bOverlap = (one.y + one.halfHeight)
 					- (two.y - two.halfHeight);
 			if (bOverlap > 0.0f && bOverlap < collisionDepth) {
