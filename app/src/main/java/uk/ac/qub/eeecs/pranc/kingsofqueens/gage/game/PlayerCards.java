@@ -17,7 +17,7 @@ public class PlayerCards extends Sprite {
 
     public PlayerCards(float startX, float startY, GameScreen gameScreen) {
         super(startX, startY, 50.0f, 50.0f, gameScreen.getGame()
-                .getAssetManager().getBitmap("//CARD"), gameScreen);
+                .getAssetManager().getBitmap("PlayerPictureHolder"), gameScreen);
 
         screenCentre.x = gameScreen.getGame().getScreenWidth() / 2;
         screenCentre.y = gameScreen.getGame().getScreenHeight() / 2;

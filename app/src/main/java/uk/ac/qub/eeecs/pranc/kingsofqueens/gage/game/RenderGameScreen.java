@@ -64,7 +64,7 @@ public class RenderGameScreen extends GameScreen {
         AssetStore assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
         assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
-        assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/pph.png");
+        assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
 
         mQueensBackground = new GameObject(LEVEL_WIDTH / 2.0f,
                 LEVEL_HEIGHT / 2.0f, LEVEL_WIDTH, LEVEL_HEIGHT, getGame()
@@ -122,6 +122,9 @@ public class RenderGameScreen extends GameScreen {
         iGraphics2D.clipRect(mScreenViewport.toRect());
 
         mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        mPlayerCards.draw(elapsedTime, iGraphics2D, mLayerViewport,
+                mScreenViewport);
+
         //Draw Deck
         Bitmap deck = mGame.getAssetManager().getBitmap("deckimg");
         Bitmap deck2 = mGame.getAssetManager().getBitmap("deckimg");
