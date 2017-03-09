@@ -13,7 +13,7 @@ import static android.content.ContentValues.TAG;
  * Created by markm on 06/02/2017.
  */
 
-public class GenAlgorithm {
+public class genAlgorithm {
 
     public enum field {
         TOP,

@@ -7,13 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameObject;
 
 import static android.content.ContentValues.TAG;
 
@@ -53,7 +51,7 @@ public class Deck{
     }
 
     public void shuffle(){
-        GenAlgorithm.knuthShuffle(playerDeck);
+        genAlgorithm.knuthShuffle(playerDeck);
     }
 
     public void setDeck( Card [] pDeck1,  Card [] pDeck2,  Card [] pNeutralDeck){
@@ -126,7 +124,7 @@ public class Deck{
         return playerDeck.size();
     }
 
-    public Rect drawDeck(GenAlgorithm.field side, IGraphics2D iGraphics2D) {
+    public Rect drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D) {
         float top;
         float bot;
         float leftSide;
@@ -137,7 +135,7 @@ public class Deck{
         int botI;
 
         if (deckRect == null) {
-            if (side == GenAlgorithm.field.TOP) {
+            if (side == genAlgorithm.field.TOP) {
                 top = 0;
                 bot = iGraphics2D.getSurfaceHeight();
 

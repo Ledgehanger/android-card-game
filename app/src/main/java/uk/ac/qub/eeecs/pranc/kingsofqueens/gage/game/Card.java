@@ -7,7 +7,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  */
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 
@@ -135,7 +135,7 @@ public class Card{
         this.evCost = evCost;
         this.inDeck = inDeck;
         this.imgPath = imgPath;
-        this.ability = GenAlgorithm.findAbility(Ability);
+        this.ability = genAlgorithm.findAbility(Ability);
     }
 
 
