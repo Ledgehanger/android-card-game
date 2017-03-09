@@ -61,7 +61,7 @@ public class MainMenu extends GameScreen
             if(boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0)
             {
                 mGame.getScreenManager().removeScreen(this.getName());
-                OptionsScreen game = new OptionsScreen(mGame);
+                OptionsScreen game = new OptionsScreen("",mGame);
                 mGame.getScreenManager().addScreen(game);
             }
         }

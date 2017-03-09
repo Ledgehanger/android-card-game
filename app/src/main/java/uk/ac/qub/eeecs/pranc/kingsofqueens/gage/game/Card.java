@@ -7,7 +7,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  */
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 
@@ -38,7 +38,7 @@ public class Card{
     public int id;
     public String type;
     public String name;
-    public String ability;
+    public Ability ability;
     public int hp;
     public int atk;
     public int evolveLevel;
@@ -97,12 +97,7 @@ public class Card{
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
-    public String getAbility() {
-        return ability;
-    }
-    public void setAbility(String ability) {
-        this.ability = ability;
-    }
+
 
     //Constructor
     public Card(int id, String type, int hp, int atk, int evolveLevel, boolean inDeck, int evCost, int x, int y, float height,
@@ -126,7 +121,7 @@ public class Card{
         this.name = name;
         this.atk = atk;
         this.hp = hp;
-        this.ability=ability;
+        this.ability= genAlgorithm.findAbility(ability);
         this.imgPath = imgPath;
         this.evCost = evCost;
         this.inDeck = inDeck;
@@ -163,7 +158,7 @@ public class Card{
         this.evCost = evCost;
         this.inDeck = inDeck;
         this.imgPath = imgPath;
-        this.ability = GenAlgorithm.findAbility(Ability);
+        this.ability = genAlgorithm.findAbility(Ability);
     }
 
 

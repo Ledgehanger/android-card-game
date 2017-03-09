@@ -1,6 +1,11 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 
 /**
  * Created by Nicola on 22/11/2016.
@@ -11,7 +16,7 @@ public class Player {
     int hp = 100;
     int ID;
     float x, y;
-    String image;
+    Bitmap bitmapImage;
     boolean isAlive;
 
 
@@ -30,18 +35,28 @@ public class Player {
         this.x = x;
         this.hp = HP;
         this.y = y;
-        this.image = image;
         this.isAlive = isAlive;
         evTotal = 0;
     }
-    public Player(String image, Deck playerDeck ) {
+    public Player(String pImage, Game pGame, Deck playerDeck ) {
 
         this.hp = 20;
-        this.image = image;
         this.isAlive = true;
         this.evTotal = 0;
         this.playerDeck = playerDeck;
+        setUpBitmap(pImage,pGame.getAssetManager());
 }
+    public Player(String pImage, Game pGame){
+        this.hp = 20;
+        this.isAlive = true;
+        this.evTotal = 0;
+        setUpBitmap(pImage,pGame.getAssetManager());
+    }
+
+    private void setUpBitmap(String pImage, AssetStore pAssetManger){
+        pAssetManger.loadAndAddBitmap(pImage, "img/PlayerIcons/"+pImage+".png");
+        bitmapImage = pAssetManger.getBitmap(pImage);
+    }
 
     public static boolean createWinner(int HP1, int HP2) {
         if (HP1 > HP2) {

@@ -13,7 +13,7 @@ import android.graphics.Rect;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
@@ -42,11 +42,11 @@ public class RenderGameScreen extends GameScreen {
         super("RenderGameScreen", game);
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
 
-        Deck aiDeck = new Deck();
-        aiDeck.generateAIDeck(game);
 
-        playerAI = new Player("", aiDeck);
-        player = new Player("", playerDeck);
+
+
+        playerAI = new PlayerAi("PlayerAiIcon",game);
+        player = new Player("PlayerIcon", game, playerDeck);
 
 
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
@@ -64,7 +64,7 @@ public class RenderGameScreen extends GameScreen {
         AssetStore assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
         assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
-        assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/pph.png");
+        assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
 
         mQueensBackground = new GameObject(LEVEL_WIDTH / 2.0f,
                 LEVEL_HEIGHT / 2.0f, LEVEL_WIDTH, LEVEL_HEIGHT, getGame()
@@ -85,7 +85,7 @@ public class RenderGameScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
 
 
-        //Drawing decks
+
 
 
         // unknown code
@@ -122,14 +122,19 @@ public class RenderGameScreen extends GameScreen {
         iGraphics2D.clipRect(mScreenViewport.toRect());
 
         mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        mPlayerCards.draw(elapsedTime, iGraphics2D, mLayerViewport,
+                mScreenViewport);
+
         //Draw Deck
         Bitmap deck = mGame.getAssetManager().getBitmap("deckimg");
         Bitmap deck2 = mGame.getAssetManager().getBitmap("deckimg");
 
-        Rect deckRect = player.playerDeck.drawDeck(GenAlgorithm.field.BOTTOM, iGraphics2D);
+        Rect deckRect = player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
         iGraphics2D.drawBitmap(deck, null, deckRect, null);
 
-        Rect deckRect2 = playerAI.playerDeck.drawDeck(GenAlgorithm.field.TOP, iGraphics2D);
+        Rect deckRect2 = playerAI.playerDeck.drawDeck(genAlgorithm.field.TOP, iGraphics2D);
         iGraphics2D.drawBitmap(deck2, null, deckRect2, null);
+
+
     }
 }

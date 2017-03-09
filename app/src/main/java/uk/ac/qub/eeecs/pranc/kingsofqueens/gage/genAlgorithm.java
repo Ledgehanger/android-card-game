@@ -14,17 +14,20 @@ import static android.content.ContentValues.TAG;
  */
 
 public class genAlgorithm {
-    // Based on Knuth's shuffle algorithm
+
     public enum field {
         TOP,
         BOTTOM
     }
+
+    // Based on Knuth's shuffle algorithm
     public static void knuthShuffle(List<Card> array){
         int totalSize = array.size();
         for(int count = 0; count < totalSize; count++){
-            int randomPostion = count + (int) (Math.random() * (totalSize - count));
-            Card swap = array.get(randomPostion);
-            array.set(randomPostion,array.get(count));
+            int randomPos = count + (int) (Math.random() * (totalSize - count));
+
+            Card swap = array.get(randomPos);
+            array.set(randomPos,array.get(count));
             array.set(count, swap);
         }
     }
