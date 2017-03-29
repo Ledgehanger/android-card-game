@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 /**
  * Created by Nicola on 22/11/2016.
@@ -13,17 +15,16 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 
 public class Player {
 
-    int hp = 100;
-    int ID;
-    float x, y;
-    Bitmap bitmapImage;
-    boolean isAlive;
+    protected int hp = 100;
+    protected int ID;
+    protected float x, y;
+    protected Bitmap bitmapImage;
+    protected boolean isAlive;
+    protected int evTotal;
+    protected Deck playerDeck;
+    protected Hand playerHand;
+    protected Rect playerIcon, playerHp;
 
-
-    int evTotal;
-    Deck playerDeck;
-    Hand playerHand;
-    Rect playerIcon, playerHp;
 
     public boolean DamageTaken(int Totaldamage) {
         hp -= Totaldamage;
@@ -53,7 +54,7 @@ public class Player {
         setUpBitmap(pImage,pGame.getAssetManager());
     }
 
-    private void setUpBitmap(String pImage, AssetStore pAssetManger){
+    protected void setUpBitmap(String pImage, AssetStore pAssetManger){
         pAssetManger.loadAndAddBitmap(pImage, "img/PlayerIcons/"+pImage+".png");
         bitmapImage = pAssetManger.getBitmap(pImage);
     }
@@ -65,7 +66,6 @@ public class Player {
             return false;
         }
     }
-
 
     public int getEvTotal() {
         return evTotal;
@@ -92,6 +92,47 @@ public class Player {
         return this.hp;
     }
 
+    public Bitmap getBitmapImage() {
+        return bitmapImage;
+    }
+
+    public void drawPlayer(genAlgorithm.field side, IGraphics2D iGraphics2D) {
+        float top;
+        float bot;
+        float leftSide;
+
+        int left;
+        int right;
+        int topI;
+        int botI;
+
+        if (playerIcon == null) {
+            if (side == genAlgorithm.field.TOP) {
+                top = 0;
+                bot = iGraphics2D.getSurfaceHeight();
+
+                leftSide = iGraphics2D.getSurfaceWidth();
+                left = (int) leftSide - 100;
+                right = (int) leftSide;
+                topI = (int) top;
+                botI = (int) ((bot) - (bot / 1.5)) - 75;
+                playerIcon = new Rect(left, topI, right, botI);
+
+            } else {
+                top = iGraphics2D.getSurfaceHeight() / 2;
+                bot = iGraphics2D.getSurfaceHeight();
+
+                leftSide = iGraphics2D.getSurfaceWidth();
+                left = (int) leftSide - 100;
+                right = (int) leftSide;
+                topI = (int) ((top) + (top / 4) + 105);
+                botI = (int) bot;
+                playerIcon = new Rect(left, topI, right, botI);
+            }
+        }
+        iGraphics2D.drawBitmap(getBitmapImage(),null,playerIcon,null);
+
+    }
 
 
 }

@@ -1,4 +1,5 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 
@@ -27,6 +28,7 @@ public class Deck{
     public static final String DECKPATH = "Decks/";
     public static final String JSON = ".json";
 
+    private Bitmap deckImg;
     private Rect deckRect;
     private ArrayList<Card> playerDeck = new ArrayList<> ();
 
@@ -124,7 +126,7 @@ public class Deck{
         return playerDeck.size();
     }
 
-    public Rect drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D) {
+    public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D) {
         float top;
         float bot;
         float leftSide;
@@ -159,13 +161,20 @@ public class Deck{
             }
         }
 
-        return deckRect;
+        iGraphics2D.drawBitmap(deckImg,null,deckRect,null);
     }
 
     public boolean isDeckIsEmpty() {
         return deckIsEmpty;
     }
 
+    public Bitmap getDeckImg() {
+        return deckImg;
+    }
+
+    public void setDeckImg(Bitmap deckImg) {
+        this.deckImg = deckImg;
+    }
 }
 
 

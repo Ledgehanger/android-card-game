@@ -44,10 +44,11 @@ public class RenderGameScreen extends GameScreen {
 
 
 
-
         playerAI = new PlayerAi("PlayerAiIcon",game);
         player = new Player("PlayerIcon", game, playerDeck);
 
+        playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
+        player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
 
         mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
                 game.getScreenHeight());
@@ -89,31 +90,31 @@ public class RenderGameScreen extends GameScreen {
 
 
         // unknown code
-        mPlayerCards.update(elapsedTime);
-
-        BoundingBox playerBound = mPlayerCards.getBound();
-        if (playerBound.getLeft() < 0)
-            mPlayerCards.position.x -= playerBound.getLeft();
-        else if (playerBound.getRight() > LEVEL_WIDTH)
-            mPlayerCards.position.x -= (playerBound.getRight() - LEVEL_WIDTH);
-
-        if (playerBound.getBottom() < 0)
-            mPlayerCards.position.y -= playerBound.getBottom();
-        else if (playerBound.getTop() > LEVEL_HEIGHT)
-            mPlayerCards.position.y -= (playerBound.getTop() - LEVEL_HEIGHT);
-
-        mLayerViewport.x = mPlayerCards.position.x;
-        mLayerViewport.y = mPlayerCards.position.y;
-
-        if (mLayerViewport.getLeft() < 0)
-            mLayerViewport.x -= mLayerViewport.getLeft();
-        else if (mLayerViewport.getRight() > LEVEL_WIDTH)
-            mLayerViewport.x -= (mLayerViewport.getRight() - LEVEL_WIDTH);
-
-        if (mLayerViewport.getBottom() < 0)
-            mLayerViewport.y -= mLayerViewport.getBottom();
-        else if (mLayerViewport.getTop() > LEVEL_HEIGHT)
-            mLayerViewport.y -= (mLayerViewport.getTop() - LEVEL_HEIGHT);
+//        mPlayerCards.update(elapsedTime);
+//
+//        BoundingBox playerBound = mPlayerCards.getBound();
+//        if (playerBound.getLeft() < 0)
+//            mPlayerCards.position.x -= playerBound.getLeft();
+//        else if (playerBound.getRight() > LEVEL_WIDTH)
+//            mPlayerCards.position.x -= (playerBound.getRight() - LEVEL_WIDTH);
+//
+//        if (playerBound.getBottom() < 0)
+//            mPlayerCards.position.y -= playerBound.getBottom();
+//        else if (playerBound.getTop() > LEVEL_HEIGHT)
+//            mPlayerCards.position.y -= (playerBound.getTop() - LEVEL_HEIGHT);
+//
+//        mLayerViewport.x = mPlayerCards.position.x;
+//        mLayerViewport.y = mPlayerCards.position.y;
+//
+//        if (mLayerViewport.getLeft() < 0)
+//            mLayerViewport.x -= mLayerViewport.getLeft();
+//        else if (mLayerViewport.getRight() > LEVEL_WIDTH)
+//            mLayerViewport.x -= (mLayerViewport.getRight() - LEVEL_WIDTH);
+//
+//        if (mLayerViewport.getBottom() < 0)
+//            mLayerViewport.y -= mLayerViewport.getBottom();
+//        else if (mLayerViewport.getTop() > LEVEL_HEIGHT)
+//            mLayerViewport.y -= (mLayerViewport.getTop() - LEVEL_HEIGHT);
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
@@ -121,20 +122,17 @@ public class RenderGameScreen extends GameScreen {
         iGraphics2D.clear(Color.BLACK);
         iGraphics2D.clipRect(mScreenViewport.toRect());
 
-        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-        mPlayerCards.draw(elapsedTime, iGraphics2D, mLayerViewport,
-                mScreenViewport);
+//        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+//        mPlayerCards.draw(elapsedTime, iGraphics2D, mLayerViewport,
+//                mScreenViewport);
 
         //Draw Deck
-        Bitmap deck = mGame.getAssetManager().getBitmap("deckimg");
-        Bitmap deck2 = mGame.getAssetManager().getBitmap("deckimg");
+       player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
+       playerAI.playerDeck.drawDeck(genAlgorithm.field.TOP, iGraphics2D);
 
-        Rect deckRect = player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
-        iGraphics2D.drawBitmap(deck, null, deckRect, null);
-
-        Rect deckRect2 = playerAI.playerDeck.drawDeck(genAlgorithm.field.TOP, iGraphics2D);
-        iGraphics2D.drawBitmap(deck2, null, deckRect2, null);
-
+        //Draw Player
+        playerAI.drawPlayer(genAlgorithm.field.TOP, iGraphics2D);
+        player.drawPlayer(genAlgorithm.field.BOTTOM, iGraphics2D);
 
     }
 }
