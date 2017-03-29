@@ -1,8 +1,10 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
@@ -18,27 +20,21 @@ public class Player {
     protected int hp = 100;
     protected int ID;
     protected float x, y;
-    protected Bitmap bitmapImage;
+    protected Bitmap playerIconBitmap,playerHPBarBitmap;
     protected boolean isAlive;
     protected int evTotal;
     protected Deck playerDeck;
     protected Hand playerHand;
-    protected Rect playerIcon, playerHp;
-
+    protected Rect playerRectIcon, playerRectHp;
+    protected Paint playerPaint;
+    protected float textSize = 38f;
+    protected String hpBarFileName = "HPBar";
 
     public boolean DamageTaken(int Totaldamage) {
         hp -= Totaldamage;
         return isAlive = hp > 0;
     }
 
-
-    public Player(float x, int HP, float y, String image, boolean isAlive) {
-        this.x = x;
-        this.hp = HP;
-        this.y = y;
-        this.isAlive = isAlive;
-        evTotal = 0;
-    }
     public Player(String pImage, Game pGame, Deck playerDeck ) {
 
         this.hp = 20;
@@ -56,7 +52,9 @@ public class Player {
 
     protected void setUpBitmap(String pImage, AssetStore pAssetManger){
         pAssetManger.loadAndAddBitmap(pImage, "img/PlayerIcons/"+pImage+".png");
-        bitmapImage = pAssetManger.getBitmap(pImage);
+        pAssetManger.loadAndAddBitmap(hpBarFileName, "img/PlayerIcons/"+hpBarFileName+".png");
+        playerIconBitmap = pAssetManger.getBitmap(pImage);
+        playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
     }
 
     public static boolean createWinner(int HP1, int HP2) {
@@ -92,8 +90,8 @@ public class Player {
         return this.hp;
     }
 
-    public Bitmap getBitmapImage() {
-        return bitmapImage;
+    public Bitmap getPlayerIconBitmap() {
+        return playerIconBitmap;
     }
 
     public void drawPlayer(genAlgorithm.field side, IGraphics2D iGraphics2D) {
@@ -106,32 +104,67 @@ public class Player {
         int topI;
         int botI;
 
-        if (playerIcon == null) {
-            if (side == genAlgorithm.field.TOP) {
-                top = 0;
-                bot = iGraphics2D.getSurfaceHeight();
+        if (playerRectIcon == null || playerRectHp == null) {
+            createPlayerRect(side, iGraphics2D);
 
-                leftSide = iGraphics2D.getSurfaceWidth();
-                left = (int) leftSide - 100;
-                right = (int) leftSide;
-                topI = (int) top;
-                botI = (int) ((bot) - (bot / 1.5)) - 75;
-                playerIcon = new Rect(left, topI, right, botI);
-
-            } else {
-                top = iGraphics2D.getSurfaceHeight() / 2;
-                bot = iGraphics2D.getSurfaceHeight();
-
-                leftSide = iGraphics2D.getSurfaceWidth();
-                left = (int) leftSide - 100;
-                right = (int) leftSide;
-                topI = (int) ((top) + (top / 4) + 105);
-                botI = (int) bot;
-                playerIcon = new Rect(left, topI, right, botI);
-            }
         }
-        iGraphics2D.drawBitmap(getBitmapImage(),null,playerIcon,null);
 
+        if(playerPaint == null)
+            playerPaint = setUpPaint();
+
+
+
+
+        iGraphics2D.drawBitmap(playerIconBitmap,null, playerRectIcon,null);
+        iGraphics2D.drawBitmap(playerHPBarBitmap,null,playerRectHp,null);
+        iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX(),playerRectHp.centerY(),playerPaint);
+
+    }
+
+    public Paint setUpPaint(){
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        float textRatio = (float) playerRectHp.width()/ playerRectHp.height();
+        paint.setTextSize(textSize*textRatio);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        return paint;
+    }
+    protected void createPlayerRect(genAlgorithm.field side, IGraphics2D iGraphics2D) {
+        float top , bot, leftSide;
+        int left, right, topPlayerIcon, botPlayerIcon;
+
+        if (side == genAlgorithm.field.TOP) {
+            top = 0;
+            bot = iGraphics2D.getSurfaceHeight();
+
+            leftSide = iGraphics2D.getSurfaceWidth();
+            left = (int) leftSide - 100;
+            right = (int) leftSide;
+            topPlayerIcon = (int) top;
+            botPlayerIcon = (int) ((bot) - (bot / 1.5)) - 75;
+            int topHp = (int)botPlayerIcon + 10;
+            int botHp = topHp + 100;
+
+            playerRectIcon = new Rect(left, topPlayerIcon, right, botPlayerIcon);
+            playerRectHp   = new Rect(left,topHp,right,botHp);
+
+        } else {
+            top = iGraphics2D.getSurfaceHeight() / 2;
+            bot = iGraphics2D.getSurfaceHeight();
+
+            leftSide = iGraphics2D.getSurfaceWidth();
+            left = (int) leftSide - 100;
+            right = (int) leftSide;
+            topPlayerIcon = (int) ((top) + (top / 4) + 105);
+            botPlayerIcon = (int) bot;
+            int topHp = (int)topPlayerIcon - 100;
+            int botHp = topPlayerIcon - 10;
+
+
+            playerRectIcon = new Rect(left, topPlayerIcon, right, botPlayerIcon);
+            playerRectHp   = new Rect(left,topHp,right,botHp);
+
+        }
     }
 
 
