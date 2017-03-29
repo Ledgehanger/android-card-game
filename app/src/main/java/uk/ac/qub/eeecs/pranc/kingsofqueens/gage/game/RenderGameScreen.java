@@ -90,31 +90,31 @@ public class RenderGameScreen extends GameScreen {
 
 
         // unknown code
-//        mPlayerCards.update(elapsedTime);
-//
-//        BoundingBox playerBound = mPlayerCards.getBound();
-//        if (playerBound.getLeft() < 0)
-//            mPlayerCards.position.x -= playerBound.getLeft();
-//        else if (playerBound.getRight() > LEVEL_WIDTH)
-//            mPlayerCards.position.x -= (playerBound.getRight() - LEVEL_WIDTH);
-//
-//        if (playerBound.getBottom() < 0)
-//            mPlayerCards.position.y -= playerBound.getBottom();
-//        else if (playerBound.getTop() > LEVEL_HEIGHT)
-//            mPlayerCards.position.y -= (playerBound.getTop() - LEVEL_HEIGHT);
-//
-//        mLayerViewport.x = mPlayerCards.position.x;
-//        mLayerViewport.y = mPlayerCards.position.y;
-//
-//        if (mLayerViewport.getLeft() < 0)
-//            mLayerViewport.x -= mLayerViewport.getLeft();
-//        else if (mLayerViewport.getRight() > LEVEL_WIDTH)
-//            mLayerViewport.x -= (mLayerViewport.getRight() - LEVEL_WIDTH);
-//
-//        if (mLayerViewport.getBottom() < 0)
-//            mLayerViewport.y -= mLayerViewport.getBottom();
-//        else if (mLayerViewport.getTop() > LEVEL_HEIGHT)
-//            mLayerViewport.y -= (mLayerViewport.getTop() - LEVEL_HEIGHT);
+        mPlayerCards.update(elapsedTime);
+
+        BoundingBox playerBound = mPlayerCards.getBound();
+        if (playerBound.getLeft() < 0)
+            mPlayerCards.position.x -= playerBound.getLeft();
+        else if (playerBound.getRight() > LEVEL_WIDTH)
+            mPlayerCards.position.x -= (playerBound.getRight() - LEVEL_WIDTH);
+
+        if (playerBound.getBottom() < 0)
+            mPlayerCards.position.y -= playerBound.getBottom();
+        else if (playerBound.getTop() > LEVEL_HEIGHT)
+            mPlayerCards.position.y -= (playerBound.getTop() - LEVEL_HEIGHT);
+
+        mLayerViewport.x = mPlayerCards.position.x;
+        mLayerViewport.y = mPlayerCards.position.y;
+
+        if (mLayerViewport.getLeft() < 0)
+            mLayerViewport.x -= mLayerViewport.getLeft();
+        else if (mLayerViewport.getRight() > LEVEL_WIDTH)
+            mLayerViewport.x -= (mLayerViewport.getRight() - LEVEL_WIDTH);
+
+        if (mLayerViewport.getBottom() < 0)
+            mLayerViewport.y -= mLayerViewport.getBottom();
+        else if (mLayerViewport.getTop() > LEVEL_HEIGHT)
+            mLayerViewport.y -= (mLayerViewport.getTop() - LEVEL_HEIGHT);
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
@@ -122,9 +122,9 @@ public class RenderGameScreen extends GameScreen {
         iGraphics2D.clear(Color.BLACK);
         iGraphics2D.clipRect(mScreenViewport.toRect());
 
-//        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-//        mPlayerCards.draw(elapsedTime, iGraphics2D, mLayerViewport,
-//                mScreenViewport);
+        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        mPlayerCards.draw(elapsedTime, iGraphics2D, mLayerViewport,
+                mScreenViewport);
 
         //Draw Deck
        player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
