@@ -27,7 +27,7 @@ public class Player {
     protected Hand playerHand;
     protected Rect playerRectIcon, playerRectHp;
     protected Paint playerPaint;
-    protected float textSize = 38f;
+    protected float textSize = 25f;
     protected String hpBarFileName = "HPBar";
 
     public boolean DamageTaken(int Totaldamage) {
@@ -52,7 +52,9 @@ public class Player {
 
     protected void setUpBitmap(String pImage, AssetStore pAssetManger){
         pAssetManger.loadAndAddBitmap(pImage, "img/PlayerIcons/"+pImage+".png");
-        pAssetManger.loadAndAddBitmap(hpBarFileName, "img/PlayerIcons/"+hpBarFileName+".png");
+        //pAssetManger.loadAndAddBitmap(hpBarFileName, "img/PlayerIcons/"+hpBarFileName+".png");
+        pAssetManger.loadAndAddBitmap(hpBarFileName, "GameScreenImages/HealthMonitor.png");
+
         playerIconBitmap = pAssetManger.getBitmap(pImage);
         playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
     }
@@ -117,13 +119,13 @@ public class Player {
 
         iGraphics2D.drawBitmap(playerIconBitmap,null, playerRectIcon,null);
         iGraphics2D.drawBitmap(playerHPBarBitmap,null,playerRectHp,null);
-        iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX(),playerRectHp.centerY(),playerPaint);
+        iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX()-15,playerRectHp.centerY()+5,playerPaint);
 
     }
 
     public Paint setUpPaint(){
         Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         float textRatio = (float) playerRectHp.width()/ playerRectHp.height();
         paint.setTextSize(textSize*textRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
