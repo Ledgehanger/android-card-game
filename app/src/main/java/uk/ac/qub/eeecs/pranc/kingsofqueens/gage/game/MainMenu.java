@@ -14,6 +14,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ScreenManager;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ public class MainMenu extends GameScreen
         aStore.loadAndAddBitmap("Title","img/MainMenuImages/Title.PNG");
         aStore.loadAndAddBitmap("playBtn","img/MainMenuImages/playBtn.png");
         aStore.loadAndAddBitmap("optionsBtn","img/MainMenuImages/devBtn.png");
+        aStore.loadAndAddBitmap("Test_Card","img/Cards/AE.png");
         aStore.loadAndAddSound("DISC5_02","music/DISC5_02.mp3");
 
     }
@@ -58,10 +60,9 @@ public class MainMenu extends GameScreen
                 mGame.getScreenManager().addScreen(game);
             }
 
-            if(boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0)
-            {
+            if(boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
                 mGame.getScreenManager().removeScreen(this.getName());
-                OptionsScreen game = new OptionsScreen("",mGame);
+                OptionsScreen game = new OptionsScreen("", mGame);
                 mGame.getScreenManager().addScreen(game);
             }
         }
@@ -106,6 +107,16 @@ public class MainMenu extends GameScreen
             iGraphics2D.drawBitmap(koqTitle,null,boundTitle,null);
             iGraphics2D.drawBitmap(playGame,null,boundPlayBtn,null);
             iGraphics2D.drawBitmap(options,null,boundOptionsBtn,null);
+
+            Card card = new Card();
+            Bitmap testCard= aStore.getBitmap("Test_Card");
+
+            int cWidth=testCard.getWidth();
+            int cHeight=testCard.getHeight();
+
+            Rect holdCard=card.drawCardImage(cWidth,cHeight,500,1000,50);
+            iGraphics2D.drawBitmap(testCard,null,holdCard,null);
+
 
         }
         catch (Exception e)

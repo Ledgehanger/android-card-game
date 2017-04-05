@@ -127,7 +127,7 @@ public class Deck{
     }
 
     public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D) {
-        float top;
+    float top;
         float bot;
         float leftSide;
 

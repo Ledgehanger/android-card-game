@@ -99,9 +99,11 @@ public class RenderGameScreen extends GameScreen {
        player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
        playerAI.playerDeck.drawDeck(genAlgorithm.field.TOP, iGraphics2D);
 
+
        //Draw Player
        playerAI.drawPlayer(genAlgorithm.field.TOP, iGraphics2D);
        player.drawPlayer(genAlgorithm.field.BOTTOM, iGraphics2D);
+
 
     }
 }
