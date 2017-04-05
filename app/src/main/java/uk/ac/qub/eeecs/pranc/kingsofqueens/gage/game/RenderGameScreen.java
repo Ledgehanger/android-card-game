@@ -13,7 +13,7 @@ import android.graphics.Rect;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
@@ -126,10 +126,10 @@ public class RenderGameScreen extends GameScreen {
         Bitmap deck = mGame.getAssetManager().getBitmap("deckimg");
         Bitmap deck2 = mGame.getAssetManager().getBitmap("deckimg");
 
-        Rect deckRect = player.playerDeck.drawDeck(GenAlgorithm.field.BOTTOM, iGraphics2D);
+        Rect deckRect = player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
         iGraphics2D.drawBitmap(deck, null, deckRect, null);
 
-        Rect deckRect2 = playerAI.playerDeck.drawDeck(GenAlgorithm.field.TOP, iGraphics2D);
+        Rect deckRect2 = playerAI.playerDeck.drawDeck(genAlgorithm.field.TOP, iGraphics2D);
         iGraphics2D.drawBitmap(deck2, null, deckRect2, null);
     }
 }

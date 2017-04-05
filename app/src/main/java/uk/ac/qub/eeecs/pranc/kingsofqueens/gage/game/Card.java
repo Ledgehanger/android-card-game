@@ -5,9 +5,8 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  * Will Contain various methods which relate to the use of card in the game
  * Methods desc to come later
  */
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.GenAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 
@@ -16,8 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Paint;
 
 public class Card{
     /* Initial properties
@@ -163,7 +162,7 @@ public class Card{
         this.evCost = evCost;
         this.inDeck = inDeck;
         this.imgPath = imgPath;
-        this.ability = GenAlgorithm.findAbility(Ability);
+       // this.ability = genAlgorithm.findAbility(Ability);
     }
 
 
@@ -244,21 +243,26 @@ public class Card{
 
     }
 
-    public void drawCardImage(String imgPath,String HP, String ATK, int x, int y)
+    public Paint formatText()
+    {
+        Paint paint = new Paint();
+
+        return paint;
+    }
+
+    public Rect drawCardImage(int cWidth,int cHeight, int x, int y,int scaleFactor)
     {
         Rect holdCard;
-        Bitmap cardImage;
-        cardImage = newGame.getAssetManager().getBitmap(imgPath);
 
-        int cardLeft=(cg2D.getSurfaceWidth()-x);
-        int cardRight=x;
-        int cardTop=(cg2D.getSurfaceHeight()/2);
-        int cardBottom= cardTop+y;
+        int cardLeft=x-cWidth+scaleFactor;
+        int cardRight=x-scaleFactor;
+        int cardTop=y-cHeight+scaleFactor;
+        int cardBottom= y-scaleFactor;
 
         holdCard=new Rect(cardLeft,cardTop,cardRight,cardBottom);
 
-        cg2D.drawBitmap(cardImage,null,holdCard,null);
-        cg2D.drawText(HP,cardLeft,cardBottom,null);
-        cg2D.drawText(ATK,cardRight,cardBottom,null);
+        return holdCard;
+
+
     }
 }
