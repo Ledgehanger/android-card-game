@@ -17,12 +17,13 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class Player {
 
-    protected int hp = 100;
+    protected int hp;
     protected int ID;
     protected float x, y;
     protected Bitmap playerIconBitmap,playerHPBarBitmap;
     protected boolean isAlive;
     protected int evTotal;
+
     protected Deck playerDeck;
     protected Hand playerHand;
     protected Rect playerRectIcon, playerRectHp;
@@ -34,7 +35,10 @@ public class Player {
         hp -= Totaldamage;
         return isAlive = hp > 0;
     }
-
+    public Player(){
+        this.hp = 20;
+        this.evTotal = 0;
+    }
     public Player(String pImage, Game pGame, Deck playerDeck ) {
 
         this.hp = 20;
@@ -169,6 +173,9 @@ public class Player {
         }
     }
 
+    public void playerEndTurn(){
+        evTotal++;
+    }
 
 }
 
