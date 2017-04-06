@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
@@ -36,20 +36,20 @@ public class Deck{
         deckRect = null;
     }
 
-    public Deck(Game pGame,String pDeck1, String pDeck2){
+    public Deck(AssetStore assetStore,String pDeck1, String pDeck2){
 
-        loadDecksIntoAssestManger(pGame,pDeck1, pDeck2);
-        setDeckUp(pGame.getAssetManager(), pDeck1, pDeck2);
+        loadDecksIntoAssestManger(assetStore,pDeck1, pDeck2);
+        setDeckUp(assetStore, pDeck1, pDeck2);
     }
     // Refactor json string joining into a method so it gets called instead of d// doing it over and over again
-    public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
-        addJsonToAssetManager(game,NEUTRAL);
-        return addJsonToAssetManager(game,pDeck1) && addJsonToAssetManager(game,pDeck2);
+    public boolean loadDecksIntoAssestManger(AssetStore assetStore, String pDeck1, String pDeck2){
+        addJsonToAssetManager(assetStore,NEUTRAL);
+        return addJsonToAssetManager(assetStore,pDeck1) && addJsonToAssetManager(assetStore,pDeck2);
 
     }
 
-    public boolean addJsonToAssetManager(Game game,String deckName) {
-        return game.getAssetManager().loadAndAddJson(deckName, DECKPATH + deckName + JSON);
+    public boolean addJsonToAssetManager(AssetStore assetStore,String deckName) {
+        return assetStore.loadAndAddJson(deckName, DECKPATH + deckName + JSON);
     }
 
     public void shuffle(){

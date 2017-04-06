@@ -38,20 +38,23 @@ public class Player {
     public Player(){
         this.hp = 20;
         this.evTotal = 0;
+        this.isAlive = true;
     }
-    public Player(String pImage, Game pGame, Deck playerDeck ) {
+    public Player(String pImage, AssetStore assetStore, Deck playerDeck ) {
 
         this.hp = 20;
         this.isAlive = true;
         this.evTotal = 0;
         this.playerDeck = playerDeck;
-        setUpBitmap(pImage,pGame.getAssetManager());
-}
-    public Player(String pImage, Game pGame){
+        if (assetStore != null)
+            setUpBitmap(pImage, assetStore);
+    }
+    public Player(String pImage, AssetStore assetStore){
         this.hp = 20;
         this.isAlive = true;
         this.evTotal = 0;
-        setUpBitmap(pImage,pGame.getAssetManager());
+        if(assetStore != null)
+            setUpBitmap(pImage,assetStore);
     }
 
     protected void setUpBitmap(String pImage, AssetStore pAssetManger){
@@ -176,7 +179,7 @@ public class Player {
     public void playerEndTurn(){
         evTotal++;
     }
-
+    public boolean getIsAlive(){return isAlive;}
 }
 
 

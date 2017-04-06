@@ -12,7 +12,7 @@ public class PlayerAi extends Player {
 
     public PlayerAi(String image, Game pGame)
     {
-        super(image,pGame);
+        super(image,pGame.getAssetManager());
         generateAIDeck(pGame);
     }
 
@@ -35,7 +35,7 @@ public class PlayerAi extends Player {
             pickedDecks[i] = deckNames[randomNumber];
         }
 
-        playerDeck = new Deck(game,pickedDecks[0], pickedDecks[1]);
+        playerDeck = new Deck(game.getAssetManager(),pickedDecks[0], pickedDecks[1]);
 
     }
 
