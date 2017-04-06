@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory.Options;
 import android.media.SoundPool;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
+
 import org.json.JSONArray;
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +25,8 @@ import java.io.OutputStream;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.audio.Music;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.audio.Sound;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Input support across standard file stores.
@@ -143,7 +147,7 @@ public class FileIO {
 			result = sb.toString();
 			jObject = new JSONArray(result);
 		} catch(Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, "findAbility: ");
 		}
 
 		return jObject;

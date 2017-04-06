@@ -104,18 +104,18 @@ public class BoundingBox {
 	}
 	
 	/**
-	 * Return the top bound
+	 * Return the TOP bound
 	 * 
-	 * @return top side location of the bound
+	 * @return TOP side location of the bound
 	 */
 	public float getTop() {
 		return y + halfHeight;				
 	}
 	
 	/**
-	 * Return the bottom bound
+	 * Return the BOTTOM bound
 	 * 
-	 * @return bottom side location of the bound
+	 * @return BOTTOM side location of the bound
 	 */
 	public float getBottom() {
 		return y - halfHeight;				

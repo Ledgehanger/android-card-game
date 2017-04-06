@@ -16,7 +16,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 
-public class Hand {
+public class  Hand {
     //The max number of cards a player can have in their hand is 3 cards(temp)
     final static int maxHandSize = 3;
     //These are the coordinates for the Cards on the field

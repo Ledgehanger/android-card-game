@@ -2,36 +2,31 @@
   {
     "name": "Psych",
     "path": "Decks/Psych.json",
-    "img": "examplefornow"
+    "img": "img/PickDeckImages/psychbtn.png"
   },
   {
     "name": "Engineering",
     "path": "Decks/Engineering.json",
-    "img": "examplefornow"
+    "img": "img/PickDeckImages/engbtn.png"
   },
   {
     "name": "Theology",
     "path": "Decks/Theology.json",
-    "img": "examplefornow"
+    "img": "img/PickDeckImages/theobtn.png"
   },
   {
     "name": "Medical",
     "path": "Decks/Medical.json",
-    "img": "examplefornow"
+    "img": "img/PickDeckImages/medbtn.png"
   },
   {
     "name": "CS",
     "path": "Decks/CS.json",
-    "img": "examplefornow"
+    "img":"img/PickDeckImages/csbtn.png"
   },
   {
     "name": "Law",
     "path": "Decks/Law.json",
-    "img": "examplefornow"
-  },
-  {
-    "name": "Neutral",
-    "path": "Decks/Neutral.json",
-    "img": "examplefornow"
+    "img" : "img/PickDeckImages/lawbtn.png"
   }
 ]
