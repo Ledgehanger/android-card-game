@@ -16,6 +16,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 
+
 public class  Hand {
     //The max number of cards a player can have in their hand is 3 cards(temp)
     final static int maxHandSize = 3;
@@ -25,30 +26,11 @@ public class  Hand {
     final static float pos2Y = 235;
     final static float pos3Y = 275;
 
-    Card[] Hand = new Card[maxHandSize];
-
-    public Hand(Card[] hand) {
-        Hand = hand;
-    }
-
-    //Counts how many cards is currently in the hand and returns it as an int
-    public int CheckHandSize(){
-        int needCards = 0;
-        for(int i = 0; i< maxHandSize; i++){
-            if(Hand[i] == null)
-                needCards++;
-        }
-        return needCards;
-    }
-
-    //Updates the position of the cards on the player screen as they are played
-    public void CardPositionUpdate(){
-
-    }
-    //When cards are played they need to be removed from the Hand
-    public void removeCard(int cardPostion){
-        Hand[0] = null;
+    public Card Card1;
+    public Card Card2;
+    public Card Card3;
 
 
-    }
+
+
 }
