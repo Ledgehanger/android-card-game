@@ -37,7 +37,6 @@ public class MainMenu extends GameScreen
         aStore.loadAndAddBitmap("Title","img/MainMenuImages/Title.PNG");
         aStore.loadAndAddBitmap("playBtn","img/MainMenuImages/playBtn.png");
         aStore.loadAndAddBitmap("optionsBtn","img/MainMenuImages/devBtn.png");
-        aStore.loadAndAddBitmap("Test_Card","img/Cards/AE.png");
         aStore.loadAndAddSound("DISC5_02","music/DISC5_02.mp3");
 
     }
@@ -107,15 +106,6 @@ public class MainMenu extends GameScreen
             iGraphics2D.drawBitmap(koqTitle,null,boundTitle,null);
             iGraphics2D.drawBitmap(playGame,null,boundPlayBtn,null);
             iGraphics2D.drawBitmap(options,null,boundOptionsBtn,null);
-
-            Card card = new Card();
-            Bitmap testCard= aStore.getBitmap("Test_Card");
-
-            int cWidth=testCard.getWidth();
-            int cHeight=testCard.getHeight();
-
-            Rect holdCard=card.drawCardImage(cWidth,cHeight,500,1000,50);
-            iGraphics2D.drawBitmap(testCard,null,holdCard,null);
 
 
         }

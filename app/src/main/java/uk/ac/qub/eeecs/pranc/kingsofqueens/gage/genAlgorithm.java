@@ -15,6 +15,7 @@ import static android.content.ContentValues.TAG;
 
 public class genAlgorithm {
 
+
     public enum field {
         TOP,
         BOTTOM
