@@ -17,47 +17,50 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class Player {
 
-    protected int hp = 100;
+    protected int hp;
     protected int ID;
     protected float x, y;
     protected Bitmap playerIconBitmap,playerHPBarBitmap;
     protected boolean isAlive;
     protected int evTotal;
+
     protected Deck playerDeck;
     protected Hand playerHand;
     protected Rect playerRectIcon, playerRectHp;
     protected Paint playerPaint;
     protected float textSize = 25f;
     protected String hpBarFileName = "HPBar";
-
-    public boolean DamageTaken(int Totaldamage) {
-        hp -= Totaldamage;
-        return isAlive = hp > 0;
+    
+    public boolean DamageTaken(int totalDamage) {
+        hp -= totalDamage;
+        isAlive = hp > 0;
+        return isAlive;
     }
-
-    public Player(String pImage, Game pGame, Deck playerDeck ) {
+    
+    public Player(){
+        this.hp = 20;
+        this.evTotal = 0;
+        this.isAlive = true;
+    }
+    
+    public Player(String pImage, AssetStore assetStore, Deck playerDeck ) {
 
         this.hp = 20;
         this.isAlive = true;
         this.evTotal = 0;
         this.playerDeck = playerDeck;
-        setUpBitmap(pImage,pGame.getAssetManager());
-}
-    public Player(String pImage, Game pGame){
+        if (assetStore != null)
+            setUpBitmap(pImage, assetStore);
+    }
+    
+    public Player(String pImage, AssetStore assetStore){
         this.hp = 20;
         this.isAlive = true;
         this.evTotal = 0;
-        setUpBitmap(pImage,pGame.getAssetManager());
+        if(assetStore != null)
+            setUpBitmap(pImage,assetStore);
     }
 
-    protected void setUpBitmap(String pImage, AssetStore pAssetManger){
-        pAssetManger.loadAndAddBitmap(pImage, "img/PlayerIcons/"+pImage+".png");
-        //pAssetManger.loadAndAddBitmap(hpBarFileName, "img/PlayerIcons/"+hpBarFileName+".png");
-        pAssetManger.loadAndAddBitmap(hpBarFileName, "GameScreenImages/HealthMonitor.png");
-
-        playerIconBitmap = pAssetManger.getBitmap(pImage);
-        playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
-    }
 
     public static boolean createWinner(int HP1, int HP2) {
         if (HP1 > HP2) {
@@ -131,6 +134,13 @@ public class Player {
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
     }
+
+    public void playerEndTurn(){
+        evTotal++;
+    }
+
+    public boolean getIsAlive(){return isAlive;}
+
     protected void createPlayerRect(genAlgorithm.field side, IGraphics2D iGraphics2D) {
         float top , bot, leftSide;
         int left, right, topPlayerIcon, botPlayerIcon;
@@ -169,6 +179,14 @@ public class Player {
         }
     }
 
+    protected void setUpBitmap(String pImage, AssetStore pAssetManger){
+        pAssetManger.loadAndAddBitmap(pImage, "img/PlayerIcons/"+pImage+".png");
+        //pAssetManger.loadAndAddBitmap(hpBarFileName, "img/PlayerIcons/"+hpBarFileName+".png");
+        pAssetManger.loadAndAddBitmap(hpBarFileName, "GameScreenImages/HealthMonitor.png");
+
+        playerIconBitmap = pAssetManger.getBitmap(pImage);
+        playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
+    }
 
 }
 

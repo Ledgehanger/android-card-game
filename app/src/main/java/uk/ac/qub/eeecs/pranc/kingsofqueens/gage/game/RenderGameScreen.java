@@ -45,7 +45,7 @@ public class RenderGameScreen extends GameScreen {
 
 
         playerAI = new PlayerAi("PlayerAiIcon",game);
-        player = new Player("PlayerIcon", game, playerDeck);
+        player = new Player("PlayerIcon", game.getAssetManager(), playerDeck);
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));

@@ -26,16 +26,19 @@ public class Ability_Test {
 
     @Test
     public void effectAddEv(){
-        //test = new Player(20,20,20,"test",true);
+
+        test = new Player();
+
 
         ability = genAlgorithm.findAbility(AddPath);
         ability.effect(test,"level1");
         assertEquals(1,test.getEvTotal());
 
-        //ability.effect(test,"level2");
+        test = new Player();
+        ability.effect(test,"level2");
         assertEquals(2,test.getEvTotal());
 
-        //test = new Player(20,20,20,"test",true);
+        test = new Player();
         ability.effect(test,"level3");
         assertEquals(3,test.getEvTotal());
 
@@ -43,7 +46,9 @@ public class Ability_Test {
 
     @Test
     public void healEffectOnMaxHp(){
-       // test = new Player(20,20,20,"20",true);
+
+        test = new Player();
+
         ability = genAlgorithm.findAbility(HealPath);
         ability.effect(test,"level3");
         assertEquals(20,test.getHp());
@@ -51,20 +56,29 @@ public class Ability_Test {
 
     @Test
     public void healEffectLevel1(){
+
        // test = new Player(18,18,20,"18",true);
+
+        test = new Player();
+        test.DamageTaken(2);
+
         ability = genAlgorithm.findAbility(HealPath);
         ability.effect(test,"level1");
         assertEquals(19,test.getHp());
     }
     public void healEffectLevel2(){
-       // test = new Player(17,17,20,"17",true);
+
+        test = new Player();
+
         ability = genAlgorithm.findAbility(HealPath);
         ability.effect(test,"level2");
         assertEquals(19,test.getHp());
     }
 
     public void healEffectLevel3(){
-        //test = new Player(16,16,20,"16",true);
+
+        test = new Player();
+
         ability = genAlgorithm.findAbility(HealPath);
         ability.effect(test,"level3");
         assertEquals(19,test.getHp());
@@ -73,7 +87,8 @@ public class Ability_Test {
 
     @Test
     public void nullEffect(){
-        //test = new Player(20,20,20,"test",true);
+
+        test = new Player();
         ability = genAlgorithm.findAbility("Fake");
         assertNull(ability);
 
