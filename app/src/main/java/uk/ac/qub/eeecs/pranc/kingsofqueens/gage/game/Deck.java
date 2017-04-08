@@ -115,7 +115,8 @@ public class Deck{
                 int ev          = object.getInt("ev");
                 boolean inDeck  = object.getBoolean("inDeck");
                 String type     = object.getString("type");
-                deck[index] = new Card(id,type,defense,attack,ev,0,inDeck,imgFile,ability);
+                String name     = object.getString("name");
+                deck[index] = new Card(name, id,type,defense,attack,ev,0,inDeck,imgFile,ability,pAssetStore);
             }
         }catch(JSONException e){
             Log.e(TAG, "findAbility: ");

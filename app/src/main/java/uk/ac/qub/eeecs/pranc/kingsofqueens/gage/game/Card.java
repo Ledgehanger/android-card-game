@@ -43,7 +43,7 @@ public class Card{
 
     Game newGame;
     // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here 
-    AssetStore aStore; 
+    AssetStore aStore;
     /* =sGame.getAssetManager(); Doing this breaks the testable of the deck class comment
     out for now to have a quick fix
      */
@@ -66,7 +66,8 @@ public class Card{
     public Bitmap getCardImg(){return cardImg;}
 
 
-    public Card(int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability) {
+    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability, AssetStore aStore) {
+        this.name = name;
         this.id = id;
         this.type = type;
         this.hp = hp;
@@ -75,6 +76,8 @@ public class Card{
         this.evCost = evCost;
         this.ability = genAlgorithm.findAbility(Ability);
         this.inDeck = true;
+        this.picture = cardDraw;
+        this.aStore  = aStore;
         setUpCardBitmap();
     }
 
