@@ -30,7 +30,7 @@ public class Player {
     protected Paint playerPaint;
     protected float textSize = 25f;
     protected String hpBarFileName = "HPBar";
-    
+
     public boolean DamageTaken(int totalDamage) {
         hp -= totalDamage;
         isAlive = hp > 0;
@@ -51,6 +51,19 @@ public class Player {
         this.playerDeck = playerDeck;
         if (assetStore != null)
             setUpBitmap(pImage, assetStore);
+        playerHand = new Hand(playerDeck.drawFromDeck(playerHand.startingHandSize));
+
+    }
+
+    public Player(String pImage, AssetStore assetStore, Deck playerDeck, Hand playerHand) {
+
+        this.hp = 20;
+        this.isAlive = true;
+        this.evTotal = 0;
+        this.playerDeck = playerDeck;
+        if (assetStore != null)
+            setUpBitmap(pImage, assetStore);
+        this.playerHand = playerHand;
     }
     
     public Player(String pImage, AssetStore assetStore){

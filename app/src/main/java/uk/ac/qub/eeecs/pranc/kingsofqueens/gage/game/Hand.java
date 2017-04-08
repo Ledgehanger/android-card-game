@@ -19,18 +19,17 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 
 public class  Hand {
     //The max number of cards a player can have in their hand is 3 cards(temp)
-    final static int maxHandSize = 3;
+    public final static int maxHandSize = 5;
+    public final static int startingHandSize = 3;
     //These are the cooirdinates for the Cards on the field
     final static float posX = 290;
     final static float pos1Y = 195;
     final static float pos2Y = 235;
     final static float pos3Y = 275;
-
+    protected  ArrayList<Card> myHand = new ArrayList<>();
     Card[] Hand = new Card[maxHandSize];
 
-    public Hand(Card[] hand) {
-        Hand = hand;
-    }
+
     //Counts how many cards is currently in the hand and returns it as an int
     public int CheckHandSize(){
         int needCards = 0;
@@ -52,4 +51,26 @@ public class  Hand {
 
 
     }
+
+    public Hand(Card [] fromDeck){
+        for (Card c : fromDeck){
+            myHand.add(c);
+        };
+    }
+
+    public void AddToHand(Card [] fromDeck){
+        for (Card c : fromDeck){
+            if(myHand.size() < maxHandSize)
+            myHand.add(c);
+        };
+    }
+
+    public Card RemoveFromHand(int index){
+        if(index >= 0 && index < maxHandSize)
+            return myHand.remove(index);
+        else
+            return null;
+    }
+
+
 }
