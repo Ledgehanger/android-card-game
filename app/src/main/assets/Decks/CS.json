@@ -39,11 +39,10 @@
     "_id": 8,
     "name": "Computer Science Buidling",
     "attack": 1,
-    "defense": 0,
-    "evcost" : 4,
+    "defense": 4,
     "ability": "DEFAULT",
     "picture": "img/Cards/CSB.png",
-    "inDeck" : false,
+    "inDeck" : true,
     "evCost" : 0,
     "ev"     : 0,
     "type": "CS"

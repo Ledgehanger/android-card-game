@@ -43,7 +43,6 @@
     "name": "Ashby Building",
     "attack": 1,
     "defense": 2,
-    "evcost" : 5,
     "ability": "DEFAULT",
     "picture": "img/Cards/ASH.png",
     "inDeck" : true,

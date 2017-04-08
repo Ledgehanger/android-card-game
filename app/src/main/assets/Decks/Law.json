@@ -29,7 +29,7 @@
     "attack" : 6,
     "defense": 4,
     "ability": "DEFAULT",
-    "picture": "img/Cards/Judge.png",
+    "picture": "img/Cards/JUDGE.png",
     "inDeck" : false,
     "evCost" : 0,
     "ev"     : 0,
@@ -42,7 +42,7 @@
     "defense": 4,
     "ability": "DEFAULT",
     "picture": "img/Cards/LAWB.png",
-    "inDeck" : false,
+    "inDeck" : true,
     "evCost" : 0,
     "ev"     : 0,
     "type"   : "Law"

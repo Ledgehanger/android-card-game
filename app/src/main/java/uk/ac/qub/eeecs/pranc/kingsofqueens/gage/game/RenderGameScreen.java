@@ -40,12 +40,13 @@ public class RenderGameScreen extends GameScreen {
 
     public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
         super("RenderGameScreen", game);
+
+        playerAI = new PlayerAi("PlayerAiIcon",game,genAlgorithm.field.TOP);
+        player = new Player("PlayerIcon", game.getAssetManager(), playerDeck, genAlgorithm.field.BOTTOM);
+
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+        game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
 
-
-
-        playerAI = new PlayerAi("PlayerAiIcon",game);
-        player = new Player("PlayerIcon", game.getAssetManager(), playerDeck);
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
@@ -94,16 +95,9 @@ public class RenderGameScreen extends GameScreen {
 
        //Draw Background
        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-
-       //Draw Deck
-       player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
-       playerAI.playerDeck.drawDeck(genAlgorithm.field.TOP, iGraphics2D);
-
-
        //Draw Player
-       playerAI.drawPlayer(genAlgorithm.field.TOP, iGraphics2D);
-       player.drawPlayer(genAlgorithm.field.BOTTOM, iGraphics2D);
-
+       playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
+       player.drawPlayer(iGraphics2D,getGame().getAssetManager());
 
     }
 }

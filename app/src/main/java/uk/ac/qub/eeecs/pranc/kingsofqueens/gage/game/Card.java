@@ -39,8 +39,9 @@ public class Card{
     protected Rect cardRect;
     public Paint textPaint;
 
-    public float textSize=25f;
+    public float textSize=10f;
 
+    protected final int OFFSET = 200;
     Game newGame;
     // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here 
     AssetStore aStore;
@@ -75,10 +76,10 @@ public class Card{
         this.ev = ev;
         this.evCost = evCost;
         this.ability = genAlgorithm.findAbility(Ability);
-        this.inDeck = true;
+        this.inDeck = inDeck;
         this.picture = cardDraw;
         this.aStore  = aStore;
-        setUpCardBitmap();
+
     }
 
     public Card(int id,String type)
@@ -86,7 +87,6 @@ public class Card{
         this.id=id;
         this.type=type;
         cardJSON(id,type);
-        setUpCardBitmap();
     }
 
     public void cardJSON(int id,String type)
@@ -135,20 +135,26 @@ public class Card{
         }
     }
 
-    public void setUpCardBitmap()
+    public void setUpCardBitmap(int top, boolean drawBack)
     {
-        aStore.loadAndAddBitmap(name,picture);
-        cardImg= aStore.getBitmap(name);
-        width=cardImg.getWidth();
-        height=cardImg.getHeight();
+            if(drawBack){
+                aStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+                cardImg = aStore.getBitmap("deckimg");
+            }else {
+                aStore.loadAndAddBitmap(name, picture);
+                cardImg = aStore.getBitmap(name);
+            }
+            width = OFFSET;
+            height = top;
+
     }
 
-    public void createCardRect(int x, int y)
+    public void createCardRect(int bot, int left, int top)
     {
-        int cardLeft=x-width;
-        int cardRight=x;
-        int cardTop=y-height;
-        int cardBottom=y;
+        int cardLeft=left;
+        int cardRight= left + OFFSET;
+        int cardTop=top;
+        int cardBottom=bot;
 
         cardRect=new Rect(cardLeft,cardTop,cardRight,cardBottom);
     }
@@ -156,23 +162,32 @@ public class Card{
     public Paint formatText()
     {
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        float textRatio = 12F;
-        paint.setTextSize(textSize*textRatio);
+        paint.setColor(Color.BLACK);
+        float textRatio = 40F;
+        paint.setTextSize(textRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
+
     }
 
-    public void drawCard(int x, int y, IGraphics2D iG2D)
+    public void drawCard(int bot, int left, int top, IGraphics2D iG2D,boolean drawBack)
     {
         if(cardRect==null)
-            createCardRect(x,y);
+            createCardRect(bot,left,top);
         if (textPaint==null)
             textPaint=formatText();
+        if(cardImg == null){
+            setUpCardBitmap(top,drawBack);
+        }
+
 
         iG2D.drawBitmap(cardImg,null,cardRect,null);
-        iG2D.drawText(Integer.toString(hp),x-width,y,textPaint);
-        iG2D.drawText(Integer.toString(atk),x,y,textPaint);
+
+        if(!drawBack){
+            iG2D.drawText(Integer.toString(hp),(left+width) - 30,bot - 20,textPaint);
+            iG2D.drawText(Integer.toString(atk),left+23,bot - 20,textPaint);
+        }
+
     }
 
     public int modHP(Card card,int modHP)
