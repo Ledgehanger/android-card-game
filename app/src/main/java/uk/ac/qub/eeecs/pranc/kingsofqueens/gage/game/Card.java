@@ -74,6 +74,7 @@ public class Card{
         this.ev = ev;
         this.evCost = evCost;
         this.ability = genAlgorithm.findAbility(Ability);
+        this.inDeck = true;
         setUpCardBitmap();
     }
 
