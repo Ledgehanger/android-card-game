@@ -103,9 +103,10 @@ public class RenderGameScreen extends GameScreen {
             //do player turn
             if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
                 startPlayerTurn(currentGame.getCurrentPlayerID());
+                currentGame.getNextPhase();
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-            
+                    player.playerHand.update(elapsedTime, input, touchEvents);
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
                 if (currentGame.isFirstTurn())
@@ -149,6 +150,7 @@ public class RenderGameScreen extends GameScreen {
        //Draw Player
        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
        player.drawPlayer(iGraphics2D,getGame().getAssetManager());
+        player.playerHand.drawHand(player.fieldLocation,iGraphics2D,getGame().getAssetManager(),false);
 
     }
 }

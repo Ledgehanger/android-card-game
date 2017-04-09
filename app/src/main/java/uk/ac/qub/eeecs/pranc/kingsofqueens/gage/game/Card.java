@@ -66,6 +66,9 @@ public class Card{
     public void setCardImg(Bitmap cardImg){this.cardImg=cardImg;}
     public Bitmap getCardImg(){return cardImg;}
 
+    //Mark Testing
+    public boolean isPicked = false;
+
 
     public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability, AssetStore aStore) {
         this.name = name;
@@ -155,7 +158,6 @@ public class Card{
         int cardRight= left + OFFSET;
         int cardTop=top;
         int cardBottom=bot;
-
         cardRect=new Rect(cardLeft,cardTop,cardRight,cardBottom);
     }
 
@@ -172,7 +174,10 @@ public class Card{
 
     public void drawCard(int bot, int left, int top, IGraphics2D iG2D,boolean drawBack)
     {
-        if(cardRect==null)
+        if(isPicked){
+            top -= 50;
+            bot -= 50;
+        }
             createCardRect(bot,left,top);
         if (textPaint==null)
             textPaint=formatText();

@@ -19,7 +19,10 @@ import java.util.Queue;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class  Hand {
@@ -37,7 +40,9 @@ public class  Hand {
     protected  ArrayList<Card> myHand;
 
     private Rect handRect;
-
+    final int offset = 166;
+    //Mark Testing
+    public int indexOfPickedCard = -1;
     public Hand(Card [] fromDeck,AssetStore pAssetManger){
         myHand =  new ArrayList<>();
         for (Card c : fromDeck){
@@ -67,19 +72,12 @@ public class  Hand {
 
         float top;
         float bot;
-
-
         int left;
         int right;
         int topI;
         int botI;
+
          handBitmap = pAssetManger.getBitmap(HAND_BITMAP_NAME);
-
-
-
-
-
-
             bot = iGraphics2D.getSurfaceHeight();
             left =  166;
             right = iGraphics2D.getSurfaceWidth() - 150;
@@ -103,7 +101,29 @@ public class  Hand {
 
         for (Card c: myHand) {
             c.drawCard(botI,left,topI,iGraphics2D,drawBack);
-            left += 166;
+            left += offset;
         }
     }
+
+    public void update(ElapsedTime elapsedTime,Input input, List<TouchEvent> touchEvents ) {
+        if(!touchEvents.isEmpty()){
+            TouchEvent touchEvent = touchEvents.get(0);
+            for(int i = 0; i < myHand.size(); i++){
+                Rect c = myHand.get(i).cardRect;
+                if(c.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                    if(indexOfPickedCard >= 0){
+                        myHand.get(indexOfPickedCard).isPicked = false;
+                    }
+                        myHand.get(i).isPicked = true;
+                        indexOfPickedCard = i;
+                }
+            }
+        }
+    }
+
+
+    public Card getPickedCardFromHand(){
+        return myHand.remove(indexOfPickedCard);
+    }
+
 }
