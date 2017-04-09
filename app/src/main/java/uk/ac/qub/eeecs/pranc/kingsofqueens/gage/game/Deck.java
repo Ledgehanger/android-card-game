@@ -74,9 +74,9 @@ public class Deck{
         return hand;
     }
     public boolean setDeckUp(AssetStore assetStore, String pDeckName1, String pDeckName2){
-        addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName1);
-        addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName2);
-        addCardsInDeckToDeckFromJSONFile(assetStore, NEUTRAL);
+        addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName1, SIZEOFCLASSDECK);
+        addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName2, SIZEOFCLASSDECK);
+        addCardsInDeckToDeckFromJSONFile(assetStore, NEUTRAL, SIZEOFNEUTRALDECK);
 
         deckIsEmpty = playerDeck.isEmpty();
 
@@ -86,7 +86,7 @@ public class Deck{
         return deckIsEmpty;
     }
 
-    public void addCardsInDeckToDeckFromJSONFile(AssetStore pAssetStore, String pJsonFileName){
+    public void addCardsInDeckToDeckFromJSONFile(AssetStore pAssetStore, String pJsonFileName, int add){
         JSONArray jsonArray = pAssetStore.getJson(pJsonFileName);
         Card [] deck = new Card[jsonArray.length()];
         try {
@@ -97,13 +97,17 @@ public class Deck{
                 int id          = object.getInt("_id");
                 int attack      = object.getInt("attack");
                 int defense     = object.getInt("defense");
-                String ability  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities." + object.getString("ability");
+                String ability  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities."
+                                    + object.getString("ability");
                 String imgFile  = object.getString("picture");
                 int ev          = object.getInt("ev");
                 String type     = object.getString("type");
                 String name     = object.getString("name");
-                Card local = new Card(name, id,type,defense,attack,ev,0,inDeck,imgFile,ability,pAssetStore);
-                 playerDeck.add(local);
+                    for(int i = 0; i < add; i++){
+                        Card local = new Card(name, id,type,defense,attack,
+                                               ev,0,inDeck,imgFile,ability,pAssetStore);
+                        playerDeck.add(local);
+                    }
                 }
 
             }
