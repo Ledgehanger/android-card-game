@@ -160,6 +160,10 @@ public class Card{
         int cardBottom=bot;
         cardRect=new Rect(cardLeft,cardTop,cardRight,cardBottom);
     }
+    public void setCardToNull()
+    {
+        cardRect = null;
+    }
 
     public Paint formatText()
     {
