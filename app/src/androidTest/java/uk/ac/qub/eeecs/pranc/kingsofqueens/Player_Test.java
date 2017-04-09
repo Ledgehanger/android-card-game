@@ -9,6 +9,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 import static org.junit.Assert.assertEquals;
 
@@ -63,7 +64,7 @@ public class Player_Test {
     private void setUpPlayers(){
         setUpAssetStore();
         Deck deck = setDeck();
-        playerWithAssetStore = new Player(playerImage, assetStore, deck);
+        playerWithAssetStore = new Player(playerImage, assetStore, deck, genAlgorithm.field.BOTTOM);
         defaultPlayer = new Player();
     }
     private void playerAddingEvwithEndTurn(Player pPlayer){

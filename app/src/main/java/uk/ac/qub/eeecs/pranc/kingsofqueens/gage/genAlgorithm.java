@@ -1,4 +1,5 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
+import android.os.DeadObjectException;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -37,10 +38,9 @@ public class genAlgorithm {
     public static Ability findAbility(String path){
         try{
             Ability toReturn;
+
             toReturn = (Ability) Class.forName(path).newInstance();
-            if(toReturn instanceof Default){
-                toReturn.setHasAbility(false);
-            }
+
             return toReturn;
         }catch (InstantiationException e) {
             Log.e(TAG, "InstantiationException: "+ e.getMessage());

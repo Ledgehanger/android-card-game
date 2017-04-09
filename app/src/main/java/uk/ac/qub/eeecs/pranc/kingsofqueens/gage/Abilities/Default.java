@@ -9,5 +9,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 public class Default extends Ability {
 
   public  void effect(Player effectedPlayer, String effectLevel){}
-
+  public Default(){
+    hasAbility = false;
+  }
 }
