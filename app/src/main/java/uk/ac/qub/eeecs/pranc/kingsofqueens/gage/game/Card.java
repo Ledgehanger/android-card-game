@@ -163,7 +163,7 @@ public class Card{
     {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        float textRatio = 40F;
+        float textRatio = 26.6F;
         paint.setTextSize(textRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
