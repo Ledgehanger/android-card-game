@@ -15,6 +15,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ScreenManager;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -72,6 +73,7 @@ public class MainMenu extends GameScreen
     {
         try
         {
+            scaleScreenReso scale= new scaleScreenReso(iGraphics2D);
             Bitmap koqTitle=aStore.getBitmap("Title");
             Bitmap playGame=aStore.getBitmap("playBtn");
             Bitmap options=aStore.getBitmap("optionsBtn");
@@ -92,14 +94,14 @@ public class MainMenu extends GameScreen
                 int optionsTop=(iGraphics2D.getSurfaceHeight()/2);
                 int optionsBottom= optionsTop+options.getHeight();
 
-                boundOptionsBtn= new Rect(optionsLeft,optionsTop,optionsRight,optionsBottom);
+                boundOptionsBtn= scale.scaleRect(optionsTop,optionsLeft,optionsBottom,optionsRight);
 
                 int playLeft=optionsLeft/2;
                 int playRight=optionsRight/2;
                 int playTop=(iGraphics2D.getSurfaceHeight()/2);
                 int playBottom= playTop+playGame.getHeight();
 
-                boundPlayBtn= new Rect(playLeft,playTop,playRight,playBottom);
+                boundPlayBtn= scale.scaleRect(playTop,playLeft,playBottom,playRight);
 
             }
             iGraphics2D.clear(Color.rgb(255,255,255));
