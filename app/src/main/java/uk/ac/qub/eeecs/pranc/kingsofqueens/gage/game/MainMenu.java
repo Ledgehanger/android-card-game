@@ -107,7 +107,6 @@ public class MainMenu extends GameScreen
             iGraphics2D.drawBitmap(playGame,null,boundPlayBtn,null);
             iGraphics2D.drawBitmap(options,null,boundOptionsBtn,null);
 
-
         }
         catch (Exception e)
         {

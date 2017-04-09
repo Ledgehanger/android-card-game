@@ -66,7 +66,7 @@ public class Card{
     public Bitmap getCardImg(){return cardImg;}
 
 
-    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability, AssetStore aStore) {
+    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String picture,String Ability, AssetStore aStore) {
         this.name = name;
         this.id = id;
         this.type = type;
@@ -76,15 +76,16 @@ public class Card{
         this.evCost = evCost;
         this.ability = genAlgorithm.findAbility(Ability);
         this.inDeck = true;
-        this.picture = cardDraw;
+        this.picture = picture;
         this.aStore  = aStore;
         setUpCardBitmap();
     }
 
-    public Card(int id,String type)
+    public Card(int id,String type, AssetStore aStore)
     {
         this.id=id;
         this.type=type;
+        this.aStore=aStore;
         cardJSON(id,type);
         setUpCardBitmap();
     }
@@ -92,7 +93,8 @@ public class Card{
     public void cardJSON(int id,String type)
     {
         try {
-            JSONArray array = newGame.getAssetManager().getJson(type);
+            aStore.loadAndAddJson(type,type+".json");
+            JSONArray array = aStore.getJson(type);
             JSONObject card = array.getJSONObject(id);
 
             name=card.getString("name");
