@@ -128,7 +128,10 @@ public class  Hand {
 
 
     public Card getPickedCardFromHand(){
-        return myHand.remove(indexOfPickedCard);
+        myHand.get(indexOfPickedCard).setCardToNull();
+        Card toReturn =  myHand.remove(indexOfPickedCard);
+        indexOfPickedCard = -1;
+        return toReturn;
     }
 
 }

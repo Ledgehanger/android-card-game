@@ -44,6 +44,7 @@
     "picture": "img/Cards/DKB.png",
     "inDeck" : true,
     "ev"     : 0,
+    "evCost" : 0,
     "type": "Psych"
   }
 ]
