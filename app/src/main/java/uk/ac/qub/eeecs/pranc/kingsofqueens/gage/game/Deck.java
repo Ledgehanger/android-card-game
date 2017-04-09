@@ -101,11 +101,12 @@ public class Deck{
                                     + object.getString("ability");
                 String imgFile  = object.getString("picture");
                 int ev          = object.getInt("ev");
+                int evCost      = object.getInt("evCost");
                 String type     = object.getString("type");
                 String name     = object.getString("name");
                     for(int i = 0; i < add; i++){
                         Card local = new Card(name, id,type,defense,attack,
-                                               ev,0,inDeck,imgFile,ability,pAssetStore);
+                                               ev,evCost,inDeck,imgFile,ability,pAssetStore);
                         playerDeck.add(local);
                     }
                 }
