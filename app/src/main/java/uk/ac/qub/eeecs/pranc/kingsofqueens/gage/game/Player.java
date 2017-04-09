@@ -17,7 +17,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 public class Player {
 
     protected int hp;
-    protected int ID;
+    protected String id;
     protected float x, y;
     protected Bitmap playerIconBitmap,playerHPBarBitmap;
     protected boolean isAlive;
@@ -59,6 +59,7 @@ public class Player {
         if (assetStore != null)
             setUpBitmap( assetStore);
         playerHand = new Hand(playerDeck.drawFromDeck(playerHand.STARTING_HAND_SIZE),assetStore);
+        this.id = "Player";
 
     }
 
@@ -71,6 +72,7 @@ public class Player {
         this.evTotal = STARTING_EV;
         if(assetStore != null)
             setUpBitmap(assetStore);
+        this.id = "AI";
     }
 
 
@@ -138,7 +140,7 @@ public class Player {
         return paint;
     }
 
-    public void playerEndTurn(){
+    public void playerStartTurn(){
         evTotal++;
         if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
             playerHand.AddToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
@@ -193,6 +195,10 @@ public class Player {
         pAssetManger.loadAndAddBitmap(playerImgFile, "img/PlayerIcons/"+playerImgFile+".png");
         playerIconBitmap = pAssetManger.getBitmap(playerImgFile);
         playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
+    }
+
+    public String getId() {
+        return id;
     }
 }
 
