@@ -94,14 +94,14 @@ public class MainMenu extends GameScreen
                 int optionsTop=(iGraphics2D.getSurfaceHeight()/2);
                 int optionsBottom= optionsTop+options.getHeight();
 
-                boundOptionsBtn= scale.scaleRect(optionsTop,optionsLeft,optionsBottom,optionsRight);
+                boundOptionsBtn=new Rect(optionsLeft,optionsTop,optionsRight,optionsBottom);
 
                 int playLeft=optionsLeft/2;
                 int playRight=optionsRight/2;
                 int playTop=(iGraphics2D.getSurfaceHeight()/2);
                 int playBottom= playTop+playGame.getHeight();
 
-                boundPlayBtn= scale.scaleRect(playTop,playLeft,playBottom,playRight);
+                boundPlayBtn= new Rect(playLeft,playTop,playRight,playBottom);
 
             }
             iGraphics2D.clear(Color.rgb(255,255,255));
