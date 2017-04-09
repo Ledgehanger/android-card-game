@@ -110,12 +110,17 @@ public class  Hand {
             TouchEvent touchEvent = touchEvents.get(0);
             for(int i = 0; i < myHand.size(); i++){
                 Rect c = myHand.get(i).cardRect;
-                if(c.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                    if(indexOfPickedCard >= 0){
+                if(c.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
+                    if (indexOfPickedCard == i) {
                         myHand.get(indexOfPickedCard).isPicked = false;
+                        indexOfPickedCard = -1;
+                    } else {
+                            if (indexOfPickedCard >= 0) {
+                                myHand.get(indexOfPickedCard).isPicked = false;
+                            }
+                            myHand.get(i).isPicked = true;
+                            indexOfPickedCard = i;
                     }
-                        myHand.get(i).isPicked = true;
-                        indexOfPickedCard = i;
                 }
             }
         }
