@@ -68,9 +68,9 @@ public class Player_Test {
         defaultPlayer = new Player();
     }
     private void playerAddingEvEndTurn(Player pPlayer){
-        pPlayer.playerEndTurn();
+        pPlayer.playerStartTurn();
         assertEquals(2, pPlayer.getEvTotal());
-        pPlayer.playerEndTurn();
+        pPlayer.playerStartTurn();
         assertEquals(3, pPlayer.getEvTotal());
     }
     private void playerDead(Player pPlayer){
