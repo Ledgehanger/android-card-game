@@ -9,6 +9,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 import static org.junit.Assert.assertEquals;
 
@@ -48,29 +49,29 @@ public class Player_Test {
     @Test
     public void playerAddingOneEVWithEndTurn(){
         setUpPlayers();
-        playerAddingEvwithEndTurn(defaultPlayer);
-        playerAddingEvwithEndTurn(playerWithAssetStore);
+        playerAddingEvEndTurn(defaultPlayer);
+        playerAddingEvEndTurn(playerWithAssetStore);
     }
 
     @Test
     public void playerAddEv() {
         setUpPlayers();
-        playerAddEv(defaultPlayer,10);
-        playerAddEv(playerWithAssetStore,5);
+        playerAddEv(defaultPlayer,11);
+        playerAddEv(playerWithAssetStore,6);
     }
 
 
     private void setUpPlayers(){
         setUpAssetStore();
         Deck deck = setDeck();
-        playerWithAssetStore = new Player(playerImage, assetStore, deck);
+        playerWithAssetStore = new Player(playerImage, assetStore, deck, genAlgorithm.field.BOTTOM);
         defaultPlayer = new Player();
     }
-    private void playerAddingEvwithEndTurn(Player pPlayer){
-        pPlayer.playerEndTurn();
-        assertEquals(1, pPlayer.getEvTotal());
-        pPlayer.playerEndTurn();
+    private void playerAddingEvEndTurn(Player pPlayer){
+        pPlayer.playerStartTurn();
         assertEquals(2, pPlayer.getEvTotal());
+        pPlayer.playerStartTurn();
+        assertEquals(3, pPlayer.getEvTotal());
     }
     private void playerDead(Player pPlayer){
         pPlayer.DamageTaken(1000);
@@ -84,7 +85,7 @@ public class Player_Test {
     }
     private void playerAddEv(Player pPlayer, int total) {
         pPlayer.addToEvTotal(total);
-        assertEquals(total, pPlayer.getEvTotal());
+        assertEquals(total + 1, pPlayer.getEvTotal());
     }
     private void setUpAssetStore(){
         Context appContext = InstrumentationRegistry.getTargetContext();
@@ -92,10 +93,10 @@ public class Player_Test {
     }
     private void checkStartStats(Player pPlayer){
         assertEquals(20, pPlayer.getHp());
-        assertEquals(0, pPlayer.getEvTotal());
+        assertEquals(1, pPlayer.getEvTotal());
         assertEquals(true, pPlayer.getIsAlive());
     }
-    private Deck setDeck(){
+    private Deck setDeck() {
         return new Deck(assetStore, "Psych", "Theology");
     }
 }

@@ -3,6 +3,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import java.util.Random;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 /**
  * Created by markm on 04/03/2017.
@@ -10,10 +11,12 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 
 public class PlayerAi extends Player {
 
-    public PlayerAi(String image, Game pGame)
+    public PlayerAi(String image, Game pGame,genAlgorithm.field fieldLocation)
     {
-        super(image,pGame.getAssetManager());
+        super(image,pGame.getAssetManager(),fieldLocation);
         generateAIDeck(pGame);
+        handDrawCardBack = true;
+        playerHand = new Hand(playerDeck.drawFromDeck(playerHand.STARTING_HAND_SIZE),pGame.getAssetManager());
     }
 
     //Move to AI Class

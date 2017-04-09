@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
@@ -18,11 +17,12 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 public class Player {
 
     protected int hp;
-    protected int ID;
+    protected String id;
     protected float x, y;
     protected Bitmap playerIconBitmap,playerHPBarBitmap;
     protected boolean isAlive;
     protected int evTotal;
+    protected String playerImgFile;
 
     protected Deck playerDeck;
     protected Hand playerHand;
@@ -30,7 +30,13 @@ public class Player {
     protected Paint playerPaint;
     protected float textSize = 25f;
     protected String hpBarFileName = "HPBar";
-    
+
+    protected final int STARTING_EV = 1;
+    protected final int STARTING_HP = 20;
+    protected final int CARDS_PER_TURN = 1;
+    protected genAlgorithm.field fieldLocation;
+    protected boolean handDrawCardBack = false;
+
     public boolean DamageTaken(int totalDamage) {
         hp -= totalDamage;
         isAlive = hp > 0;
@@ -38,27 +44,35 @@ public class Player {
     }
     
     public Player(){
-        this.hp = 20;
-        this.evTotal = 0;
+        this.hp = STARTING_HP;
+        this.evTotal = STARTING_EV;
         this.isAlive = true;
     }
     
-    public Player(String pImage, AssetStore assetStore, Deck playerDeck ) {
-
-        this.hp = 20;
+    public Player(String pImage, AssetStore assetStore, Deck playerDeck,genAlgorithm.field fieldLocation ) {
+        this.fieldLocation = fieldLocation;
+        this.playerImgFile = pImage;
+        this.hp = STARTING_HP;
         this.isAlive = true;
-        this.evTotal = 0;
+        this.evTotal = STARTING_EV;
         this.playerDeck = playerDeck;
         if (assetStore != null)
-            setUpBitmap(pImage, assetStore);
+            setUpBitmap( assetStore);
+        playerHand = new Hand(playerDeck.drawFromDeck(playerHand.STARTING_HAND_SIZE),assetStore);
+        this.id = "Player";
+
     }
-    
-    public Player(String pImage, AssetStore assetStore){
-        this.hp = 20;
+
+    /// Used in PlayerAi
+    public Player(String pImage, AssetStore assetStore,genAlgorithm.field fieldLocation){
+        this.fieldLocation = fieldLocation;
+        this.playerImgFile = pImage;
+        this.hp = STARTING_HP;
         this.isAlive = true;
-        this.evTotal = 0;
+        this.evTotal = STARTING_EV;
         if(assetStore != null)
-            setUpBitmap(pImage,assetStore);
+            setUpBitmap(assetStore);
+        this.id = "AI";
     }
 
 
@@ -99,30 +113,21 @@ public class Player {
         return playerIconBitmap;
     }
 
-    public void drawPlayer(genAlgorithm.field side, IGraphics2D iGraphics2D) {
-        float top;
-        float bot;
-        float leftSide;
-
-        int left;
-        int right;
-        int topI;
-        int botI;
+    public void drawPlayer(IGraphics2D iGraphics2D, AssetStore assetStore) {
 
         if (playerRectIcon == null || playerRectHp == null) {
-            createPlayerRect(side, iGraphics2D);
-
+            createPlayerRect(iGraphics2D, assetStore);
         }
-
         if(playerPaint == null)
             playerPaint = setUpPaint();
-
-
-
 
         iGraphics2D.drawBitmap(playerIconBitmap,null, playerRectIcon,null);
         iGraphics2D.drawBitmap(playerHPBarBitmap,null,playerRectHp,null);
         iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX()-15,playerRectHp.centerY()+5,playerPaint);
+
+        playerDeck.drawDeck(fieldLocation,iGraphics2D);
+        playerHand.drawHand(fieldLocation,iGraphics2D,assetStore,handDrawCardBack);
+
 
     }
 
@@ -135,17 +140,21 @@ public class Player {
         return paint;
     }
 
-    public void playerEndTurn(){
+    public void playerStartTurn(){
         evTotal++;
+        if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
+            playerHand.AddToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }
 
     public boolean getIsAlive(){return isAlive;}
 
-    protected void createPlayerRect(genAlgorithm.field side, IGraphics2D iGraphics2D) {
+    protected void createPlayerRect( IGraphics2D iGraphics2D, AssetStore assetStore) {
         float top , bot, leftSide;
         int left, right, topPlayerIcon, botPlayerIcon;
 
-        if (side == genAlgorithm.field.TOP) {
+        if(playerIconBitmap == null || playerHPBarBitmap == null)
+            setUpBitmap(assetStore);
+        if (fieldLocation == genAlgorithm.field.TOP) {
             top = 0;
             bot = iGraphics2D.getSurfaceHeight();
 
@@ -179,15 +188,18 @@ public class Player {
         }
     }
 
-    protected void setUpBitmap(String pImage, AssetStore pAssetManger){
-        pAssetManger.loadAndAddBitmap(pImage, "img/PlayerIcons/"+pImage+".png");
+    protected void setUpBitmap(AssetStore pAssetManger) {
+
         //pAssetManger.loadAndAddBitmap(hpBarFileName, "img/PlayerIcons/"+hpBarFileName+".png");
         pAssetManger.loadAndAddBitmap(hpBarFileName, "GameScreenImages/HealthMonitor.png");
-
-        playerIconBitmap = pAssetManger.getBitmap(pImage);
+        pAssetManger.loadAndAddBitmap(playerImgFile, "img/PlayerIcons/"+playerImgFile+".png");
+        playerIconBitmap = pAssetManger.getBitmap(playerImgFile);
         playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
     }
 
+    public String getId() {
+        return id;
+    }
 }
 
 

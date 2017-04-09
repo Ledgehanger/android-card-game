@@ -4,11 +4,11 @@
     "name": "Nursing",
     "attack": 2,
     "defense": 3,
-    "ability": "MedicalLevel1",
+    "ability": "Default",
     "picture": "img/Cards/Nursing.png",
     "inDeck" : true,
     "ev" : 21,
-    "evcost" : 3,
+    "evCost" : 3,
     "type": "Medical"
   },
   {
@@ -16,11 +16,11 @@
     "name": "Medicine",
     "attack": 3,
     "defense": 4,
-    "ability": "MedicalLevel2",
+    "ability": "Default",
     "picture": "img/Cards/Medicine.png",
     "inDeck" : false,
     "ev" : 22,
-    "evcost" : 5,
+    "evCost" : 5,
     "type": "Medical"
   },
   {
@@ -28,11 +28,11 @@
     "name": "Specialist Medicine",
     "attack": 3,
     "defense": 4,
-    "ability": "MedicalLevel3",
+    "ability": "Default",
     "picture": "img/Cards/SM.png",
     "inDeck" : false,
     "ev"    : 0,
-    "evcost" : 0,
+    "evCost" : 0,
     "type": "Medical"
   },
   {
@@ -40,11 +40,11 @@
     "name": "Medical Biology Centre",
     "attack": 0,
     "defense": 4,
-    "ability": "DEFAULT",
+    "ability": "Default",
     "picture": "img/Cards/MBC.png",
     "inDeck" : true,
     "ev"     : 0,
-    "evcost" : 0,
+    "evCost" : 0,
     "type": "Medical"
   }
 ]

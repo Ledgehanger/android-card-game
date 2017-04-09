@@ -26,22 +26,20 @@ public class Ability_Test {
 
     @Test
     public void effectAddEv(){
-
-        test = new Player();
-
-
         ability = genAlgorithm.findAbility(AddPath);
-        ability.effect(test,"level1");
-        assertEquals(1,test.getEvTotal());
+        if(ability.getAbility()) {
+            test = new Player();
+            ability.effect(test, "level1");
+            assertEquals(2, test.getEvTotal());
 
-        test = new Player();
-        ability.effect(test,"level2");
-        assertEquals(2,test.getEvTotal());
+            test = new Player();
+            ability.effect(test, "level2");
+            assertEquals(3, test.getEvTotal());
 
-        test = new Player();
-        ability.effect(test,"level3");
-        assertEquals(3,test.getEvTotal());
-
+            test = new Player();
+            ability.effect(test, "level3");
+            assertEquals(4, test.getEvTotal());
+        }
     }
 
     @Test

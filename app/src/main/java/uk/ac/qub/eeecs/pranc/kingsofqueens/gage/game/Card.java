@@ -39,8 +39,9 @@ public class Card{
     protected Rect cardRect;
     public Paint textPaint;
 
-    public float textSize=25f;
+    public float textSize=10f;
 
+    protected final int OFFSET = 133;
     Game newGame;
     // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here 
     AssetStore aStore;
@@ -65,8 +66,11 @@ public class Card{
     public void setCardImg(Bitmap cardImg){this.cardImg=cardImg;}
     public Bitmap getCardImg(){return cardImg;}
 
+    //Mark Testing
+    public boolean isPicked = false;
 
-    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String picture,String Ability, AssetStore aStore) {
+
+    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability, AssetStore aStore) {
         this.name = name;
         this.id = id;
         this.type = type;
@@ -75,10 +79,12 @@ public class Card{
         this.ev = ev;
         this.evCost = evCost;
         this.ability = genAlgorithm.findAbility(Ability);
-        this.inDeck = true;
-        this.picture = picture;
+
+        this.inDeck = inDeck;
+        this.picture = cardDraw;
+
         this.aStore  = aStore;
-        setUpCardBitmap();
+
     }
 
     public Card(int id,String type, AssetStore aStore)
@@ -87,7 +93,6 @@ public class Card{
         this.type=type;
         this.aStore=aStore;
         cardJSON(id,type);
-        setUpCardBitmap();
     }
 
     public void cardJSON(int id,String type)
@@ -137,44 +142,61 @@ public class Card{
         }
     }
 
-    public void setUpCardBitmap()
+    public void setUpCardBitmap(int top, boolean drawBack)
     {
-        aStore.loadAndAddBitmap(name,picture);
-        cardImg= aStore.getBitmap(name);
-        width=cardImg.getWidth();
-        height=cardImg.getHeight();
+            if(drawBack){
+                aStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+                cardImg = aStore.getBitmap("deckimg");
+            }else {
+                aStore.loadAndAddBitmap(name, picture);
+                cardImg = aStore.getBitmap(name);
+            }
+            width = OFFSET;
+            height = top;
+
     }
 
-    public void createCardRect(int x, int y)
+    public void createCardRect(int bot, int left, int top)
     {
-        int cardLeft=x-width;
-        int cardRight=x;
-        int cardTop=y-height;
-        int cardBottom=y;
-
+        int cardLeft=left;
+        int cardRight= left + OFFSET;
+        int cardTop=top;
+        int cardBottom=bot;
         cardRect=new Rect(cardLeft,cardTop,cardRight,cardBottom);
     }
 
     public Paint formatText()
     {
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        float textRatio = 12F;
-        paint.setTextSize(textSize*textRatio);
+        paint.setColor(Color.BLACK);
+        float textRatio = 26.6F;
+        paint.setTextSize(textRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
+
     }
 
-    public void drawCard(int x, int y, IGraphics2D iG2D)
+    public void drawCard(int bot, int left, int top, IGraphics2D iG2D,boolean drawBack)
     {
-        if(cardRect==null)
-            createCardRect(x,y);
+        if(isPicked){
+            top -= 50;
+            bot -= 50;
+        }
+            createCardRect(bot,left,top);
         if (textPaint==null)
             textPaint=formatText();
+        if(cardImg == null){
+            setUpCardBitmap(top,drawBack);
+        }
+
 
         iG2D.drawBitmap(cardImg,null,cardRect,null);
-        iG2D.drawText(Integer.toString(hp),x-width,y,textPaint);
-        iG2D.drawText(Integer.toString(atk),x,y,textPaint);
+
+        if(!drawBack){
+            iG2D.drawText(Integer.toString(hp),(left+width) - 20,bot - 13,textPaint);
+            iG2D.drawText(Integer.toString(atk),left+15,bot - 13,textPaint);
+        }
+
     }
 
     public int modHP(Card card,int modHP)
