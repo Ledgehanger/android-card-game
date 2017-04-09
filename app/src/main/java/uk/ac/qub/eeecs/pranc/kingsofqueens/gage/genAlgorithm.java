@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Default;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 
 import static android.content.ContentValues.TAG;
@@ -37,6 +38,9 @@ public class genAlgorithm {
         try{
             Ability toReturn;
             toReturn = (Ability) Class.forName(path).newInstance();
+            if(toReturn instanceof Default){
+                toReturn.setHasAbility(false);
+            }
             return toReturn;
         }catch (InstantiationException e) {
             Log.e(TAG, "InstantiationException: "+ e.getMessage());

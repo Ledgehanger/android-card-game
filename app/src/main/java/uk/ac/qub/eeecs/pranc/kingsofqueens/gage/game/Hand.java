@@ -81,7 +81,7 @@ public class  Hand {
 
 
             bot = iGraphics2D.getSurfaceHeight();
-            left =  250;
+            left =  166;
             right = iGraphics2D.getSurfaceWidth() - 150;
 
             if (side == genAlgorithm.field.TOP) {
@@ -103,7 +103,7 @@ public class  Hand {
 
         for (Card c: myHand) {
             c.drawCard(botI,left,topI,iGraphics2D,drawBack);
-            left += 250;
+            left += 166;
         }
     }
 }

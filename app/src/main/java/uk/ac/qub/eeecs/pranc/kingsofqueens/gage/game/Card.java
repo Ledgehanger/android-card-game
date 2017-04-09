@@ -41,7 +41,7 @@ public class Card{
 
     public float textSize=10f;
 
-    protected final int OFFSET = 200;
+    protected final int OFFSET = 133;
     Game newGame;
     // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here 
     AssetStore aStore;
@@ -184,8 +184,8 @@ public class Card{
         iG2D.drawBitmap(cardImg,null,cardRect,null);
 
         if(!drawBack){
-            iG2D.drawText(Integer.toString(hp),(left+width) - 30,bot - 20,textPaint);
-            iG2D.drawText(Integer.toString(atk),left+23,bot - 20,textPaint);
+            iG2D.drawText(Integer.toString(hp),(left+width) - 20,bot - 13,textPaint);
+            iG2D.drawText(Integer.toString(atk),left+15,bot - 13,textPaint);
         }
 
     }
