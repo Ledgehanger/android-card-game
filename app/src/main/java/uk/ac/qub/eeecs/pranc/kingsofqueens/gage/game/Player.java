@@ -140,7 +140,8 @@ public class Player {
 
     public void playerEndTurn(){
         evTotal++;
-        playerHand.AddToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
+        if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
+            playerHand.AddToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }
 
     public boolean getIsAlive(){return isAlive;}
