@@ -79,23 +79,27 @@ public class Card{
         this.ev = ev;
         this.evCost = evCost;
         this.ability = genAlgorithm.findAbility(Ability);
+
         this.inDeck = inDeck;
         this.picture = cardDraw;
+
         this.aStore  = aStore;
 
     }
 
-    public Card(int id,String type)
+    public Card(int id,String type, AssetStore aStore)
     {
         this.id=id;
         this.type=type;
+        this.aStore=aStore;
         cardJSON(id,type);
     }
 
     public void cardJSON(int id,String type)
     {
         try {
-            JSONArray array = newGame.getAssetManager().getJson(type);
+            aStore.loadAndAddJson(type,type+".json");
+            JSONArray array = aStore.getJson(type);
             JSONObject card = array.getJSONObject(id);
 
             name=card.getString("name");
