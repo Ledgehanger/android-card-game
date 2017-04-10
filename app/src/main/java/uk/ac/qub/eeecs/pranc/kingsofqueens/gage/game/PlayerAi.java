@@ -16,7 +16,7 @@ public class PlayerAi extends Player {
         super(image,pGame.getAssetManager(),fieldLocation);
         generateAIDeck(pGame);
         handDrawCardBack = true;
-        playerHand = new Hand(playerDeck.drawFromDeck(playerHand.STARTING_HAND_SIZE),pGame.getAssetManager());
+        playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE),pGame.getAssetManager());
     }
 
     //Move to AI Class

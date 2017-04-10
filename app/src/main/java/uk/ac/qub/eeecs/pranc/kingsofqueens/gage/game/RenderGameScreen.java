@@ -106,7 +106,7 @@ public class RenderGameScreen extends GameScreen {
                 currentGame.getNextPhase();
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-                    player.playerHand.update(elapsedTime, input, touchEvents);
+                    player.playerHand.update(elapsedTime, touchEvents);
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
                 if (currentGame.isFirstTurn())

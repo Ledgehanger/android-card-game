@@ -5,44 +5,26 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
  */
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
-import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class  Hand {
-    //The max number of cards a player can have in their hand is 3 cards(temp)
-    public final static int MAX_HAND_SIZE = 5;
-    public final static int STARTING_HAND_SIZE = 3;
-    public final static String HAND_BITMAP_NAME = "Hand";
-    //These are the cooirdinates for the Cards on the field
-    final static float posX = 290;
-    final static float pos1Y = 195;
-    final static float pos2Y = 235;
-    final static float pos3Y = 275;
+    //Constants
+    public final int    MAX_HAND_SIZE       = 5;
+    public final int    HAND_OFFSET         = 166;
+    public final String HAND_BITMAP_NAME    = "Hand";
 
-    protected Bitmap handBitmap;
-    protected  ArrayList<Card> myHand;
+    //Member Attributes
+    private   Bitmap          handBitmap;
+    private   ArrayList<Card> myHand;
+    private   Rect            handRect;
+    private   int             indexOfPickedCard = -1;
 
-    private Rect handRect;
-    final int offset = 166;
-    //Mark Testing
-    public int indexOfPickedCard = -1;
     public Hand(Card [] fromDeck,AssetStore pAssetManger){
         myHand =  new ArrayList<>();
         for (Card c : fromDeck){
@@ -60,13 +42,17 @@ public class  Hand {
         };
     }
 
-    public Card RemoveFromHand(int index){
-        if(index >= 0 && index < MAX_HAND_SIZE)
-            return myHand.remove(index);
-        else
-            return null;
-    }
+    /// Returns the picked card from the myHand, or a null if no card is picked
+    public Card getPickedCardFromHand(){
+        if(indexOfPickedCard != -1) {
+            myHand.get(indexOfPickedCard).setCardToNull();
+            Card toReturn = myHand.remove(indexOfPickedCard);
+            indexOfPickedCard = -1;
+            return toReturn;
+        }
+        return null;
 
+    }
 
     public void drawHand(genAlgorithm.field side, IGraphics2D iGraphics2D,AssetStore pAssetManger, boolean drawBack) {
 
@@ -101,11 +87,10 @@ public class  Hand {
 
         for (Card c: myHand) {
             c.drawCard(botI,left,topI,iGraphics2D,drawBack);
-            left += offset;
+            left += HAND_OFFSET;
         }
     }
-
-    public void update(ElapsedTime elapsedTime,Input input, List<TouchEvent> touchEvents ) {
+    public void update(ElapsedTime elapsedTime, List<TouchEvent> touchEvents ) {
         if(!touchEvents.isEmpty()){
             TouchEvent touchEvent = touchEvents.get(0);
             for(int i = 0; i < myHand.size(); i++){
@@ -127,11 +112,6 @@ public class  Hand {
     }
 
 
-    public Card getPickedCardFromHand(){
-        myHand.get(indexOfPickedCard).setCardToNull();
-        Card toReturn =  myHand.remove(indexOfPickedCard);
-        indexOfPickedCard = -1;
-        return toReturn;
-    }
+
 
 }

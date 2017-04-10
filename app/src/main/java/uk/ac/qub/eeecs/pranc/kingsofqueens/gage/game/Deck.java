@@ -37,13 +37,12 @@ public class Deck{
     }
 
     public Deck(AssetStore assetStore,String pDeck1, String pDeck2){
-
+        addJsonToAssetManager(assetStore,NEUTRAL);
         loadDecksIntoAssestManger(assetStore,pDeck1, pDeck2);
         setDeckUp(assetStore, pDeck1, pDeck2);
     }
     // Refactor json string joining into a method so it gets called instead of d// doing it over and over again
     public boolean loadDecksIntoAssestManger(AssetStore assetStore, String pDeck1, String pDeck2){
-        addJsonToAssetManager(assetStore,NEUTRAL);
         return addJsonToAssetManager(assetStore,pDeck1) && addJsonToAssetManager(assetStore,pDeck2);
 
     }
