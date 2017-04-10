@@ -11,7 +11,7 @@ public class scaleScreenReso {
     protected static double horiScale;
     protected static double vertScale;
     protected static final int DEVRESOVERT=720;
-    protected static final int DEVRESOHORI=1280;
+    protected static final int DEVRESOHORI=1184;
 
     protected IGraphics2D iG2D;
 
@@ -29,7 +29,7 @@ public class scaleScreenReso {
     public void setHoriScale(int horiScale){this.horiScale=horiScale;}
     public void setVertScale(int vertScale){this.vertScale=vertScale;}
 
-    public Rect scaleRect(int top,int left,int bot,int right)
+    public Rect scaleRect(int left,int top,int right,int bot)
     {
             Rect scaleRect;
             scaleRect=new Rect((int)(left*horiScale),(int)(top*vertScale),(int)(right*horiScale),(int)(bot*vertScale));

@@ -15,6 +15,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ScreenManager;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -26,6 +27,7 @@ public class OptionsScreen extends GameScreen
 
     private Rect boundBckBtn,boundFrwBtn,boundTitle;
     AssetStore aStore=mGame.getAssetManager();
+
 
     public OptionsScreen(String newName, Game newGame)
     {
@@ -48,27 +50,28 @@ public class OptionsScreen extends GameScreen
             Bitmap forward = aStore.getBitmap("Forward Button");
             Bitmap back = aStore.getBitmap("Back Button");
 
+            scaleScreenReso scale= new scaleScreenReso(iG2D);
+
             if (boundTitle == null || boundFrwBtn == null || boundBckBtn == null) {
-                int titleLeft = (iG2D.getSurfaceWidth() - title.getWidth());
+                int titleLeft = 550;
                 int titleRight = titleLeft + title.getWidth();
-                int titleTop = (iG2D.getSurfaceHeight() / 2);
+                int titleTop = 100;
                 int titleBottom = titleTop + title.getHeight();
 
-                boundTitle = new Rect(titleLeft, titleTop, titleRight, titleBottom);
+                boundTitle =scale.scaleRect(titleLeft, titleTop, titleRight, titleBottom);
 
-                int forwardLeft = (iG2D.getSurfaceWidth() - forward.getWidth());
+                int forwardLeft = 1000;
                 int forwardRight = forwardLeft + forward.getWidth();
-                int forwardTop = (iG2D.getSurfaceHeight() / 2);
+                int forwardTop =350;
                 int forwardBottom = forwardTop + forward.getHeight();
 
-                boundFrwBtn = new Rect(forwardLeft, forwardTop, forwardRight, forwardBottom);
+                boundFrwBtn = scale.scaleRect(forwardLeft, forwardTop, forwardRight, forwardBottom);
 
-                int backLeft = (iG2D.getSurfaceWidth() - back.getWidth());
+                int backLeft = 100;
                 int backRight = backLeft + back.getWidth();
-                int backTop = (iG2D.getSurfaceHeight() / 2);
-                int backBottom = backTop + back.getHeight();
 
-                boundBckBtn = new Rect(backLeft, backTop, backRight, backBottom);
+
+                boundBckBtn = scale.scaleRect(backLeft, forwardTop, backRight, forwardBottom);
 
             }
 

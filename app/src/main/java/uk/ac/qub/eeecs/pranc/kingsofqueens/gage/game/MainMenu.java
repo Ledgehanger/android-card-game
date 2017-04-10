@@ -26,7 +26,7 @@ public class MainMenu extends GameScreen
 {
 
     //Creates Rect which bound buttons
-    private Rect boundPlayBtn,boundOptionsBtn,boundTitle;
+    private Rect boundPlayBtn,boundOptionsBtn,boundTitle,boundBackground;
 
 
     //Set up AssetStore
@@ -38,6 +38,7 @@ public class MainMenu extends GameScreen
         aStore.loadAndAddBitmap("Title","img/MainMenuImages/Title.PNG");
         aStore.loadAndAddBitmap("playBtn","img/MainMenuImages/playBtn.png");
         aStore.loadAndAddBitmap("optionsBtn","img/MainMenuImages/devBtn.png");
+        aStore.loadAndAddBitmap("BG","img/mmbg.jpg");
         aStore.loadAndAddSound("DISC5_02","music/DISC5_02.mp3");
 
     }
@@ -77,34 +78,41 @@ public class MainMenu extends GameScreen
             Bitmap koqTitle=aStore.getBitmap("Title");
             Bitmap playGame=aStore.getBitmap("playBtn");
             Bitmap options=aStore.getBitmap("optionsBtn");
+            Bitmap bg=aStore.getBitmap("BG");
 
 
             if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null)
             {
+                int bgLeft=0;
+                int bgRight=iGraphics2D.getSurfaceWidth();
+                int bgTop=0;
+                int bgBot=iGraphics2D.getSurfaceHeight();
 
-                int titleLeft= 0;
-                int titleRight= iGraphics2D.getSurfaceWidth();
+                boundBackground=new Rect(bgLeft,bgTop,bgRight,bgBot);
+
+                int titleLeft= 200;
+                int titleRight= titleLeft+koqTitle.getWidth();
                 int titletop= 60;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
                 int titlebottom= 139;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
 
-                boundTitle= new Rect(titleLeft,titletop,titleRight,titlebottom);
+                boundTitle= scale.scaleRect(titleLeft,titletop,titleRight,titlebottom);
 
-                int optionsLeft=(iGraphics2D.getSurfaceWidth()-options.getWidth());
+                int optionsLeft=375;
                 int optionsRight=optionsLeft+options.getWidth();
-                int optionsTop=(iGraphics2D.getSurfaceHeight()/2);
+                int optionsTop=450;
                 int optionsBottom= optionsTop+options.getHeight();
 
-                boundOptionsBtn=new Rect(optionsLeft,optionsTop,optionsRight,optionsBottom);
+                boundOptionsBtn=scale.scaleRect(optionsLeft,optionsTop,optionsRight,optionsBottom);
 
-                int playLeft=optionsLeft/2;
-                int playRight=optionsRight/2;
-                int playTop=(iGraphics2D.getSurfaceHeight()/2);
+
+                int playTop=250;
                 int playBottom= playTop+playGame.getHeight();
 
-                boundPlayBtn= new Rect(playLeft,playTop,playRight,playBottom);
+                boundPlayBtn= scale.scaleRect(optionsLeft,playTop,optionsRight,playBottom);
 
             }
             iGraphics2D.clear(Color.rgb(255,255,255));
+            iGraphics2D.drawBitmap(bg,null,boundBackground,null);
             iGraphics2D.drawBitmap(koqTitle,null,boundTitle,null);
             iGraphics2D.drawBitmap(playGame,null,boundPlayBtn,null);
             iGraphics2D.drawBitmap(options,null,boundOptionsBtn,null);
