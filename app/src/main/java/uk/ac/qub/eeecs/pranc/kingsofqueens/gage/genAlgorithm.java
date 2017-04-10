@@ -1,10 +1,12 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
+import android.os.DeadObjectException;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Default;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 
 import static android.content.ContentValues.TAG;
@@ -14,6 +16,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class genAlgorithm {
+
 
     public enum field {
         TOP,
@@ -35,7 +38,9 @@ public class genAlgorithm {
     public static Ability findAbility(String path){
         try{
             Ability toReturn;
+
             toReturn = (Ability) Class.forName(path).newInstance();
+
             return toReturn;
         }catch (InstantiationException e) {
             Log.e(TAG, "InstantiationException: "+ e.getMessage());

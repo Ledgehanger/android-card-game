@@ -10,7 +10,9 @@ public class HealAbility extends Ability {
 
     int levelOneEv = 1, levelTwoEv = 2, levelThreeEv = 3;
 
-    public HealAbility(){}
+    public HealAbility(){
+        hasAbility = true;
+    }
 
 
     public void effect(Player effectedPlayer, String effectLevel){

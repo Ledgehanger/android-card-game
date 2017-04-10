@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
@@ -36,48 +36,28 @@ public class Deck{
         deckRect = null;
     }
 
-    public Deck(Game pGame,String pDeck1, String pDeck2){
-
-        loadDecksIntoAssestManger(pGame,pDeck1, pDeck2);
-        setDeckUp(pGame.getAssetManager(), pDeck1, pDeck2);
+    public Deck(AssetStore assetStore,String pDeck1, String pDeck2){
+        addJsonToAssetManager(assetStore,NEUTRAL);
+        loadDecksIntoAssestManger(assetStore,pDeck1, pDeck2);
+        setDeckUp(assetStore, pDeck1, pDeck2);
     }
     // Refactor json string joining into a method so it gets called instead of d// doing it over and over again
-    public boolean loadDecksIntoAssestManger(Game game, String pDeck1, String pDeck2){
-        addJsonToAssetManager(game,NEUTRAL);
-        return addJsonToAssetManager(game,pDeck1) && addJsonToAssetManager(game,pDeck2);
+    public boolean loadDecksIntoAssestManger(AssetStore assetStore, String pDeck1, String pDeck2){
+        return addJsonToAssetManager(assetStore,pDeck1) && addJsonToAssetManager(assetStore,pDeck2);
 
     }
 
-    public boolean addJsonToAssetManager(Game game,String deckName) {
-        return game.getAssetManager().loadAndAddJson(deckName, DECKPATH + deckName + JSON);
+    public boolean addJsonToAssetManager(AssetStore assetStore,String deckName) {
+        return assetStore.loadAndAddJson(deckName, DECKPATH + deckName + JSON);
     }
 
     public void shuffle(){
         genAlgorithm.knuthShuffle(playerDeck);
     }
 
-    public void setDeck( Card [] pDeck1,  Card [] pDeck2,  Card [] pNeutralDeck){
 
 
-        addCardsToDeck(pDeck1      , SIZEOFCLASSDECK);
-        addCardsToDeck(pDeck2      , SIZEOFCLASSDECK);
-        addCardsToDeck(pNeutralDeck, SIZEOFNEUTRALDECK);
 
-        deckIsEmpty = playerDeck.isEmpty();
-
-        if(!deckIsEmpty)
-            shuffle();
-    }
-
-    private void addCardsToDeck(Card[] pDeck1, int pTimesAdded) {
-        for (Card s : pDeck1) {
-            if (s.inDeck) {
-                for (int i = 0; i < pTimesAdded; i++) {
-                    playerDeck.add(s);
-                }
-            }
-        }
-    }
 
 
     public Card [] drawFromDeck(int draws){
@@ -93,41 +73,54 @@ public class Deck{
         return hand;
     }
     public boolean setDeckUp(AssetStore assetStore, String pDeckName1, String pDeckName2){
-        Card [] deck1 = jsonToCardCollection(assetStore, pDeckName1);
-        Card [] deck2 = jsonToCardCollection(assetStore, pDeckName2);
-        Card [] neutralDeck = jsonToCardCollection(assetStore, NEUTRAL);
+        addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName1, SIZEOFCLASSDECK);
+        addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName2, SIZEOFCLASSDECK);
+        addCardsInDeckToDeckFromJSONFile(assetStore, NEUTRAL, SIZEOFNEUTRALDECK);
 
-        setDeck(deck1,deck2,neutralDeck);
+        deckIsEmpty = playerDeck.isEmpty();
+
+        if(!deckIsEmpty)
+            shuffle();
+
         return deckIsEmpty;
     }
 
-    public Card[] jsonToCardCollection(AssetStore pAssetStore, String pJsonFileName){
+    public void addCardsInDeckToDeckFromJSONFile(AssetStore pAssetStore, String pJsonFileName, int add){
         JSONArray jsonArray = pAssetStore.getJson(pJsonFileName);
         Card [] deck = new Card[jsonArray.length()];
         try {
             for (int index = 0; index < jsonArray.length(); index++) {
                 JSONObject object = jsonArray.getJSONObject(index);
+                boolean inDeck  = object.getBoolean("inDeck");
+                if(inDeck){
                 int id          = object.getInt("_id");
                 int attack      = object.getInt("attack");
                 int defense     = object.getInt("defense");
-                String ability  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities." + object.getString("ability");
+                String ability  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities."
+                                    + object.getString("ability");
                 String imgFile  = object.getString("picture");
                 int ev          = object.getInt("ev");
-                boolean inDeck  = object.getBoolean("inDeck");
+                int evCost      = object.getInt("evCost");
                 String type     = object.getString("type");
-                deck[index] = new Card(id,type,defense,attack,ev,0,inDeck,imgFile,ability);
+                String name     = object.getString("name");
+                    for(int i = 0; i < add; i++){
+                        Card local = new Card(name, id,type,defense,attack,
+                                               ev,evCost,inDeck,imgFile,ability,pAssetStore);
+                        playerDeck.add(local);
+                    }
+                }
+
             }
         }catch(JSONException e){
             Log.e(TAG, "findAbility: ");
         }
-        return deck;
     }
     public int getSize() {
         return playerDeck.size();
     }
 
     public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D) {
-    float top;
+        float top;
         float bot;
         float leftSide;
 

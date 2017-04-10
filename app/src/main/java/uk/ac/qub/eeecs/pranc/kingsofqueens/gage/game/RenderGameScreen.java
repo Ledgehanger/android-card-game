@@ -13,6 +13,8 @@ import android.graphics.Rect;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
@@ -35,17 +37,21 @@ public class RenderGameScreen extends GameScreen {
     private final int NUM_CARD_SPACES = 12; //NEED TO DRAW GRID FOR CARDS
     private List<PlayerCards> mCards; //TO IMPLEMENT CARD CLASS
 
-
+    //Game Objects
+    private GameTurn currentGame;
     private Player player, playerAI;
+    private String ButtonText = "End phase";
+    private boolean ingorePlayerInput = false;
 
     public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
         super("RenderGameScreen", game);
+
+        playerAI = new PlayerAi("PlayerAiIcon",game,genAlgorithm.field.TOP);
+        player = new Player("PlayerIcon", game.getAssetManager(), playerDeck, genAlgorithm.field.BOTTOM);
+
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+        game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
 
-
-
-        playerAI = new PlayerAi("PlayerAiIcon",game);
-        player = new Player("PlayerIcon", game, playerDeck);
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
@@ -72,6 +78,8 @@ public class RenderGameScreen extends GameScreen {
                 .getAssetManager().getBitmap("QueensBackground"), this);
 
         mPlayerCards = new PlayerCards(100, 200, this);
+
+        currentGame = new GameTurn(player.getId(),playerAI.getId());
     }
 
     public PlayerCards getmPlayerCards() {
@@ -84,8 +92,53 @@ public class RenderGameScreen extends GameScreen {
     }
 
     public void update(ElapsedTime elapsedTime) {
+        Input input = mGame.getInput();
+        List<TouchEvent> touchEvents = input.getTouchEvents();
 
+        setIngorePlayer();
+
+        if(ingorePlayerInput) {
+            //do ai turn
+        }else{
+            //do player turn
+            if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
+                startPlayerTurn(currentGame.getCurrentPlayerID());
+                currentGame.getNextPhase();
+
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
+                    player.playerHand.update(elapsedTime, touchEvents);
+
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
+                if (currentGame.isFirstTurn())
+                    currentGame.getNextPhase();
+
+
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+
+                currentGame.getNextPhase();
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
+
+            }
+        }
+        }
+
+    private void setIngorePlayer() {
+        if(currentGame.getCurrentPlayerID() == player.id)
+            ingorePlayerInput = false;
+        else
+            ingorePlayerInput = true;
     }
+
+
+    private void startPlayerTurn(String currentTurnId){
+        if(currentTurnId == player.id)
+            player.playerStartTurn();
+        else
+            playerAI.playerStartTurn();
+    }
+
+
+
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
@@ -94,16 +147,10 @@ public class RenderGameScreen extends GameScreen {
 
        //Draw Background
        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-
-       //Draw Deck
-       player.playerDeck.drawDeck(genAlgorithm.field.BOTTOM, iGraphics2D);
-       playerAI.playerDeck.drawDeck(genAlgorithm.field.TOP, iGraphics2D);
-
-
        //Draw Player
-       playerAI.drawPlayer(genAlgorithm.field.TOP, iGraphics2D);
-       player.drawPlayer(genAlgorithm.field.BOTTOM, iGraphics2D);
-
+       playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
+       player.drawPlayer(iGraphics2D,getGame().getAssetManager());
+        player.playerHand.drawHand(player.fieldLocation,iGraphics2D,getGame().getAssetManager(),false);
 
     }
 }
