@@ -14,7 +14,6 @@ public class GameTurn {
         this.playerTwoID = playerTwoID;
         this.playerTwoTurn = false;
         currentPhase = turnTypes.startPhase;
-        firstTurn = true;
 
     }
     public enum turnTypes {
@@ -30,6 +29,7 @@ public class GameTurn {
     private boolean playerOneTurn;
     private boolean playerTwoTurn;
     private boolean firstTurn;
+
     private turnTypes currentPhase;
 
 
@@ -47,6 +47,7 @@ public class GameTurn {
                 currentPhase = turnTypes.endTurn;
                 break;
             case endTurn:
+                firstTurn = false;
                 currentPhase = turnTypes.startPhase;
             default:
                 currentPhase = turnTypes.startPhase;

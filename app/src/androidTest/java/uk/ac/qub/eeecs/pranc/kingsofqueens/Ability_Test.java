@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AbilityFactory;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import static org.junit.Assert.assertEquals;
@@ -20,24 +22,34 @@ import static org.junit.Assert.assertNull;
 public class Ability_Test {
     Player test;
     Ability ability;
-    String AddPath  = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AddEvAbility";
-    String HealPath = "uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.HealAbility";
+    String AddPath  = "AddEvAbility";
+    String HealPath = "HealAbility";
 
 
     @Test
     public void effectAddEv(){
-        ability = genAlgorithm.findAbility(AddPath);
-        if(ability.getAbility()) {
+        ability = AbilityFactory.getAbility(AddPath);
+        if(ability.getHasAbility()) {
+
             test = new Player();
-            ability.effect(test, "level1");
+            if(ability instanceof OwnerEffectedAbility) {
+                ((OwnerEffectedAbility) ability).addEffectPlayer(test);
+            }
+            ability.effect("level1");
             assertEquals(2, test.getEvTotal());
 
             test = new Player();
-            ability.effect(test, "level2");
+            if(ability instanceof OwnerEffectedAbility) {
+                ((OwnerEffectedAbility) ability).addEffectPlayer(test);
+            }
+            ability.effect("level2");
             assertEquals(3, test.getEvTotal());
 
             test = new Player();
-            ability.effect(test, "level3");
+            if(ability instanceof OwnerEffectedAbility) {
+                ((OwnerEffectedAbility) ability).addEffectPlayer(test);
+            }
+            ability.effect("level3");
             assertEquals(4, test.getEvTotal());
         }
     }
@@ -47,8 +59,12 @@ public class Ability_Test {
 
         test = new Player();
 
-        ability = genAlgorithm.findAbility(HealPath);
-        ability.effect(test,"level3");
+        ability = AbilityFactory.getAbility(HealPath);
+        if(ability instanceof OwnerEffectedAbility) {
+            ((OwnerEffectedAbility) ability).addEffectPlayer(test);
+        }
+
+        ability.effect("level3");
         assertEquals(20,test.getHp());
     }
 
@@ -60,16 +76,24 @@ public class Ability_Test {
         test = new Player();
         test.DamageTaken(2);
 
-        ability = genAlgorithm.findAbility(HealPath);
-        ability.effect(test,"level1");
+        ability = AbilityFactory.getAbility(HealPath);
+        if(ability instanceof OwnerEffectedAbility) {
+            ((OwnerEffectedAbility) ability).addEffectPlayer(test);
+        }
+
+        ability.effect("level1");
         assertEquals(19,test.getHp());
     }
     public void healEffectLevel2(){
 
         test = new Player();
 
-        ability = genAlgorithm.findAbility(HealPath);
-        ability.effect(test,"level2");
+        ability = AbilityFactory.getAbility(HealPath);
+        if(ability instanceof OwnerEffectedAbility) {
+            ((OwnerEffectedAbility) ability).addEffectPlayer(test);
+        }
+
+        ability.effect("level2");
         assertEquals(19,test.getHp());
     }
 
@@ -77,8 +101,12 @@ public class Ability_Test {
 
         test = new Player();
 
-        ability = genAlgorithm.findAbility(HealPath);
-        ability.effect(test,"level3");
+        ability = AbilityFactory.getAbility(HealPath);
+        if(ability instanceof OwnerEffectedAbility) {
+            ((OwnerEffectedAbility) ability).addEffectPlayer(test);
+        }
+
+        ability.effect("level3");
         assertEquals(19,test.getHp());
     }
 
@@ -87,7 +115,7 @@ public class Ability_Test {
     public void nullEffect(){
 
         test = new Player();
-        ability = genAlgorithm.findAbility("Fake");
+        ability = AbilityFactory.getAbility("Fake");
         assertNull(ability);
 
     }

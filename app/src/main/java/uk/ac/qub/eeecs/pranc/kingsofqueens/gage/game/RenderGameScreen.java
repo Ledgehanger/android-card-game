@@ -130,7 +130,6 @@ public class RenderGameScreen extends GameScreen {
 
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-
                 currentGame.getNextPhase();
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
 
