@@ -7,8 +7,8 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
  */
 
 public abstract class OwnerEffectedAbility implements Ability {
-    boolean hasAbility = true;
-    Player effectPlayer;
+    protected boolean hasAbility = true;
+    protected Player effectPlayer;
 
     public void effect(String effectLevel){}
 

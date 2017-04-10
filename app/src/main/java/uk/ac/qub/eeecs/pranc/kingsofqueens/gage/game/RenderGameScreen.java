@@ -125,7 +125,7 @@ public class RenderGameScreen extends GameScreen {
 
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
-                if (currentGame.isFirstTurn())
+              //  if (currentGame.isFirstTurn())
                     currentGame.getNextPhase();
 
 

@@ -5,9 +5,9 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
  */
 
 public class AddEvAbility extends OwnerEffectedAbility {
-
-    int levelOne = 1, levelTwo = 2, levelThree = 3;
-
+    private int levelOne = 1;
+    private int levelTwo = 2;
+    private int levelThree = 3;
 
     public AddEvAbility(){
         hasAbility = true;
