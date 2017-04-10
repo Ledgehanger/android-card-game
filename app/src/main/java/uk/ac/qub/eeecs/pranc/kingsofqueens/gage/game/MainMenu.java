@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
+import android.content.res.AssetFileDescriptor;
 
 public class MainMenu extends GameScreen
 {
@@ -39,7 +40,7 @@ public class MainMenu extends GameScreen
         aStore.loadAndAddBitmap("playBtn","img/MainMenuImages/playBtn.png");
         aStore.loadAndAddBitmap("optionsBtn","img/MainMenuImages/devBtn.png");
         aStore.loadAndAddBitmap("BG","img/mmbg.jpg");
-        aStore.loadAndAddSound("DISC5_02","music/DISC5_02.mp3");
+        aStore.loadAndAddMusic("BGM","music/DISC5_02.mp3");
 
     }
 
@@ -81,6 +82,7 @@ public class MainMenu extends GameScreen
             Bitmap bg=aStore.getBitmap("BG");
 
 
+
             if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null)
             {
                 int bgLeft=0;
@@ -111,6 +113,10 @@ public class MainMenu extends GameScreen
                 boundPlayBtn= scale.scaleRect(optionsLeft,playTop,optionsRight,playBottom);
 
             }
+            aStore.getMusic("BGM").play();
+            aStore.getMusic("BGM").setVolume(1);
+            aStore.getMusic("BGM").setLopping(true);
+
             iGraphics2D.clear(Color.rgb(255,255,255));
             iGraphics2D.drawBitmap(bg,null,boundBackground,null);
             iGraphics2D.drawBitmap(koqTitle,null,boundTitle,null);
