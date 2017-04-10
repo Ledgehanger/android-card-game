@@ -1,39 +1,36 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
-
 /**
  * Created by markm on 08/02/2017.
  */
 
-public class AddEvAbility extends Ability {
+public class AddEvAbility extends OwnerEffectedAbility {
 
-    int levelOneEv = 1, levelTwoEv = 2, levelThreeEv = 3;
+    int levelOne = 1, levelTwo = 2, levelThree = 3;
 
 
     public AddEvAbility(){
         hasAbility = true;
     }
 
-    public void effect(Player effectedPlayer, String effectLevel){
+    public void effect(String effectLevel){
         hasAbility = true;
         int add = 0;
 
-        switch(effectLevel) {
+        switch(effectLevel.toLowerCase()) {
             case "level3":
-                add = levelThreeEv;
+                add = levelThree;
                 break;
             case "level2":
-                add = levelTwoEv;
+                add = levelTwo;
                 break;
             case "level1":
-                add = levelOneEv;
+                add = levelOne;
                 break;
 
 
         }
-        effectedPlayer.addToEvTotal(add);
+        effectPlayer.addToEvTotal(add);
 
     }
 

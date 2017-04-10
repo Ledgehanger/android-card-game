@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AddEvAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Default;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 
 import static android.content.ContentValues.TAG;
 
@@ -35,24 +37,6 @@ public class genAlgorithm {
         }
     }
 
-    public static Ability findAbility(String path){
-        try{
-            Ability toReturn;
 
-            toReturn = (Ability) Class.forName(path).newInstance();
-
-            return toReturn;
-        }catch (InstantiationException e) {
-            Log.e(TAG, "InstantiationException: "+ e.getMessage());
-            return null;
-            } catch (IllegalAccessException e) {
-            Log.e(TAG, "IllegalAccessException: " + e.getMessage());
-            return null;
-        } catch (ClassNotFoundException e) {
-            Log.e(TAG, "Can not find Class: " + path);
-            return null;
-        }
-
-    }
 
 }

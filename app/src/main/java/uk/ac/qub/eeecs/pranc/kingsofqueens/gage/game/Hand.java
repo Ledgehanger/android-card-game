@@ -112,6 +112,11 @@ public class  Hand {
     }
 
 
-
+    //Mark Testing
+    public boolean cardPicked(){
+        if(indexOfPickedCard >= 0)
+            return true;
+        return false;
+    }
 
 }

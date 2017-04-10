@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 /**
  * Created by Carl on 20/11/2016.
  */
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AbilityFactory;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
@@ -66,7 +67,7 @@ public class Card{
     public void setCardImg(Bitmap cardImg){this.cardImg=cardImg;}
     public Bitmap getCardImg(){return cardImg;}
 
-    //Mark Testing
+
     public boolean isPicked = false;
 
 
@@ -78,7 +79,7 @@ public class Card{
         this.atk = atk;
         this.ev = ev;
         this.evCost = evCost;
-        this.ability = genAlgorithm.findAbility(Ability);
+        this.ability = AbilityFactory.getAbility(Ability);
 
         this.inDeck = inDeck;
         this.picture = cardDraw;
@@ -106,7 +107,7 @@ public class Card{
             atk=card.getInt("attack");
             hp=card.getInt("defense");
             String strAbility=card.getString("ability");
-            ability=genAlgorithm.findAbility(strAbility);
+            ability=AbilityFactory.getAbility(strAbility);;
             picture=card.getString("picture");
             inDeck=card.getBoolean("inDeck");
             evCost=card.getInt("evCost");

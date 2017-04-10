@@ -115,7 +115,7 @@ public class Player {
 
 
     }
-
+    
     public boolean getIsAlive  (){return isAlive;}
     public Paint   setUpPaint  (){
         Paint paint = new Paint();

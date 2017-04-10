@@ -27,7 +27,7 @@ public class FileIO_JsonMethods_Test {
 
             Deck mDeck = new Deck();
             as.loadAndAddJson("Psych", "Decks/Psych.json");
-            mDeck.addCardsInDeckToDeckFromJSONFile(as, "Psych", mDeck.SIZEOFCLASSDECK);
+            mDeck.addCardsInDeckToDeckFromJSONFile(as, "Psych", mDeck.SIZE_OF_CLASS_DECK);
             int draws = 3;
             Card [] check = mDeck.drawFromDeck(draws);
 

@@ -12,6 +12,7 @@ import android.graphics.Rect;
 
 import java.util.List;
 
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
@@ -99,6 +100,7 @@ public class RenderGameScreen extends GameScreen {
 
         if(ingorePlayerInput) {
             //do ai turn
+            currentGame.getNextPhase();
         }else{
             //do player turn
             if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
@@ -107,6 +109,20 @@ public class RenderGameScreen extends GameScreen {
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
                     player.playerHand.update(elapsedTime, touchEvents);
+
+                    if(player.playerHand.cardPicked()){
+                        //How Ability are going to work atm
+                        Card c = player.playerHand.getPickedCardFromHand();
+
+                        if(c.ability instanceof OwnerEffectedAbility){
+                            ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
+                        }
+                        if(c.ability.getHasAbility() == true){
+                            c.ability.effect("level1");
+                        }
+                        currentGame.getNextPhase();
+                    }
+
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
                 if (currentGame.isFirstTurn())
@@ -144,13 +160,11 @@ public class RenderGameScreen extends GameScreen {
 
        iGraphics2D.clear(Color.BLACK);
        iGraphics2D.clipRect(mScreenViewport.toRect());
-
        //Draw Background
        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
        //Draw Player
        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
        player.drawPlayer(iGraphics2D,getGame().getAssetManager());
-        player.playerHand.drawHand(player.fieldLocation,iGraphics2D,getGame().getAssetManager(),false);
 
     }
 }
