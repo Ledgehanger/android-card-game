@@ -15,43 +15,43 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class  Hand {
     //Constants
-    public final int    MAX_HAND_SIZE       = 5;
-    public final int    HAND_OFFSET         = 166;
-    public final String HAND_BITMAP_NAME    = "Hand";
+    public static final int    MAX_HAND_SIZE        = 5;
+    public static final int    PICKED_DEFAULT_INDEX = -1;
+    public static final int    HAND_OFFSET          = 166;
+    public static final String HAND_BITMAP_NAME     = "Hand";
 
     //Member Attributes
     private   Bitmap          handBitmap;
     private   ArrayList<Card> myHand;
     private   Rect            handRect;
-    private   int             indexOfPickedCard = -1;
+    private   int             indexOfPickedCard = PICKED_DEFAULT_INDEX;
 
-    public Hand(Card [] fromDeck,AssetStore pAssetManger){
+    public Hand(Card [] fromDeck){
         myHand =  new ArrayList<>();
         for (Card c : fromDeck){
             myHand.add(c);
-        };
+        }
 
     }
 
-    public void AddToHand(Card [] fromDeck){
+    public void addToHand(Card [] fromDeck){
         for (Card c : fromDeck){
             if(myHand.size() < MAX_HAND_SIZE)
                 myHand.add(c);
             else
                 break;
-        };
+        }
     }
 
     /// Returns the picked card from the myHand, or a null if no card is picked
     public Card getPickedCardFromHand(){
-        if(indexOfPickedCard != -1) {
+        if(indexOfPickedCard != PICKED_DEFAULT_INDEX) {
             myHand.get(indexOfPickedCard).setCardToNull();
             Card toReturn = myHand.remove(indexOfPickedCard);
-            indexOfPickedCard = -1;
+            indexOfPickedCard = PICKED_DEFAULT_INDEX;
             return toReturn;
         }
         return null;
-
     }
 
     public void drawHand(genAlgorithm.field side, IGraphics2D iGraphics2D,AssetStore pAssetManger, boolean drawBack) {
@@ -96,27 +96,29 @@ public class  Hand {
             for(int i = 0; i < myHand.size(); i++){
                 Rect c = myHand.get(i).cardRect;
                 if(c.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
-                    if (indexOfPickedCard == i) {
-                        myHand.get(indexOfPickedCard).isPicked = false;
-                        indexOfPickedCard = -1;
-                    } else {
-                            if (indexOfPickedCard >= 0) {
-                                myHand.get(indexOfPickedCard).isPicked = false;
-                            }
-                            myHand.get(i).isPicked = true;
-                            indexOfPickedCard = i;
-                    }
+                    manageSelection(i);
                 }
             }
         }
     }
 
-public void drawCard(){
+    private void manageSelection(int index) {
+        if (indexOfPickedCard == index) {
+            myHand.get(indexOfPickedCard).isPicked = false;
+            indexOfPickedCard = PICKED_DEFAULT_INDEX;
+        } else {
+            unselectPickedCard();
+            myHand.get(index).isPicked = true;
+            indexOfPickedCard = index;
+        }
+    }
 
+    private void unselectPickedCard() {
+        if (indexOfPickedCard >= 0) {
+            myHand.get(indexOfPickedCard).isPicked = false;
+        }
+    }
 
-}
-
-    //Mark Testing
     public boolean cardPicked(){
         if(indexOfPickedCard >= 0)
             return true;
