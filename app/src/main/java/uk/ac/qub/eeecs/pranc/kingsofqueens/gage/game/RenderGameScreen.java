@@ -52,7 +52,7 @@ public class RenderGameScreen extends GameScreen {
 
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
-
+        game.getAssetManager().loadAndAddBitmap("Row", "img/PlayerIcons/Row.png");
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));

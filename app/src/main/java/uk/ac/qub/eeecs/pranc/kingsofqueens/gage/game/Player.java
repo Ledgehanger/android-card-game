@@ -28,6 +28,7 @@ public class Player {
 
     protected Deck playerDeck;
     protected Hand playerHand;
+    protected Field playerField;
     protected Rect playerRectIcon;
     protected Rect playerRectHp;
     protected genAlgorithm.field fieldLocation;
@@ -59,6 +60,7 @@ public class Player {
             setUpBitmap( assetStore);
         playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE),assetStore);
         this.id = "Player";
+        this.playerField = new Field();
 
     }
     public Player(String pImage, AssetStore assetStore,genAlgorithm.field fieldLocation){
@@ -70,6 +72,7 @@ public class Player {
         if(assetStore != null)
             setUpBitmap(assetStore);
         this.id = "AI";
+        this.playerField = new Field();
     }
 
     public int  getEvTotal           ()            {
@@ -112,7 +115,7 @@ public class Player {
 
         playerDeck.drawDeck(fieldLocation,iGraphics2D);
         playerHand.drawHand(fieldLocation,iGraphics2D,assetStore,handDrawCardBack);
-
+        playerField.draw(fieldLocation,iGraphics2D,assetStore);
 
     }
     
