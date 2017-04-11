@@ -29,7 +29,7 @@ public class PickDeckScreen extends GameScreen {
 
     private AssetStore aStore;
     HashMap<String,DeckSelection> DeckHashMap = new HashMap<String,DeckSelection>();
-    private Rect DeckButton,Left,Right,Play;
+    private Rect DeckButton,Left,Right,Play,bg;
     boolean deck1Picked = false, deck2Picked = false;
     private int index = 0;
     private String currentDeck;
@@ -38,12 +38,15 @@ public class PickDeckScreen extends GameScreen {
     public PickDeckScreen(Game newGame)
     {
         super("PickDeckScreen",newGame);
+        aStore = newGame.getAssetManager();
         newGame.getAssetManager().loadAndAddJson("Decks", "Decks/deckTypes.json");
         newGame.getAssetManager().loadAndAddBitmap("Left","img/LeftArrow.png");
         newGame.getAssetManager().loadAndAddBitmap("Right","img/RightArrow.png");
         newGame.getAssetManager().loadAndAddBitmap("Play","img/MainMenuImages/playBtn.png");
+        newGame.getAssetManager().loadAndAddBitmap("BG","img/mmbg.jpg");
+        newGame.getAssetManager().loadAndAddMusic("BGM","music/Layer Cake.m4a");
 
-        aStore = newGame.getAssetManager();
+
     }
 
 
@@ -81,7 +84,9 @@ public class PickDeckScreen extends GameScreen {
 
 
             if(deck1Picked && deck2Picked){
+
                 if(Play.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                    aStore.getMusic("BGM").stop();
                     //replace with the game
                     mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
                     //pass down the decks they have picked
@@ -109,6 +114,7 @@ public class PickDeckScreen extends GameScreen {
 
         try
         {
+            Bitmap bgImg=aStore.getBitmap("BG");
             Bitmap rightArrow = aStore.getBitmap("Right");
             Bitmap leftArrow = aStore.getBitmap("Left");
 
@@ -136,6 +142,10 @@ public class PickDeckScreen extends GameScreen {
 
             iGraphics2D.clear(Color.rgb(255,255,255));
 
+            aStore.getMusic("BGM").play();
+            aStore.getMusic("BGM").setVolume(1);
+           // aStore.getMusic("BGM").isLooping(true);
+
             // Used to manage the going throw decks
             if(index >= decks.length) index = 0;
             if(index < 0) index = decks.length - 1;
@@ -148,6 +158,10 @@ public class PickDeckScreen extends GameScreen {
                 DeckHashMap.get(decks[index].getName()).setBitImage(aStore.getBitmap(decks[index].getImgPath()));
 
             //Draw the images
+            int bgRight=iGraphics2D.getSurfaceWidth();
+            int bgBot=iGraphics2D.getSurfaceHeight();
+            bg=new Rect(0,0,bgRight,bgBot);
+            iGraphics2D.drawBitmap(bgImg,null,bg,null);
             iGraphics2D.drawBitmap(leftArrow,null,Left,null);
             iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].getName()).getBitImage(),null,
                             DeckButton,null);

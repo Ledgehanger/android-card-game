@@ -55,7 +55,7 @@ public class MainMenu extends GameScreen
 
             if(boundPlayBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0)
             {
-              // aStore.getMusic("DISC5_02").pause();
+               aStore.getMusic("BGM").stop();
 
                 mGame.getScreenManager().removeScreen(this.getName());
                 PickDeckScreen game = new PickDeckScreen(mGame);
@@ -63,6 +63,7 @@ public class MainMenu extends GameScreen
             }
 
             if(boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
+                aStore.getMusic("BGM").stop();
                 mGame.getScreenManager().removeScreen(this.getName());
                 OptionsScreen game = new OptionsScreen("", mGame);
                 mGame.getScreenManager().addScreen(game);
@@ -83,7 +84,7 @@ public class MainMenu extends GameScreen
 
 
 
-            if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null)
+            if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null || boundBackground==null)
             {
                 int bgLeft=0;
                 int bgRight=iGraphics2D.getSurfaceWidth();
