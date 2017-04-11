@@ -10,9 +10,6 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
-/**
- * Created by Nicola on 22/11/2016.
- */
 
 public class Player {
 
@@ -58,7 +55,7 @@ public class Player {
         this.playerDeck = playerDeck;
         if (assetStore != null)
             setUpBitmap( assetStore);
-        playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE),assetStore);
+        playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
         this.id = "Player";
         this.playerField = new Field();
 
@@ -99,7 +96,7 @@ public class Player {
     public void playerStartTurn(){
         evTotal++;
         if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
-            playerHand.AddToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
+            playerHand.addToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }
     public void drawPlayer     (IGraphics2D iGraphics2D, AssetStore assetStore) {
 
@@ -185,23 +182,11 @@ public class Player {
     }
     protected void setUpBitmap     (AssetStore pAssetManger) {
 
-        //pAssetManger.loadAndAddBitmap(hpBarFileName, "img/PlayerIcons/"+hpBarFileName+".png");
         pAssetManger.loadAndAddBitmap(hpBarFileName, "GameScreenImages/HealthMonitor.png");
         pAssetManger.loadAndAddBitmap(playerImgFile, "img/PlayerIcons/"+playerImgFile+".png");
         playerIconBitmap = pAssetManger.getBitmap(playerImgFile);
         playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
     }
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
