@@ -113,13 +113,7 @@ public class RenderGameScreen extends GameScreen {
                     if(player.playerHand.cardPicked()){
                         //How Ability are going to work atm
                         Card c = player.playerHand.getPickedCardFromHand();
-
-                        if(c.ability instanceof OwnerEffectedAbility){
-                            ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
-                        }
-                        if(c.ability.getHasAbility() == true){
-                            c.ability.effect("level1");
-                        }
+                        useCardAbility(c);
                         currentGame.getNextPhase();
                     }
 
@@ -136,6 +130,15 @@ public class RenderGameScreen extends GameScreen {
             }
         }
         }
+
+    protected void useCardAbility(Card c) {
+        if(c.ability.getHasAbility()){
+            if(c.ability instanceof OwnerEffectedAbility){
+                ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
+            }
+            c.ability.effect("level1");
+        }
+    }
 
     private void setIngorePlayer() {
         if(currentGame.getCurrentPlayerID() == player.id)

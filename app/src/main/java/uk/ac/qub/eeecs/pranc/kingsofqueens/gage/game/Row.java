@@ -62,7 +62,7 @@ public class Row {
         TouchEvent touchEvent = touchEvents.get(0);
         for (int i = 0; i < SPOTS_PER_ROW; i++) {
             Spot c = myRow.get(i);
-            if (c.getCardPlaced()) {
+            if (!c.getCardPlaced()) {
                 if (c.getSpotRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                     c.setSpotCard(pHand.getPickedCardFromHand());
                 }
@@ -82,7 +82,7 @@ public class Row {
 
         rowBitmap = aStore.getBitmap(ROW_IMAGE_FILE);
         bot = iGraphics2D.getSurfaceHeight();
-        left =  166 + 100;
+        left =  166 + 20;
         right = iGraphics2D.getSurfaceWidth() - 250;
 
         if (side == genAlgorithm.field.TOP) {
@@ -94,7 +94,7 @@ public class Row {
             top = iGraphics2D.getSurfaceHeight() / 2;
             bot = iGraphics2D.getSurfaceHeight();
 
-            botI = (int) bot  + ((int) ((top) + (top / 4) - 155)) - 1185;
+            botI = (int) top + (int) (top / 2);
             topI = (int) top;
 
             rowRect = new Rect(left, topI, right, botI);
