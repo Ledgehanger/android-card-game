@@ -73,7 +73,7 @@ public class RenderGameScreen extends GameScreen {
 
         currentGame = new GameTurn(player.getId(),playerAI.getId());
     }
-    
+
     private void setUpAssets(AssetStore assetManager) {
         assetManager.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetManager.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
@@ -97,7 +97,7 @@ public class RenderGameScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
-        setIngorePlayer();
+        setIgnorePlayer();
 
         if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
             startPlayerTurn(currentGame.getCurrentPlayerID());
@@ -156,7 +156,7 @@ public class RenderGameScreen extends GameScreen {
         }
     }
 
-    private void setIngorePlayer() {
+    private void setIgnorePlayer() {
         if(currentGame.getCurrentPlayerID() == player.id)
             ignorePlayerInput = false;
         else
