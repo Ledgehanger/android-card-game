@@ -32,6 +32,8 @@ public class Card{
     public int evCost;
     public int width;
     public int height;
+    public String desc;
+    public int  abilityLvl;
 
     public boolean inDeck;
 
@@ -39,6 +41,7 @@ public class Card{
     public Rect cardTextRect;
     protected Rect cardRect;
     public Paint textPaint;
+    public Paint textDesc;
 
     public float textSize=9f;
 
@@ -71,7 +74,7 @@ public class Card{
     public boolean isPicked = false;
 
 
-    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability, AssetStore aStore) {
+    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability,String desc,int abilityLvl, AssetStore aStore) {
         this.name = name;
         this.id = id;
         this.type = type;
@@ -80,6 +83,9 @@ public class Card{
         this.ev = ev;
         this.evCost = evCost;
         this.ability = AbilityFactory.getAbility(Ability);
+
+        this.desc=desc;
+        this.abilityLvl=abilityLvl;
 
         this.inDeck = inDeck;
         this.picture = cardDraw;
@@ -107,9 +113,11 @@ public class Card{
             atk=card.getInt("attack");
             hp=card.getInt("defense");
             String strAbility=card.getString("ability");
-            ability=AbilityFactory.getAbility(strAbility);;
+            ability=AbilityFactory.getAbility(strAbility);
             picture=card.getString("picture");
             inDeck=card.getBoolean("inDeck");
+            desc=card.getString("desc");
+            abilityLvl=card.getInt("abilityLvl");
             evCost=card.getInt("evCost");
             ev=card.getInt("ev");
         }
@@ -170,11 +178,11 @@ public class Card{
         cardRect = null;
     }
 
-    public Paint formatText()
+    public Paint formatText(float textR)
     {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-        float textRatio = 26.6F;
+        float textRatio = textR;
         paint.setTextSize(textRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
@@ -189,7 +197,9 @@ public class Card{
         }
             createCardRect(bot,left,top);
         if (textPaint==null)
-            textPaint=formatText();
+            textPaint=formatText(26.5F);
+        if (textDesc==null)
+            textDesc=formatText(10F);
         if(cardImg == null){
             setUpCardBitmap(top,drawBack);
         }
@@ -200,6 +210,8 @@ public class Card{
         if(!drawBack){
             iG2D.drawText(Integer.toString(hp),(left+width)-22,bot-10,textPaint);
             iG2D.drawText(Integer.toString(atk),left+15,bot - 10,textPaint);
+            iG2D.drawText(Integer.toString(evCost),left+15,top+30,textPaint);
+            iG2D.drawText(desc,left+30,bot-50,textDesc);
         }
 
     }
