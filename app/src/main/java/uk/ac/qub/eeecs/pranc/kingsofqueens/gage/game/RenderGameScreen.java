@@ -53,6 +53,7 @@ public class RenderGameScreen extends GameScreen {
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         game.getAssetManager().loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+        game.getAssetManager().loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.png");
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
@@ -108,19 +109,19 @@ public class RenderGameScreen extends GameScreen {
                 currentGame.getNextPhase();
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-                    player.playerHand.update(elapsedTime, touchEvents);
+                player.playerHand.update(elapsedTime, touchEvents);
 
-                    if(player.playerHand.cardPicked()){
-                        //How Ability are going to work atm
-                        Card c = player.playerHand.getPickedCardFromHand();
-                        useCardAbility(c);
-                        currentGame.getNextPhase();
-                    }
+                if(player.playerHand.cardPicked()){
+                    //How Ability are going to work atm
+                    Card c = player.playerHand.getPickedCardFromHand();
+                    useCardAbility(c);
+                    currentGame.getNextPhase();
+                }
 
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
-              //  if (currentGame.isFirstTurn())
-                    currentGame.getNextPhase();
+                //  if (currentGame.isFirstTurn())
+                currentGame.getNextPhase();
 
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
@@ -129,7 +130,7 @@ public class RenderGameScreen extends GameScreen {
 
             }
         }
-        }
+    }
 
     protected void useCardAbility(Card c) {
         if(c.ability.getHasAbility()){
@@ -160,13 +161,13 @@ public class RenderGameScreen extends GameScreen {
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
-       iGraphics2D.clear(Color.BLACK);
-       iGraphics2D.clipRect(mScreenViewport.toRect());
-       //Draw Background
-       mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-       //Draw Player
-       playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
-       player.drawPlayer(iGraphics2D,getGame().getAssetManager());
+        iGraphics2D.clear(Color.BLACK);
+        iGraphics2D.clipRect(mScreenViewport.toRect());
+        //Draw Background
+        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        //Draw Player
+        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
+        player.drawPlayer(iGraphics2D,getGame().getAssetManager());
 
     }
 }
