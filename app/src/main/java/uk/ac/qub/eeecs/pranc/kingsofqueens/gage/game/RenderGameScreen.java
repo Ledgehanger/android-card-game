@@ -49,9 +49,8 @@ public class RenderGameScreen extends GameScreen {
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         game.getAssetManager().loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
-
         game.getAssetManager().loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
-        game.getAssetManager().loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.png");
+        game.getAssetManager().loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
@@ -155,7 +154,7 @@ public class RenderGameScreen extends GameScreen {
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
-        
+
        iGraphics2D.clear(Color.BLACK);
        iGraphics2D.clipRect(mScreenViewport.toRect());
         getGame().getAssetManager().getMusic("BGM").play();
