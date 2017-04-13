@@ -2,9 +2,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 /**
  * Created by markm on 25/11/2016.
  */
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Rect;
 
 import java.util.List;
 
@@ -16,7 +14,6 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameObject;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.LayerViewport;
@@ -116,7 +113,7 @@ public class RenderGameScreen extends GameScreen {
                 }
 
 
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
                 //  if (currentGame.isFirstTurn())
                 currentGame.getNextPhase();
 
