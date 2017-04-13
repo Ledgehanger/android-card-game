@@ -40,7 +40,7 @@ public class Card{
     protected Rect cardRect;
     public Paint textPaint;
 
-    public float textSize=10f;
+    public float textSize=9f;
 
     protected final int OFFSET = 133;
     Game newGame;
@@ -173,7 +173,7 @@ public class Card{
     public Paint formatText()
     {
         Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         float textRatio = 26.6F;
         paint.setTextSize(textRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -198,8 +198,8 @@ public class Card{
         iG2D.drawBitmap(cardImg,null,cardRect,null);
 
         if(!drawBack){
-            iG2D.drawText(Integer.toString(hp),(left+width) - 20,bot - 13,textPaint);
-            iG2D.drawText(Integer.toString(atk),left+15,bot - 13,textPaint);
+            iG2D.drawText(Integer.toString(hp),(left+width)-22,bot-10,textPaint);
+            iG2D.drawText(Integer.toString(atk),left+15,bot - 10,textPaint);
         }
 
     }

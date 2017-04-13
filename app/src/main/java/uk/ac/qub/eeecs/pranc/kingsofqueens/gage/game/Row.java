@@ -86,8 +86,10 @@ public class Row {
         right = iGraphics2D.getSurfaceWidth() - 250;
 
         if (side == genAlgorithm.field.TOP) {
-            topI = 0 + (int) ((bot) - (bot / 1.5)) - 75;
-            botI = iGraphics2D.getSurfaceHeight()/2 - 5;
+           // topI = 0 + (int) ((bot) - (bot / 1.5)) - 75;
+            topI = (int) bot/2 - (int) (bot/2)/2;
+            botI = iGraphics2D.getSurfaceHeight()/2;
+
             rowRect = new Rect(left, topI, right, botI);
 
         } else {

@@ -17,7 +17,8 @@ public class  Hand {
     //Constants
     public static final int    MAX_HAND_SIZE        = 5;
     public static final int    PICKED_DEFAULT_INDEX = -1;
-    public static final int    HAND_OFFSET          = 166;
+    public static final int    CARD_GAP_OFFSET      = 166;
+    public static final int    CARD_OFFSET          = 10;
     public static final String HAND_BITMAP_NAME     = "Hand";
 
     //Member Attributes
@@ -58,20 +59,22 @@ public class  Hand {
 
         float top;
         float bot;
-        int left;
-        int right;
-        int topI;
-        int botI;
+        int   left;
+        int   right;
+        int   topI;
+        int   botI;
 
          handBitmap = pAssetManger.getBitmap(HAND_BITMAP_NAME);
             bot = iGraphics2D.getSurfaceHeight();
-            left =  166;
+            left =  CARD_GAP_OFFSET;
             right = iGraphics2D.getSurfaceWidth() - 150;
 
             if (side == genAlgorithm.field.TOP) {
                 topI = 0;
-                botI = (int) ((bot) - (bot / 1.5)) - 75;
+                botI = (int) ((bot) - (bot / 1.5) - 75);
                 handRect = new Rect(left, topI, right, botI);
+                botI -= CARD_OFFSET;
+                left += CARD_OFFSET;
 
             } else {
                 top = iGraphics2D.getSurfaceHeight() / 2;
@@ -87,7 +90,7 @@ public class  Hand {
 
         for (Card c: myHand) {
             c.drawCard(botI,left,topI,iGraphics2D,drawBack);
-            left += HAND_OFFSET;
+            left += CARD_GAP_OFFSET;
         }
     }
     public void update(ElapsedTime elapsedTime, List<TouchEvent> touchEvents ) {
@@ -107,13 +110,13 @@ public class  Hand {
             myHand.get(indexOfPickedCard).isPicked = false;
             indexOfPickedCard = PICKED_DEFAULT_INDEX;
         } else {
-            unselectPickedCard();
+            unselectedPickedCard();
             myHand.get(index).isPicked = true;
             indexOfPickedCard = index;
         }
     }
 
-    private void unselectPickedCard() {
+    private void unselectedPickedCard() {
         if (indexOfPickedCard >= 0) {
             myHand.get(indexOfPickedCard).isPicked = false;
         }
