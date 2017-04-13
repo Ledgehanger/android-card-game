@@ -91,7 +91,7 @@ public class  Hand {
         iGraphics2D.drawBitmap(handBitmap,null,handRect,null);
 
         for (Card c: myHand) {
-            c.drawCardInHand(botI,left,topI,iGraphics2D,drawBack);
+            c.drawCard(botI,left,topI,iGraphics2D,drawBack);
             left += CARD_GAP_OFFSET;
         }
     }

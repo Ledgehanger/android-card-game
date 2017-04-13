@@ -89,19 +89,22 @@ public class Deck{
                 JSONObject object = jsonArray.getJSONObject(index);
                 boolean inDeck  = object.getBoolean("inDeck");
                 if(inDeck){
-                int id          = object.getInt("_id");
-                int attack      = object.getInt("attack");
-                int defense     = object.getInt("defense");
-                String ability  = object.getString("ability");
-                String imgFile  = object.getString("picture");
-                int ev          = object.getInt("ev");
-                int evCost      = object.getInt("evCost");
-                String type     = object.getString("type");
-                String name     = object.getString("name");
-                    for(int i = 0; i < add; i++){
-                        Card local = new Card(name, id,type,defense,attack,
-                                               ev,evCost,inDeck,imgFile,ability,pAssetStore);
-                        playerDeck.add(local);
+
+                    int id          = object.getInt("_id");
+                    int attack      = object.getInt("attack");
+                    int defense     = object.getInt("defense");
+                    String ability  = object.getString("ability");
+                    String imgFile  = object.getString("picture");
+                    String desc     = object.getString("desc");
+                    int abilityLvl  = object.getInt("abilityLvl");
+                    int ev          = object.getInt("ev");
+                    int evCost      = object.getInt("evCost");
+                    String type     = object.getString("type");
+                    String name     = object.getString("name");
+                        for(int i = 0; i < add; i++){
+                            Card local = new Card(name, id,type,defense,attack,
+                                               ev,evCost,inDeck,imgFile,ability,desc,abilityLvl,pAssetStore);
+                         playerDeck.add(local);
                     }
                 }
 

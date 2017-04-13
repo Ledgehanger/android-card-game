@@ -32,6 +32,8 @@ public class Card{
     public int evCost;
     public int width;
     public int height;
+    public String desc;
+    public int  abilityLvl;
 
     public boolean inDeck;
 
@@ -39,6 +41,7 @@ public class Card{
     public Rect cardTextRect;
     protected Rect cardRect;
     public Paint textPaint;
+    public Paint textDesc;
 
     public float textSize=9f;
 
@@ -71,7 +74,7 @@ public class Card{
     public boolean isPicked = false;
 
 
-    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability, AssetStore aStore) {
+    public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability,String desc,int abilityLvl, AssetStore aStore) {
         this.name = name;
         this.id = id;
         this.type = type;
@@ -80,6 +83,9 @@ public class Card{
         this.ev = ev;
         this.evCost = evCost;
         this.ability = AbilityFactory.getAbility(Ability);
+
+        this.desc=desc;
+        this.abilityLvl=abilityLvl;
 
         this.inDeck = inDeck;
         this.picture = cardDraw;
@@ -107,9 +113,11 @@ public class Card{
             atk=card.getInt("attack");
             hp=card.getInt("defense");
             String strAbility=card.getString("ability");
-            ability=AbilityFactory.getAbility(strAbility);;
+            ability=AbilityFactory.getAbility(strAbility);
             picture=card.getString("picture");
             inDeck=card.getBoolean("inDeck");
+            desc=card.getString("desc");
+            abilityLvl=card.getInt("abilityLvl");
             evCost=card.getInt("evCost");
             ev=card.getInt("ev");
         }
@@ -170,18 +178,18 @@ public class Card{
         cardRect = null;
     }
 
-    public Paint formatText()
+    public Paint formatText(float textR)
     {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-        float textRatio = 26.6F;
+        float textRatio = textR;
         paint.setTextSize(textRatio);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
 
     }
 
-    public void drawCardInHand(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack)
+    public void drawCard(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack)
     {
         if(isPicked){
             top -= 50;
@@ -189,7 +197,9 @@ public class Card{
         }
             createCardRect(bot,left,top);
         if (textPaint==null)
-            textPaint=formatText();
+            textPaint=formatText(26.5F);
+        if (textDesc==null)
+            textDesc=formatText(10F);
         if(cardImg == null){
             setUpCardBitmap(top,drawBack);
         }
@@ -199,16 +209,22 @@ public class Card{
 
         if(!drawBack){
 
+
             iG2D.drawText(Integer.toString(hp),cardRect.right - 26,cardRect.bottom-10,textPaint);
             iG2D.drawText(Integer.toString(atk),cardRect.left + 10,cardRect.bottom-10,textPaint);
+            iG2D.drawText(Integer.toString(evCost),cardRect.left + 15,cardRect.top+30,textPaint);
+            iG2D.drawText(desc,cardRect.left +30,cardRect.bottom-50,textDesc);
+
         }
 
     }
-    public void drawCardInSpot(Rect spotRect, IGraphics2D iG2D)
+    public void drawCard(Rect spotRect, IGraphics2D iG2D)
     {
         iG2D.drawBitmap(cardImg,null,spotRect,null);
-        iG2D.drawText(Integer.toString(hp),spotRect.right - 26,spotRect.bottom-10,textPaint);
-        iG2D.drawText(Integer.toString(atk),spotRect.left + 10,spotRect.bottom-10,textPaint);
+        iG2D.drawText(Integer.toString(hp)    ,spotRect.right - 26,spotRect.bottom-10,textPaint);
+        iG2D.drawText(Integer.toString(atk)   ,spotRect.left + 10 ,spotRect.bottom-10,textPaint);
+        iG2D.drawText(Integer.toString(evCost),spotRect.left + 15 ,spotRect.top + 30 ,textPaint);
+        iG2D.drawText(desc                    ,spotRect.left +30  ,spotRect.bottom-50,textDesc);
     }
     public int modHP(Card card,int modHP)
     {
