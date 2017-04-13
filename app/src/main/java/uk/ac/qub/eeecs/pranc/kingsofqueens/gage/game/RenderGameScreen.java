@@ -22,21 +22,22 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.ScreenViewport;
 
 public class RenderGameScreen extends GameScreen {
 
-    private final float LEVEL_WIDTH = 1000.0f;
+    private final float LEVEL_WIDTH  = 1000.0f;
     private final float LEVEL_HEIGHT = 1000.0f;
     private ScreenViewport mScreenViewport;
-    private LayerViewport mLayerViewport;
-    private GameObject mQueensBackground; //TO INCLUDE IMAGE OF LANYON
-    private PlayerCards mPlayerCards; //PUT CARD IMAGES ON PLAYERCARDS CLASS
-    private final int NUM_CARD_SPACES = 12; //NEED TO DRAW GRID FOR CARDS
+    private LayerViewport  mLayerViewport;
+    
+    private GameObject     mQueensBackground; //TO INCLUDE IMAGE OF LANYON
+    private PlayerCards    mPlayerCards; //PUT CARD IMAGES ON PLAYERCARDS CLASS
+    private final int      NUM_CARD_SPACES = 12; //NEED TO DRAW GRID FOR CARDS
+    
     private List<PlayerCards> mCards; //TO IMPLEMENT CARD CLASS
 
     //Game Objects
     private GameTurn currentGame;
     private Player player, playerAI;
-    private String ButtonText = "End phase";
-    private boolean ingorePlayerInput = false;
-    private boolean cardPlayedLimt = false;
+    private boolean ignorePlayerInput = false;
+    private boolean cardPlayedLimit   = false;
 
     public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
         super("RenderGameScreen", game);
@@ -44,7 +45,7 @@ public class RenderGameScreen extends GameScreen {
         playerAI = new PlayerAi("PlayerAiIcon",game,genAlgorithm.field.TOP);
         player   = new Player  ("PlayerIcon"  ,game.getAssetManager(), playerDeck, genAlgorithm.field.BOTTOM);
 
-        setUpAssests(game.getAssetManager());
+        setUpAssets(game.getAssetManager());
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck  .setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
@@ -72,8 +73,8 @@ public class RenderGameScreen extends GameScreen {
 
         currentGame = new GameTurn(player.getId(),playerAI.getId());
     }
-
-    private void setUpAssests(AssetStore assetManager) {
+    
+    private void setUpAssets(AssetStore assetManager) {
         assetManager.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetManager.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         assetManager.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
@@ -103,9 +104,10 @@ public class RenderGameScreen extends GameScreen {
             currentGame.getNextPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-            if(!ingorePlayerInput)
+            if(!ignorePlayerInput)
                 placeCardPhase(elapsedTime, touchEvents);
-           // else
+             else
+                 currentGame.getNextPhase();
                 // AI turn
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
@@ -114,12 +116,12 @@ public class RenderGameScreen extends GameScreen {
             currentGame.getNextPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-            cardPlayedLimt = false;
+            cardPlayedLimit = false;
             player.playerHand.endTurn();
             currentGame.getNextPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-            cardPlayedLimt = false;
+            cardPlayedLimit = false;
             endPlayerTurn(currentGame.getCurrentPlayerID());
             currentGame.getNextPhase();
         }
@@ -129,14 +131,14 @@ public class RenderGameScreen extends GameScreen {
     }
 
     private void placeCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
-        if(!cardPlayedLimt) {
+        if(!cardPlayedLimit) {
             player.playerHand.update(elapsedTime, touchEvents);
 
             if (player.playerHand.cardPicked()) {
                 player.playerField.update(elapsedTime, touchEvents, player.playerHand);
 
                 if (player.playerHand.getCardPlayedThisTurn()) {
-                    cardPlayedLimt = true;
+                    cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
                     useCardAbility(newCard);
                     currentGame.getNextPhase();
@@ -145,7 +147,7 @@ public class RenderGameScreen extends GameScreen {
         }
     }
 
-    protected void useCardAbility(Card c) {
+    private void useCardAbility(Card c) {
         if(c.ability.getHasAbility()){
             if(c.ability instanceof OwnerEffectedAbility){
                 ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
@@ -156,9 +158,9 @@ public class RenderGameScreen extends GameScreen {
 
     private void setIngorePlayer() {
         if(currentGame.getCurrentPlayerID() == player.id)
-            ingorePlayerInput = false;
+            ignorePlayerInput = false;
         else
-            ingorePlayerInput = true;
+            ignorePlayerInput = true;
     }
 
 

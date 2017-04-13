@@ -13,51 +13,53 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class Player {
 
-    protected int hp;
-    protected int evTotal;
-    protected String id;
-    protected String playerImgFile;
-    protected boolean isAlive;
-    protected boolean handDrawCardBack = false;
-    protected Bitmap playerIconBitmap;
-    protected Bitmap playerHPBarBitmap;
-    protected Paint playerPaint;
+    public final int    STARTING_EV         = 1;
+    public final int    STARTING_HP         = 20;
+    public final int    CARDS_PER_TURN      = 1;
+    public final int    STARTING_HAND_SIZE  = 3;
+    public final int    HP_DEATH            = 0;
+    public final String HP_BAR_FILE_NAME    = "HPBar";
 
-    protected Deck playerDeck;
-    protected Hand playerHand;
-    protected Field playerField;
-    protected Rect playerRectIcon;
-    protected Rect playerRectHp;
+    protected boolean    isAlive;
+    protected boolean    handDrawCardBack = false;
+    protected float      textSize = 25f;
+
+    protected int        hp;
+    protected int        evTotal;
+    protected String     id;
+    protected String     playerImgFile;
+
+    protected Bitmap     playerIconBitmap;
+    protected Bitmap     playerHPBarBitmap;
+    protected Paint      playerPaint;
+
+    protected Deck       playerDeck;
+    protected Hand       playerHand;
+    protected Field      playerField;
+    protected Rect       playerRectIcon;
+    protected Rect       playerRectHp;
+
     protected genAlgorithm.field fieldLocation;
 
-    protected float textSize = 25f;
-
-    public final int STARTING_EV = 1;
-    public final int STARTING_HP = 20;
-    public final int CARDS_PER_TURN = 1;
-    public final int STARTING_HAND_SIZE  = 3;
-
-    public final String hpBarFileName = "HPBar";
-
-
-    
     public Player(){
-        this.hp = STARTING_HP;
+        this.hp      = STARTING_HP;
         this.evTotal = STARTING_EV;
         this.isAlive = true;
     }
     public Player(String pImage, AssetStore assetStore, Deck playerDeck,genAlgorithm.field fieldLocation ) {
-        this.fieldLocation = fieldLocation;
-        this.playerImgFile = pImage;
-        this.hp = STARTING_HP;
-        this.isAlive = true;
-        this.evTotal = STARTING_EV;
-        this.playerDeck = playerDeck;
+        this.fieldLocation      = fieldLocation;
+        this.playerImgFile      = pImage;
+        this.hp                 = STARTING_HP;
+        this.isAlive            = true;
+        this.evTotal            = STARTING_EV;
+        this.playerDeck         = playerDeck;
+
         if (assetStore != null)
             setUpBitmap( assetStore);
-        playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
-        this.id = "Player";
-        this.playerField = new Field();
+
+        this.playerHand     = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
+        this.id             = "Player";
+        this.playerField    = new Field();
 
     }
     public Player(String pImage, AssetStore assetStore,genAlgorithm.field fieldLocation){
@@ -72,24 +74,25 @@ public class Player {
         this.playerField = new Field();
     }
 
-    public int  getEvTotal           ()            {
+    public int     getEvTotal  ()            {
         return evTotal;
     }
-    public int  getHp                ()                 {
+    public int     getHp       ()                 {
         return this.hp;
     }
-    public String getId              () {
+    public String  getId       () {
         return id;
     }
+    public boolean getIsAlive  (){return isAlive;}
 
     public void addToEvTotal   (int add){
         this.evTotal += add;
     }
     public void healPlayer     (int heal){
         for(int i = 0; i < heal; i++){
-            if(hp < 20){
+            if(hp < STARTING_HP)
                 hp++;
-            }else
+            else
                 break;
         }
     }
@@ -106,18 +109,22 @@ public class Player {
         if(playerPaint == null)
             playerPaint = setUpPaint();
 
-        iGraphics2D.drawBitmap(playerIconBitmap,null, playerRectIcon,null);
-        iGraphics2D.drawBitmap(playerHPBarBitmap,null,playerRectHp,null);
-        iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX()-15,playerRectHp.centerY()+5,playerPaint);
+        iGraphics2D.drawBitmap(playerIconBitmap ,null,playerRectIcon,null);
+        iGraphics2D.drawBitmap(playerHPBarBitmap,null,playerRectHp  ,null);
 
-        playerField.draw(fieldLocation,iGraphics2D,assetStore);
-        playerDeck.drawDeck(fieldLocation,iGraphics2D);
-        playerHand.drawHand(fieldLocation,iGraphics2D,assetStore,handDrawCardBack);
+        int xOffset = 15, yOffset = 5;
+
+        iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX() - xOffset,
+                                                  playerRectHp.centerY() + yOffset,playerPaint);
+
+        playerField.draw    (fieldLocation,iGraphics2D,assetStore);
+        playerDeck .drawDeck(fieldLocation,iGraphics2D);
+        playerHand .drawHand(fieldLocation,iGraphics2D,assetStore,handDrawCardBack);
 
 
     }
     
-    public boolean getIsAlive  (){return isAlive;}
+
     public Paint   setUpPaint  (){
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
@@ -131,14 +138,13 @@ public class Player {
             return isAlive;
 
         for(int i = 0; i < totalDamage; i++){
-            if(hp > 0)
+            if(hp > HP_DEATH) {
                 hp--;
-            else{
+            }else{
                 isAlive = false;
                 break;
             }
         }
-
         return isAlive;
     }
 
@@ -148,6 +154,7 @@ public class Player {
 
         if(playerIconBitmap == null || playerHPBarBitmap == null)
             setUpBitmap(assetStore);
+
         if (fieldLocation == genAlgorithm.field.TOP) {
             top = 0;
             bot = iGraphics2D.getSurfaceHeight();
@@ -157,7 +164,7 @@ public class Player {
             right = (int) leftSide;
             topPlayerIcon = (int) top;
             botPlayerIcon = (int) ((bot) - (bot / 1.5)) - 75;
-            int topHp = (int)botPlayerIcon + 10;
+            int topHp = botPlayerIcon + 10;
             int botHp = topHp + 100;
 
             playerRectIcon = new Rect(left, topPlayerIcon, right, botPlayerIcon);
@@ -172,7 +179,7 @@ public class Player {
             right = (int) leftSide;
             topPlayerIcon = (int) ((top) + (top / 4) + 105);
             botPlayerIcon = (int) bot;
-            int topHp = (int)topPlayerIcon - 100;
+            int topHp = topPlayerIcon - 100;
             int botHp = topPlayerIcon - 10;
 
 
@@ -183,10 +190,10 @@ public class Player {
     }
     protected void setUpBitmap     (AssetStore pAssetManger) {
 
-        pAssetManger.loadAndAddBitmap(hpBarFileName, "GameScreenImages/HealthMonitor.png");
+        pAssetManger.loadAndAddBitmap(HP_BAR_FILE_NAME, "GameScreenImages/HealthMonitor.png");
         pAssetManger.loadAndAddBitmap(playerImgFile, "img/PlayerIcons/"+playerImgFile+".png");
-        playerIconBitmap = pAssetManger.getBitmap(playerImgFile);
-        playerHPBarBitmap = pAssetManger.getBitmap(hpBarFileName);
+        playerIconBitmap  = pAssetManger.getBitmap(playerImgFile);
+        playerHPBarBitmap = pAssetManger.getBitmap(HP_BAR_FILE_NAME);
     }
 }
 
