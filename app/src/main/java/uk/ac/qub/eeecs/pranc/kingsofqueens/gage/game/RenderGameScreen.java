@@ -36,23 +36,20 @@ public class RenderGameScreen extends GameScreen {
     private Player player, playerAI;
     private String ButtonText = "End phase";
     private boolean ingorePlayerInput = false;
+    private boolean cardPlayedLimt = false;
 
     public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
         super("RenderGameScreen", game);
 
         playerAI = new PlayerAi("PlayerAiIcon",game,genAlgorithm.field.TOP);
-        player = new Player("PlayerIcon", game.getAssetManager(), playerDeck, genAlgorithm.field.BOTTOM);
+        player   = new Player  ("PlayerIcon"  ,game.getAssetManager(), playerDeck, genAlgorithm.field.BOTTOM);
 
-        game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
-        game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
-        game.getAssetManager().loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
-        game.getAssetManager().loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
-        game.getAssetManager().loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
+        setUpAssests(game.getAssetManager());
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
-        player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
+        player.playerDeck  .setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
 
-        mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
+       mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
                 game.getScreenHeight());
 
         if (mScreenViewport.width > mScreenViewport.height)
@@ -65,9 +62,7 @@ public class RenderGameScreen extends GameScreen {
                     * mScreenViewport.height / mScreenViewport.width, 240);
 
         AssetStore assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
-        assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
-        assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
+
 
         mQueensBackground = new GameObject(LEVEL_WIDTH / 2.0f,
                 LEVEL_HEIGHT / 2.0f, LEVEL_WIDTH, LEVEL_HEIGHT, getGame()
@@ -76,6 +71,17 @@ public class RenderGameScreen extends GameScreen {
         mPlayerCards = new PlayerCards(100, 200, this);
 
         currentGame = new GameTurn(player.getId(),playerAI.getId());
+    }
+
+    private void setUpAssests(AssetStore assetManager) {
+        assetManager.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+        assetManager.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
+        assetManager.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+        assetManager.loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
+        assetManager.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
+        assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
+        assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
+        assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
     }
 
     public PlayerCards getmPlayerCards() {
@@ -90,7 +96,6 @@ public class RenderGameScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
-
         setIngorePlayer();
 
         if(ingorePlayerInput) {
@@ -103,15 +108,7 @@ public class RenderGameScreen extends GameScreen {
                 currentGame.getNextPhase();
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-                player.playerHand.update(elapsedTime, touchEvents);
-
-                if(player.playerHand.cardPicked()){
-                    //How Ability are going to work atm
-                    Card c = player.playerHand.getPickedCardFromHand();
-                    useCardAbility(c);
-                    currentGame.getNextPhase();
-                }
-
+                placeCardPhase(elapsedTime, touchEvents);
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
                 //  if (currentGame.isFirstTurn())
@@ -119,9 +116,28 @@ public class RenderGameScreen extends GameScreen {
 
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+                cardPlayedLimt = false;
+                player.playerHand.endTurn();
                 currentGame.getNextPhase();
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
 
+            }
+        }
+    }
+
+    private void placeCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
+        if(!cardPlayedLimt) {
+            player.playerHand.update(elapsedTime, touchEvents);
+
+            if (player.playerHand.cardPicked()) {
+                player.playerField.update(elapsedTime, touchEvents, player.playerHand);
+
+                if (player.playerHand.getCardPlayedThisTurn()) {
+                    cardPlayedLimt = true;
+                    Card newCard = player.playerHand.getLastCardPlayed();
+                    useCardAbility(newCard);
+                    currentGame.getNextPhase();
+                }
             }
         }
     }
@@ -154,8 +170,8 @@ public class RenderGameScreen extends GameScreen {
 
        iGraphics2D.clear(Color.BLACK);
        iGraphics2D.clipRect(mScreenViewport.toRect());
-        getGame().getAssetManager().getMusic("BGM").play();
-        getGame().getAssetManager().getMusic("BGM").setVolume(1);
+       getGame().getAssetManager().getMusic("BGM").play();
+       getGame().getAssetManager().getMusic("BGM").setVolume(1);
        //Draw Background
        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
        //Draw Player
@@ -163,4 +179,5 @@ public class RenderGameScreen extends GameScreen {
        player.drawPlayer(iGraphics2D,getGame().getAssetManager());
 
     }
+
 }

@@ -26,13 +26,15 @@ public class  Hand {
     private   ArrayList<Card> myHand;
     private   Rect            handRect;
     private   int             indexOfPickedCard = PICKED_DEFAULT_INDEX;
+    private   Card            lastCardPlayed;
+    private   boolean         cardPlayedThisTurn;
 
     public Hand(Card [] fromDeck){
         myHand =  new ArrayList<>();
         for (Card c : fromDeck){
             myHand.add(c);
         }
-
+        cardPlayedThisTurn = false;
     }
 
     public void addToHand(Card [] fromDeck){
@@ -48,9 +50,9 @@ public class  Hand {
     public Card getPickedCardFromHand(){
         if(indexOfPickedCard != PICKED_DEFAULT_INDEX) {
             myHand.get(indexOfPickedCard).setCardToNull();
-            Card toReturn = myHand.remove(indexOfPickedCard);
+            lastCardPlayed = myHand.remove(indexOfPickedCard);
             indexOfPickedCard = PICKED_DEFAULT_INDEX;
-            return toReturn;
+            return lastCardPlayed;
         }
         return null;
     }
@@ -89,7 +91,7 @@ public class  Hand {
         iGraphics2D.drawBitmap(handBitmap,null,handRect,null);
 
         for (Card c: myHand) {
-            c.drawCard(botI,left,topI,iGraphics2D,drawBack);
+            c.drawCardInHand(botI,left,topI,iGraphics2D,drawBack);
             left += CARD_GAP_OFFSET;
         }
     }
@@ -128,4 +130,17 @@ public class  Hand {
         return false;
     }
 
+    public Card getLastCardPlayed(){
+        return lastCardPlayed;
+    }
+    public boolean getCardPlayedThisTurn(){
+        return cardPlayedThisTurn;
+    }
+    public void setCardPlayedThisTurn(boolean bool){
+        this.cardPlayedThisTurn = bool;
+    }
+    public void endTurn(){
+        cardPlayedThisTurn = false;
+        lastCardPlayed = null;
+    }
 }

@@ -181,7 +181,7 @@ public class Card{
 
     }
 
-    public void drawCard(int bot, int left, int top, IGraphics2D iG2D,boolean drawBack)
+    public void drawCardInHand(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack)
     {
         if(isPicked){
             top -= 50;
@@ -198,12 +198,18 @@ public class Card{
         iG2D.drawBitmap(cardImg,null,cardRect,null);
 
         if(!drawBack){
-            iG2D.drawText(Integer.toString(hp),(left+width)-22,bot-10,textPaint);
-            iG2D.drawText(Integer.toString(atk),left+15,bot - 10,textPaint);
+
+            iG2D.drawText(Integer.toString(hp),cardRect.right - 26,cardRect.bottom-10,textPaint);
+            iG2D.drawText(Integer.toString(atk),cardRect.left + 10,cardRect.bottom-10,textPaint);
         }
 
     }
-
+    public void drawCardInSpot(Rect spotRect, IGraphics2D iG2D)
+    {
+        iG2D.drawBitmap(cardImg,null,spotRect,null);
+        iG2D.drawText(Integer.toString(hp),spotRect.right - 26,spotRect.bottom-10,textPaint);
+        iG2D.drawText(Integer.toString(atk),spotRect.left + 10,spotRect.bottom-10,textPaint);
+    }
     public int modHP(Card card,int modHP)
     {
         int hp = card.getHP();

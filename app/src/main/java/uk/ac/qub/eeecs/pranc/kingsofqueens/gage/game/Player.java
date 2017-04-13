@@ -110,9 +110,10 @@ public class Player {
         iGraphics2D.drawBitmap(playerHPBarBitmap,null,playerRectHp,null);
         iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX()-15,playerRectHp.centerY()+5,playerPaint);
 
+        playerField.draw(fieldLocation,iGraphics2D,assetStore);
         playerDeck.drawDeck(fieldLocation,iGraphics2D);
         playerHand.drawHand(fieldLocation,iGraphics2D,assetStore,handDrawCardBack);
-        playerField.draw(fieldLocation,iGraphics2D,assetStore);
+
 
     }
     
