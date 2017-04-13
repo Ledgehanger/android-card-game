@@ -26,6 +26,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 finish();
             }
+            //SHOULD EXECUTE DELAYED SPLASH
         },SPLAH_TIME_OUT);
     }
 }
