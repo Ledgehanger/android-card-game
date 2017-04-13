@@ -26,7 +26,7 @@ public class Row {
 
     public Row(){
         myRow = new ArrayList<Spot>();
-
+        setupRow(SPOTS_PER_ROW);
     }
 
     public Row(int size){
@@ -50,10 +50,10 @@ public class Row {
     }
 
     public Boolean checkSpotPlayable(int index){
-    if(index > myRow.size() || index < 0)
+        if(index > myRow.size() || index < 0)
         {return false;
-    }else{
-        return myRow.get(index).getCardPlaced();
+        }else{
+            return myRow.get(index).getCardPlaced();
 
         }
     }
@@ -92,8 +92,6 @@ public class Row {
 
         } else {
             top = iGraphics2D.getSurfaceHeight() / 2;
-            bot = iGraphics2D.getSurfaceHeight();
-
             botI = (int) top + (int) (top / 2);
             topI = (int) top;
 
@@ -101,9 +99,14 @@ public class Row {
         }
 
 
-        iGraphics2D.drawBitmap(rowBitmap,null,rowRect,null);
+        //iGraphics2D.drawBitmap(rowBitmap,null,rowRect,null);
+        int offset = 150;
+        for (Spot s : myRow) {
+            int rightDraw = left + offset;
+            s.draw(topI,botI,left,rightDraw,side,iGraphics2D,aStore);
+            left += offset;
 
-
+        }
     }
 
 

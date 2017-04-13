@@ -1,6 +1,11 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 /**
  * Created by Paddy_Lenovo on 11/04/2017.
@@ -23,7 +28,16 @@ public class Spot {
         this.spotCard = spotCard;
     }
 
-    public void Draw(){
+    public void draw(int top, int bot, int right , int left, genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
+            aStore){
+        spotRect = new Rect(right, top, left, bot);
+
+        if(cardPlaced)
+            iGraphics2D.drawBitmap(spotCard.cardImg,null,spotRect,null);
+        else{
+            Bitmap bit = aStore.getBitmap("Spot");
+            iGraphics2D.drawBitmap(bit,null,spotRect,null);
+        }
 
 
     }
