@@ -29,21 +29,21 @@ public class Field {
 
     }
     public void draw (genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
-        aStore) {
-            for (int i = 0; i < ROWS_PER_FIELD; i++ ){
+            aStore) {
+        for (int i = 0; i < ROWS_PER_FIELD; i++ ){
 
-                myField.get(i).draw(side, iGraphics2D, aStore);
-            }
+            myField.get(i).draw(side, iGraphics2D, aStore);
+        }
     }
     public void update(ElapsedTime elapsedTime, List< TouchEvent > touchEvents, Hand pHand) {
-            TouchEvent touchEvent = touchEvents.get(0);
-            for (int i = 0; i < ROWS_PER_FIELD; i++) {
-                Row c = myField.get(i);
-                    if (c.getMyRowRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                       // c.update(elapsedTime,touchEvents,pHand);
+        TouchEvent touchEvent = touchEvents.get(0);
+        for (int i = 0; i < ROWS_PER_FIELD; i++) {
+            Row c = myField.get(i);
+            if (c.getMyRowRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                c.update(elapsedTime,touchEvents,pHand);
 
-                }
             }
+        }
 
 
     }

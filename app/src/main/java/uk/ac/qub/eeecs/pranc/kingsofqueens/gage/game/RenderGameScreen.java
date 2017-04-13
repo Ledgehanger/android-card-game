@@ -1,11 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
-
-
 /**
  * Created by markm on 25/11/2016.
  */
-
-
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -53,6 +49,8 @@ public class RenderGameScreen extends GameScreen {
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         game.getAssetManager().loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+        game.getAssetManager().loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
+        game.getAssetManager().loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
@@ -108,25 +106,19 @@ public class RenderGameScreen extends GameScreen {
                 currentGame.getNextPhase();
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-                    player.playerHand.update(elapsedTime, touchEvents);
+                player.playerHand.update(elapsedTime, touchEvents);
 
-                    if(player.playerHand.cardPicked()){
-                        //How Ability are going to work atm
-                        Card c = player.playerHand.getPickedCardFromHand();
-
-                        if(c.ability instanceof OwnerEffectedAbility){
-                            ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
-                        }
-                        if(c.ability.getHasAbility() == true){
-                            c.ability.effect("level1");
-                        }
-                        currentGame.getNextPhase();
-                    }
+                if(player.playerHand.cardPicked()){
+                    //How Ability are going to work atm
+                    Card c = player.playerHand.getPickedCardFromHand();
+                    useCardAbility(c);
+                    currentGame.getNextPhase();
+                }
 
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.choseALane) {
-              //  if (currentGame.isFirstTurn())
-                    currentGame.getNextPhase();
+                //  if (currentGame.isFirstTurn())
+                currentGame.getNextPhase();
 
 
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
@@ -135,7 +127,16 @@ public class RenderGameScreen extends GameScreen {
 
             }
         }
+    }
+
+    protected void useCardAbility(Card c) {
+        if(c.ability.getHasAbility()){
+            if(c.ability instanceof OwnerEffectedAbility){
+                ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
+            }
+            c.ability.effect("level1");
         }
+    }
 
     private void setIngorePlayer() {
         if(currentGame.getCurrentPlayerID() == player.id)
@@ -152,13 +153,12 @@ public class RenderGameScreen extends GameScreen {
             playerAI.playerStartTurn();
     }
 
-
-
-
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
        iGraphics2D.clear(Color.BLACK);
        iGraphics2D.clipRect(mScreenViewport.toRect());
+        getGame().getAssetManager().getMusic("BGM").play();
+        getGame().getAssetManager().getMusic("BGM").setVolume(1);
        //Draw Background
        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
        //Draw Player

@@ -1,7 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
 /**
  * Created by Carl on 09/04/2017.
- * DEV NOTE: DESIGN EVERYTHING WITH 720p(1280*720) IN MIND
+ * DEV NOTE: DESIGN EVERYTHING WITH 1184*720 IN MIND
  * CLASS IS USED TO SCALE TO OTHER DEVICE RESOLUTION'S
  */
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
