@@ -1,5 +1,9 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+/**
+ * Created by Arif_Tahir on 11/04/2017.
+ */
+
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
