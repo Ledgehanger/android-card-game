@@ -37,7 +37,7 @@
   },
   {
     "_id": 16,
-    "name": "David Kier Building",
+    "name": "David Keir Building",
     "attack": 0,
     "defense": 4,
     "ability": "AddEvAbility",

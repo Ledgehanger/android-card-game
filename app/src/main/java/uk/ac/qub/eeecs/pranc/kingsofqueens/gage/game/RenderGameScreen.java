@@ -1,11 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
-
-
 /**
  * Created by markm on 25/11/2016.
  */
-
-
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -53,6 +49,7 @@ public class RenderGameScreen extends GameScreen {
         game.getAssetManager().loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         game.getAssetManager().loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         game.getAssetManager().loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+        game.getAssetManager().loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
 
         playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
         player.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
@@ -152,13 +149,12 @@ public class RenderGameScreen extends GameScreen {
             playerAI.playerStartTurn();
     }
 
-
-
-
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
        iGraphics2D.clear(Color.BLACK);
        iGraphics2D.clipRect(mScreenViewport.toRect());
+        getGame().getAssetManager().getMusic("BGM").play();
+        getGame().getAssetManager().getMusic("BGM").setVolume(1);
        //Draw Background
        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
        //Draw Player

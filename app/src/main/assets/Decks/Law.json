@@ -17,7 +17,7 @@
     "attack" : 5,
     "defense": 3,
     "ability": "Default",
-    "picture": "img/Cards/Lawyer.png",
+    "picture": "img/Cards/LAWYER.png",
     "inDeck" : false,
     "evCost" : 5,
     "ev"     : 26,
