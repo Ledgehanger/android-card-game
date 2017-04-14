@@ -11,13 +11,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.CardGame;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.MainActivity;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.PickDeckScreen;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
@@ -31,7 +27,7 @@ import static org.junit.Assert.*;
 public class PickDeckScreenTest extends Application {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule<>(MainActivity.class,true,true);
+            new ActivityTestRule<>(MainActivity.class,false,true);
     Game game;
     @Test
     public void test() throws Exception{
@@ -46,12 +42,7 @@ public class PickDeckScreenTest extends Application {
         PickDeckScreen pickDeckScreen = new PickDeckScreen(game);
 
         ElapsedTime elapsedTime = new ElapsedTime();
-
-
-        pickDeckScreen.draw(elapsedTime,null);
-        Thread.sleep(2000);
         pickDeckScreen.update(elapsedTime);
-        Thread.sleep(2000);
         pickDeckScreen = null;
         assertNull(pickDeckScreen);
         Thread.sleep(2000);

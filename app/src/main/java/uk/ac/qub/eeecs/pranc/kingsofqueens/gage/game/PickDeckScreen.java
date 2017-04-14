@@ -3,6 +3,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -59,19 +60,8 @@ public class PickDeckScreen extends GameScreen {
             TouchEvent touchEvent = touchEvents.get(0);
 
             if(DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                if(deck1Picked == false && !Deck2.getDeckName().equals(currentDeck)){
-                    DeckSelection test = DeckHashMap.get(currentDeck);
-                    Deck1 = new DeckPickerRect(new Rect(300,31,600,120), test.getBitImage(),currentDeck);
-                    deck1Picked = true;
-                }
-                else if(deck2Picked == false && deck1Picked == true && !Deck1.getDeckName().equals(currentDeck)){
-                    DeckSelection test = DeckHashMap.get(currentDeck);
-                    Deck2 = new DeckPickerRect(new Rect(600,31,900,120), test.getBitImage(),currentDeck);
-                    deck2Picked = true;
-                }
-
+                mangeDeckSelection();
             }
-
             deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
             deck2Picked = checkInputDeckChoices(touchEvent, Deck2, deck2Picked);
 
@@ -82,29 +72,49 @@ public class PickDeckScreen extends GameScreen {
                     index++;
             }
 
-
-            if(deck1Picked && deck2Picked){
-
-                if(Play.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                    aStore.getMusic("BGM").stop();
-                    //replace with the game
-                    mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
-                    //pass down the decks they have picked
-                    Deck playerDeck = new Deck(mGame.getAssetManager(),Deck1.getDeckName(), Deck2.getDeckName());
-
-
-                    try {
-                        RenderGameScreen gameScreen = new RenderGameScreen(mGame,playerDeck);
-                        mGame.getScreenManager().addScreen(gameScreen);
-                    }catch(Exception e)   {
-                        Log.d(e.toString(), "update: ");
-                    }
-                    }
-            }
+            checkPlayButtonPressed(touchEvent);
 
 
         }
 
+    }
+
+    private void mangeDeckSelection() {
+        if(deck1Picked == false && !Deck2.getDeckName().equals(currentDeck)){
+            DeckSelection test = DeckHashMap.get(currentDeck);
+            Deck1 = new DeckPickerRect(new Rect(300,31,600,120), test.getBitImage(),currentDeck);
+            deck1Picked = true;
+        }
+        else if(deck2Picked == false && deck1Picked == true && !Deck1.getDeckName().equals(currentDeck)){
+            DeckSelection test = DeckHashMap.get(currentDeck);
+            Deck2 = new DeckPickerRect(new Rect(600,31,900,120), test.getBitImage(),currentDeck);
+            deck2Picked = true;
+        }
+    }
+
+    private void checkPlayButtonPressed(TouchEvent touchEvent) {
+        try {
+            if (deck1Picked && deck2Picked) {
+                if (Play.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                    Deck playerDeck = setupForRenderGame();
+                    RenderGameScreen gameScreen = new RenderGameScreen(mGame, playerDeck);
+                    mGame.getScreenManager().addScreen(gameScreen);
+
+                }
+            }
+        }
+        catch(Exception e)   {
+                Log.d(e.toString(), "update: ");
+            }
+    }
+
+    @NonNull
+    private Deck setupForRenderGame() {
+        aStore.getMusic("BGM").stop();
+        //replace with the game
+        mGame.getScreenManager().removeScreen(mGame.getScreenManager().getCurrentScreen().getName());
+        //pass down the decks they have picked
+        return new Deck(mGame.getAssetManager(),Deck1.getDeckName(), Deck2.getDeckName());
     }
 
     @Override
@@ -124,9 +134,7 @@ public class PickDeckScreen extends GameScreen {
                 //Create bitmaps for every object in decks and add it to the hashmap
                 for (DeckSelection deck : decks) {
                     if (!DeckHashMap.containsKey(deck.getName())) {
-                        aStore.loadAndAddBitmap(deck.getImgPath(),deck.getImgPath());
-                        deck.setBitImage(aStore.getBitmap(deck.getImgPath()));
-                        DeckHashMap.put(deck.getName(), deck);
+                        setupDeckTypeButtons(deck);
                     }
                 }
 
@@ -137,8 +145,7 @@ public class PickDeckScreen extends GameScreen {
                 DeckButton = new Rect(2 * spacingX, spacingY, 4 * spacingX, 2 * spacingY);
                 Left = new Rect(spacingX, spacingY, 2 * spacingX, 2 * spacingY);
                 Right = new Rect(4 * spacingX, spacingY, 5 * spacingX, 2 * spacingY);
-                if(scale != null)
-                    Play = scale.scaleRect(350,500,850,650);
+                Play = scale.scaleRect(350,500,850,650);
 
             }
             if(iGraphics2D != null)
@@ -148,9 +155,8 @@ public class PickDeckScreen extends GameScreen {
             aStore.getMusic("BGM").setVolume(1);
            // aStore.getMusic("BGM").isLooping(true);
 
-            // Used to manage the going throw decks
-            if(index >= decks.length) index = 0;
-            if(index < 0) index = decks.length - 1;
+
+            mangeIndexs(decks);
 
             //store the current deck name for lookup in the hashmap
             currentDeck = decks[index].getName();
@@ -161,26 +167,7 @@ public class PickDeckScreen extends GameScreen {
 
             //Draw the images
             if(iGraphics2D != null) {
-                int bgRight = iGraphics2D.getSurfaceWidth();
-                int bgBot = iGraphics2D.getSurfaceHeight();
-                bg = new Rect(0, 0, bgRight, bgBot);
-                iGraphics2D.drawBitmap(bgImg, null, bg, null);
-                iGraphics2D.drawBitmap(leftArrow, null, Left, null);
-                iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].getName()).getBitImage(), null,
-                        DeckButton, null);
-                iGraphics2D.drawBitmap(rightArrow, null, Right, null);
-                //Check if we should draw Deck Choices and play button
-                if (deck1Picked) {
-                    iGraphics2D.drawBitmap(Deck1.getImage(), null, Deck1.getButton(), null);
-                }
-                if (deck2Picked) {
-                    iGraphics2D.drawBitmap(Deck2.getImage(), null, Deck2.getButton(), null);
-                }
-                if (deck1Picked && deck2Picked) {
-                    Bitmap playButton = aStore.getBitmap("Play");
-
-                    iGraphics2D.drawBitmap(playButton, null, Play, null);
-                }
+                draw(iGraphics2D, decks[index], bgImg, rightArrow, leftArrow);
             }
         }
         catch (Exception e)
@@ -188,6 +175,42 @@ public class PickDeckScreen extends GameScreen {
             String msg = e.getMessage();
             Log.d(msg, "draw: ");
         }
+    }
+
+    private void draw(IGraphics2D iGraphics2D, DeckSelection deck, Bitmap bgImg, Bitmap rightArrow, Bitmap leftArrow) {
+        int bgRight = iGraphics2D.getSurfaceWidth();
+        int bgBot = iGraphics2D.getSurfaceHeight();
+        bg = new Rect(0, 0, bgRight, bgBot);
+        iGraphics2D.drawBitmap(bgImg, null, bg, null);
+        iGraphics2D.drawBitmap(leftArrow, null, Left, null);
+        iGraphics2D.drawBitmap(DeckHashMap.get(deck.getName()).getBitImage(), null,
+                DeckButton, null);
+        iGraphics2D.drawBitmap(rightArrow, null, Right, null);
+        //Check if we should draw Deck Choices and play button
+        if (deck1Picked) {
+            iGraphics2D.drawBitmap(Deck1.getImage(), null, Deck1.getButton(), null);
+        }
+        if (deck2Picked) {
+            iGraphics2D.drawBitmap(Deck2.getImage(), null, Deck2.getButton(), null);
+        }
+        if (deck1Picked && deck2Picked) {
+            Bitmap playButton = aStore.getBitmap("Play");
+
+            iGraphics2D.drawBitmap(playButton, null, Play, null);
+        }
+    }
+
+    private void mangeIndexs(DeckSelection[] decks) {
+        if(index >= decks.length)
+            index = 0;
+        if(index < 0)
+            index = decks.length - 1;
+    }
+
+    private void setupDeckTypeButtons(DeckSelection deck) {
+        aStore.loadAndAddBitmap(deck.getImgPath(),deck.getImgPath());
+        deck.setBitImage(aStore.getBitmap(deck.getImgPath()));
+        DeckHashMap.put(deck.getName(), deck);
     }
 
 

@@ -133,8 +133,8 @@ public class RenderGameScreen extends GameScreen {
         //Draw Background
         mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
         //Draw Player
-        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
-        player.drawPlayer(iGraphics2D,getGame().getAssetManager());
+        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager(), iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
+        player.drawPlayer(iGraphics2D,getGame().getAssetManager(),iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
         drawEndTurn(elapsedTime,iGraphics2D);
 
     }

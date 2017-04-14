@@ -1,6 +1,8 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Test;
@@ -12,6 +14,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by markm on 06/04/2017.
@@ -99,4 +102,48 @@ public class Player_Test {
     private Deck setDeck() {
         return new Deck(assetStore, "Psych", "Theology");
     }
+
+    @Test
+    public void testPlayers(){
+        Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
+        assertEquals("AI",player.getId());
+        AssetStore as = getAssetStore();
+        player.drawPlayer(null,as,100,100);
+    }
+    @Test
+    public void playerAttackPhase(){
+        Player player = new Player(playerImage, assetStore, genAlgorithm.field.BOTTOM);
+        player.playerAttackPhase(playerWithAssetStore);
+
+    }
+
+    @Test
+    public void testDrawPlayers(){
+        Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
+        Player player2 = new Player("ei",null, genAlgorithm.field.TOP);
+        assertEquals("AI",player.getId());
+        AssetStore as = getAssetStore();
+        player.drawPlayer (null,as,100,100);
+        player.drawPlayer (null,as,100,100);
+        player2.drawPlayer(null,as,100,100);
+        player2.drawPlayer(null,as,100,100);
+    }
+
+    @Test
+    public void testPaint(){
+        Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
+
+        AssetStore as = getAssetStore();
+        player.drawPlayer(null,as,100,100);
+        Paint e = player.setUpPaint();
+        assertNotNull(e);
+    }
+
+    @NonNull
+    private AssetStore getAssetStore() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        return new AssetStore(new FileIO(appContext));
+    }
+
+
 }

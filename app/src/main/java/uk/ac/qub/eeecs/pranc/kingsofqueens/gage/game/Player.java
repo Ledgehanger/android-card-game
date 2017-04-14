@@ -101,26 +101,26 @@ public class Player {
         if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
             playerHand.addToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }
-    public void drawPlayer     (IGraphics2D iGraphics2D, AssetStore assetStore) {
+    public void drawPlayer(IGraphics2D iGraphics2D, AssetStore assetStore, int SurfaceHeight, int SurfaceWidth) {
 
         if (playerRectIcon == null || playerRectHp == null) {
-            createPlayerRect(iGraphics2D, assetStore);
+            createPlayerRect(assetStore, SurfaceHeight,SurfaceWidth);
         }
         if(playerPaint == null)
             playerPaint = setUpPaint();
 
-        iGraphics2D.drawBitmap(playerIconBitmap ,null,playerRectIcon,null);
-        iGraphics2D.drawBitmap(playerHPBarBitmap,null,playerRectHp  ,null);
-
         int xOffset = 15, yOffset = 5;
 
-        iGraphics2D.drawText(Integer.toString(hp),playerRectHp.centerX() - xOffset,
-                                                  playerRectHp.centerY() + yOffset,playerPaint);
+        if(iGraphics2D != null) {
+            iGraphics2D.drawBitmap(playerIconBitmap, null, playerRectIcon, null);
+            iGraphics2D.drawBitmap(playerHPBarBitmap, null, playerRectHp, null);
+            iGraphics2D.drawText(Integer.toString(hp), playerRectHp.centerX() - xOffset,
+                    playerRectHp.centerY() + yOffset, playerPaint);
 
-        playerField.draw    (fieldLocation,iGraphics2D,assetStore);
-        playerDeck .drawDeck(fieldLocation,iGraphics2D);
-        playerHand .drawHand(fieldLocation,iGraphics2D,assetStore,handDrawCardBack);
-
+            playerField.draw(fieldLocation, iGraphics2D, assetStore);
+            playerDeck.drawDeck(fieldLocation, iGraphics2D);
+            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack);
+        }
 
     }
     
@@ -148,7 +148,7 @@ public class Player {
         return isAlive;
     }
 
-    protected void createPlayerRect( IGraphics2D iGraphics2D, AssetStore assetStore) {
+    protected void createPlayerRect(AssetStore assetStore, int surfaceHeight, int surfaceWidth) {
         float top , bot, leftSide;
         int left, right, topPlayerIcon, botPlayerIcon;
 
@@ -157,9 +157,9 @@ public class Player {
 
         if (fieldLocation == genAlgorithm.field.TOP) {
             top = 0;
-            bot = iGraphics2D.getSurfaceHeight();
+            bot = surfaceHeight;
 
-            leftSide = iGraphics2D.getSurfaceWidth();
+            leftSide = surfaceWidth;
             left = (int) leftSide - 100;
             right = (int) leftSide;
             topPlayerIcon = (int) top;
@@ -171,10 +171,10 @@ public class Player {
             playerRectHp   = new Rect(left,topHp,right,botHp);
 
         } else {
-            top = iGraphics2D.getSurfaceHeight() / 2;
-            bot = iGraphics2D.getSurfaceHeight();
+            top = surfaceHeight / 2;
+            bot = surfaceHeight;
 
-            leftSide = iGraphics2D.getSurfaceWidth();
+            leftSide = surfaceWidth;
             left = (int) leftSide - 100;
             right = (int) leftSide;
             topPlayerIcon = (int) ((top) + (top / 4) + 105);
@@ -196,7 +196,7 @@ public class Player {
         playerHPBarBitmap = pAssetManger.getBitmap(HP_BAR_FILE_NAME);
     }
 
-    protected void playerAttackPhase(Player enemyPlayer){
+    public void playerAttackPhase(Player enemyPlayer){
         for(int i = 0; i < playerField.getSizeOfRow(); i++){
             Spot currentSpot = playerField.getSpotFromRow(0,i);
             if(currentSpot.getCardPlaced()){
