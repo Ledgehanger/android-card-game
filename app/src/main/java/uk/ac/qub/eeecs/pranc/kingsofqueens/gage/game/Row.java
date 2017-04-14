@@ -114,6 +114,10 @@ public class Row {
         }
     }
 
+    public Spot getSpot(int index){
+        return myRow.get(index);
+    }
+
 
 }
 

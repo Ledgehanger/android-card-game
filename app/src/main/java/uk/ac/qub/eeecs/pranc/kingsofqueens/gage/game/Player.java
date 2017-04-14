@@ -195,6 +195,23 @@ public class Player {
         playerIconBitmap  = pAssetManger.getBitmap(playerImgFile);
         playerHPBarBitmap = pAssetManger.getBitmap(HP_BAR_FILE_NAME);
     }
+
+    protected void playerAttackPhase(Player enemyPlayer){
+        for(int i = 0; i < playerField.getSizeOfRow(); i++){
+            Spot currentSpot = playerField.getSpotFromRow(0,i);
+            if(currentSpot.getCardPlaced()){
+                Spot enemyPlayerSpot = enemyPlayer.playerField.getSpotFromRow(0,i);
+
+                if(enemyPlayerSpot.getCardPlaced())
+                    enemyPlayerSpot.dealDamageToCurrentCard(currentSpot.getCardAttack());
+                else
+                    enemyPlayer.DamageTaken(currentSpot.getCardAttack());
+            }
+        }
+
+    }
+
+
 }
 
 

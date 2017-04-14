@@ -20,6 +20,16 @@
         android:textColor="#454545"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:text="PRANC COMPANY 2017" />
+        android:text="PRANC COMPANY 2017"
+        android:id="@+id/textView2" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

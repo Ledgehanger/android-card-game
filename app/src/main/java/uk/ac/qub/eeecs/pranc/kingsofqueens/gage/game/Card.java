@@ -241,4 +241,14 @@ public class Card{
         }
         return hp;
     }
+
+    public boolean dealDamageToCard(int totalAttack) {
+        for (int i = 0; i < totalAttack; i++) {
+            if (hp > 0)
+                hp--;
+             else
+                 return false;
+        }
+        return true;
+    }
 }

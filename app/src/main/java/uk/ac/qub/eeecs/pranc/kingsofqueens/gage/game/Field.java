@@ -49,6 +49,12 @@ public class Field {
         }
     }
 
+    public int getSizeOfRow(){
+        return myField.get(0).SPOTS_PER_ROW;
+    }
 
+    public Spot getSpotFromRow(int indexOfRow, int indexOfSpot){
+        return myField.get(indexOfRow).getSpot(indexOfSpot);
+    }
 
 }
