@@ -12,9 +12,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
  */
 
 public class Spot {
-    public Boolean getCardPlaced() {
-        return cardPlaced;
-    }
+
 
     private Boolean cardPlaced;
     private Card spotCard;
@@ -45,12 +43,21 @@ public class Spot {
 
 
     }
-
+    public Boolean getCardPlaced() {
+        return cardPlaced;
+    }
     public void update(){
 
 
     }
+    public void dealDamageToCurrentCard(int totalAttack){
+        if(spotCard.dealDamageToCard(totalAttack) == true)
+            spotCard = null;
 
+    }
+    public int getCardAttack(){
+        return spotCard.getATK();
+    }
     public Rect getSpotRect() {
         return spotRect;
     }

@@ -43,11 +43,11 @@ public class GameTurn {
                 currentPhase = turnTypes.attackPhase;
                 break;
             case attackPhase:
-                endTurn();
                 currentPhase = turnTypes.endTurn;
                 break;
             case endTurn:
                 firstTurn = false;
+                endTurn();
                 currentPhase = turnTypes.startPhase;
             default:
                 currentPhase = turnTypes.startPhase;

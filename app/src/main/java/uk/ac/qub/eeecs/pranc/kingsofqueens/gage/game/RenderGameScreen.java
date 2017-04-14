@@ -73,7 +73,7 @@ public class RenderGameScreen extends GameScreen {
 
         currentGame = new GameTurn(player.getId(),playerAI.getId());
     }
-    
+
     private void setUpAssets(AssetStore assetManager) {
         assetManager.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetManager.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
@@ -97,32 +97,43 @@ public class RenderGameScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
-        setIngorePlayer();
+
+
 
         if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
             startPlayerTurn(currentGame.getCurrentPlayerID());
+            setIgnorePlayer();
             currentGame.getNextPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-            if(!ignorePlayerInput)
+            if(ignorePlayerInput == false) {
+                //TODO check if end phase/turn button has been click if so called end phase method
                 placeCardPhase(elapsedTime, touchEvents);
-             else
-                 currentGame.getNextPhase();
-                // AI turn
+            }
+             else {
+                //TODO AI turn
+                currentGame.getNextPhase();
+            }
+
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
             //  if (currentGame.isFirstTurn()
             //TODO
+            if(ignorePlayerInput)
+                playerAI.playerAttackPhase(player);
+            else
+                player.playerAttackPhase(playerAI);
+
             currentGame.getNextPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
             cardPlayedLimit = false;
-            player.playerHand.endTurn();
-            currentGame.getNextPhase();
-        }
-        else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-            cardPlayedLimit = false;
-            endPlayerTurn(currentGame.getCurrentPlayerID());
+
+            if(!ignorePlayerInput)
+                player.playerHand.endTurn();
+            else
+                playerAI.playerHand.endTurn();
+
             currentGame.getNextPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
@@ -141,6 +152,7 @@ public class RenderGameScreen extends GameScreen {
                     cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
                     useCardAbility(newCard);
+                    //TODO Remove when end turn button is in
                     currentGame.getNextPhase();
                 }
             }
@@ -156,7 +168,7 @@ public class RenderGameScreen extends GameScreen {
         }
     }
 
-    private void setIngorePlayer() {
+    private void setIgnorePlayer() {
         if(currentGame.getCurrentPlayerID() == player.id)
             ignorePlayerInput = false;
         else
@@ -191,4 +203,7 @@ public class RenderGameScreen extends GameScreen {
 
     }
 
+    public void endPlaceCardPhase(){
+        currentGame.getNextPhase();
+    }
 }
