@@ -25,6 +25,7 @@ public class Spot {
     }
 
     public void setSpotCard(Card spotCard) {
+        cardPlaced = true;
         this.spotCard = spotCard;
     }
 
@@ -32,8 +33,11 @@ public class Spot {
             aStore){
         spotRect = new Rect(right, top, left, bot);
 
-        if(cardPlaced)
-            iGraphics2D.drawBitmap(spotCard.cardImg,null,spotRect,null);
+        if(cardPlaced) {
+            spotCard.isPicked = false;
+            spotCard.drawCard(spotRect, iGraphics2D);
+
+        }
         else{
             Bitmap bit = aStore.getBitmap("Spot");
             iGraphics2D.drawBitmap(bit,null,spotRect,null);

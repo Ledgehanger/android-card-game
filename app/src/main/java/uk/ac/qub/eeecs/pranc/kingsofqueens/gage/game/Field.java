@@ -36,16 +36,17 @@ public class Field {
         }
     }
     public void update(ElapsedTime elapsedTime, List< TouchEvent > touchEvents, Hand pHand) {
-        TouchEvent touchEvent = touchEvents.get(0);
-        for (int i = 0; i < ROWS_PER_FIELD; i++) {
-            Row c = myField.get(i);
-            if (c.getMyRowRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                c.update(elapsedTime,touchEvents,pHand);
 
+        if(!touchEvents.isEmpty()) {
+            TouchEvent touchEvent = touchEvents.get(0);
+            for (int i = 0; i < ROWS_PER_FIELD; i++) {
+                Row c = myField.get(i);
+                if (c.getMyRowRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                    c.update(elapsedTime, touchEvents, pHand);
+
+                }
             }
         }
-
-
     }
 
 

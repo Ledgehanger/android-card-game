@@ -19,7 +19,7 @@ public class GameTurn {
     public enum turnTypes {
                 startPhase,
                 placeCard,
-                choseALane,
+                attackPhase,
                 endTurn,
                 gameOver
     }
@@ -40,9 +40,9 @@ public class GameTurn {
                 currentPhase = turnTypes.placeCard;
                 break;
             case placeCard:
-                currentPhase = turnTypes.choseALane;
+                currentPhase = turnTypes.attackPhase;
                 break;
-            case choseALane:
+            case attackPhase:
                 endTurn();
                 currentPhase = turnTypes.endTurn;
                 break;

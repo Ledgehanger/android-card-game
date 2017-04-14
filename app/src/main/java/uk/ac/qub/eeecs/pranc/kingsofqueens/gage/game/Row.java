@@ -64,7 +64,10 @@ public class Row {
             Spot c = myRow.get(i);
             if (!c.getCardPlaced()) {
                 if (c.getSpotRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                    c.setSpotCard(pHand.getPickedCardFromHand());
+                    Card lCard = pHand.getPickedCardFromHand();
+                    c.setSpotCard(lCard);
+                    pHand.setCardPlayedThisTurn(true);
+                    break;
                 }
             }
         }
