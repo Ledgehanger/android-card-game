@@ -108,51 +108,107 @@ public class RenderGameScreen extends GameScreen {
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
         if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
-            startPlayerTurn(currentGame.getCurrentPlayerID());
-            setIgnorePlayer();
-            currentGame.getNextPhase();
+            startPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-            if (ignorePlayerInput == false) {
-                if (!touchEvents.isEmpty()) {
-                    TouchEvent touchEvent = touchEvents.get(0);
-                    if (endTurnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                        currentGame.getNextPhase();
-                    }
-                }
-                placeCardPhase(elapsedTime, touchEvents);
-            } else {
-                currentGame.getNextPhase();
-            }
+            placeCardPhase(elapsedTime, touchEvents);
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-            if (currentGame.isFirstTurn())
-                currentGame.getNextPhase();
-            else {
-                if (ignorePlayerInput)
-                    playerAI.playerAttackPhase(player);
-                else
-                    player.playerAttackPhase(playerAI);
-
-                currentGame.getNextPhase();
-            }
+            attackPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-            cardPlayedLimit = false;
-
-            if(!ignorePlayerInput)
-                player.playerHand.endTurn();
-            else
-                playerAI.playerHand.endTurn();
-
-            currentGame.getNextPhase();
+            endTurnPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
         //TODO
         }
     }
 
+    public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
+
+        iGraphics2D.clear(Color.BLACK);
+        iGraphics2D.clipRect(mScreenViewport.toRect());
+        getGame().getAssetManager().getMusic("BGM").play();
+        getGame().getAssetManager().getMusic("BGM").setVolume(1);
+        //Draw Background
+        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        //Draw Player
+        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
+        player.drawPlayer(iGraphics2D,getGame().getAssetManager());
+        drawEndTurn(elapsedTime,iGraphics2D);
+
+    }
+
+    public void endPlaceCardPhase(){
+        currentGame.getNextPhase();
+    }
+
+    public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D){
+        if(endTurnDisable == null){
+            endTurnDisable  = getGame().getAssetManager().getBitmap(END_TURN_DISABLE);
+        }
+        if(endTurnActive == null) {
+            endTurnActive  = getGame().getAssetManager().getBitmap(END_TURN_ACTIVE);
+        }
+        if(endTurnRect == null){
+            int top, bot, left, right;
+            int mid = iGraphics2D.getSurfaceHeight() / 2;
+            bot = mid + 50;
+            top = mid - 50;
+            right = iGraphics2D.getSurfaceWidth();
+            left = right - 140;
+            endTurnRect = new Rect(left,top,right,bot);
+        }
+        if(currentGame.getCurrentPlayerID() == player.getId())
+            iGraphics2D.drawBitmap(endTurnActive ,null,endTurnRect,null);
+        else
+            iGraphics2D.drawBitmap(endTurnDisable ,null,endTurnRect,null);
+    }
+
     private void placeCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
+        if (ignorePlayerInput == false) {
+            if (!touchEvents.isEmpty()) {
+                TouchEvent touchEvent = touchEvents.get(0);
+                if (endTurnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                    currentGame.getNextPhase();
+                }
+            }
+            playerPlaceCardPhase(elapsedTime, touchEvents);
+        } else {
+            //TODO AI TURN
+            currentGame.getNextPhase();
+        }
+    }
+
+    private void startPhase() {
+        startPlayerTurn(currentGame.getCurrentPlayerID());
+        setIgnorePlayer();
+        currentGame.getNextPhase();
+    }
+
+    private void attackPhase() {
+        if (currentGame.isFirstTurn())
+            currentGame.getNextPhase();
+        else {
+            if (ignorePlayerInput)
+                playerAI.playerAttackPhase(player);
+            else
+                player.playerAttackPhase(playerAI);
+
+            currentGame.getNextPhase();
+        }
+    }
+
+    private void endTurnPhase() {
+        cardPlayedLimit = false;
+        if(!ignorePlayerInput)
+            player.playerHand.endTurn();
+        else
+            playerAI.playerHand.endTurn();
+        currentGame.getNextPhase();
+    }
+
+    private void playerPlaceCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
         if(!cardPlayedLimit) {
             player.playerHand.update(elapsedTime, touchEvents);
 
@@ -184,13 +240,13 @@ public class RenderGameScreen extends GameScreen {
             ignorePlayerInput = true;
     }
 
-
     private void startPlayerTurn(String currentTurnId){
         if(currentTurnId == player.id)
             player.playerStartTurn();
         else
             playerAI.playerStartTurn();
     }
+
     private void endPlayerTurn(String currentTurnId){
         if(currentTurnId == player.id)
             player.playerHand.endTurn();
@@ -198,44 +254,5 @@ public class RenderGameScreen extends GameScreen {
             playerAI.playerHand.endTurn();
     }
 
-    public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
-       iGraphics2D.clear(Color.BLACK);
-       iGraphics2D.clipRect(mScreenViewport.toRect());
-       getGame().getAssetManager().getMusic("BGM").play();
-       getGame().getAssetManager().getMusic("BGM").setVolume(1);
-       //Draw Background
-       mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-       //Draw Player
-       playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
-       player.drawPlayer(iGraphics2D,getGame().getAssetManager());
-       drawEndTurn(elapsedTime,iGraphics2D);
-
-    }
-
-    public void endPlaceCardPhase(){
-        currentGame.getNextPhase();
-    }
-
-    public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D){
-        if(endTurnDisable == null){
-            endTurnDisable  = getGame().getAssetManager().getBitmap(END_TURN_DISABLE);
-        }
-        if(endTurnActive == null) {
-            endTurnActive  = getGame().getAssetManager().getBitmap(END_TURN_ACTIVE);
-        }
-        if(endTurnRect == null){
-            int top, bot, left, right;
-            int mid = iGraphics2D.getSurfaceHeight() / 2;
-            bot = mid + 50;
-            top = mid - 50;
-            right = iGraphics2D.getSurfaceWidth();
-            left = right - 140;
-            endTurnRect = new Rect(left,top,right,bot);
-        }
-        if(currentGame.getCurrentPlayerID() == player.getId())
-         iGraphics2D.drawBitmap(endTurnActive ,null,endTurnRect,null);
-        else
-         iGraphics2D.drawBitmap(endTurnDisable ,null,endTurnRect,null);
-    }
 }
