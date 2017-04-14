@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
     /**
      * Game fragment instance
      */
-    private Game mGame;
+    public Game mGame;
 
     /*
      * (non-Javadoc)
@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
             mGame = new CardGame();
             fm.beginTransaction().add(R.id.activity_fragment_id, mGame)
                     .commit();
-            String testing = "blash";
         }
 
 

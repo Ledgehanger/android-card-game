@@ -110,7 +110,9 @@ public class PickDeckScreen extends GameScreen {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
         DeckSelection[] decks = aStore.jsonToDeckCollection("Decks");
-        scaleScreenReso scale=new scaleScreenReso(iGraphics2D);
+        scaleScreenReso scale = null;
+        if(iGraphics2D != null)
+            scale=new scaleScreenReso(iGraphics2D);
 
         try
         {
@@ -135,12 +137,12 @@ public class PickDeckScreen extends GameScreen {
                 DeckButton = new Rect(2 * spacingX, spacingY, 4 * spacingX, 2 * spacingY);
                 Left = new Rect(spacingX, spacingY, 2 * spacingX, 2 * spacingY);
                 Right = new Rect(4 * spacingX, spacingY, 5 * spacingX, 2 * spacingY);
-
-                Play = scale.scaleRect(350,500,850,650);
+                if(scale != null)
+                    Play = scale.scaleRect(350,500,850,650);
 
             }
-
-            iGraphics2D.clear(Color.rgb(255,255,255));
+            if(iGraphics2D != null)
+                iGraphics2D.clear(Color.rgb(255,255,255));
 
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
@@ -158,27 +160,28 @@ public class PickDeckScreen extends GameScreen {
                 DeckHashMap.get(decks[index].getName()).setBitImage(aStore.getBitmap(decks[index].getImgPath()));
 
             //Draw the images
-            int bgRight=iGraphics2D.getSurfaceWidth();
-            int bgBot=iGraphics2D.getSurfaceHeight();
-            bg=new Rect(0,0,bgRight,bgBot);
-            iGraphics2D.drawBitmap(bgImg,null,bg,null);
-            iGraphics2D.drawBitmap(leftArrow,null,Left,null);
-            iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].getName()).getBitImage(),null,
-                            DeckButton,null);
-            iGraphics2D.drawBitmap(rightArrow,null,Right,null);
-            //Check if we should draw Deck Choices and play button
-            if(deck1Picked){
-                iGraphics2D.drawBitmap(Deck1.getImage(),null, Deck1.getButton(),null);
-            }
-            if(deck2Picked){
-                iGraphics2D.drawBitmap(Deck2.getImage(),null, Deck2.getButton(),null);
-            }
-            if(deck1Picked && deck2Picked){
-                Bitmap playButton = aStore.getBitmap("Play");
+            if(iGraphics2D != null) {
+                int bgRight = iGraphics2D.getSurfaceWidth();
+                int bgBot = iGraphics2D.getSurfaceHeight();
+                bg = new Rect(0, 0, bgRight, bgBot);
+                iGraphics2D.drawBitmap(bgImg, null, bg, null);
+                iGraphics2D.drawBitmap(leftArrow, null, Left, null);
+                iGraphics2D.drawBitmap(DeckHashMap.get(decks[index].getName()).getBitImage(), null,
+                        DeckButton, null);
+                iGraphics2D.drawBitmap(rightArrow, null, Right, null);
+                //Check if we should draw Deck Choices and play button
+                if (deck1Picked) {
+                    iGraphics2D.drawBitmap(Deck1.getImage(), null, Deck1.getButton(), null);
+                }
+                if (deck2Picked) {
+                    iGraphics2D.drawBitmap(Deck2.getImage(), null, Deck2.getButton(), null);
+                }
+                if (deck1Picked && deck2Picked) {
+                    Bitmap playButton = aStore.getBitmap("Play");
 
-                iGraphics2D.drawBitmap(playButton, null, Play, null);
+                    iGraphics2D.drawBitmap(playButton, null, Play, null);
+                }
             }
-
         }
         catch (Exception e)
         {
