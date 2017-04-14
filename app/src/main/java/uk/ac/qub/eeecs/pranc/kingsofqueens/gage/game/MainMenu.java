@@ -3,6 +3,7 @@
  */
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
+import java.io.File;
 import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
@@ -12,6 +13,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ScreenManager;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
@@ -25,9 +27,11 @@ import android.content.res.AssetFileDescriptor;
 
 public class MainMenu extends GameScreen
 {
+    //SETTINGS FOR VOLUME
+    private Settings settings;
 
     //Creates Rect which bound buttons
-    private Rect boundPlayBtn,boundOptionsBtn,boundTitle,boundBackground;
+    private Rect boundPlayBtn,boundOptionsBtn,boundTitle,boundBackground, boundSoundBtn;
 
 
     //Set up AssetStore
@@ -37,6 +41,10 @@ public class MainMenu extends GameScreen
     {
         super("MainMenuScreen",newGame);
         aStore.loadAndAddBitmap("Title","img/MainMenuImages/Title.PNG");
+
+        //SETTINGS
+        aStore.loadAndAddBitmap("sound", "img/sound.jpg");
+
         aStore.loadAndAddBitmap("playBtn","img/MainMenuImages/playBtn.png");
         aStore.loadAndAddBitmap("optionsBtn","img/MainMenuImages/devBtn.png");
         aStore.loadAndAddBitmap("BG","img/mmbg.jpg");
@@ -68,6 +76,17 @@ public class MainMenu extends GameScreen
                 OptionsScreen game = new OptionsScreen("", mGame);
                 mGame.getScreenManager().addScreen(game);
             }
+
+            if(boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+            aStore.getMusic("BGM").stop();
+                settings.soundEnabled = false;
+                //settings.save("");
+                if(boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                    aStore.getMusic("BGM").play();
+                    settings.soundEnabled = true;
+                    //settings.save("");
+                }
+        }
         }
     }
 
@@ -77,6 +96,10 @@ public class MainMenu extends GameScreen
         try
         {
             scaleScreenReso scale= new scaleScreenReso(iGraphics2D);
+
+            //SETTINGS
+            Bitmap soundButton=aStore.getBitmap(("sound"));
+
             Bitmap koqTitle=aStore.getBitmap("Title");
             Bitmap playGame=aStore.getBitmap("playBtn");
             Bitmap options=aStore.getBitmap("optionsBtn");
@@ -84,7 +107,7 @@ public class MainMenu extends GameScreen
 
 
 
-            if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null || boundBackground==null)
+            if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null || boundBackground==null || boundSoundBtn==null)
             {
                 int bgLeft=0;
                 int bgRight=iGraphics2D.getSurfaceWidth();
@@ -113,6 +136,13 @@ public class MainMenu extends GameScreen
 
                 boundPlayBtn= scale.scaleRect(optionsLeft,playTop,optionsRight,playBottom);
 
+                int soundLeft = 0;
+                int soundRight = soundLeft+soundButton.getWidth();
+                int soundTop = 455;
+                int soundBottom = soundTop+soundButton.getHeight();
+
+                boundSoundBtn = scale.scaleRect(soundLeft, soundTop, soundRight, soundBottom);
+
             }
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
@@ -123,6 +153,8 @@ public class MainMenu extends GameScreen
             iGraphics2D.drawBitmap(koqTitle,null,boundTitle,null);
             iGraphics2D.drawBitmap(playGame,null,boundPlayBtn,null);
             iGraphics2D.drawBitmap(options,null,boundOptionsBtn,null);
+
+            iGraphics2D.drawBitmap(soundButton, null, boundSoundBtn, null);
 
         }
         catch (Exception e)
