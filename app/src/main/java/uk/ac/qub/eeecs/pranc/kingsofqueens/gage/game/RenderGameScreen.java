@@ -2,7 +2,9 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 /**
  * Created by markm on 25/11/2016.
  */
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 
 import java.util.List;
 
@@ -38,7 +40,12 @@ public class RenderGameScreen extends GameScreen {
     private Player player, playerAI;
     private boolean ignorePlayerInput = false;
     private boolean cardPlayedLimit   = false;
+    private Bitmap endTurnActive;
+    private Bitmap endTurnDisable;
+    private Rect endTurnRect;
 
+    public static final String END_TURN_ACTIVE = "EndTurnActive";
+    public static final String END_TURN_DISABLE = "EndTurnDisable";
     public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
         super("RenderGameScreen", game);
 
@@ -83,6 +90,8 @@ public class RenderGameScreen extends GameScreen {
         assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
         assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
         assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
+        assetManager.loadAndAddBitmap(END_TURN_ACTIVE, "img/EndTurnActive.png");
+        assetManager.loadAndAddBitmap(END_TURN_DISABLE, "img/EndTurnDisable.png");
     }
 
     public PlayerCards getmPlayerCards() {
@@ -98,33 +107,35 @@ public class RenderGameScreen extends GameScreen {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
-
-
         if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
             startPlayerTurn(currentGame.getCurrentPlayerID());
             setIgnorePlayer();
             currentGame.getNextPhase();
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-            if(ignorePlayerInput == false) {
-                //TODO check if end phase/turn button has been click if so called end phase method
+            if (ignorePlayerInput == false) {
+                if (!touchEvents.isEmpty()) {
+                    TouchEvent touchEvent = touchEvents.get(0);
+                    if (endTurnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                        currentGame.getNextPhase();
+                    }
+                }
                 placeCardPhase(elapsedTime, touchEvents);
-            }
-             else {
-                //TODO AI turn
+            } else {
                 currentGame.getNextPhase();
             }
-
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-            //  if (currentGame.isFirstTurn()
-            //TODO
-            if(ignorePlayerInput)
-                playerAI.playerAttackPhase(player);
-            else
-                player.playerAttackPhase(playerAI);
+            if (currentGame.isFirstTurn())
+                currentGame.getNextPhase();
+            else {
+                if (ignorePlayerInput)
+                    playerAI.playerAttackPhase(player);
+                else
+                    player.playerAttackPhase(playerAI);
 
-            currentGame.getNextPhase();
+                currentGame.getNextPhase();
+            }
         }
         else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
             cardPlayedLimit = false;
@@ -152,8 +163,6 @@ public class RenderGameScreen extends GameScreen {
                     cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
                     useCardAbility(newCard);
-                    //TODO Remove when end turn button is in
-                    currentGame.getNextPhase();
                 }
             }
         }
@@ -200,10 +209,33 @@ public class RenderGameScreen extends GameScreen {
        //Draw Player
        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager());
        player.drawPlayer(iGraphics2D,getGame().getAssetManager());
+       drawEndTurn(elapsedTime,iGraphics2D);
 
     }
 
     public void endPlaceCardPhase(){
         currentGame.getNextPhase();
+    }
+
+    public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D){
+        if(endTurnDisable == null){
+            endTurnDisable  = getGame().getAssetManager().getBitmap(END_TURN_DISABLE);
+        }
+        if(endTurnActive == null) {
+            endTurnActive  = getGame().getAssetManager().getBitmap(END_TURN_ACTIVE);
+        }
+        if(endTurnRect == null){
+            int top, bot, left, right;
+            int mid = iGraphics2D.getSurfaceHeight() / 2;
+            bot = mid + 50;
+            top = mid - 50;
+            right = iGraphics2D.getSurfaceWidth();
+            left = right - 140;
+            endTurnRect = new Rect(left,top,right,bot);
+        }
+        if(currentGame.getCurrentPlayerID() == player.getId())
+         iGraphics2D.drawBitmap(endTurnActive ,null,endTurnRect,null);
+        else
+         iGraphics2D.drawBitmap(endTurnDisable ,null,endTurnRect,null);
     }
 }

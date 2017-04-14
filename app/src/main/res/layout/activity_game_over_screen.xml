@@ -20,7 +20,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/sad" />
+        android:src="@drawable/kingofqueens" />
 
 
     <TextView
