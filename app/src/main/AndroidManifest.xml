@@ -32,9 +32,6 @@
         </activity>
 
 
-
-
-
         !--MAIN ACTIVITY--!
         <activity
             android:name=".gage.MainActivity"
