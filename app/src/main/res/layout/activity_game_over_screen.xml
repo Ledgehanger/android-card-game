@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_game_over_screen"
     android:layout_width="match_parent"
@@ -14,12 +15,20 @@
         android:text="GAME OVER"
         android:textSize="30sp"/>
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/sad" />
+
+
     <TextView
         android:id="@+id/scoreLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="58dp"
         android:layout_height="wrap_content"
         android:text="150"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:layout_marginTop="80dp"/>
 
     <TextView
@@ -32,11 +41,12 @@
         />
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:onClick="playAgain"
         android:text="Play Again"
-        android:textAllCaps="false"
-        android:onClick="playAgain"/>
+        android:textAllCaps="false" />
 
 </LinearLayout>
