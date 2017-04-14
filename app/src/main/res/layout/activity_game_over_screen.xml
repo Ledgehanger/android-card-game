@@ -7,7 +7,7 @@
     tools:context="uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameOverScreen"
     android:orientation="vertical"
     android:gravity="center">
-    
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
