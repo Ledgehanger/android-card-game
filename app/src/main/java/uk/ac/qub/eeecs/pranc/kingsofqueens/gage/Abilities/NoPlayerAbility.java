@@ -8,6 +8,6 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 
 public abstract class NoPlayerAbility implements Ability{
     protected boolean hasAbility;
-    public void effect(String effectLevel){}
+    public void effect(int effectLevel){}
     public boolean getHasAbility(){return hasAbility;}
 }

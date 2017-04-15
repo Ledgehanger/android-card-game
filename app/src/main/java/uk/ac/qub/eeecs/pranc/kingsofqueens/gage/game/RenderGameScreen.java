@@ -229,7 +229,8 @@ public class RenderGameScreen extends GameScreen {
             if(c.ability instanceof OwnerEffectedAbility){
                 ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
             }
-            c.ability.effect("level1");
+            //TODO Setup card to have evlevel
+            c.ability.effect(1);
         }
     }
 

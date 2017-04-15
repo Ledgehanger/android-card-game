@@ -35,21 +35,21 @@ public class Ability_Test {
             if(ability instanceof OwnerEffectedAbility) {
                 ((OwnerEffectedAbility) ability).addEffectPlayer(test);
             }
-            ability.effect("level1");
+            ability.effect(1);
             assertEquals(2, test.getEvTotal());
 
             test = new Player();
             if(ability instanceof OwnerEffectedAbility) {
                 ((OwnerEffectedAbility) ability).addEffectPlayer(test);
             }
-            ability.effect("level2");
+            ability.effect(2);
             assertEquals(3, test.getEvTotal());
 
             test = new Player();
             if(ability instanceof OwnerEffectedAbility) {
                 ((OwnerEffectedAbility) ability).addEffectPlayer(test);
             }
-            ability.effect("level3");
+            ability.effect(3);
             assertEquals(4, test.getEvTotal());
         }
     }
@@ -64,7 +64,7 @@ public class Ability_Test {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
         }
 
-        ability.effect("level3");
+        ability.effect(3);
         assertEquals(20,test.getHp());
     }
 
@@ -81,7 +81,7 @@ public class Ability_Test {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
         }
 
-        ability.effect("level1");
+        ability.effect(1);
         assertEquals(19,test.getHp());
     }
     public void healEffectLevel2(){
@@ -93,7 +93,7 @@ public class Ability_Test {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
         }
 
-        ability.effect("level2");
+        ability.effect(2);
         assertEquals(19,test.getHp());
     }
 
@@ -106,7 +106,7 @@ public class Ability_Test {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
         }
 
-        ability.effect("level3");
+        ability.effect(3);
         assertEquals(19,test.getHp());
     }
 

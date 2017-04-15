@@ -16,18 +16,18 @@ public class HealAbility extends OwnerEffectedAbility {
     }
 
 
-    public void effect(String effectLevel){
-
+    public void effect(int effectLevel){
+        hasAbility = true;
         int add = 0;
 
         switch(effectLevel) {
-            case "level3":
+            case 3:
                 add = levelThree;
                 break;
-            case "level2":
+            case 2:
                 add = levelTwo;
                 break;
-            case "level1":
+            case 1:
                 add = levelOne;
                 break;
 

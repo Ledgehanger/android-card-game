@@ -7,7 +7,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 
 public interface Ability {
     boolean hasAbility = true;
-    void effect(String effectLevel);
+    void effect(int effectLevel);
     boolean getHasAbility();
 }
 

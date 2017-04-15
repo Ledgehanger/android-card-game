@@ -10,7 +10,7 @@ public abstract class OwnerEffectedAbility implements Ability {
     protected boolean hasAbility = true;
     protected Player effectPlayer;
 
-    public void effect(String effectLevel){}
+    public void effect(int effectLevel){}
 
     public boolean getHasAbility(){return hasAbility;};
 
