@@ -32,7 +32,8 @@ public class  Hand {
     public Hand(Card [] fromDeck){
         myHand =  new ArrayList<>();
         for (Card c : fromDeck){
-            myHand.add(c);
+            if(c != null)
+             myHand.add(c);
         }
         cardPlayedThisTurn = false;
     }
@@ -40,7 +41,8 @@ public class  Hand {
     public void addToHand(Card [] fromDeck){
         for (Card c : fromDeck){
             if(myHand.size() < MAX_HAND_SIZE)
-                myHand.add(c);
+                if(c != null)
+                    myHand.add(c);
             else
                 break;
         }

@@ -1,12 +1,16 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
@@ -22,11 +26,33 @@ import static org.junit.Assert.assertNotNull;
 
 public class Player_Test {
 
-    AssetStore assetStore;
-    private final String playerImage = "pImage";
-    private final int FullHp = 20;
-    Player playerWithAssetStore;
-    Player defaultPlayer;
+
+    private final String    playerImage = "pImage";
+    private final int       FullHp = 20;
+
+    Player                  playerWithAssetStore;
+    Player                  defaultPlayer;
+    AssetStore              assetStore;
+    AssetManager            assetManager;
+    CanvasGraphics2D        canvasGraphics2D;
+
+    @Before
+    public void setUp() throws Exception {
+
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        assetManager = appContext.getAssets();
+        assetStore = new AssetStore(new FileIO(appContext));
+        canvasGraphics2D = new CanvasGraphics2D(assetManager);
+        Canvas n = new Canvas();
+        canvasGraphics2D.setCanvas(n);
+        assetStore.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
+        assetStore.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
+        assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+        assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
+        assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+
+    }
+
 
     @Test
     public void playerSetUp(){
@@ -79,6 +105,7 @@ public class Player_Test {
     private void playerDead(Player pPlayer){
         pPlayer.DamageTaken(1000);
         assertEquals(false,pPlayer.getIsAlive());
+        assertEquals(false,pPlayer.DamageTaken(1));
 
     }
     private void playerTakingDmg(Player pPlayer, int pDmg){
@@ -118,7 +145,7 @@ public class Player_Test {
     }
 
     @Test
-    public void testDrawPlayers(){
+    public void testDrawPlayersWithNullCanvas(){
         Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
         Player player2 = new Player("ei",null, genAlgorithm.field.TOP);
         assertEquals("AI",player.getId());
@@ -127,6 +154,25 @@ public class Player_Test {
         player.drawPlayer (null,as,100,100);
         player2.drawPlayer(null,as,100,100);
         player2.drawPlayer(null,as,100,100);
+    }
+    @Test
+    public void testDrawPlayersWithCanvas(){
+        Deck player1d = new Deck();
+        Deck player2d = new Deck();
+        assetStore.loadAndAddJson("Psych", "Decks/Psych.json");
+        assetStore.loadAndAddJson("Neutral","Decks/Neutral.json");
+
+        player1d.setDeckUp(assetStore, "Psych", "Psych");
+        player2d.setDeckUp(assetStore, "Psych", "Psych");
+
+        Player player =     new Player("PlayerPictureHolder",assetStore, new Deck(), genAlgorithm.field.BOTTOM);
+        Player player2 =    new Player("PlayerPictureHolder",assetStore, new Deck(), genAlgorithm.field.TOP   );
+        assertEquals("Player",player.getId());
+
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100);
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100);
     }
 
     @Test

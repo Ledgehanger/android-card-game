@@ -62,6 +62,12 @@ public class Hand_Test {
     public void setUpHand() throws Exception {
         pHand = new Hand(mDeck.drawFromDeck(3));
     }
+    @Test
+    public void passInNullCards() throws Exception {
+        Deck nullDeck = new Deck();
+        pHand = new Hand(nullDeck.drawFromDeck(3));
+        assertEquals(0,pHand.getHandSize());
+    }
 
     @Test
     public void cardPicked()throws Exception{

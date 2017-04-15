@@ -55,7 +55,7 @@ public class Player {
         this.playerDeck         = playerDeck;
 
         if (assetStore != null)
-            setUpBitmap( assetStore);
+            setUpBitmap(assetStore);
 
         this.playerHand     = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
         this.id             = "Player";
