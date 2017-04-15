@@ -119,7 +119,7 @@ public class Player {
 
             playerField.draw(fieldLocation, iGraphics2D, assetStore);
             playerDeck.drawDeck(fieldLocation, iGraphics2D, iGraphics2D.getSurfaceHeight());
-            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack);
+            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
         }
 
     }

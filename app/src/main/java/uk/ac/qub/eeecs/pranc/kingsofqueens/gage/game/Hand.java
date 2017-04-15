@@ -57,7 +57,8 @@ public class  Hand {
         return null;
     }
 
-    public void drawHand(genAlgorithm.field side, IGraphics2D iGraphics2D,AssetStore pAssetManger, boolean drawBack) {
+    public void drawHand(genAlgorithm.field pSide, IGraphics2D iGraphics2D, AssetStore pAssetManger,
+                         boolean pDrawBack, int pSurfaceHeight, int pSurfaceWidth) {
 
         float top;
         float bot;
@@ -67,11 +68,11 @@ public class  Hand {
         int   botI;
 
          handBitmap = pAssetManger.getBitmap(HAND_BITMAP_NAME);
-            bot = iGraphics2D.getSurfaceHeight();
+            bot = pSurfaceHeight;
             left =  CARD_GAP_OFFSET;
-            right = iGraphics2D.getSurfaceWidth() - 150;
+            right = pSurfaceWidth - 150;
 
-            if (side == genAlgorithm.field.TOP) {
+            if (pSide == genAlgorithm.field.TOP) {
                 topI = 0;
                 botI = (int) ((bot) - (bot / 1.5) - 75);
                 handRect = new Rect(left, topI, right, botI);
@@ -79,19 +80,19 @@ public class  Hand {
                 left += CARD_OFFSET;
 
             } else {
-                top = iGraphics2D.getSurfaceHeight() / 2;
-                bot = iGraphics2D.getSurfaceHeight();
+                top = pSurfaceHeight/ 2;
+                bot = pSurfaceHeight;
 
                 topI = (int) ((top) + (top / 4) + 105);
                 botI = (int) bot;
                 handRect = new Rect(left, topI, right, botI);
             }
 
-
-        iGraphics2D.drawBitmap(handBitmap,null,handRect,null);
+        if(iGraphics2D != null)
+            iGraphics2D.drawBitmap(handBitmap,null,handRect,null);
 
         for (Card c: myHand) {
-            c.drawCard(botI,left,topI,iGraphics2D,drawBack);
+            c.drawCard(botI,left,topI,iGraphics2D,pDrawBack);
             left += CARD_GAP_OFFSET;
         }
     }
@@ -107,7 +108,7 @@ public class  Hand {
         }
     }
 
-    private void manageSelection(int index) {
+    protected void manageSelection(int index) {
         if (indexOfPickedCard == index) {
             myHand.get(indexOfPickedCard).isPicked = false;
             indexOfPickedCard = PICKED_DEFAULT_INDEX;

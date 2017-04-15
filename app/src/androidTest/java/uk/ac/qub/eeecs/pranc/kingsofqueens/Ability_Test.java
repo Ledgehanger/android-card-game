@@ -58,7 +58,7 @@ public class Ability_Test {
     public void healEffectOnMaxHp(){
 
         test = new Player();
-
+        test.DamageTaken(3);
         ability = AbilityFactory.getAbility(HealPath);
         if(ability instanceof OwnerEffectedAbility) {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
@@ -84,10 +84,11 @@ public class Ability_Test {
         ability.effect(1);
         assertEquals(19,test.getHp());
     }
+    @Test
     public void healEffectLevel2(){
 
         test = new Player();
-
+        test.DamageTaken(3);
         ability = AbilityFactory.getAbility(HealPath);
         if(ability instanceof OwnerEffectedAbility) {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
@@ -96,11 +97,11 @@ public class Ability_Test {
         ability.effect(2);
         assertEquals(19,test.getHp());
     }
-
+    @Test
     public void healEffectLevel3(){
 
         test = new Player();
-
+        test.DamageTaken(4);
         ability = AbilityFactory.getAbility(HealPath);
         if(ability instanceof OwnerEffectedAbility) {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);

@@ -204,10 +204,10 @@ public class Card{
             setUpCardBitmap(top,drawBack);
         }
 
+        if(iG2D != null)
+            iG2D.drawBitmap(cardImg,null,cardRect,null);
 
-        iG2D.drawBitmap(cardImg,null,cardRect,null);
-
-        if(!drawBack){
+        if(!drawBack && iG2D != null){
 
 
             iG2D.drawText(Integer.toString(hp),cardRect.right - 26,cardRect.bottom-10,textPaint);
