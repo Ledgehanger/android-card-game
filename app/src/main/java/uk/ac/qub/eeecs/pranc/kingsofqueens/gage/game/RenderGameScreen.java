@@ -26,14 +26,8 @@ public class RenderGameScreen extends GameScreen {
 
     private final float LEVEL_WIDTH  = 1000.0f;
     private final float LEVEL_HEIGHT = 1000.0f;
-    private ScreenViewport mScreenViewport;
-    private LayerViewport  mLayerViewport;
-    
-    private GameObject     mQueensBackground; //TO INCLUDE IMAGE OF LANYON
-    private PlayerCards    mPlayerCards; //PUT CARD IMAGES ON PLAYERCARDS CLASS
-    private final int      NUM_CARD_SPACES = 12; //NEED TO DRAW GRID FOR CARDS
-    
-    private List<PlayerCards> mCards; //TO IMPLEMENT CARD CLASS
+
+
 
     //Game Objects
     private GameTurn currentGame;
@@ -43,7 +37,7 @@ public class RenderGameScreen extends GameScreen {
     private Bitmap endTurnActive;
     private Bitmap endTurnDisable;
     private Rect endTurnRect;
-
+    private AssetStore assetStore;
     public static final String END_TURN_ACTIVE = "EndTurnActive";
     public static final String END_TURN_DISABLE = "EndTurnDisable";
     public RenderGameScreen(Game game, Deck playerDeck, AssetStore aStore) throws Exception {
@@ -51,75 +45,63 @@ public class RenderGameScreen extends GameScreen {
 
         playerAI = new PlayerAi("PlayerAiIcon",aStore,genAlgorithm.field.TOP);
         player   = new Player  ("PlayerIcon"  ,aStore, playerDeck, genAlgorithm.field.BOTTOM);
-
-        setUpAssets(aStore);
+        assetStore = aStore;
+        setUpAssets();
 
         playerAI.playerDeck.setDeckImg(aStore.getBitmap("deckimg"));
         player.playerDeck  .setDeckImg(aStore.getBitmap("deckimg"));
 
-        mQueensBackground = new GameObject(LEVEL_WIDTH / 2.0f,
-                LEVEL_HEIGHT / 2.0f, LEVEL_WIDTH, LEVEL_HEIGHT,
-                aStore.getBitmap("QueensBackground"), this);
 
-        mPlayerCards = new PlayerCards(100, 200, this);
 
         currentGame = new GameTurn(player.getId(),playerAI.getId());
     }
 
-    private void setUpAssets(AssetStore assetManager) {
-        assetManager.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
-        assetManager.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
-        assetManager.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
-        assetManager.loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
-        assetManager.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
-        assetManager.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
-        assetManager.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
-        assetManager.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
-        assetManager.loadAndAddBitmap(END_TURN_ACTIVE, "img/EndTurnActive.png");
-        assetManager.loadAndAddBitmap(END_TURN_DISABLE, "img/EndTurnDisable.png");
+    private void setUpAssets( ) {
+        assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+        assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
+        assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+        assetStore.loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
+        assetStore.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
+        assetStore.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
+        assetStore.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
+        assetStore.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
+        assetStore.loadAndAddBitmap(END_TURN_ACTIVE, "img/EndTurnActive.png");
+        assetStore.loadAndAddBitmap(END_TURN_DISABLE, "img/EndTurnDisable.png");
     }
 
-    public PlayerCards getmPlayerCards() {
 
-        return mPlayerCards;
-    }
 
-    public List<PlayerCards> getPlayerCards() {
-        return mCards;
-    }
+
 
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
-        List<TouchEvent> touchEvents = input.getTouchEvents();
+        if(input != null) {
+            List<TouchEvent> touchEvents = input.getTouchEvents();
 
-        if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
-            startPhase();
-        }
-        else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-            placeCardPhase(elapsedTime, touchEvents);
-        }
-        else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-            attackPhase();
-        }
-        else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-            endTurnPhase();
-        }
-        else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
-        //TODO
+            if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
+                startPhase();
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
+                placeCardPhase(elapsedTime, touchEvents);
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
+                attackPhase();
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+                endTurnPhase();
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
+                //TODO
+            }
         }
     }
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
         iGraphics2D.clear(Color.BLACK);
-        iGraphics2D.clipRect(mScreenViewport.toRect());
-        getGame().getAssetManager().getMusic("BGM").play();
-        getGame().getAssetManager().getMusic("BGM").setVolume(1);
+        assetStore.getMusic("BGM").play();
+        assetStore.getMusic("BGM").setVolume(1);
         //Draw Background
-        mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+       // mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
         //Draw Player
-        playerAI.drawPlayer(iGraphics2D,getGame().getAssetManager(), iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
-        player.drawPlayer(iGraphics2D,getGame().getAssetManager(),iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
+        playerAI.drawPlayer(iGraphics2D,assetStore, iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
+        player.drawPlayer  (iGraphics2D,assetStore, iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
         drawEndTurn(elapsedTime,iGraphics2D);
 
     }
@@ -130,10 +112,10 @@ public class RenderGameScreen extends GameScreen {
 
     public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D){
         if(endTurnDisable == null){
-            endTurnDisable  = getGame().getAssetManager().getBitmap(END_TURN_DISABLE);
+            endTurnDisable  = assetStore.getBitmap(END_TURN_DISABLE);
         }
         if(endTurnActive == null) {
-            endTurnActive  = getGame().getAssetManager().getBitmap(END_TURN_ACTIVE);
+            endTurnActive  = assetStore.getBitmap(END_TURN_ACTIVE);
         }
         if(endTurnRect == null){
             int top, bot, left, right;

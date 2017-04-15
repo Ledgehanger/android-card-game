@@ -96,7 +96,7 @@ public class PickDeckScreen extends GameScreen {
             if (deck1Picked && deck2Picked) {
                 if (Play.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                     Deck playerDeck = setupForRenderGame();
-                    RenderGameScreen gameScreen = new RenderGameScreen(mGame, playerDeck);
+                    RenderGameScreen gameScreen = new RenderGameScreen(mGame, playerDeck,mGame.getAssetManager());
                     mGame.getScreenManager().addScreen(gameScreen);
 
                 }
