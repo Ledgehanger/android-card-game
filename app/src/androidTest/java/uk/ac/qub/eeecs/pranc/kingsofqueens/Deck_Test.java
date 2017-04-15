@@ -1,13 +1,18 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.core.deps.guava.collect.BiMap;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
@@ -20,7 +25,7 @@ import static org.junit.Assert.assertEquals;
  * Created by markm on 20/11/2016.
  */
 
-//TODO Create unit test for ai deck
+
 @RunWith(AndroidJUnit4.class)
 public class Deck_Test {
     AssetStore as;
@@ -29,6 +34,29 @@ public class Deck_Test {
     Card[] card2;
 
     public final String BITMAP_FILE = "img/PlayerIcons/deckimg.png";
+
+
+
+    AssetStore              assetStore;
+    AssetManager            assetManager;
+    CanvasGraphics2D        canvasGraphics2D;
+
+    @Before
+    public void setUp() throws Exception {
+
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        assetManager = appContext.getAssets();
+        assetStore = new AssetStore(new FileIO(appContext));
+        canvasGraphics2D = new CanvasGraphics2D(assetManager);
+        Canvas n = new Canvas();
+        canvasGraphics2D.setCanvas(n);
+        assetStore.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
+        assetStore.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
+        assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
+        assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
+        assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+
+    }
 
     @Test
     public void setUpDeck() throws Exception {
@@ -60,16 +88,7 @@ public class Deck_Test {
         assertEquals(0, mDeck.getSize());
         assertEquals(true, mDeck.isDeckIsEmpty());
     }
-    @Test
-    public void DrawTestTop() throws Exception{
-        setUpDeck();
-        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000);
-    }
-    @Test
-    public void DrawTestBot() throws Exception{
-        setUpDeck();
-        mDeck.drawDeck(genAlgorithm.field.BOTTOM, null,1000);
-    }
+
     @Test
     public void SetAndCheckBitmap()throws Exception{
         setUpDeck();
@@ -78,11 +97,40 @@ public class Deck_Test {
         mDeck.setDeckImg(b);
         assertEquals(b,mDeck.getDeckImg());
     }
+
     @Test
     public void DrawTestTopWithDraw() throws Exception{
         setUpDeck();
         mDeck.drawFromDeck(100);
+        mDeck.drawDeck(genAlgorithm.field.TOP, canvasGraphics2D,1000);
+    }
+    public void DrawTestTop() throws Exception{
+        setUpDeck();
+        mDeck.drawDeck(genAlgorithm.field.TOP, canvasGraphics2D,1000);
+    }
+    @Test
+    public void DrawTestBot() throws Exception{
+        setUpDeck();
+        Bitmap deckImg = assetStore.getBitmap("deckimg");
+        mDeck.setDeckImg(deckImg);
+        mDeck.drawDeck(genAlgorithm.field.BOTTOM, canvasGraphics2D,1000);
+    }
+    @Test
+    public void DrawTestTopWithDrawWithNull() throws Exception{
+        setUpDeck();
+        mDeck.drawFromDeck(100);
         mDeck.drawDeck(genAlgorithm.field.TOP, null,1000);
+    }
+    @Test
+    public void DrawTestTopWithNull() throws Exception{
+        setUpDeck();
+        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000);
+        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000);
+    }
+    @Test
+    public void DrawTestBotWithNull() throws Exception{
+        setUpDeck();
+        mDeck.drawDeck(genAlgorithm.field.BOTTOM, null,1000);
     }
 
 }
