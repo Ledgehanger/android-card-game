@@ -36,16 +36,16 @@ public class PickDeckScreen extends GameScreen {
     private String currentDeck;
     DeckPickerRect Deck1 = new DeckPickerRect(), Deck2 = new DeckPickerRect();
 
-    public PickDeckScreen(Game newGame)
+    public PickDeckScreen(Game newGame, AssetStore assetStore)
     {
         super("PickDeckScreen",newGame);
-        aStore = newGame.getAssetManager();
-        newGame.getAssetManager().loadAndAddJson("Decks", "Decks/deckTypes.json");
-        newGame.getAssetManager().loadAndAddBitmap("Left","img/LeftArrow.png");
-        newGame.getAssetManager().loadAndAddBitmap("Right","img/RightArrow.png");
-        newGame.getAssetManager().loadAndAddBitmap("Play","img/MainMenuImages/playBtn.png");
-        newGame.getAssetManager().loadAndAddBitmap("BG","img/mmbg.jpg");
-        newGame.getAssetManager().loadAndAddMusic("BGM","music/Layer Cake.m4a");
+        this.aStore = assetStore;
+        aStore.loadAndAddJson("Decks", "Decks/deckTypes.json");
+        aStore.loadAndAddBitmap("Left","img/LeftArrow.png");
+        aStore.loadAndAddBitmap("Right","img/RightArrow.png");
+        aStore.loadAndAddBitmap("Play","img/MainMenuImages/playBtn.png");
+        aStore.loadAndAddBitmap("BG","img/mmbg.jpg");
+        aStore.loadAndAddMusic("BGM","music/Layer Cake.m4a");
 
 
     }
@@ -54,27 +54,26 @@ public class PickDeckScreen extends GameScreen {
     @Override
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
-        List<TouchEvent> touchEvents = input.getTouchEvents();
+        if(input != null) {
+            List<TouchEvent> touchEvents = input.getTouchEvents();
+            if (!touchEvents.isEmpty()) {
+                TouchEvent touchEvent = touchEvents.get(0);
 
-        if(!touchEvents.isEmpty()){
-            TouchEvent touchEvent = touchEvents.get(0);
+                if (DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                    mangeDeckSelection();
+                }
+                deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
+                deck2Picked = checkInputDeckChoices(touchEvent, Deck2, deck2Picked);
 
-            if(DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                mangeDeckSelection();
-            }
-            deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
-            deck2Picked = checkInputDeckChoices(touchEvent, Deck2, deck2Picked);
-
-            if(Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                if (Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                     index--;
-            }
-            if(Right.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                }
+                if (Right.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                     index++;
+                }
+
+                checkPlayButtonPressed(touchEvent);
             }
-
-            checkPlayButtonPressed(touchEvent);
-
-
         }
 
     }

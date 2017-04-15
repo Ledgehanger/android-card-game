@@ -66,7 +66,7 @@ public class MainMenu extends GameScreen
                aStore.getMusic("BGM").stop();
 
                 mGame.getScreenManager().removeScreen(this.getName());
-                PickDeckScreen game = new PickDeckScreen(mGame);
+                PickDeckScreen game = new PickDeckScreen(mGame,mGame.getAssetManager());
                 mGame.getScreenManager().addScreen(game);
             }
 
