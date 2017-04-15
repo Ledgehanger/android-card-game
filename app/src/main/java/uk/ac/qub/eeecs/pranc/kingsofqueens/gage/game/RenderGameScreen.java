@@ -46,35 +46,20 @@ public class RenderGameScreen extends GameScreen {
 
     public static final String END_TURN_ACTIVE = "EndTurnActive";
     public static final String END_TURN_DISABLE = "EndTurnDisable";
-    public RenderGameScreen(Game game, Deck playerDeck) throws Exception {
+    public RenderGameScreen(Game game, Deck playerDeck, AssetStore aStore) throws Exception {
         super("RenderGameScreen", game);
 
-        playerAI = new PlayerAi("PlayerAiIcon",game,genAlgorithm.field.TOP);
-        player   = new Player  ("PlayerIcon"  ,game.getAssetManager(), playerDeck, genAlgorithm.field.BOTTOM);
+        playerAI = new PlayerAi("PlayerAiIcon",aStore,genAlgorithm.field.TOP);
+        player   = new Player  ("PlayerIcon"  ,aStore, playerDeck, genAlgorithm.field.BOTTOM);
 
-        setUpAssets(game.getAssetManager());
+        setUpAssets(aStore);
 
-        playerAI.playerDeck.setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
-        player.playerDeck  .setDeckImg(mGame.getAssetManager().getBitmap("deckimg"));
-
-       mScreenViewport = new ScreenViewport(0, 0, game.getScreenWidth(),
-                game.getScreenHeight());
-
-        if (mScreenViewport.width > mScreenViewport.height)
-            mLayerViewport = new LayerViewport(240.0f, 240.0f
-                    * mScreenViewport.height / mScreenViewport.width, 240,
-                    240.0f * mScreenViewport.height / mScreenViewport.width);
-        else
-            mLayerViewport = new LayerViewport(240.0f * mScreenViewport.height
-                    / mScreenViewport.width, 240.0f, 240.0f
-                    * mScreenViewport.height / mScreenViewport.width, 240);
-
-        AssetStore assetManager = mGame.getAssetManager();
-
+        playerAI.playerDeck.setDeckImg(aStore.getBitmap("deckimg"));
+        player.playerDeck  .setDeckImg(aStore.getBitmap("deckimg"));
 
         mQueensBackground = new GameObject(LEVEL_WIDTH / 2.0f,
-                LEVEL_HEIGHT / 2.0f, LEVEL_WIDTH, LEVEL_HEIGHT, getGame()
-                .getAssetManager().getBitmap("QueensBackground"), this);
+                LEVEL_HEIGHT / 2.0f, LEVEL_WIDTH, LEVEL_HEIGHT,
+                aStore.getBitmap("QueensBackground"), this);
 
         mPlayerCards = new PlayerCards(100, 200, this);
 

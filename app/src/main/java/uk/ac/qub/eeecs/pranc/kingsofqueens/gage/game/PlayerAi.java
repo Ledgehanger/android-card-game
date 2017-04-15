@@ -3,6 +3,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import java.util.Random;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 /**
@@ -11,16 +12,16 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class PlayerAi extends Player {
 
-    public PlayerAi(String image, Game pGame,genAlgorithm.field fieldLocation)
+    public PlayerAi(String image, AssetStore aStore, genAlgorithm.field fieldLocation)
     {
-        super(image,pGame.getAssetManager(),fieldLocation);
-        generateAIDeck(pGame);
+        super(image,aStore,fieldLocation);
+        generateAIDeck(aStore);
         handDrawCardBack = true;
         playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
     }
 
     //Move to AI Class
-    public void generateAIDeck(Game game){
+    public void generateAIDeck(AssetStore aStore){
 
         int firstChoice = -1;
         String [] pickedDecks = new String[2];
@@ -38,7 +39,7 @@ public class PlayerAi extends Player {
             pickedDecks[i] = deckNames[randomNumber];
         }
 
-        playerDeck = new Deck(game.getAssetManager(),pickedDecks[0], pickedDecks[1]);
+        playerDeck = new Deck(aStore,pickedDecks[0], pickedDecks[1]);
 
     }
 
