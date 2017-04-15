@@ -52,11 +52,6 @@ public class Deck{
         genAlgorithm.knuthShuffle(playerDeck);
     }
 
-
-
-
-
-
     public Card [] drawFromDeck(int draws){
         Card [] hand = new Card[draws];
         for(int i = 0; i < draws; i++){
@@ -69,6 +64,7 @@ public class Deck{
         }
         return hand;
     }
+
     public boolean setDeckUp(AssetStore assetStore, String pDeckName1, String pDeckName2){
         addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName1, SIZE_OF_CLASS_DECK);
         addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName2, SIZE_OF_CLASS_DECK);
@@ -113,30 +109,28 @@ public class Deck{
             Log.e(TAG, "findAbility: ");
         }
     }
+
     public int getSize() {
         return playerDeck.size();
     }
 
-    public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D) {
+    public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D, int pSurfaceHeight) {
 
-        if (playerDeck.size() <= 0)
-        {
+        if (playerDeck.size() <= 0) {
             deckIsEmpty = true;
             deckRect = null;
-
         }
-        else
-        {
+        else {
             if (deckRect == null)
-                generateDeckRect(side, iGraphics2D);
-
-            iGraphics2D.drawBitmap(deckImg, null, deckRect, null);
+                generateDeckRect(side, pSurfaceHeight);
+            if(iGraphics2D != null)
+                iGraphics2D.drawBitmap(deckImg, null, deckRect, null);
         }
 
 
     }
 
-    private void generateDeckRect(genAlgorithm.field side, IGraphics2D iGraphics2D) {
+    private void generateDeckRect(genAlgorithm.field side, int pSurfaceHeight) {
         float top;
         float bot;
         float leftSide;
@@ -146,7 +140,7 @@ public class Deck{
         int botI;
         if (side == genAlgorithm.field.TOP) {
             top = 0;
-            bot = iGraphics2D.getSurfaceHeight();
+            bot = pSurfaceHeight;
 
             leftSide = 0;
             left = (int) leftSide;
@@ -156,8 +150,8 @@ public class Deck{
             deckRect = new Rect(left, topI, right, botI);
 
         } else {
-            top = iGraphics2D.getSurfaceHeight() / 2;
-            bot = iGraphics2D.getSurfaceHeight();
+            top = pSurfaceHeight / 2;
+            bot = pSurfaceHeight;
 
             leftSide = 0;
             left = (int) leftSide;

@@ -118,7 +118,7 @@ public class Player {
                     playerRectHp.centerY() + yOffset, playerPaint);
 
             playerField.draw(fieldLocation, iGraphics2D, assetStore);
-            playerDeck.drawDeck(fieldLocation, iGraphics2D);
+            playerDeck.drawDeck(fieldLocation, iGraphics2D, iGraphics2D.getSurfaceHeight());
             playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack);
         }
 
