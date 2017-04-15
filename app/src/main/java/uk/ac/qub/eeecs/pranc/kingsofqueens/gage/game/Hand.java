@@ -144,4 +144,8 @@ public class  Hand {
         cardPlayedThisTurn = false;
         lastCardPlayed = null;
     }
+
+    public int getHandSize(){
+        return myHand.size();
+    }
 }
