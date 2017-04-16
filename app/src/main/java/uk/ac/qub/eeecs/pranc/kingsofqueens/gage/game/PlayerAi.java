@@ -3,6 +3,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import java.util.Random;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 /**
@@ -11,12 +12,31 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class PlayerAi extends Player {
 
+    public int spotPos;
+    public int evLvl;
+
     public PlayerAi(String image, Game pGame,genAlgorithm.field fieldLocation)
     {
         super(image,pGame.getAssetManager(),fieldLocation);
         generateAIDeck(pGame);
         handDrawCardBack = true;
         playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
+    }
+
+    public PlayerAi(String aiImage,Game aiGame, AssetStore aStore,genAlgorithm.field fieldLocation)
+    {
+        this.fieldLocation=fieldLocation;
+        this.playerImgFile=aiImage;
+        this.hp=STARTING_HP;
+        this.isAlive=true;
+        this.evTotal=STARTING_EV;
+        generateAIDeck(aiGame);
+
+        playerHand=new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
+        id="AI";
+        playerField=new Field();
+
+        handDrawCardBack=true;
     }
 
     //Move to AI Class
@@ -40,6 +60,55 @@ public class PlayerAi extends Player {
 
         playerDeck = new Deck(game.getAssetManager(),pickedDecks[0], pickedDecks[1]);
 
+    }
+
+    public boolean checkFieldFree()
+    {
+        boolean fieldFree=false;
+        spotPos=0;
+
+        while(spotPos<playerField.getSizeOfRow()||fieldFree==true)
+        {
+            if (playerField.getSpotFromRow(0, spotPos) == null)
+                fieldFree = true;
+            spotPos++;
+        }
+
+        return fieldFree;
+    }
+
+    public boolean checkHandFree()
+    {
+        if(playerHand.getMyHand().isEmpty()==true)
+            return true;
+        else
+            return false;
+    }
+
+    public void checkAIEv()
+    {
+        if(evTotal==5) {
+            evLvl = 2;
+        }
+
+        if(evTotal==3)
+        {
+            evLvl=1;
+        }
+
+        else
+        {
+            evLvl=0;
+        }
+
+    }
+
+    public boolean checkCardEvolve(Card card)
+    {
+        if(card.getEv()==0)
+            return false;
+        else
+            return true;
     }
 
 }

@@ -125,7 +125,7 @@ public class Card{
         catch(JSONException e)
         {
             String p=e.toString();
-        }
+    }
 
     }
 
@@ -133,18 +133,27 @@ public class Card{
     {
         try{
             id++;
-            JSONArray array= newGame.getAssetManager().getJson(type);
-            JSONObject evCard=array.getJSONObject(id);
+            JSONArray array= aStore.getJson(type);
+            for(int index = 0; index < array.length(); index++){
+                JSONObject object = array.getJSONObject(index);
+                int id = object.getInt("_id");
+                if(id == ev){
+                    name=object.getString("name");
+                    atk=object.getInt("attack");
+                    hp=object.getInt("defense");
+                    String strAbility=object.getString("ability");
+                    ability=AbilityFactory.getAbility(strAbility);
+                    picture=object.getString("picture");
+                    inDeck=object.getBoolean("inDeck");
+                    desc=object.getString("desc");
+                    abilityLvl=object.getInt("abilityLvl");
+                    evCost=object.getInt("evCost");
+                    ev=object.getInt("ev");
+                    setUpCardBitmap(height,false);
+                    break;
+                }
+            }
 
-            ev=evCard.getInt("ev");
-            if(ev==0)
-            {
-                return;
-            }
-            else
-            {
-                cardJSON(id,type);
-            }
         }
         catch(JSONException e){
             String p=e.toString();
