@@ -3,6 +3,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
@@ -60,5 +61,21 @@ public class Spot {
     }
     public Rect getSpotRect() {
         return spotRect;
+    }
+
+    public void cardEvolving(){
+        spotCard.evolve();
+    }
+    public int getEvolvingCost(){
+        return spotCard.getEvCost();
+    }
+
+    public void useCardAbility(Player player, Player ai) {
+        if(spotCard.ability.getHasAbility()){
+            if(spotCard.ability instanceof OwnerEffectedAbility){
+                ((OwnerEffectedAbility) spotCard.ability).addEffectPlayer(player);
+            }
+            spotCard.ability.effect(spotCard.abilityLvl);
+        }
     }
 }

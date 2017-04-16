@@ -6,7 +6,10 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
+import java.util.List;
+
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
@@ -20,9 +23,11 @@ public class Player {
     public final int     HP_DEATH            = 0;
     public final String  HP_BAR_FILE_NAME    = "HPBar";
     public final String  EV_BAR_FILE_NAME    = "EVBar";
+    public final String  EV_CHECKED_BAR_FILE_NAME = "EVBarChecked";
 
     protected boolean    isAlive;
     protected boolean    handDrawCardBack = false;
+    protected boolean      evolving         = false;
     protected float      textSize = 25f;
 
     protected int        hp;
@@ -32,7 +37,9 @@ public class Player {
 
     protected Bitmap     playerIconBitmap;
     protected Bitmap     playerHPBarBitmap;
-    protected Bitmap     playerEVBarBitmap;
+    protected Bitmap     playerNotCheckedEVBarBitmap;
+    protected Bitmap     playerCheckEVBarBitmap;
+
 
     protected Rect       playerRectIcon;
     protected Rect       playerRectHp;
@@ -120,7 +127,12 @@ public class Player {
         if(iGraphics2D != null) {
             iGraphics2D.drawBitmap(playerIconBitmap, null, playerRectIcon, null);
             iGraphics2D.drawBitmap(playerHPBarBitmap, null, playerRectHp, null);
-            iGraphics2D.drawBitmap(playerEVBarBitmap, null, playerRectEv, null);
+
+            if(!evolving)
+                iGraphics2D.drawBitmap(playerNotCheckedEVBarBitmap, null, playerRectEv, null);
+            else
+                iGraphics2D.drawBitmap(playerCheckEVBarBitmap, null, playerRectEv, null);
+
             iGraphics2D.drawText(Integer.toString(hp), playerRectHp.centerX() - xOffsetHp,
                     playerRectHp.centerY() + yOffset, playerPaint);
             String ev = "EV: " + evTotal;
@@ -142,6 +154,7 @@ public class Player {
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         return paint;
     }
+
     public boolean DamageTaken(int totalDamage) {
         if(!isAlive)
             return isAlive;
@@ -202,10 +215,12 @@ public class Player {
 
         pAssetManger.loadAndAddBitmap(HP_BAR_FILE_NAME, "GameScreenImages/HealthMonitor.png");
         pAssetManger.loadAndAddBitmap(EV_BAR_FILE_NAME, "GameScreenImages/EvBar.png");
+        pAssetManger.loadAndAddBitmap(EV_CHECKED_BAR_FILE_NAME, "GameScreenImages/EvBarPicked.png");
         pAssetManger.loadAndAddBitmap(playerImgFile, "img/PlayerIcons/"+playerImgFile+".png");
         playerIconBitmap  = pAssetManger.getBitmap(playerImgFile);
         playerHPBarBitmap = pAssetManger.getBitmap(HP_BAR_FILE_NAME);
-        playerEVBarBitmap = pAssetManger.getBitmap(EV_BAR_FILE_NAME);
+        playerNotCheckedEVBarBitmap = pAssetManger.getBitmap(EV_BAR_FILE_NAME);
+        playerCheckEVBarBitmap = pAssetManger.getBitmap(EV_CHECKED_BAR_FILE_NAME);
     }
 
     public void playerAttackPhase(Player enemyPlayer){
@@ -224,7 +239,35 @@ public class Player {
         }
     }
 
+    public Rect getPlayerRectEv() {
+        return playerRectEv;
+    }
 
+    public void setEvolving() {
+        this.evolving = !evolving;
+    }
+
+    public boolean isEvolving() {
+        return evolving;
+    }
+    
+    public void evolving(TouchEvent touchEvent, Player enemy){
+        for(int row = 0; row < playerField.ROWS_PER_FIELD; row++) {
+            for (int column = 0; column < playerField.getSizeOfRow(); column++) {
+                Spot currentSpot = playerField.getSpotFromRow(row, column);
+                if (currentSpot.getCardPlaced()) {
+                    if(currentSpot.getSpotRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                        if(evTotal >= currentSpot.getEvolvingCost())
+                            evTotal -= currentSpot.getEvolvingCost();{
+                            currentSpot.cardEvolving();
+                            evolving = false;
+                            currentSpot.useCardAbility(this,enemy);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

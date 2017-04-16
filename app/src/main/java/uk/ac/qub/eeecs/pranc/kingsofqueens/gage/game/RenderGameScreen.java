@@ -34,6 +34,7 @@ public class RenderGameScreen extends GameScreen {
     private Player player, playerAI;
     private boolean ignorePlayerInput = false;
     private boolean cardPlayedLimit   = false;
+
     private Bitmap endTurnActive;
     private Bitmap endTurnDisable;
     private Rect endTurnRect;
@@ -106,9 +107,6 @@ public class RenderGameScreen extends GameScreen {
 
     }
 
-    public void endPlaceCardPhase(){
-        currentGame.getNextPhase();
-    }
 
     public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D){
         if(endTurnDisable == null){
@@ -176,12 +174,19 @@ public class RenderGameScreen extends GameScreen {
     }
 
     private void playerPlaceCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
-        if(!cardPlayedLimit) {
+
+        if(!touchEvents.isEmpty()) {
+            playerEvolving(touchEvents);
+            playingCard(elapsedTime, touchEvents);
+        }
+    }
+
+    private void playingCard(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
+        if (!cardPlayedLimit && !player.isEvolving()) {
             player.playerHand.update(elapsedTime, touchEvents);
 
             if (player.playerHand.cardPicked()) {
                 player.playerField.update(elapsedTime, touchEvents, player.playerHand);
-
                 if (player.playerHand.getCardPlayedThisTurn()) {
                     cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
@@ -189,6 +194,19 @@ public class RenderGameScreen extends GameScreen {
                 }
             }
         }
+    }
+
+    private void playerEvolving(List<TouchEvent> touchEvents) {
+        TouchEvent touchEvent = touchEvents.get(0);
+        Rect evRect = player.getPlayerRectEv();
+        if(evRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
+            if(player.getEvTotal() > 0)
+                player.setEvolving();
+        }
+        if(player.isEvolving())
+            player.evolving(touchEvent,playerAI);
+
+
     }
 
     private void useCardAbility(Card c) {
@@ -214,12 +232,7 @@ public class RenderGameScreen extends GameScreen {
             playerAI.playerStartTurn();
     }
 
-    private void endPlayerTurn(String currentTurnId){
-        if(currentTurnId == player.id)
-            player.playerHand.endTurn();
-        else
-            playerAI.playerHand.endTurn();
-    }
+
 
 
 }
