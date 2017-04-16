@@ -13,12 +13,13 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class Player {
 
-    public final int    STARTING_EV         = 1;
-    public final int    STARTING_HP         = 20;
-    public final int    CARDS_PER_TURN      = 1;
-    public final int    STARTING_HAND_SIZE  = 3;
-    public final int    HP_DEATH            = 0;
-    public final String HP_BAR_FILE_NAME    = "HPBar";
+    public final int     STARTING_EV         = 1;
+    public final int     STARTING_HP         = 20;
+    public final int     CARDS_PER_TURN      = 1;
+    public final int     STARTING_HAND_SIZE  = 3;
+    public final int     HP_DEATH            = 0;
+    public final String  HP_BAR_FILE_NAME    = "HPBar";
+    public final String  EV_BAR_FILE_NAME    = "EVBar";
 
     protected boolean    isAlive;
     protected boolean    handDrawCardBack = false;
@@ -31,13 +32,17 @@ public class Player {
 
     protected Bitmap     playerIconBitmap;
     protected Bitmap     playerHPBarBitmap;
+    protected Bitmap     playerEVBarBitmap;
+
+    protected Rect       playerRectIcon;
+    protected Rect       playerRectHp;
+    protected Rect       playerRectEv;
+
     protected Paint      playerPaint;
 
     protected Deck       playerDeck;
     protected Hand       playerHand;
     protected Field      playerField;
-    protected Rect       playerRectIcon;
-    protected Rect       playerRectHp;
 
     protected genAlgorithm.field fieldLocation;
 
@@ -109,14 +114,18 @@ public class Player {
         if(playerPaint == null)
             playerPaint = setUpPaint();
 
-        int xOffset = 15, yOffset = 5;
+        int xOffsetHp = 15, yOffset = 5;
+        int xOffsetEv = 40;
 
         if(iGraphics2D != null) {
             iGraphics2D.drawBitmap(playerIconBitmap, null, playerRectIcon, null);
             iGraphics2D.drawBitmap(playerHPBarBitmap, null, playerRectHp, null);
-            iGraphics2D.drawText(Integer.toString(hp), playerRectHp.centerX() - xOffset,
+            iGraphics2D.drawBitmap(playerEVBarBitmap, null, playerRectEv, null);
+            iGraphics2D.drawText(Integer.toString(hp), playerRectHp.centerX() - xOffsetHp,
                     playerRectHp.centerY() + yOffset, playerPaint);
-
+            String ev = "EV: " + evTotal;
+            iGraphics2D.drawText(ev, playerRectEv.centerX() - xOffsetEv,
+                    playerRectEv.centerY() + yOffset, playerPaint);
             playerField.draw(fieldLocation, iGraphics2D, assetStore);
             playerDeck.drawDeck(fieldLocation, iGraphics2D, iGraphics2D.getSurfaceHeight());
             playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
@@ -151,7 +160,7 @@ public class Player {
     protected void createPlayerRect(AssetStore assetStore, int surfaceHeight, int surfaceWidth) {
         float top , bot, leftSide;
         int left, right, topPlayerIcon, botPlayerIcon;
-
+        int evDrawingOffset = 100;
         if(playerIconBitmap == null || playerHPBarBitmap == null)
             setUpBitmap(assetStore);
 
@@ -169,6 +178,7 @@ public class Player {
 
             playerRectIcon = new Rect(left, topPlayerIcon, right, botPlayerIcon);
             playerRectHp   = new Rect(left,topHp,right,botHp);
+            playerRectEv   = new Rect(left-100,topHp,right-100,botHp);
 
         } else {
             top = surfaceHeight / 2;
@@ -182,33 +192,36 @@ public class Player {
             int topHp = topPlayerIcon - 100;
             int botHp = topPlayerIcon - 10;
 
-
             playerRectIcon = new Rect(left, topPlayerIcon, right, botPlayerIcon);
             playerRectHp   = new Rect(left,topHp,right,botHp);
+            playerRectEv   = new Rect(left-evDrawingOffset,topHp,right-evDrawingOffset,botHp);
 
         }
     }
     protected void setUpBitmap     (AssetStore pAssetManger) {
 
         pAssetManger.loadAndAddBitmap(HP_BAR_FILE_NAME, "GameScreenImages/HealthMonitor.png");
+        pAssetManger.loadAndAddBitmap(EV_BAR_FILE_NAME, "GameScreenImages/EvBar.png");
         pAssetManger.loadAndAddBitmap(playerImgFile, "img/PlayerIcons/"+playerImgFile+".png");
         playerIconBitmap  = pAssetManger.getBitmap(playerImgFile);
         playerHPBarBitmap = pAssetManger.getBitmap(HP_BAR_FILE_NAME);
+        playerEVBarBitmap = pAssetManger.getBitmap(EV_BAR_FILE_NAME);
     }
 
     public void playerAttackPhase(Player enemyPlayer){
-        for(int i = 0; i < playerField.getSizeOfRow(); i++){
-            Spot currentSpot = playerField.getSpotFromRow(0,i);
-            if(currentSpot.getCardPlaced()){
-                Spot enemyPlayerSpot = enemyPlayer.playerField.getSpotFromRow(0,i);
+        for(int row = 0; row < playerField.ROWS_PER_FIELD; row++) {
+            for (int column = 0; column < playerField.getSizeOfRow(); column++) {
+                Spot currentSpot = playerField.getSpotFromRow(row, column);
+                if (currentSpot.getCardPlaced()) {
+                    Spot enemyPlayerSpot = enemyPlayer.playerField.getSpotFromRow(row, column);
 
-                if(enemyPlayerSpot.getCardPlaced())
-                    enemyPlayerSpot.dealDamageToCurrentCard(currentSpot.getCardAttack());
-                else
-                    enemyPlayer.DamageTaken(currentSpot.getCardAttack());
+                    if (enemyPlayerSpot.getCardPlaced())
+                        enemyPlayerSpot.dealDamageToCurrentCard(currentSpot.getCardAttack());
+                    else
+                        enemyPlayer.DamageTaken(currentSpot.getCardAttack());
+                }
             }
         }
-
     }
 
 
