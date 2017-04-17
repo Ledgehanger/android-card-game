@@ -12,12 +12,27 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class PlayerAi extends Player {
 
-    public PlayerAi(String image, AssetStore aStore, genAlgorithm.field fieldLocation)
+
+
+
+    public int spotPos;
+    public int evLvl;
+
+
+    public PlayerAi(String aiImage, AssetStore aStore,genAlgorithm.field fieldLocation)
     {
-        super(image,aStore,fieldLocation);
+        this.fieldLocation=fieldLocation;
+        this.playerImgFile=aiImage;
+        this.hp=STARTING_HP;
+        this.isAlive=true;
+        this.evTotal=STARTING_EV;
         generateAIDeck(aStore);
-        handDrawCardBack = true;
-        playerHand = new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
+
+        playerHand=new Hand(playerDeck.drawFromDeck(STARTING_HAND_SIZE));
+        id="AI";
+        playerField=new Field();
+
+        handDrawCardBack=true;
     }
 
     //Move to AI Class
@@ -41,6 +56,55 @@ public class PlayerAi extends Player {
 
         playerDeck = new Deck(aStore,pickedDecks[0], pickedDecks[1]);
 
+    }
+
+    public boolean checkFieldFree()
+    {
+        boolean fieldFree=false;
+        spotPos=0;
+
+        while(spotPos<playerField.getSizeOfRow()||fieldFree==true)
+        {
+            if (playerField.getSpotFromRow(0, spotPos) == null)
+                fieldFree = true;
+            spotPos++;
+        }
+
+        return fieldFree;
+    }
+
+    public boolean checkHandFree()
+    {
+        if(playerHand.getMyHand().isEmpty()==true)
+            return true;
+        else
+            return false;
+    }
+
+    public void checkAIEv()
+    {
+        if(evTotal==5) {
+            evLvl = 2;
+        }
+
+        if(evTotal==3)
+        {
+            evLvl=1;
+        }
+
+        else
+        {
+            evLvl=0;
+        }
+
+    }
+
+    public boolean checkCardEvolve(Card card)
+    {
+        if(card.getEv()==0)
+            return false;
+        else
+            return true;
     }
 
 }

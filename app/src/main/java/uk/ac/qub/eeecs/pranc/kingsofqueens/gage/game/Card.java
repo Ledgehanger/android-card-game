@@ -125,39 +125,37 @@ public class Card{
         catch(JSONException e)
         {
             String p=e.toString();
-        }
+    }
 
     }
-        public void evolve()
-        {
-            try{
+
+        public void evolve() {
+            try {
                 id++;
-                JSONArray array= aStore.getJson(type);
-                for(int index = 0; index < array.length(); index++){
+                JSONArray array = aStore.getJson(type);
+                for (int index = 0; index < array.length(); index++) {
                     JSONObject object = array.getJSONObject(index);
                     int id = object.getInt("_id");
-                    if(id == ev){
-                        name=object.getString("name");
-                        atk=object.getInt("attack");
-                        hp=object.getInt("defense");
-                        String strAbility=object.getString("ability");
-                        ability=AbilityFactory.getAbility(strAbility);
-                        picture=object.getString("picture");
-                        inDeck=object.getBoolean("inDeck");
-                        desc=object.getString("desc");
-                        abilityLvl=object.getInt("abilityLvl");
-                        evCost=object.getInt("evCost");
-                        ev=object.getInt("ev");
-                        setUpCardBitmap(height,false);
+                    if (id == ev) {
+                        name = object.getString("name");
+                        atk = object.getInt("attack");
+                        hp = object.getInt("defense");
+                        String strAbility = object.getString("ability");
+                        ability = AbilityFactory.getAbility(strAbility);
+                        picture = object.getString("picture");
+                        inDeck = object.getBoolean("inDeck");
+                        desc = object.getString("desc");
+                        abilityLvl = object.getInt("abilityLvl");
+                        evCost = object.getInt("evCost");
+                        ev = object.getInt("ev");
+                        setUpCardBitmap(height, false);
                         break;
                     }
                 }
-            }
-            catch(JSONException e){
-                String p=e.toString();
+            } catch (JSONException e) {
+                String p = e.toString();
             }
         }
-
 
     public void setUpCardBitmap(int top, boolean drawBack)
     {
