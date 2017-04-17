@@ -6,8 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-import java.util.List;
-
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
@@ -138,9 +136,9 @@ public class Player {
             String ev = "EV: " + evTotal;
             iGraphics2D.drawText(ev, playerRectEv.centerX() - xOffsetEv,
                     playerRectEv.centerY() + yOffset, playerPaint);
-            playerField.draw(fieldLocation, iGraphics2D, assetStore);
-            playerDeck.drawDeck(fieldLocation, iGraphics2D, iGraphics2D.getSurfaceHeight());
-            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
+            playerField.draw(fieldLocation, iGraphics2D, assetStore, SurfaceHeight, SurfaceWidth);
+            playerDeck.drawDeck(fieldLocation, iGraphics2D, SurfaceHeight);
+            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, SurfaceHeight, SurfaceWidth);
         }
 
     }

@@ -184,15 +184,6 @@ public class Player_Test {
         Paint e = player.setUpPaint();
         assertNotNull(e);
     }
-    
-    @Test
-    public void evolving(){
-        Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
-        assertEquals(false,player.isEvolving());
-        player.setEvolving();
-        assertEquals(true,player.isEvolving());
-
-    }
 
     @NonNull
     private AssetStore getAssetStore() {

@@ -73,8 +73,8 @@ public class Row {
         }
     }
 
-    public void draw (genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
-            aStore){
+    public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
+            aStore, int surfaceHeight, int surfaceWidth){
 
         float top;
         float bot;
@@ -84,19 +84,19 @@ public class Row {
         int botI;
 
         rowBitmap = aStore.getBitmap(ROW_IMAGE_FILE);
-        bot = iGraphics2D.getSurfaceHeight();
+        bot = surfaceHeight;
         left =  166 + 20;
-        right = iGraphics2D.getSurfaceWidth() - 250;
+        right = surfaceWidth - 250;
 
         if (side == genAlgorithm.field.TOP) {
            // topI = 0 + (int) ((bot) - (bot / 1.5)) - 75;
             topI = (int) bot/2 - (int) (bot/2)/2;
-            botI = iGraphics2D.getSurfaceHeight()/2;
+            botI = surfaceHeight/2;
 
             rowRect = new Rect(left, topI, right, botI);
 
         } else {
-            top = iGraphics2D.getSurfaceHeight() / 2;
+            top = surfaceHeight/ 2;
             botI = (int) top + (int) (top / 2);
             topI = (int) top;
 

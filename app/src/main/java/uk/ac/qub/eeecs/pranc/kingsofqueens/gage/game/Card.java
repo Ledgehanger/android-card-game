@@ -47,7 +47,7 @@ public class Card{
 
     protected final int OFFSET = 133;
     Game newGame;
-    // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here 
+    // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here
     AssetStore aStore;
     /* =sGame.getAssetManager(); Doing this breaks the testable of the deck class comment
     out for now to have a quick fix
@@ -128,28 +128,36 @@ public class Card{
         }
 
     }
-
-    public void evolve()
-    {
-        try{
-            id++;
-            JSONArray array= newGame.getAssetManager().getJson(type);
-            JSONObject evCard=array.getJSONObject(id);
-
-            ev=evCard.getInt("ev");
-            if(ev==0)
-            {
-                return;
+        public void evolve()
+        {
+            try{
+                id++;
+                JSONArray array= aStore.getJson(type);
+                for(int index = 0; index < array.length(); index++){
+                    JSONObject object = array.getJSONObject(index);
+                    int id = object.getInt("_id");
+                    if(id == ev){
+                        name=object.getString("name");
+                        atk=object.getInt("attack");
+                        hp=object.getInt("defense");
+                        String strAbility=object.getString("ability");
+                        ability=AbilityFactory.getAbility(strAbility);
+                        picture=object.getString("picture");
+                        inDeck=object.getBoolean("inDeck");
+                        desc=object.getString("desc");
+                        abilityLvl=object.getInt("abilityLvl");
+                        evCost=object.getInt("evCost");
+                        ev=object.getInt("ev");
+                        setUpCardBitmap(height,false);
+                        break;
+                    }
+                }
             }
-            else
-            {
-                cardJSON(id,type);
+            catch(JSONException e){
+                String p=e.toString();
             }
         }
-        catch(JSONException e){
-            String p=e.toString();
-        }
-    }
+
 
     public void setUpCardBitmap(int top, boolean drawBack)
     {

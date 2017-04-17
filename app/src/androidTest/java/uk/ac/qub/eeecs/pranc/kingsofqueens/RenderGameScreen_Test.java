@@ -10,9 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.CardGame;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
@@ -58,6 +62,41 @@ public class RenderGameScreen_Test {
     }
     @Test
     public void update() throws Exception{
+        deckScreen.update(new ElapsedTime());
+    }
+    @Test
+    public void updateCards() throws Exception{
+        List<TouchEvent> touchEvents = new ArrayList<>();
+        TouchEvent touchEvent = new TouchEvent();
+        touchEvent.type = 0;
+        touchEvent.x =  -150;
+        touchEvent.y =  50;
+        touchEvents.add(0,touchEvent);
+        deckScreen.draw(new ElapsedTime(), canvasGraphics2D);
+        deckScreen.playerPlaceCardPhase(new ElapsedTime(), touchEvents);
+    }
+    @Test
+    public void playOutPlayeerTurn() throws Exception{
+        List<TouchEvent> touchEvents = new ArrayList<>();
+        TouchEvent touchEvent = new TouchEvent();
+
+        touchEvent.type = 0;
+        touchEvent.x =  218 ;
+        touchEvent.y =  606 ;
+        touchEvents.add(0,touchEvent);
+
+        deckScreen.drawPlayer(1184,720,canvasGraphics2D);
+        deckScreen.playerPlaceCardPhase(new ElapsedTime(), touchEvents);
+
+        touchEvent.type = 0;
+        touchEvent.x =  395 ;
+        touchEvent.y =  408;
+        touchEvents.add(0,touchEvent);
+        deckScreen.playerPlaceCardPhase(new ElapsedTime(), touchEvents);
+        deckScreen.nextCurrentTurn();
+        deckScreen.update(new ElapsedTime());
+        deckScreen.nextCurrentTurn();
+        deckScreen.update(new ElapsedTime());
         deckScreen.update(new ElapsedTime());
     }
 

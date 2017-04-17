@@ -1,9 +1,5 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.Rect;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +24,9 @@ public class Field {
         }
 
     }
-    public void draw (genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
-            aStore) {
+    public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore aStore, int surfaceHeight, int surfaceWidth) {
         for (int i = 0; i < ROWS_PER_FIELD; i++ ){
-
-            myField.get(i).draw(side, iGraphics2D, aStore);
+            myField.get(i).draw(side, iGraphics2D, aStore, surfaceHeight, surfaceWidth);
         }
     }
     public void update(ElapsedTime elapsedTime, List< TouchEvent > touchEvents, Hand pHand) {

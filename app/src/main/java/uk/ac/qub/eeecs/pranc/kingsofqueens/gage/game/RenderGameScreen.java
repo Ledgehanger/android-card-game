@@ -16,10 +16,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameObject;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.LayerViewport;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.ScreenViewport;
 
 
 public class RenderGameScreen extends GameScreen {
@@ -76,22 +73,23 @@ public class RenderGameScreen extends GameScreen {
 
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
-        if(input != null) {
-            List<TouchEvent> touchEvents = input.getTouchEvents();
-
-            if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
-                startPhase();
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
+        if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
+            startPhase();
+        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
+            if (input != null) {
+                List<TouchEvent> touchEvents = input.getTouchEvents();
                 placeCardPhase(elapsedTime, touchEvents);
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-                attackPhase();
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-                endTurnPhase();
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
-                //TODO
             }
+        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
+            attackPhase();
+        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+            endTurnPhase();
+        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
+            //TODO
         }
+
     }
+
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
@@ -101,10 +99,15 @@ public class RenderGameScreen extends GameScreen {
         //Draw Background
        // mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
         //Draw Player
-        playerAI.drawPlayer(iGraphics2D,assetStore, iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
-        player.drawPlayer  (iGraphics2D,assetStore, iGraphics2D.getSurfaceHeight(), iGraphics2D.getSurfaceWidth());
+        drawPlayer(iGraphics2D.getSurfaceWidth(),iGraphics2D.getSurfaceHeight(),iGraphics2D );
+
         drawEndTurn(elapsedTime,iGraphics2D);
 
+    }
+
+    public void drawPlayer( int surfaceWidth, int surfaceHeight,IGraphics2D iGraphics2D ) {
+        playerAI.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth);
+        player.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth);
     }
 
 
@@ -173,7 +176,7 @@ public class RenderGameScreen extends GameScreen {
         currentGame.getNextPhase();
     }
 
-    private void playerPlaceCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
+    public void playerPlaceCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
 
         if(!touchEvents.isEmpty()) {
             playerEvolving(touchEvents);
@@ -230,6 +233,10 @@ public class RenderGameScreen extends GameScreen {
             player.playerStartTurn();
         else
             playerAI.playerStartTurn();
+    }
+
+    public void nextCurrentTurn(){
+        currentGame.getNextPhase();
     }
 
 

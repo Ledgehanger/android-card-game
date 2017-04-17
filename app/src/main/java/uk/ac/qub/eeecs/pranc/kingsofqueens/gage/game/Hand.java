@@ -101,10 +101,13 @@ public class  Hand {
     public void update(ElapsedTime elapsedTime, List<TouchEvent> touchEvents ) {
         if(!touchEvents.isEmpty()){
             TouchEvent touchEvent = touchEvents.get(0);
+            float x = touchEvent.x;
+            float y = touchEvent.y;
             for(int i = 0; i < myHand.size(); i++){
                 Rect c = myHand.get(i).cardRect;
                 if(c.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
                     manageSelection(i);
+
                 }
             }
         }
