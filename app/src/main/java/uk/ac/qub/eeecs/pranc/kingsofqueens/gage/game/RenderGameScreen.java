@@ -73,6 +73,7 @@ public class RenderGameScreen extends GameScreen {
 
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
+        checkGameOver();
         if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
             startPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
@@ -85,6 +86,7 @@ public class RenderGameScreen extends GameScreen {
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
             endTurnPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
+                ignorePlayerInput = true;
             //TODO
         }
 
@@ -185,7 +187,7 @@ public class RenderGameScreen extends GameScreen {
     }
 
     private void playingCard(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
-        if (!cardPlayedLimit && !player.isEvolving()) {
+        if (!cardPlayedLimit && !player.isEvolving() && checkHp()) {
             player.playerHand.update(elapsedTime, touchEvents);
 
             if (player.playerHand.cardPicked()) {
@@ -247,6 +249,8 @@ public class RenderGameScreen extends GameScreen {
         if(playerAI.getHp() <= 0)
             currentGame.setGameOver(playerAI.getId());
     }
-
+    public boolean checkHp(){
+        return player.getHp() > 0 && playerAI.getHp() > 0;
+    }
 
 }
