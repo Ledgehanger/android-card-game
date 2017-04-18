@@ -255,8 +255,8 @@ public class Player {
                 Spot currentSpot = playerField.getSpotFromRow(row, column);
                 if (currentSpot.getCardPlaced()) {
                     if(currentSpot.getSpotRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                        if(evTotal >= currentSpot.getEvolvingCost())
-                            evTotal -= currentSpot.getEvolvingCost();{
+                        if(evTotal >= currentSpot.getEvolvingCost() && currentSpot.getEvolvingCost() > 0){
+                            evTotal -= currentSpot.getEvolvingCost();
                             currentSpot.cardEvolving();
                             evolving = false;
                             currentSpot.useCardAbility(this,enemy);
