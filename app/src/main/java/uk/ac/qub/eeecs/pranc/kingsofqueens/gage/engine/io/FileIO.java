@@ -148,8 +148,6 @@ public class FileIO {
 			jObject = new JSONArray(result);
 		} catch(Exception e) {
 			Log.e(TAG, "findAbility: ");
-			String p = e.toString();
-			String testing= "Delete";
 		}
 
 		return jObject;
