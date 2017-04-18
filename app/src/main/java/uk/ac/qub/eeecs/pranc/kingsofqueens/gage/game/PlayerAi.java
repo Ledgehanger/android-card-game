@@ -12,11 +12,11 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class PlayerAi extends Player {
 
-
-
-
     public int spotPos;
     public int evLvl;
+
+    public void setSpotPos(int spotPos){this.spotPos=spotPos;}
+    public int getSpotPos(){return spotPos;}
 
 
     public PlayerAi(String aiImage, AssetStore aStore,genAlgorithm.field fieldLocation)
@@ -61,14 +61,14 @@ public class PlayerAi extends Player {
     public boolean checkFieldFree()
     {
         boolean fieldFree=false;
-        spotPos=0;
+        spotPos=-1;
 
-        while(spotPos<playerField.getSizeOfRow()||fieldFree==true)
-        {
+        do {
+            spotPos++;
             if (playerField.getSpotFromRow(0, spotPos) == null)
                 fieldFree = true;
-            spotPos++;
-        }
+
+        } while(spotPos<playerField.getSizeOfRow()||fieldFree==true);
 
         return fieldFree;
     }
@@ -83,11 +83,11 @@ public class PlayerAi extends Player {
 
     public void checkAIEv()
     {
-        if(evTotal==5) {
+        if(evTotal>=5) {
             evLvl = 2;
         }
 
-        if(evTotal==3)
+        if(evTotal>=3&&evTotal<5)
         {
             evLvl=1;
         }
