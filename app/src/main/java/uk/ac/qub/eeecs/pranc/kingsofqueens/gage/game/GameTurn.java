@@ -26,6 +26,7 @@ public class GameTurn {
 
     private String playerOneID;
     private String playerTwoID;
+    private String loseID;
     private boolean playerOneTurn;
     private boolean playerTwoTurn;
     private boolean firstTurn;
@@ -73,6 +74,7 @@ public class GameTurn {
     }
 
     public void setGameOver(String loserID){
+        this.loseID = loserID;
         currentPhase = turnTypes.gameOver;
     }
 

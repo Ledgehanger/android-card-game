@@ -193,6 +193,7 @@ public class RenderGameScreen extends GameScreen {
                 if (player.playerHand.getCardPlayedThisTurn()) {
                     cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
+                    checkGameOver();
                     useCardAbility(newCard);
                 }
             }
@@ -239,7 +240,13 @@ public class RenderGameScreen extends GameScreen {
         currentGame.getNextPhase();
     }
 
-
+    public void checkGameOver()
+    {
+        if(player.getHp() <= 0)
+            currentGame.setGameOver(player.getId());
+        if(playerAI.getHp() <= 0)
+            currentGame.setGameOver(playerAI.getId());
+    }
 
 
 }
