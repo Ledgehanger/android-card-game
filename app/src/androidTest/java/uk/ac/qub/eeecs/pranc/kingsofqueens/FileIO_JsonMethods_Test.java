@@ -26,8 +26,8 @@ public class FileIO_JsonMethods_Test {
             AssetStore as = new AssetStore(new FileIO(appContext));
 
             Deck mDeck = new Deck();
-            as.loadAndAddJson("Psych", "Decks/Psych.json");
-            mDeck.addCardsInDeckToDeckFromJSONFile(as, "Psych", mDeck.SIZE_OF_CLASS_DECK);
+            as.loadAndAddJson("Engineering", "Decks/Engineering.json");
+            mDeck.addCardsInDeckToDeckFromJSONFile(as, "Engineering", mDeck.SIZE_OF_CLASS_DECK);
             int draws = 3;
             Card [] check = mDeck.drawFromDeck(draws);
 

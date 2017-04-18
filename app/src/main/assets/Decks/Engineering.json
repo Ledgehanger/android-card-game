@@ -36,7 +36,7 @@
     "defense": 7,
     "desc":"TEST",
     "ability": "Default",
-    "abilityLvl": 3
+    "abilityLvl": 3,
     "Level"  : "level3",
     "picture": "img/Cards/AE.png",
     "inDeck" : false,
