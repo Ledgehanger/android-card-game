@@ -56,26 +56,30 @@ public class PickDeckScreen extends GameScreen {
         Input input = mGame.getInput();
         if(input != null) {
             List<TouchEvent> touchEvents = input.getTouchEvents();
-            if (!touchEvents.isEmpty()) {
-                TouchEvent touchEvent = touchEvents.get(0);
-
-                if (DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                    mangeDeckSelection();
-                }
-                deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
-                deck2Picked = checkInputDeckChoices(touchEvent, Deck2, deck2Picked);
-
-                if (Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                    index--;
-                }
-                if (Right.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                    index++;
-                }
-
-                checkPlayButtonPressed(touchEvent);
-            }
+            updateTouchEvents(touchEvents);
         }
 
+    }
+
+    public void updateTouchEvents(List<TouchEvent> touchEvents) {
+        if (!touchEvents.isEmpty()) {
+            TouchEvent touchEvent = touchEvents.get(0);
+
+            if (DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                mangeDeckSelection();
+            }
+            deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
+            deck2Picked = checkInputDeckChoices(touchEvent, Deck2, deck2Picked);
+
+            if (Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                index--;
+            }
+            if (Right.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                index++;
+            }
+
+            checkPlayButtonPressed(touchEvent);
+        }
     }
 
     private void mangeDeckSelection() {

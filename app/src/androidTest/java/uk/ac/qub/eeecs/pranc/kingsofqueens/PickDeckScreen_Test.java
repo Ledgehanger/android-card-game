@@ -10,9 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.CardGame;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
@@ -50,6 +54,17 @@ public class PickDeckScreen_Test {
     @Test
     public void update() throws Exception{
         deckScreen.update(new ElapsedTime());
+    }
+    @Test
+    public void updateTouchEvents() throws Exception{
+        draw();
+        List<TouchEvent> touchEvents = new ArrayList<>();
+        TouchEvent touchEvent = new TouchEvent();
+        touchEvent.type = 0;
+        touchEvent.x =  0 ;
+        touchEvent.y =  0;
+        touchEvents.add(0,touchEvent);
+        deckScreen.updateTouchEvents(touchEvents);
     }
 
 }
