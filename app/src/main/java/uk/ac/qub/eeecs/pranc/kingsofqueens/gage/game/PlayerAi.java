@@ -16,8 +16,10 @@ public class PlayerAi extends Player {
     public int evPos;
     public int evLvl;
 
+
     public int getPlayPos(){return playPos;}
     public int getEvPos(){return evPos;}
+  
 
 
     public PlayerAi(String aiImage, AssetStore aStore,genAlgorithm.field fieldLocation)
@@ -59,28 +61,31 @@ public class PlayerAi extends Player {
 
     }
 
-    public boolean checkSpotFree(int oppSpotPos)
+    public boolean checkSpotFree(int spotPos)
     {
-        boolean fieldFree=false;
+        boolean posFree=false;
 
-        if (playerField.getSpotFromRow(0, oppSpotPos) != null)
+        Spot checkSpot=playerField.getSpotFromRow(0,spotPos);
+
+        if (!checkSpot.getCardPlaced())
         {
-            fieldFree = true;
+            posFree = true;
         }
 
-        return fieldFree;
+        return posFree;
     }
 
     public boolean checkOpponentField(Field oppPlayerField)
     {
-        int playPos=-1;
+        playPos=-1;
 
         boolean aiPosAvailable=false;
         int sizeOfLoop=oppPlayerField.getSizeOfRow()-1;
 
         do {
             playPos++;
-            if(oppPlayerField.getSpotFromRow(0,playPos)!=null)
+            Spot checkSpot=oppPlayerField.getSpotFromRow(0,playPos);
+            if(checkSpot.getCardPlaced())
             {
                aiPosAvailable=checkSpotFree(playPos);
             }
@@ -117,14 +122,11 @@ public class PlayerAi extends Player {
                    if (tempCardStorage.getEv() == 0)
                        canEvolve = false;
                }
-           } while (evPos < playerAiField.getSizeOfRow() || canEvolve == false);
+           } while (evPos < playerAiField.getSizeOfRow() && canEvolve == false);
        }
 
        return canEvolve;
    }
 
-   public void playCard()
-   {
 
-   }
 }

@@ -94,6 +94,7 @@ public class Player {
         return id;
     }
     public boolean getIsAlive  (){return isAlive;}
+    public void setHandDrawCardBack(boolean handDrawCardBack){this.handDrawCardBack=handDrawCardBack;}
 
     public void addToEvTotal   (int add){
         this.evTotal += add;
