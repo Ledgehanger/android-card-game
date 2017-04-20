@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AbilityFactory;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.EnemyEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
@@ -22,9 +23,10 @@ import static org.junit.Assert.assertNull;
 public class Ability_Test {
     Player test;
     Ability ability;
-    String AddPath  = "AddEvAbility";
-    String HealPath = "HealAbility";
-
+    String AddPath          = "AddEvAbility"     ;
+    String HealPath         = "HealAbility"      ;
+    String DealDamagePath   = "DealDamageAbility";
+    int StartingHp          = 20;
 
     @Test
     public void effectAddEv(){
@@ -52,6 +54,35 @@ public class Ability_Test {
             ability.effect(3);
             assertEquals(4, test.getEvTotal());
         }
+    }
+    @Test
+    public void DealDmg(){
+
+        Player enemy = new Player();
+        test = new Player();
+        DealDamageTest(enemy,test,1,1);
+
+        enemy = new Player();
+        test = new Player();
+        DealDamageTest(enemy,test,2,2);
+
+        enemy = new Player();
+        test = new Player();
+        DealDamageTest(enemy,test,3,3);
+
+    }
+
+    public void DealDamageTest(Player pPlayer, Player pEnemyPlayer, int pLevel, int dmg){
+
+
+        ability = AbilityFactory.getAbility(DealDamagePath);
+        if(ability instanceof EnemyEffectedAbility) {
+            ((EnemyEffectedAbility) ability).addEffectPlayer(pEnemyPlayer);
+        }
+        ability.effect(pLevel);
+
+        assertEquals(StartingHp - dmg ,pEnemyPlayer.getHp());
+        assertEquals(StartingHp, pPlayer.getHp());
     }
 
     @Test

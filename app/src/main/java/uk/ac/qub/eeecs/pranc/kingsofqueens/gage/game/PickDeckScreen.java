@@ -148,7 +148,7 @@ public class PickDeckScreen extends GameScreen {
                 DeckButton = new Rect(2 * spacingX, spacingY, 4 * spacingX, 2 * spacingY);
                 Left = new Rect(spacingX, spacingY, 2 * spacingX, 2 * spacingY);
                 Right = new Rect(4 * spacingX, spacingY, 5 * spacingX, 2 * spacingY);
-                Play = scale.scaleRect(350,500,850,650);
+                Play = scale.scalarect(350,500,850,650);
 
             }
             if(iGraphics2D != null)

@@ -16,12 +16,13 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 
 public class RenderGameScreen extends GameScreen {
 
-    private final float LEVEL_WIDTH  = 1000.0f;
-    private final float LEVEL_HEIGHT = 1000.0f;
+    private final int LEVEL_WIDTH  = 1184;
+    private final int LEVEL_HEIGHT = 720;
 
 
 
@@ -39,6 +40,9 @@ public class RenderGameScreen extends GameScreen {
     private AssetStore assetStore;
     public static final String END_TURN_ACTIVE = "EndTurnActive";
     public static final String END_TURN_DISABLE = "EndTurnDisable";
+
+    scaleScreenReso scalar;
+
     public RenderGameScreen(Game game, Deck playerDeck, AssetStore aStore) throws Exception {
         super("RenderGameScreen", game);
 
@@ -49,7 +53,6 @@ public class RenderGameScreen extends GameScreen {
 
         playerAI.playerDeck.setDeckImg(aStore.getBitmap("deckimg"));
         player.playerDeck  .setDeckImg(aStore.getBitmap("deckimg"));
-
 
 
         currentGame = new GameTurn(player.getId(),playerAI.getId());
@@ -86,8 +89,13 @@ public class RenderGameScreen extends GameScreen {
                 placeCardPhase(elapsedTime, touchEvents);
             }
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-            attackPhase();
+            if(!currentGame.isFirstTurn())
+                attackPhase();
+            else
+                currentGame.getNextPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+            if(currentGame.isFirstTurn())
+                currentGame.setFirstTurn(false);
             endTurnPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
                 ignorePlayerInput = true;
@@ -99,6 +107,7 @@ public class RenderGameScreen extends GameScreen {
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
+        scalar = new scaleScreenReso(iGraphics2D);
         iGraphics2D.clear(Color.BLACK);
         assetStore.getMusic("BGM").play();
         assetStore.getMusic("BGM").setVolume(1);
@@ -108,7 +117,7 @@ public class RenderGameScreen extends GameScreen {
         setupBackground(iGraphics2D);
         iGraphics2D.drawBitmap(bg,null,boundBackground,null);
         //Draw Player
-        drawPlayer(iGraphics2D.getSurfaceWidth(),iGraphics2D.getSurfaceHeight(),iGraphics2D );
+        drawPlayer(LEVEL_WIDTH,LEVEL_HEIGHT,iGraphics2D );
 
         drawEndTurn(elapsedTime,iGraphics2D);
 
@@ -116,15 +125,15 @@ public class RenderGameScreen extends GameScreen {
 
     public void setupBackground(IGraphics2D iGraphics2D) {
         int bgLeft=0;
-        int bgRight=iGraphics2D.getSurfaceWidth();
+        int bgRight=LEVEL_WIDTH;
         int bgTop=0;
-        int bgBot=iGraphics2D.getSurfaceHeight();
-        boundBackground=new Rect(bgLeft,bgTop,bgRight,bgBot);
+        int bgBot=LEVEL_HEIGHT;
+        boundBackground=scalar.scalarect(bgLeft,bgTop,bgRight,bgBot);
     }
 
     public void drawPlayer( int surfaceWidth, int surfaceHeight,IGraphics2D iGraphics2D ) {
-        playerAI.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth);
-        player.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth);
+        playerAI.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scalar);
+        player.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scalar);
     }
 
 

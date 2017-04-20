@@ -11,6 +11,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 /**
  * Created by Paddy_Lenovo on 11/04/2017.
@@ -39,10 +40,6 @@ public class Row {
             myRow.add(new Spot());
         }
 
-    }
-
-    public Bitmap getRowBitmap() {
-        return rowBitmap;
     }
 
     public Rect getMyRowRect() {
@@ -74,7 +71,7 @@ public class Row {
     }
 
     public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
-            aStore, int surfaceHeight, int surfaceWidth){
+            aStore, int surfaceHeight, int surfaceWidth,scaleScreenReso scalar){
 
         float top;
         float bot;
@@ -93,14 +90,14 @@ public class Row {
             topI = (int) bot/2 - (int) (bot/2)/2;
             botI = surfaceHeight/2;
 
-            rowRect = new Rect(left, topI, right, botI);
+            rowRect = scalar.scalarect(left, topI, right, botI);
 
         } else {
             top = surfaceHeight/ 2;
             botI = (int) top + (int) (top / 2);
             topI = (int) top;
 
-            rowRect = new Rect(left, topI, right, botI);
+            rowRect = scalar.scalarect(left, topI, right, botI);
         }
 
 
@@ -108,7 +105,7 @@ public class Row {
         int offset = 150;
         for (Spot s : myRow) {
             int rightDraw = left + offset;
-            s.draw(topI,botI,left,rightDraw,side,iGraphics2D,aStore);
+            s.draw(topI,botI,left,rightDraw,side,iGraphics2D,aStore,scalar);
             left += offset;
 
         }

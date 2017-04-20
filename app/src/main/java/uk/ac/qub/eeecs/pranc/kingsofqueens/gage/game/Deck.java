@@ -14,13 +14,11 @@ import java.util.ArrayList;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import static android.content.ContentValues.TAG;
 
 public class Deck{
-
-
-    private boolean deckIsEmpty = true;
 
     public static final int SIZE_OF_CLASS_DECK = 3;
     public static final int SIZE_OF_NEUTRAL_DECK = 2;
@@ -29,6 +27,7 @@ public class Deck{
     public static final String DECK_PATH = "Decks/";
     public static final String JSON = ".json";
 
+    private boolean deckIsEmpty = true;
     private Bitmap deckImg;
     private Rect deckRect;
     private ArrayList<Card> playerDeck = new ArrayList<> ();
@@ -67,6 +66,7 @@ public class Deck{
 
     public boolean setDeckUp(AssetStore assetStore, String pDeckName1, String pDeckName2){
         addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName1, SIZE_OF_CLASS_DECK);
+
         addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName2, SIZE_OF_CLASS_DECK);
         addCardsInDeckToDeckFromJSONFile(assetStore, NEUTRAL, SIZE_OF_NEUTRAL_DECK);
 
@@ -114,7 +114,7 @@ public class Deck{
         return playerDeck.size();
     }
 
-    public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D, int pSurfaceHeight) {
+    public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D, int pSurfaceHeight,scaleScreenReso scalar) {
 
         if (playerDeck.size() <= 0) {
             deckIsEmpty = true;
@@ -122,7 +122,7 @@ public class Deck{
         }
         else {
             if (deckRect == null)
-                generateDeckRect(side, pSurfaceHeight);
+                generateDeckRect(side, pSurfaceHeight,scalar);
             if(iGraphics2D != null)
                 iGraphics2D.drawBitmap(deckImg, null, deckRect, null);
         }
@@ -130,7 +130,7 @@ public class Deck{
 
     }
 
-    private void generateDeckRect(genAlgorithm.field side, int pSurfaceHeight) {
+    private void generateDeckRect(genAlgorithm.field side, int pSurfaceHeight,scaleScreenReso scalar) {
         float top;
         float bot;
         float leftSide;
@@ -147,7 +147,7 @@ public class Deck{
             right = (int) leftSide + 100;
             topI = (int) top;
             botI = (int) ((bot) - (bot / 1.5)) - 75;
-            deckRect = new Rect(left, topI, right, botI);
+            deckRect =scalar.scalarect(left, topI, right, botI);
 
         } else {
             top = pSurfaceHeight / 2;
@@ -158,7 +158,7 @@ public class Deck{
             right = (int) leftSide + 100;
             topI = (int) ((top) + (top / 4) + 105);
             botI = (int) bot;
-            deckRect = new Rect(left, topI, right, botI);
+            deckRect = scalar.scalarect(left, topI, right, botI);
         }
     }
 

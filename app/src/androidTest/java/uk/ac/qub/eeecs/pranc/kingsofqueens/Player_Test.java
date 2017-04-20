@@ -6,9 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
@@ -16,6 +18,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,9 +26,10 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by markm on 06/04/2017.
  */
-
+@RunWith(AndroidJUnit4.class)
 public class Player_Test {
-
+    private final int LEVEL_WIDTH  = 1200;
+    private final int LEVEL_HEIGHT = 720;
 
     private final String    playerImage = "pImage";
     private final int       FullHp = 20;
@@ -35,6 +39,7 @@ public class Player_Test {
     AssetStore              assetStore;
     AssetManager            assetManager;
     CanvasGraphics2D        canvasGraphics2D;
+    scaleScreenReso         scalar;
 
     @Before
     public void setUp() throws Exception {
@@ -50,6 +55,7 @@ public class Player_Test {
         assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
+        scalar = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
 
     }
 
@@ -135,7 +141,7 @@ public class Player_Test {
         Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
         assertEquals("AI",player.getId());
         AssetStore as = getAssetStore();
-        player.drawPlayer(null,as,100,100);
+        player.drawPlayer(null,as,100,100,scalar);
     }
     @Test
     public void playerAttackPhase(){
@@ -150,10 +156,10 @@ public class Player_Test {
         Player player2 = new Player("ei",null, genAlgorithm.field.TOP);
         assertEquals("AI",player.getId());
         AssetStore as = getAssetStore();
-        player.drawPlayer (null,as,100,100);
-        player.drawPlayer (null,as,100,100);
-        player2.drawPlayer(null,as,100,100);
-        player2.drawPlayer(null,as,100,100);
+        player.drawPlayer (null,as,100,100,scalar);
+        player.drawPlayer (null,as,100,100,scalar);
+        player2.drawPlayer(null,as,100,100,scalar);
+        player2.drawPlayer(null,as,100,100,scalar);
     }
     @Test
     public void testDrawPlayersWithCanvas(){
@@ -169,10 +175,10 @@ public class Player_Test {
         Player player2 =    new Player("PlayerPictureHolder",assetStore, new Deck(), genAlgorithm.field.TOP   );
         assertEquals("Player",player.getId());
 
-        player.drawPlayer (canvasGraphics2D,assetStore,100,100);
-        player.drawPlayer (canvasGraphics2D,assetStore,100,100);
-        player2.drawPlayer(canvasGraphics2D,assetStore,100,100);
-        player2.drawPlayer(canvasGraphics2D,assetStore,100,100);
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
     }
 
     @Test
@@ -180,7 +186,7 @@ public class Player_Test {
         Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
 
         AssetStore as = getAssetStore();
-        player.drawPlayer(null,as,100,100);
+        player.drawPlayer(null,as,100,100,scalar);
         Paint e = player.setUpPaint();
         assertNotNull(e);
     }

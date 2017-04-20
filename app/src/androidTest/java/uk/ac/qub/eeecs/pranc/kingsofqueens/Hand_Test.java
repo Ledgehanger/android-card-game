@@ -23,6 +23,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Hand;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -33,6 +34,9 @@ import static org.junit.Assert.assertNull;
  */
 @RunWith(AndroidJUnit4.class)
 public class Hand_Test {
+    private final int LEVEL_WIDTH  = 1200;
+    private final int LEVEL_HEIGHT = 720;
+
     Player              player;
     Player              ePlayer;
     Hand                pHand;
@@ -40,7 +44,7 @@ public class Hand_Test {
     AssetStore          assetStore;
     AssetManager        assetManager;
     CanvasGraphics2D    canvasGraphics2D;
-
+    scaleScreenReso     scalar;
 
     @Before
     public void setUp() throws Exception {
@@ -52,6 +56,7 @@ public class Hand_Test {
         Canvas n = new Canvas();
         canvasGraphics2D.setCanvas(n);
 
+        scalar = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
 
         assetStore.loadAndAddJson("Psych", "Decks/Psych.json");
         assetStore.loadAndAddJson("Neutral","Decks/Neutral.json");
@@ -81,23 +86,23 @@ public class Hand_Test {
     @Test
     public void drawTop()throws Exception{
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.BOTTOM, canvasGraphics2D, assetStore,false,1000,1000);
+        pHand.drawHand(genAlgorithm.field.BOTTOM, canvasGraphics2D, assetStore,false,1000,1000,scalar);
     }
     @Test
     public void drawBot()throws Exception{
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,false,1000,1000);
+        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,false,1000,1000,scalar);
     }
     @Test
     public void drawBack()throws Exception {
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP, canvasGraphics2D, assetStore, true, 1000, 1000);
+        pHand.drawHand(genAlgorithm.field.TOP, canvasGraphics2D, assetStore, true, 1000, 1000,scalar);
     }
 
     @Test
     public void update()throws Exception{
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,true,720,1184);
+        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,true,720,1184,scalar);
         List<TouchEvent> touchEvents = new ArrayList<>();
         TouchEvent touchEvent = new TouchEvent();
         touchEvent.type = 0;
@@ -111,7 +116,7 @@ public class Hand_Test {
     @Test
     public void unSelect()throws Exception {
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP, null, assetStore, true, 720, 1184);
+        pHand.drawHand(genAlgorithm.field.TOP, null, assetStore, true, 720, 1184,scalar);
         List<TouchEvent> touchEvents = new ArrayList<>();
 
         TouchEvent touchEvent = new TouchEvent();
