@@ -140,7 +140,7 @@ public class Player {
                     playerRectEv.centerY() + yOffset, playerPaint);
             playerField.draw(fieldLocation, iGraphics2D, assetStore, SurfaceHeight, SurfaceWidth,scalar);
             playerDeck.drawDeck(fieldLocation, iGraphics2D, SurfaceHeight,scalar);
-            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, SurfaceHeight,
+            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, true, SurfaceHeight,
                     SurfaceWidth,scalar);
 
         }
