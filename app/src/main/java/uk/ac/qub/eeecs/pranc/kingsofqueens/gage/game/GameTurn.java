@@ -14,7 +14,7 @@ public class GameTurn {
         this.playerTwoID = playerTwoID;
         this.playerTwoTurn = false;
         currentPhase = turnTypes.startPhase;
-
+        firstTurn = true;
     }
     public enum turnTypes {
                 startPhase,

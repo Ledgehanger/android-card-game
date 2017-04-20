@@ -8,6 +8,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 /**
  * Created by Paddy_Lenovo on 11/04/2017.
@@ -24,9 +25,9 @@ public class Field {
         }
 
     }
-    public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore aStore, int surfaceHeight, int surfaceWidth) {
+    public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore aStore, int surfaceHeight, int surfaceWidth, scaleScreenReso scaler) {
         for (int i = 0; i < ROWS_PER_FIELD; i++ ){
-            myField.get(i).draw(side, iGraphics2D, aStore, surfaceHeight, surfaceWidth);
+            myField.get(i).draw(side, iGraphics2D, aStore, surfaceHeight, surfaceWidth, scaler);
         }
     }
     public void update(ElapsedTime elapsedTime, List< TouchEvent > touchEvents, Hand pHand) {

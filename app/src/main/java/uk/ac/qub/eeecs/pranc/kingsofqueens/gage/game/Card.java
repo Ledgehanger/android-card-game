@@ -8,6 +8,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -171,13 +172,13 @@ public class Card{
 
     }
 
-    public void createCardRect(int bot, int left, int top)
+    public void createCardRect(int bot, int left, int top, scaleScreenReso scaler)
     {
         int cardLeft=left;
         int cardRight= left + OFFSET;
         int cardTop=top;
         int cardBottom=bot;
-        cardRect=new Rect(cardLeft,cardTop,cardRight,cardBottom);
+        cardRect=scaler.scaleRect(cardLeft,cardTop,cardRight,cardBottom);
     }
     public void setCardToNull()
     {
@@ -195,13 +196,13 @@ public class Card{
 
     }
 
-    public void drawCard(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack)
+    public void drawCard(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack,scaleScreenReso scaler)
     {
         if(isPicked){
             top -= 50;
             bot -= 50;
         }
-            createCardRect(bot,left,top);
+            createCardRect(bot,left,top,scaler);
         if (textPaint==null)
             textPaint=formatText(26.5F);
         if (textDesc==null)

@@ -25,6 +25,16 @@ public class scaleScreenReso {
         horiScale=hori/DEVRESOHORI;
         vertScale=vert/DEVRESOVERT;
     }
+    public scaleScreenReso(int width, int height)
+    {
+        this.iG2D=iG2D;
+
+        double hori= (double) width;
+        double vert= (double)height;
+
+        horiScale=hori/DEVRESOHORI;
+        vertScale=vert/DEVRESOVERT;
+    }
 
     public void setHoriScale(int horiScale){this.horiScale=horiScale;}
     public void setVertScale(int vertScale){this.vertScale=vertScale;}
