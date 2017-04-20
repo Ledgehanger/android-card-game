@@ -30,11 +30,8 @@ public class GameOverState extends GameScreen{
     //CREATED TO REPLACE GAMEOVERSCREEN, USING JAVA INSTEAD OF JAVA AND XML
 
 
-    //SETTINGS FOR VOLUME
-    private Settings settings;
-
     //Creates Rect which bound buttons
-    private Rect boundPlayBtn,boundOptionsBtn,boundTitle,boundBackground, boundSoundBtn;
+    private Rect boundBackground, boundTitle, boundMenuBtn, boundHighScore, boundScore, boundReplayBtn;
 
 
     //Set up AssetStore
@@ -42,15 +39,14 @@ public class GameOverState extends GameScreen{
 
     public GameOverState(String newName ,Game newGame)
     {
-        super("MainMenuScreen",newGame);
-        aStore.loadAndAddBitmap("Title","img/MainMenuImages/Title.PNG");
+        super("GameOverState",newGame);
+        aStore.loadAndAddBitmap("title","img/EndImages/GameOverTitle.PNG");
+        aStore.loadAndAddBitmap("mainmenu","img/EndImages/endGameBtn.PNG");
+        aStore.loadAndAddBitmap("highscore","img/EndImages/endHighBtn.png");
+        aStore.loadAndAddBitmap("score","img/EndImages/scoreBtn.PNG");
+        aStore.loadAndAddBitmap("replay","img/EndImages/replayBtn.PNG");
+        aStore.loadAndAddBitmap("background", "img/EndImages/mmbg.jpg");
 
-        //SETTINGS
-        aStore.loadAndAddBitmap("sound", "img/sound.jpg");
-
-        aStore.loadAndAddBitmap("playBtn","img/MainMenuImages/playBtn.png");
-        aStore.loadAndAddBitmap("optionsBtn","img/MainMenuImages/devBtn.png");
-        aStore.loadAndAddBitmap("BG","img/mmbg.jpg");
         aStore.loadAndAddMusic("BGM","music/DISC5_02.mp3");
 
     }
@@ -64,31 +60,19 @@ public class GameOverState extends GameScreen{
         {
             TouchEvent touchEvent = touchEvents.get(0);
 
-            if(boundPlayBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0)
+            if(boundMenuBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0)
             {
                 aStore.getMusic("BGM").stop();
 
                 mGame.getScreenManager().removeScreen(this.getName());
-                PickDeckScreen game = new PickDeckScreen(mGame,mGame.getAssetManager());
-                mGame.getScreenManager().addScreen(game);
+                MainMenu menu = new MainMenu("", mGame);
+                mGame.getScreenManager().addScreen(menu);
             }
-
-            if(boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
+            if(boundReplayBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
                 aStore.getMusic("BGM").stop();
                 mGame.getScreenManager().removeScreen(this.getName());
-                OptionsScreen game = new OptionsScreen("", mGame);
+                PickDeckScreen game = new PickDeckScreen(mGame, mGame.getAssetManager());
                 mGame.getScreenManager().addScreen(game);
-            }
-
-            if(boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                //aStore.getMusic("BGM").stop(); DOES THIS STOP THE MUSIC IF COMMENTED OUT??
-                settings.soundEnabled = false;
-                //settings.save("");
-                if(boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
-                    aStore.getMusic("BGM").play();
-                    settings.soundEnabled = true;
-                    //settings.save("");
-                }
             }
         }
     }
@@ -100,51 +84,54 @@ public class GameOverState extends GameScreen{
         {
             scaleScreenReso scale= new scaleScreenReso(iGraphics2D);
 
-            //SETTINGS
-            Bitmap soundButton=aStore.getBitmap(("sound"));
-
-            Bitmap koqTitle=aStore.getBitmap("Title");
-            Bitmap playGame=aStore.getBitmap("playBtn");
-            Bitmap options=aStore.getBitmap("optionsBtn");
-            Bitmap bg=aStore.getBitmap("BG");
-
+            Bitmap overTitle =aStore.getBitmap("title");
+            Bitmap menuBtn = aStore.getBitmap("mainmenu");
+            Bitmap highScore = aStore.getBitmap("highscore");
+            Bitmap score = aStore.getBitmap("score");
+            Bitmap replay = aStore.getBitmap("replay");
+            Bitmap backGround = aStore.getBitmap("background");
 
 
-            if(boundPlayBtn==null || boundOptionsBtn == null || boundTitle == null || boundBackground==null || boundSoundBtn==null)
+            if(boundBackground == null || boundMenuBtn == null || boundReplayBtn == null || boundHighScore == null || boundScore == null || boundTitle == null)
             {
                 int bgLeft=0;
                 int bgRight=iGraphics2D.getSurfaceWidth();
                 int bgTop=0;
                 int bgBot=iGraphics2D.getSurfaceHeight();
 
-                boundBackground=new Rect(bgLeft,bgTop,bgRight,bgBot);
+                boundBackground = new Rect(bgLeft,bgTop,bgRight,bgBot);
 
                 int titleLeft= 200;
-                int titleRight= titleLeft+koqTitle.getWidth();
-                int titletop= 60;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
-                int titlebottom= 139;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
+                int titleRight= titleLeft+overTitle.getWidth();
+                int titletop= 60;
+                int titlebottom= 139;
 
                 boundTitle= scale.scalarect(titleLeft,titletop,titleRight,titlebottom);
 
-                int optionsLeft=375;
-                int optionsRight=optionsLeft+options.getWidth();
-                int optionsTop=450;
-                int optionsBottom= optionsTop+options.getHeight();
+                int menuLeft=375;
+                int menuRight=menuLeft+menuBtn.getWidth();
+                int menuTop=450;
+                int menuBottom= menuTop+menuBtn.getHeight();
 
-                boundOptionsBtn=scale.scalarect(optionsLeft,optionsTop,optionsRight,optionsBottom);
+                boundMenuBtn = scale.scalarect(menuLeft,menuTop,menuRight,menuBottom);
 
 
-                int playTop=250;
-                int playBottom= playTop+playGame.getHeight();
+                int highTop=250;
+                int highBottom = highTop+highScore.getHeight();
 
-                boundPlayBtn= scale.scalarect(optionsLeft,playTop,optionsRight,playBottom);
+                boundHighScore = scale.scalarect(menuLeft,highTop,menuRight,highBottom);
 
-                int soundLeft = 0;
-                int soundRight = soundLeft+soundButton.getWidth();
-                int soundTop = 455;
-                int soundBottom = soundTop+soundButton.getHeight();
+                int replayLeft = 0;
+                int replayRight = replayLeft+replay.getWidth();
+                int replayTop = 475;
+                int replayBottom = replayTop+replay.getHeight();
 
-                boundSoundBtn = scale.scalarect(soundLeft, soundTop, soundRight, soundBottom);
+                boundReplayBtn = scale.scalarect(replayLeft, replayTop, replayRight, replayBottom);
+
+                int scoreLeft = 375;
+                int scoreRight = scoreLeft + score.getWidth();
+                int scoreTop = 350;
+                int scoreBottom = scoreTop + score.getHeight();
 
             }
             aStore.getMusic("BGM").play();
@@ -152,13 +139,12 @@ public class GameOverState extends GameScreen{
             aStore.getMusic("BGM").setLopping(true);
 
             iGraphics2D.clear(Color.rgb(255,255,255));
-            iGraphics2D.drawBitmap(bg,null,boundBackground,null);
-            iGraphics2D.drawBitmap(koqTitle,null,boundTitle,null);
-            iGraphics2D.drawBitmap(playGame,null,boundPlayBtn,null);
-            iGraphics2D.drawBitmap(options,null,boundOptionsBtn,null);
-
-            iGraphics2D.drawBitmap(soundButton, null, boundSoundBtn, null);
-
+            iGraphics2D.drawBitmap(backGround,null,boundBackground,null);
+            iGraphics2D.drawBitmap(overTitle,null,boundTitle,null);
+            iGraphics2D.drawBitmap(menuBtn,null,boundMenuBtn,null);
+            iGraphics2D.drawBitmap(highScore,null,boundHighScore,null);
+            iGraphics2D.drawBitmap(score,null,boundScore,null);
+            iGraphics2D.drawBitmap(replay,null,boundReplayBtn,null);
         }
         catch (Exception e)
         {

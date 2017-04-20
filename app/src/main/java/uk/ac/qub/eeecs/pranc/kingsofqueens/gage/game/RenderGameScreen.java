@@ -64,7 +64,7 @@ public class RenderGameScreen extends GameScreen {
         assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
         assetStore.loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
         assetStore.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
-        assetStore.loadAndAddBitmap("QueensBackground", "GameScreenImages/QueensBackground.JPG");
+        assetStore.loadAndAddBitmap("QueensBackground", "img/EndImages/mmbg.jpg");
         assetStore.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
         assetStore.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
         assetStore.loadAndAddBitmap(END_TURN_ACTIVE, "img/EndTurnActive.png");
