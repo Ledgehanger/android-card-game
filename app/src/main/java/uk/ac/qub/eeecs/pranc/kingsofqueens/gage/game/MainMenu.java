@@ -150,7 +150,7 @@ public class MainMenu extends GameScreen {
                 int highTop = 350;
                 int highBottom = highTop + playGame.getHeight();
 
-                boundHighBtn = scale.scaleRect(optionsLeft, highTop, optionsRight, highBottom);
+                boundHighBtn = scale.scalarect(optionsLeft, highTop, optionsRight, highBottom);
 
             }
             aStore.getMusic("BGM").play();
