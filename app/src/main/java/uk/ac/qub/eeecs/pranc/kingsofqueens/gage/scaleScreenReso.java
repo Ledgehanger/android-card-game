@@ -42,10 +42,6 @@ public class scaleScreenReso {
     public Rect scaleRect(int left,int top,int right,int bot)
     {
             Rect scaleRect;
-            int tleft = (int) (left * horiScale);
-            int tright = (int)(right * horiScale);
-            int ttop = (int) (top * vertScale);
-            int tbot = (int) (bot * vertScale);
             scaleRect=new Rect((int)(left*horiScale),(int)(top*vertScale),(int)(right*horiScale),(int)(bot*vertScale));
             return scaleRect;
     }
