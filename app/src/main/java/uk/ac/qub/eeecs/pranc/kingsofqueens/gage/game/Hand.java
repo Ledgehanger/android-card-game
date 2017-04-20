@@ -145,6 +145,7 @@ public class  Hand {
     public void setCardPlayedThisTurn(boolean bool){
         this.cardPlayedThisTurn = bool;
     }
+    public Card getCardFromHand(int cIndex){return myHand.get(cIndex);}
     public ArrayList<Card> getMyHand(){return myHand;}
     public void endTurn(){
         cardPlayedThisTurn = false;

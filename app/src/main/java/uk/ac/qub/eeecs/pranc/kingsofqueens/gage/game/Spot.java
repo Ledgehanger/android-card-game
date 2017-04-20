@@ -28,6 +28,8 @@ public class Spot {
         this.spotCard = spotCard;
     }
 
+    public Card getSpotCard(){return spotCard;}
+
     public void draw(int top, int bot, int right , int left, genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
             aStore){
         spotRect = new Rect(right, top, left, bot);

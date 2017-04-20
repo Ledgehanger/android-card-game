@@ -12,11 +12,12 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 public class PlayerAi extends Player {
 
-    public int spotPos;
+    public int playPos;
+    public int evPos;
     public int evLvl;
 
-    public void setSpotPos(int spotPos){this.spotPos=spotPos;}
-    public int getSpotPos(){return spotPos;}
+    public int getPlayPos(){return playPos;}
+    public int getEvPos(){return evPos;}
 
 
     public PlayerAi(String aiImage, AssetStore aStore,genAlgorithm.field fieldLocation)
@@ -58,19 +59,34 @@ public class PlayerAi extends Player {
 
     }
 
-    public boolean checkFieldFree()
+    public boolean checkSpotFree(int oppSpotPos)
     {
         boolean fieldFree=false;
-        spotPos=-1;
 
-        do {
-            spotPos++;
-            if (playerField.getSpotFromRow(0, spotPos) == null)
-                fieldFree = true;
-
-        } while(spotPos<playerField.getSizeOfRow()||fieldFree==true);
+        if (playerField.getSpotFromRow(0, oppSpotPos) == null)
+        {
+            fieldFree = true;
+        }
 
         return fieldFree;
+    }
+
+    public boolean checkOpponentField(Field oppPlayerField)
+    {
+        int playPos=-1;
+
+        boolean aiPosAvailable=false;
+
+        do {
+            playPos++;
+            if(oppPlayerField.getSpotFromRow(0,playPos)!=null)
+            {
+               aiPosAvailable=checkSpotFree(playPos);
+
+            }
+        }while(playPos<oppPlayerField.getSizeOfRow()||aiPosAvailable==false);
+
+        return aiPosAvailable;
     }
 
     public boolean checkHandFree()
@@ -81,30 +97,33 @@ public class PlayerAi extends Player {
             return false;
     }
 
-    public void checkAIEv()
-    {
-        if(evTotal>=5) {
-            evLvl = 2;
-        }
+   public boolean checkEvolve(int currentEVPoints,Field playerAiField)
+   {
+       boolean canEvolve=false;
+       evPos=-1;
+       Card tempCardStorage;
 
-        if(evTotal>=3&&evTotal<5)
-        {
-            evLvl=1;
-        }
+       if(currentEVPoints>=3)
+       {
+           do {
+               evPos++;
+               Spot currentSpot = playerAiField.getSpotFromRow(0, evPos);
 
-        else
-        {
-            evLvl=0;
-        }
+               if (currentSpot.getCardPlaced()) {
+                   tempCardStorage = currentSpot.getSpotCard();
+                   if (currentEVPoints >= tempCardStorage.getEv())
+                       canEvolve = true;
+                   if (tempCardStorage.getEv() == 0)
+                       canEvolve = false;
+               }
+           } while (evPos < playerAiField.getSizeOfRow() || canEvolve == false);
+       }
 
-    }
+       return canEvolve;
+   }
 
-    public boolean checkCardEvolve(Card card)
-    {
-        if(card.getEv()==0)
-            return false;
-        else
-            return true;
-    }
+   public void playCard()
+   {
 
+   }
 }

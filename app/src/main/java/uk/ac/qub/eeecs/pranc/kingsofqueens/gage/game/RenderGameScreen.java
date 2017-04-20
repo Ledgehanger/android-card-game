@@ -18,7 +18,6 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 
-
 public class RenderGameScreen extends GameScreen {
 
     private final float LEVEL_WIDTH  = 1000.0f;
@@ -28,7 +27,8 @@ public class RenderGameScreen extends GameScreen {
 
     //Game Objects
     private GameTurn currentGame;
-    private Player player, playerAI;
+    private Player player;
+    private PlayerAi playerAI;
     private boolean ignorePlayerInput = false;
     private boolean cardPlayedLimit   = false;
 
@@ -146,6 +146,20 @@ public class RenderGameScreen extends GameScreen {
             playerPlaceCardPhase(elapsedTime, touchEvents);
         } else {
             //TODO AI TURN
+            boolean checkHand= playerAI.checkHandFree();
+            boolean checkPlay=playerAI.checkOpponentField(player.playerField);
+            int pos;
+
+            if(checkPlay==true)
+            {
+                pos=playerAI.getPlayPos();
+                playerAiPlayCard(pos);
+            }
+
+            else
+            {
+
+            }
             currentGame.getNextPhase();
         }
     }
@@ -200,6 +214,13 @@ public class RenderGameScreen extends GameScreen {
                 }
             }
         }
+    }
+
+    private void playerAiPlayCard(int pos)
+    {
+        
+
+
     }
 
     private void playerEvolving(List<TouchEvent> touchEvents) {
