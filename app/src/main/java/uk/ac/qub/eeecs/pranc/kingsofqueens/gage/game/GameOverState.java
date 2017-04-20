@@ -2,7 +2,9 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,8 +32,11 @@ public class GameOverState extends GameScreen{
     //CREATED TO REPLACE GAMEOVERSCREEN, USING JAVA INSTEAD OF JAVA AND XML
 
 
+    private int score = 0;
+    public Canvas canvas;
+
     //Creates Rect which bound buttons
-    private Rect boundBackground, boundTitle, boundMenuBtn, boundHighScore, boundScore, boundReplayBtn;
+    private Rect boundPlayerScore, boundBackground, boundTitle, boundMenuBtn, boundHighScore, boundScore, boundReplayBtn;
 
 
     //Set up AssetStore
@@ -92,7 +97,7 @@ public class GameOverState extends GameScreen{
             Bitmap backGround = aStore.getBitmap("background");
 
 
-            if(boundBackground == null || boundMenuBtn == null || boundReplayBtn == null || boundHighScore == null || boundScore == null || boundTitle == null)
+            if(boundPlayerScore == null || boundBackground == null || boundMenuBtn == null || boundReplayBtn == null || boundHighScore == null || boundScore == null || boundTitle == null)
             {
                 int bgLeft=0;
                 int bgRight=iGraphics2D.getSurfaceWidth();
@@ -133,6 +138,14 @@ public class GameOverState extends GameScreen{
                 int scoreTop = 350;
                 int scoreBottom = scoreTop + score.getHeight();
 
+                boundScore = scale.scalarect(scoreLeft, scoreTop, scoreRight, scoreBottom);
+
+                int pScoreLeft = 375 + score.getWidth();
+                int pScoreRight = pScoreLeft + 100;
+                int pScoreTop = scoreTop;
+                int pScoreBottom = scoreBottom;
+
+                boundPlayerScore = scale.scalarect(pScoreLeft, pScoreRight, pScoreTop, pScoreBottom);
             }
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
@@ -145,6 +158,17 @@ public class GameOverState extends GameScreen{
             iGraphics2D.drawBitmap(highScore,null,boundHighScore,null);
             iGraphics2D.drawBitmap(score,null,boundScore,null);
             iGraphics2D.drawBitmap(replay,null,boundReplayBtn,null);
+
+
+            Paint paint = new Paint();
+            paint.setColor(Color.WHITE);
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawPaint(paint);
+
+            paint.setColor(Color.BLACK);
+            paint.setTextSize(20);
+            canvas.drawText(" " + score, 10, 25, paint);
+            canvas.drawText(" " + score, 10, 25, paint);
         }
         catch (Exception e)
         {

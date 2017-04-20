@@ -95,6 +95,7 @@ public class RenderGameScreen extends GameScreen {
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
             ignorePlayerInput = true;
             //TODO
+            proceedEnd(elapsedTime);
         }
 
     }
@@ -267,15 +268,15 @@ public class RenderGameScreen extends GameScreen {
 
     public void proceedEnd(ElapsedTime elapsedTime) {
         //GO TO GAME OVER SCREEN, I'M NOT SURE HOW IF IT SHOULD END WHEN !PLAYERALIVE
-        Input input = mGame.getInput();
+/*        Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
-        if (touchEvents.size() > 0) {
+       if (touchEvents.size() > 0) {
             TouchEvent touchEvent = touchEvents.get(0);
-            if (!player.isAlive) {
+            if (!player.isAlive) {*/
                 mGame.getScreenManager().removeScreen(this.getName());
                 GameOverState over = new GameOverState("", mGame);
                 mGame.getScreenManager().addScreen(over);
-            }
-        }
+/*            }
+        }*/
     }
 }
