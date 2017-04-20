@@ -1,12 +1,12 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
-import android.graphics.Bitmap;
-import android.graphics.Rect;
+        import android.graphics.Bitmap;
+        import android.graphics.Rect;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+        import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
+        import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+        import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
+        import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 
 /**
  * Created by Paddy_Lenovo on 11/04/2017.
@@ -72,12 +72,9 @@ public class Spot {
         return spotCard.getEvCost();
     }
 
-    public void useCardAbility(Player player, Player ai) {
+    public void useCardAbility(Player pPlayer, Player pPlayerAi) {
         if(spotCard.ability.getHasAbility()){
-            if(spotCard.ability instanceof OwnerEffectedAbility){
-                ((OwnerEffectedAbility) spotCard.ability).addEffectPlayer(player);
-            }
-            spotCard.ability.effect(spotCard.abilityLvl);
+            genAlgorithm.useCardAbility(spotCard,pPlayer,pPlayerAi);
         }
     }
 }

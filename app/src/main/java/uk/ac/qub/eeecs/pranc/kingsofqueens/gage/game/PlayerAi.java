@@ -19,7 +19,7 @@ public class PlayerAi extends Player {
 
     public int getPlayPos(){return playPos;}
     public int getEvPos(){return evPos;}
-  
+
 
 
     public PlayerAi(String aiImage, AssetStore aStore,genAlgorithm.field fieldLocation)

@@ -21,7 +21,9 @@ public class AbilityFactory {
         if(abilityType.equalsIgnoreCase("HealAbility")){
             return new HealAbility();
         }
-
+        if(abilityType.equalsIgnoreCase("DealDamageAbility")){
+            return new DealDamageAbility();
+        }
         return null;
     }
 }

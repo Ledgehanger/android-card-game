@@ -35,6 +35,7 @@ public class RenderGameScreen extends GameScreen {
     private Bitmap endTurnActive;
     private Bitmap endTurnDisable;
     private Rect endTurnRect;
+    private Rect boundBackground;
     private AssetStore assetStore;
     public static final String END_TURN_ACTIVE = "EndTurnActive";
     public static final String END_TURN_DISABLE = "EndTurnDisable";
@@ -65,6 +66,9 @@ public class RenderGameScreen extends GameScreen {
         assetStore.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
         assetStore.loadAndAddBitmap(END_TURN_ACTIVE, "img/EndTurnActive.png");
         assetStore.loadAndAddBitmap(END_TURN_DISABLE, "img/EndTurnDisable.png");
+
+
+
     }
 
 
@@ -100,11 +104,22 @@ public class RenderGameScreen extends GameScreen {
         assetStore.getMusic("BGM").setVolume(1);
         //Draw Background
        // mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        Bitmap bg= assetStore.getBitmap("QueensBackground");
+        setupBackground(iGraphics2D);
+        iGraphics2D.drawBitmap(bg,null,boundBackground,null);
         //Draw Player
         drawPlayer(iGraphics2D.getSurfaceWidth(),iGraphics2D.getSurfaceHeight(),iGraphics2D );
 
         drawEndTurn(elapsedTime,iGraphics2D);
 
+    }
+
+    public void setupBackground(IGraphics2D iGraphics2D) {
+        int bgLeft=0;
+        int bgRight=iGraphics2D.getSurfaceWidth();
+        int bgTop=0;
+        int bgBot=iGraphics2D.getSurfaceHeight();
+        boundBackground=new Rect(bgLeft,bgTop,bgRight,bgBot);
     }
 
     public void drawPlayer( int surfaceWidth, int surfaceHeight,IGraphics2D iGraphics2D ) {
@@ -210,7 +225,7 @@ public class RenderGameScreen extends GameScreen {
                     cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
                     checkGameOver();
-                    useCardAbility(newCard);
+                    genAlgorithm.useCardAbility(newCard,player,playerAI);
                 }
             }
         }
@@ -239,14 +254,7 @@ public class RenderGameScreen extends GameScreen {
 
     }
 
-    private void useCardAbility(Card c) {
-        if(c.ability.getHasAbility()){
-            if(c.ability instanceof OwnerEffectedAbility){
-                ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
-            }
-            c.ability.effect(c.abilityLvl);
-        }
-    }
+
 
     private void setIgnorePlayer() {
         if(currentGame.getCurrentPlayerID() == player.id)
