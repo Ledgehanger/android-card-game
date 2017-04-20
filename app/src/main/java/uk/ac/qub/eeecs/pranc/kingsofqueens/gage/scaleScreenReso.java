@@ -25,6 +25,16 @@ public class scaleScreenReso {
         horiScale=hori/DEVRESOHORI;
         vertScale=vert/DEVRESOVERT;
     }
+    public scaleScreenReso(int width, int height)
+    {
+        this.iG2D=iG2D;
+
+        double hori= (double) width;
+        double vert= (double)height;
+
+        horiScale=hori/DEVRESOHORI;
+        vertScale=vert/DEVRESOVERT;
+    }
 
     public void setHoriScale(int horiScale){this.horiScale=horiScale;}
     public void setVertScale(int vertScale){this.vertScale=vertScale;}
@@ -32,6 +42,10 @@ public class scaleScreenReso {
     public Rect scaleRect(int left,int top,int right,int bot)
     {
             Rect scaleRect;
+            int tleft = (int) (left * horiScale);
+            int tright = (int)(right * horiScale);
+            int ttop = (int) (top * vertScale);
+            int tbot = (int) (bot * vertScale);
             scaleRect=new Rect((int)(left*horiScale),(int)(top*vertScale),(int)(right*horiScale),(int)(bot*vertScale));
             return scaleRect;
     }

@@ -16,6 +16,7 @@ import java.util.List;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.CardGame;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
@@ -29,21 +30,21 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.RenderGameScreen;
 @RunWith(AndroidJUnit4.class)
 public class RenderGameScreen_Test {
 
-    Context appContext;
-    AssetStore assetStore;
-    AssetManager assetManager;
-    CanvasGraphics2D canvasGraphics2D;
-    RenderGameScreen deckScreen;
-    Deck    mDeck;
+    Context             appContext;
+    AssetStore          assetStore;
+    AssetManager        assetManager;
+    CanvasGraphics2D    canvasGraphics2D;
+    RenderGameScreen    deckScreen;
+    Deck                mDeck;
     @Before
     public void setUp() throws Exception {
         appContext       = InstrumentationRegistry.getTargetContext();
         assetManager     = appContext.getAssets();
         assetStore       = new AssetStore(new FileIO(appContext));
         canvasGraphics2D = new CanvasGraphics2D(assetManager);
-        Canvas n         = new Canvas();
+        Canvas canvas = new Canvas();
 
-        canvasGraphics2D.setCanvas(n);
+        canvasGraphics2D.setCanvas(canvas);
         Game mGame = new CardGame();
         mDeck = new Deck();
         Context appContext = InstrumentationRegistry.getTargetContext();
@@ -84,7 +85,7 @@ public class RenderGameScreen_Test {
         touchEvent.x =  218 ;
         touchEvent.y =  606 ;
         touchEvents.add(0,touchEvent);
-
+        deckScreen.draw(new ElapsedTime(),canvasGraphics2D);
         deckScreen.drawPlayer(1184,720,canvasGraphics2D);
         deckScreen.playerPlaceCardPhase(new ElapsedTime(), touchEvents);
 

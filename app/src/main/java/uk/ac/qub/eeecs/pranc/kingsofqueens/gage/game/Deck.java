@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import static android.content.ContentValues.TAG;
 
@@ -115,7 +116,7 @@ public class Deck{
         return playerDeck.size();
     }
 
-    public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D, int pSurfaceHeight) {
+    public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D, int pSurfaceHeight,scaleScreenReso scaler) {
 
         if (playerDeck.size() <= 0) {
             deckIsEmpty = true;
@@ -123,7 +124,7 @@ public class Deck{
         }
         else {
             if (deckRect == null)
-                generateDeckRect(side, pSurfaceHeight);
+                generateDeckRect(side, pSurfaceHeight,scaler);
             if(iGraphics2D != null)
                 iGraphics2D.drawBitmap(deckImg, null, deckRect, null);
         }
@@ -131,7 +132,7 @@ public class Deck{
 
     }
 
-    private void generateDeckRect(genAlgorithm.field side, int pSurfaceHeight) {
+    private void generateDeckRect(genAlgorithm.field side, int pSurfaceHeight,scaleScreenReso scaler) {
         float top;
         float bot;
         float leftSide;
@@ -148,7 +149,7 @@ public class Deck{
             right = (int) leftSide + 100;
             topI = (int) top;
             botI = (int) ((bot) - (bot / 1.5)) - 75;
-            deckRect = new Rect(left, topI, right, botI);
+            deckRect =scaler.scaleRect(left, topI, right, botI);
 
         } else {
             top = pSurfaceHeight / 2;
@@ -159,7 +160,7 @@ public class Deck{
             right = (int) leftSide + 100;
             topI = (int) ((top) + (top / 4) + 105);
             botI = (int) bot;
-            deckRect = new Rect(left, topI, right, botI);
+            deckRect = scaler.scaleRect(left, topI, right, botI);
         }
     }
 

@@ -10,6 +10,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 
 public class Player {
@@ -111,10 +112,11 @@ public class Player {
         if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
             playerHand.addToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }
-    public void drawPlayer(IGraphics2D iGraphics2D, AssetStore assetStore, int SurfaceHeight, int SurfaceWidth) {
+    public void drawPlayer(IGraphics2D iGraphics2D, AssetStore assetStore, int SurfaceHeight, int SurfaceWidth,
+                           scaleScreenReso scaler) {
 
         if (playerRectIcon == null || playerRectHp == null) {
-            createPlayerRect(assetStore, SurfaceHeight,SurfaceWidth);
+            createPlayerRect(assetStore, SurfaceHeight,SurfaceWidth,scaler);
         }
         if(playerPaint == null)
             playerPaint = setUpPaint();
@@ -136,9 +138,11 @@ public class Player {
             String ev = "EV: " + evTotal;
             iGraphics2D.drawText(ev, playerRectEv.centerX() - xOffsetEv,
                     playerRectEv.centerY() + yOffset, playerPaint);
-            playerField.draw(fieldLocation, iGraphics2D, assetStore, SurfaceHeight, SurfaceWidth);
-            playerDeck.drawDeck(fieldLocation, iGraphics2D, SurfaceHeight);
-            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, SurfaceHeight, SurfaceWidth);
+            playerField.draw(fieldLocation, iGraphics2D, assetStore, SurfaceHeight, SurfaceWidth,scaler);
+            playerDeck.drawDeck(fieldLocation, iGraphics2D, SurfaceHeight,scaler);
+            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, SurfaceHeight,
+                    SurfaceWidth,scaler);
+
         }
 
     }
@@ -168,7 +172,7 @@ public class Player {
         return isAlive;
     }
 
-    protected void createPlayerRect(AssetStore assetStore, int surfaceHeight, int surfaceWidth) {
+    protected void createPlayerRect(AssetStore assetStore, int surfaceHeight, int surfaceWidth, scaleScreenReso scaler) {
         float top , bot, leftSide;
         int left, right, topPlayerIcon, botPlayerIcon;
         int evDrawingOffset = 100;
@@ -187,9 +191,9 @@ public class Player {
             int topHp = botPlayerIcon + 10;
             int botHp = topHp + 100;
 
-            playerRectIcon = new Rect(left, topPlayerIcon, right, botPlayerIcon);
-            playerRectHp   = new Rect(left,topHp,right,botHp);
-            playerRectEv   = new Rect(left-100,topHp,right-100,botHp);
+            playerRectIcon = scaler.scaleRect(left, topPlayerIcon, right, botPlayerIcon);
+            playerRectHp   = scaler.scaleRect(left,topHp,right,botHp);
+            playerRectEv   = scaler.scaleRect(left-100,topHp,right-100,botHp);
 
         } else {
             top = surfaceHeight / 2;
@@ -203,9 +207,9 @@ public class Player {
             int topHp = topPlayerIcon - 100;
             int botHp = topPlayerIcon - 10;
 
-            playerRectIcon = new Rect(left, topPlayerIcon, right, botPlayerIcon);
-            playerRectHp   = new Rect(left,topHp,right,botHp);
-            playerRectEv   = new Rect(left-evDrawingOffset,topHp,right-evDrawingOffset,botHp);
+            playerRectIcon = scaler.scaleRect(left, topPlayerIcon, right, botPlayerIcon);
+            playerRectHp   = scaler.scaleRect(left,topHp,right,botHp);
+            playerRectEv   = scaler.scaleRect(left-evDrawingOffset,topHp,right-evDrawingOffset,botHp);
 
         }
     }
