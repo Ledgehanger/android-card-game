@@ -208,6 +208,7 @@ public class Card{
     }
     public void drawCard(Rect spotRect, IGraphics2D iG2D)
     {
+        setUpCardBitmap(0,false);
         iG2D.drawBitmap(cardImg,null,spotRect,null);
         iG2D.drawText(Integer.toString(hp)    ,spotRect.right - 26,spotRect.bottom-10,textPaint);
         iG2D.drawText(Integer.toString(atk)   ,spotRect.left + 10 ,spotRect.bottom-10,textPaint);

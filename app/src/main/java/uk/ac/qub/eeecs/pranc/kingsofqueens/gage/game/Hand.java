@@ -154,6 +154,8 @@ public class  Hand {
         this.cardPlayedThisTurn = bool;
     }
 
+    public void setIndexOfPickedCard(int indexOfPickedCard){this.indexOfPickedCard=indexOfPickedCard;}
+
     public Card getCardFromHand(int cIndex){return myHand.get(cIndex);}
 
 }
