@@ -22,7 +22,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 
 public class RenderGameScreen extends GameScreen {
 
-    private final int LEVEL_WIDTH  = 1200;
+    private final int LEVEL_WIDTH  = 1184;
     private final int LEVEL_HEIGHT = 720;
 
 
@@ -89,8 +89,13 @@ public class RenderGameScreen extends GameScreen {
                 placeCardPhase(elapsedTime, touchEvents);
             }
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-            attackPhase();
+            if(!currentGame.isFirstTurn())
+                attackPhase();
+            else
+                currentGame.getNextPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+            if(currentGame.isFirstTurn())
+                currentGame.setFirstTurn(false);
             endTurnPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
                 ignorePlayerInput = true;
