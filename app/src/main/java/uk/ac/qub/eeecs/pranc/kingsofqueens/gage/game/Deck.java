@@ -67,6 +67,7 @@ public class Deck{
 
     public boolean setDeckUp(AssetStore assetStore, String pDeckName1, String pDeckName2){
         addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName1, SIZE_OF_CLASS_DECK);
+
         addCardsInDeckToDeckFromJSONFile(assetStore, pDeckName2, SIZE_OF_CLASS_DECK);
         addCardsInDeckToDeckFromJSONFile(assetStore, NEUTRAL, SIZE_OF_NEUTRAL_DECK);
 
