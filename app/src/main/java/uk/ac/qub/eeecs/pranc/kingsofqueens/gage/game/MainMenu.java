@@ -35,7 +35,7 @@ public class MainMenu extends GameScreen {
     private Settings settings;
 
     //Creates Rect which bound buttons
-    private Rect boundPlayBtn, boundOptionsBtn, boundTitle, boundBackground, boundSoundBtn;
+    private Rect boundPlayBtn, boundOptionsBtn, boundTitle, boundBackground, boundSoundBtn, boundHighBtn;
 
 
     //Set up AssetStore
@@ -47,6 +47,9 @@ public class MainMenu extends GameScreen {
 
         //SETTINGS
         aStore.loadAndAddBitmap("sound", "img/sound.jpg");
+
+        //HIGHSCORES
+        aStore.loadAndAddBitmap("highscore", "img/MainMenuImages/highScoresBtn.png");
 
         aStore.loadAndAddBitmap("playBtn", "img/MainMenuImages/playBtn.png");
         aStore.loadAndAddBitmap("optionsBtn", "img/MainMenuImages/devBtn.png");
@@ -87,6 +90,11 @@ public class MainMenu extends GameScreen {
                     //settings.save("");
                 }
             }
+            if(boundHighBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0){
+                aStore.getMusic("BGM").stop();
+                mGame.getScreenManager().removeScreen(this.getName());
+                //REST OF CODE
+            }
         }
     }
 
@@ -98,13 +106,16 @@ public class MainMenu extends GameScreen {
             //SETTINGS
             Bitmap soundButton = aStore.getBitmap(("sound"));
 
+            //HIGHSCORE
+            Bitmap hscore = aStore.getBitmap("highscore");
+
             Bitmap koqTitle = aStore.getBitmap("Title");
             Bitmap playGame = aStore.getBitmap("playBtn");
             Bitmap options = aStore.getBitmap("optionsBtn");
             Bitmap bg = aStore.getBitmap("BG");
 
 
-            if (boundPlayBtn == null || boundOptionsBtn == null || boundTitle == null || boundBackground == null || boundSoundBtn == null) {
+            if (boundPlayBtn == null || boundOptionsBtn == null || boundTitle == null || boundBackground == null || boundSoundBtn == null || boundHighBtn == null) {
                 int bgLeft = 0;
                 int bgRight = iGraphics2D.getSurfaceWidth();
                 int bgTop = 0;
@@ -139,6 +150,11 @@ public class MainMenu extends GameScreen {
 
                 boundSoundBtn = scale.scaleRect(soundLeft, soundTop, soundRight, soundBottom);
 
+                int highTop = 350;
+                int highBottom = highTop + playGame.getHeight();
+
+                boundHighBtn = scale.scaleRect(optionsLeft, highTop, optionsRight, highBottom);
+
             }
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
@@ -151,6 +167,8 @@ public class MainMenu extends GameScreen {
             iGraphics2D.drawBitmap(options, null, boundOptionsBtn, null);
 
             iGraphics2D.drawBitmap(soundButton, null, boundSoundBtn, null);
+
+            iGraphics2D.drawBitmap(hscore, null, boundHighBtn, null);
 
         } catch (Exception e) {
             String error = e.getMessage();
