@@ -63,7 +63,7 @@ public class PlayerAi extends Player {
     {
         boolean fieldFree=false;
 
-        if (playerField.getSpotFromRow(0, oppSpotPos) == null)
+        if (playerField.getSpotFromRow(0, oppSpotPos) != null)
         {
             fieldFree = true;
         }
@@ -76,15 +76,16 @@ public class PlayerAi extends Player {
         int playPos=-1;
 
         boolean aiPosAvailable=false;
+        int sizeOfLoop=oppPlayerField.getSizeOfRow()-1;
 
         do {
             playPos++;
             if(oppPlayerField.getSpotFromRow(0,playPos)!=null)
             {
                aiPosAvailable=checkSpotFree(playPos);
-
             }
-        }while(playPos<oppPlayerField.getSizeOfRow()||aiPosAvailable==false);
+
+        }while(playPos<=sizeOfLoop&&!aiPosAvailable);
 
         return aiPosAvailable;
     }

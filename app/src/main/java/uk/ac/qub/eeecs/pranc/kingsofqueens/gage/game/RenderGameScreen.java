@@ -218,9 +218,8 @@ public class RenderGameScreen extends GameScreen {
 
     private void playerAiPlayCard(int pos)
     {
-        
-
-
+        Spot placeCard = playerAI.playerField.getSpotFromRow(0,pos);
+        placeCard.setSpotCard(playerAI.playerHand.getCardFromHand(0));
     }
 
     private void playerEvolving(List<TouchEvent> touchEvents) {
