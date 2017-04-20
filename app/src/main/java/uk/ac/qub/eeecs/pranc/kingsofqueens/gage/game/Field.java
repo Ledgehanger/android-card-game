@@ -25,9 +25,9 @@ public class Field {
         }
 
     }
-    public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore aStore, int surfaceHeight, int surfaceWidth, scaleScreenReso scaler) {
+    public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore aStore, int surfaceHeight, int surfaceWidth, scaleScreenReso scalar) {
         for (int i = 0; i < ROWS_PER_FIELD; i++ ){
-            myField.get(i).draw(side, iGraphics2D, aStore, surfaceHeight, surfaceWidth, scaler);
+            myField.get(i).draw(side, iGraphics2D, aStore, surfaceHeight, surfaceWidth, scalar);
         }
     }
     public void update(ElapsedTime elapsedTime, List< TouchEvent > touchEvents, Hand pHand) {

@@ -41,7 +41,7 @@ public class RenderGameScreen extends GameScreen {
     public static final String END_TURN_ACTIVE = "EndTurnActive";
     public static final String END_TURN_DISABLE = "EndTurnDisable";
 
-    scaleScreenReso scaler;
+    scaleScreenReso scalar;
 
     public RenderGameScreen(Game game, Deck playerDeck, AssetStore aStore) throws Exception {
         super("RenderGameScreen", game);
@@ -107,7 +107,7 @@ public class RenderGameScreen extends GameScreen {
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
 
-        scaler = new scaleScreenReso(iGraphics2D);
+        scalar = new scaleScreenReso(iGraphics2D);
         iGraphics2D.clear(Color.BLACK);
         assetStore.getMusic("BGM").play();
         assetStore.getMusic("BGM").setVolume(1);
@@ -128,12 +128,12 @@ public class RenderGameScreen extends GameScreen {
         int bgRight=LEVEL_WIDTH;
         int bgTop=0;
         int bgBot=LEVEL_HEIGHT;
-        boundBackground=scaler.scaleRect(bgLeft,bgTop,bgRight,bgBot);
+        boundBackground=scalar.scalarect(bgLeft,bgTop,bgRight,bgBot);
     }
 
     public void drawPlayer( int surfaceWidth, int surfaceHeight,IGraphics2D iGraphics2D ) {
-        playerAI.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scaler);
-        player.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scaler);
+        playerAI.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scalar);
+        player.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scalar);
     }
 
 

@@ -39,7 +39,7 @@ public class Player_Test {
     AssetStore              assetStore;
     AssetManager            assetManager;
     CanvasGraphics2D        canvasGraphics2D;
-    scaleScreenReso         scaler;
+    scaleScreenReso         scalar;
 
     @Before
     public void setUp() throws Exception {
@@ -55,7 +55,7 @@ public class Player_Test {
         assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
-        scaler = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
+        scalar = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
 
     }
 
@@ -141,7 +141,7 @@ public class Player_Test {
         Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
         assertEquals("AI",player.getId());
         AssetStore as = getAssetStore();
-        player.drawPlayer(null,as,100,100,scaler);
+        player.drawPlayer(null,as,100,100,scalar);
     }
     @Test
     public void playerAttackPhase(){
@@ -156,10 +156,10 @@ public class Player_Test {
         Player player2 = new Player("ei",null, genAlgorithm.field.TOP);
         assertEquals("AI",player.getId());
         AssetStore as = getAssetStore();
-        player.drawPlayer (null,as,100,100,scaler);
-        player.drawPlayer (null,as,100,100,scaler);
-        player2.drawPlayer(null,as,100,100,scaler);
-        player2.drawPlayer(null,as,100,100,scaler);
+        player.drawPlayer (null,as,100,100,scalar);
+        player.drawPlayer (null,as,100,100,scalar);
+        player2.drawPlayer(null,as,100,100,scalar);
+        player2.drawPlayer(null,as,100,100,scalar);
     }
     @Test
     public void testDrawPlayersWithCanvas(){
@@ -175,10 +175,10 @@ public class Player_Test {
         Player player2 =    new Player("PlayerPictureHolder",assetStore, new Deck(), genAlgorithm.field.TOP   );
         assertEquals("Player",player.getId());
 
-        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scaler);
-        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scaler);
-        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scaler);
-        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scaler);
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
     }
 
     @Test
@@ -186,7 +186,7 @@ public class Player_Test {
         Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
 
         AssetStore as = getAssetStore();
-        player.drawPlayer(null,as,100,100,scaler);
+        player.drawPlayer(null,as,100,100,scalar);
         Paint e = player.setUpPaint();
         assertNotNull(e);
     }

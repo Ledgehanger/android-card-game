@@ -121,27 +121,27 @@ public class MainMenu extends GameScreen
                 int titletop= 60;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
                 int titlebottom= 139;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
 
-                boundTitle= scale.scaleRect(titleLeft,titletop,titleRight,titlebottom);
+                boundTitle= scale.scalarect(titleLeft,titletop,titleRight,titlebottom);
 
                 int optionsLeft=375;
                 int optionsRight=optionsLeft+options.getWidth();
                 int optionsTop=450;
                 int optionsBottom= optionsTop+options.getHeight();
 
-                boundOptionsBtn=scale.scaleRect(optionsLeft,optionsTop,optionsRight,optionsBottom);
+                boundOptionsBtn=scale.scalarect(optionsLeft,optionsTop,optionsRight,optionsBottom);
 
 
                 int playTop=250;
                 int playBottom= playTop+playGame.getHeight();
 
-                boundPlayBtn= scale.scaleRect(optionsLeft,playTop,optionsRight,playBottom);
+                boundPlayBtn= scale.scalarect(optionsLeft,playTop,optionsRight,playBottom);
 
                 int soundLeft = 0;
                 int soundRight = soundLeft+soundButton.getWidth();
                 int soundTop = 455;
                 int soundBottom = soundTop+soundButton.getHeight();
 
-                boundSoundBtn = scale.scaleRect(soundLeft, soundTop, soundRight, soundBottom);
+                boundSoundBtn = scale.scalarect(soundLeft, soundTop, soundRight, soundBottom);
 
             }
             aStore.getMusic("BGM").play();

@@ -35,42 +35,23 @@ public class Card{
     public int height;
     public String desc;
     public int  abilityLvl;
-
     public boolean inDeck;
-
     public Bitmap cardImg;
     public Rect cardTextRect;
-    protected Rect cardRect;
     public Paint textPaint;
     public Paint textDesc;
-
     public float textSize=9f;
-
+    protected Rect cardRect;
     protected final int OFFSET = 133;
-    Game newGame;
-    // TODO: 25/11/2016 Assgin this where will break unit tests, either figure out how to get Game in tests or figure out a different way here
-    AssetStore aStore;
-    /* =sGame.getAssetManager(); Doing this breaks the testable of the deck class comment
-    out for now to have a quick fix
-     */
-    private AssetManager aManager;
+    protected AssetStore aStore;
 
     //Getters and Setters
-    public void setID(int id){this.id=id;}
-    public int getID(){return id;}
     public void setType(String type){this.type=type;}
     public String getType(){return type;}
-    public void setHP(int hp){this.hp=hp;}
     public int getHP(){return hp;}
-    public void setATK(int atk){this.atk=atk;}
     public int getATK(){return atk;}
-    public void setEv(int ev){this.ev=ev;}
     public int getEv(){return ev;}
-    public void setEvCost(int evCost){this.evCost=evCost;}
     public int getEvCost(){return evCost;}
-    public void setCardImg(Bitmap cardImg){this.cardImg=cardImg;}
-    public Bitmap getCardImg(){return cardImg;}
-
 
     public boolean isPicked = false;
 
@@ -130,33 +111,33 @@ public class Card{
 
     }
 
-        public void evolve() {
-            try {
-                id++;
-                JSONArray array = aStore.getJson(type);
-                for (int index = 0; index < array.length(); index++) {
-                    JSONObject object = array.getJSONObject(index);
-                    int id = object.getInt("_id");
-                    if (id == ev) {
-                        name = object.getString("name");
-                        atk = object.getInt("attack");
-                        hp = object.getInt("defense");
-                        String strAbility = object.getString("ability");
-                        ability = AbilityFactory.getAbility(strAbility);
-                        picture = object.getString("picture");
-                        inDeck = object.getBoolean("inDeck");
-                        desc = object.getString("desc");
-                        abilityLvl = object.getInt("abilityLvl");
-                        evCost = object.getInt("evCost");
-                        ev = object.getInt("ev");
-                        setUpCardBitmap(height, false);
-                        break;
-                    }
+    public void evolve() {
+        try {
+            id++;
+            JSONArray array = aStore.getJson(type);
+            for (int index = 0; index < array.length(); index++) {
+                JSONObject object = array.getJSONObject(index);
+                int id = object.getInt("_id");
+                if (id == ev) {
+                    name = object.getString("name");
+                    atk = object.getInt("attack");
+                    hp = object.getInt("defense");
+                    String strAbility = object.getString("ability");
+                    ability = AbilityFactory.getAbility(strAbility);
+                    picture = object.getString("picture");
+                    inDeck = object.getBoolean("inDeck");
+                    desc = object.getString("desc");
+                    abilityLvl = object.getInt("abilityLvl");
+                    evCost = object.getInt("evCost");
+                    ev = object.getInt("ev");
+                    setUpCardBitmap(height, false);
+                    break;
                 }
-            } catch (JSONException e) {
-                String p = e.toString();
             }
+        } catch (JSONException e) {
+            String p = e.toString();
         }
+    }
 
     public void setUpCardBitmap(int top, boolean drawBack)
     {
@@ -172,13 +153,13 @@ public class Card{
 
     }
 
-    public void createCardRect(int bot, int left, int top, scaleScreenReso scaler)
+    public void createCardRect(int bot, int left, int top, scaleScreenReso scalar)
     {
         int cardLeft=left;
         int cardRight= left + OFFSET;
         int cardTop=top;
         int cardBottom=bot;
-        cardRect=scaler.scaleRect(cardLeft,cardTop,cardRight,cardBottom);
+        cardRect=scalar.scalarect(cardLeft,cardTop,cardRight,cardBottom);
     }
     public void setCardToNull()
     {
@@ -196,13 +177,13 @@ public class Card{
 
     }
 
-    public void drawCard(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack,scaleScreenReso scaler)
+    public void drawCard(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack,scaleScreenReso scalar)
     {
         if(isPicked){
             top -= 50;
             bot -= 50;
         }
-            createCardRect(bot,left,top,scaler);
+            createCardRect(bot,left,top,scalar);
         if (textPaint==null)
             textPaint=formatText(26.5F);
         if (textDesc==null)

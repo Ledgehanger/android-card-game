@@ -75,7 +75,7 @@ public class Row {
     }
 
     public void draw(genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
-            aStore, int surfaceHeight, int surfaceWidth,scaleScreenReso scaler){
+            aStore, int surfaceHeight, int surfaceWidth,scaleScreenReso scalar){
 
         float top;
         float bot;
@@ -94,14 +94,14 @@ public class Row {
             topI = (int) bot/2 - (int) (bot/2)/2;
             botI = surfaceHeight/2;
 
-            rowRect = scaler.scaleRect(left, topI, right, botI);
+            rowRect = scalar.scalarect(left, topI, right, botI);
 
         } else {
             top = surfaceHeight/ 2;
             botI = (int) top + (int) (top / 2);
             topI = (int) top;
 
-            rowRect = scaler.scaleRect(left, topI, right, botI);
+            rowRect = scalar.scalarect(left, topI, right, botI);
         }
 
 
@@ -109,7 +109,7 @@ public class Row {
         int offset = 150;
         for (Spot s : myRow) {
             int rightDraw = left + offset;
-            s.draw(topI,botI,left,rightDraw,side,iGraphics2D,aStore,scaler);
+            s.draw(topI,botI,left,rightDraw,side,iGraphics2D,aStore,scalar);
             left += offset;
 
         }

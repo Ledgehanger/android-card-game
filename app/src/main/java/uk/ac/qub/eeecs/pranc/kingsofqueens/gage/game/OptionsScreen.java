@@ -58,20 +58,20 @@ public class OptionsScreen extends GameScreen
                 int titleTop = 100;
                 int titleBottom = titleTop + title.getHeight();
 
-                boundTitle =scale.scaleRect(titleLeft, titleTop, titleRight, titleBottom);
+                boundTitle =scale.scalarect(titleLeft, titleTop, titleRight, titleBottom);
 
                 int forwardLeft = 1000;
                 int forwardRight = forwardLeft + forward.getWidth();
                 int forwardTop =350;
                 int forwardBottom = forwardTop + forward.getHeight();
 
-                boundFrwBtn = scale.scaleRect(forwardLeft, forwardTop, forwardRight, forwardBottom);
+                boundFrwBtn = scale.scalarect(forwardLeft, forwardTop, forwardRight, forwardBottom);
 
                 int backLeft = 100;
                 int backRight = backLeft + back.getWidth();
 
 
-                boundBckBtn = scale.scaleRect(backLeft, forwardTop, backRight, forwardBottom);
+                boundBckBtn = scale.scalarect(backLeft, forwardTop, backRight, forwardBottom);
 
             }
 

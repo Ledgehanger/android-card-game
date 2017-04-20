@@ -113,10 +113,10 @@ public class Player {
             playerHand.addToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }
     public void drawPlayer(IGraphics2D iGraphics2D, AssetStore assetStore, int SurfaceHeight, int SurfaceWidth,
-                           scaleScreenReso scaler) {
+                           scaleScreenReso scalar) {
 
         if (playerRectIcon == null || playerRectHp == null) {
-            createPlayerRect(assetStore, SurfaceHeight,SurfaceWidth,scaler);
+            createPlayerRect(assetStore, SurfaceHeight,SurfaceWidth,scalar);
         }
         if(playerPaint == null)
             playerPaint = setUpPaint();
@@ -138,10 +138,10 @@ public class Player {
             String ev = "EV: " + evTotal;
             iGraphics2D.drawText(ev, playerRectEv.centerX() - xOffsetEv,
                     playerRectEv.centerY() + yOffset, playerPaint);
-            playerField.draw(fieldLocation, iGraphics2D, assetStore, SurfaceHeight, SurfaceWidth,scaler);
-            playerDeck.drawDeck(fieldLocation, iGraphics2D, SurfaceHeight,scaler);
+            playerField.draw(fieldLocation, iGraphics2D, assetStore, SurfaceHeight, SurfaceWidth,scalar);
+            playerDeck.drawDeck(fieldLocation, iGraphics2D, SurfaceHeight,scalar);
             playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, SurfaceHeight,
-                    SurfaceWidth,scaler);
+                    SurfaceWidth,scalar);
 
         }
 
@@ -172,7 +172,7 @@ public class Player {
         return isAlive;
     }
 
-    protected void createPlayerRect(AssetStore assetStore, int surfaceHeight, int surfaceWidth, scaleScreenReso scaler) {
+    protected void createPlayerRect(AssetStore assetStore, int surfaceHeight, int surfaceWidth, scaleScreenReso scalar) {
         float top , bot, leftSide;
         int left, right, topPlayerIcon, botPlayerIcon;
         int evDrawingOffset = 100;
@@ -191,9 +191,9 @@ public class Player {
             int topHp = botPlayerIcon + 10;
             int botHp = topHp + 100;
 
-            playerRectIcon = scaler.scaleRect(left, topPlayerIcon, right, botPlayerIcon);
-            playerRectHp   = scaler.scaleRect(left,topHp,right,botHp);
-            playerRectEv   = scaler.scaleRect(left-100,topHp,right-100,botHp);
+            playerRectIcon = scalar.scalarect(left, topPlayerIcon, right, botPlayerIcon);
+            playerRectHp   = scalar.scalarect(left,topHp,right,botHp);
+            playerRectEv   = scalar.scalarect(left-100,topHp,right-100,botHp);
 
         } else {
             top = surfaceHeight / 2;
@@ -207,9 +207,9 @@ public class Player {
             int topHp = topPlayerIcon - 100;
             int botHp = topPlayerIcon - 10;
 
-            playerRectIcon = scaler.scaleRect(left, topPlayerIcon, right, botPlayerIcon);
-            playerRectHp   = scaler.scaleRect(left,topHp,right,botHp);
-            playerRectEv   = scaler.scaleRect(left-evDrawingOffset,topHp,right-evDrawingOffset,botHp);
+            playerRectIcon = scalar.scalarect(left, topPlayerIcon, right, botPlayerIcon);
+            playerRectHp   = scalar.scalarect(left,topHp,right,botHp);
+            playerRectEv   = scalar.scalarect(left-evDrawingOffset,topHp,right-evDrawingOffset,botHp);
 
         }
     }
