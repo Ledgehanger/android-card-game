@@ -48,10 +48,7 @@ public class Spot {
     public Boolean getCardPlaced() {
         return cardPlaced;
     }
-    public void update(){
 
-
-    }
     public void dealDamageToCurrentCard(int totalAttack){
         if(spotCard.dealDamageToCard(totalAttack) == true)
             spotCard = null;

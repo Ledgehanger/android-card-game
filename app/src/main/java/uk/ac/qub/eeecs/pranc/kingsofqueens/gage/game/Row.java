@@ -42,10 +42,6 @@ public class Row {
 
     }
 
-    public Bitmap getRowBitmap() {
-        return rowBitmap;
-    }
-
     public Rect getMyRowRect() {
         return rowRect;
     }
