@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 
 public class GameOverScreen extends AppCompatActivity {
 
