@@ -22,16 +22,15 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 
 public class RenderGameScreen extends GameScreen {
 
-    private final int LEVEL_WIDTH  = 1184;
+    private final int LEVEL_WIDTH = 1184;
     private final int LEVEL_HEIGHT = 720;
-
 
 
     //Game Objects
     private GameTurn currentGame;
     private Player player, playerAI;
     private boolean ignorePlayerInput = false;
-    private boolean cardPlayedLimit   = false;
+    private boolean cardPlayedLimit = false;
 
     private Bitmap endTurnActive;
     private Bitmap endTurnDisable;
@@ -46,23 +45,23 @@ public class RenderGameScreen extends GameScreen {
     public RenderGameScreen(Game game, Deck playerDeck, AssetStore aStore) throws Exception {
         super("RenderGameScreen", game);
 
-        playerAI = new PlayerAi("PlayerAiIcon",aStore,genAlgorithm.field.TOP);
-        player   = new Player  ("PlayerIcon"  ,aStore, playerDeck, genAlgorithm.field.BOTTOM);
+        playerAI = new PlayerAi("PlayerAiIcon", aStore, genAlgorithm.field.TOP);
+        player = new Player("PlayerIcon", aStore, playerDeck, genAlgorithm.field.BOTTOM);
         assetStore = aStore;
         setUpAssets();
 
         playerAI.playerDeck.setDeckImg(aStore.getBitmap("deckimg"));
-        player.playerDeck  .setDeckImg(aStore.getBitmap("deckimg"));
+        player.playerDeck.setDeckImg(aStore.getBitmap("deckimg"));
 
 
-        currentGame = new GameTurn(player.getId(),playerAI.getId());
+        currentGame = new GameTurn(player.getId(), playerAI.getId());
     }
 
-    private void setUpAssets( ) {
+    private void setUpAssets() {
         assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
-        assetStore.loadAndAddMusic("BGM","music/Keeper_of_Lust.m4a");
+        assetStore.loadAndAddMusic("BGM", "music/Keeper_of_Lust.m4a");
         assetStore.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
         assetStore.loadAndAddBitmap("QueensBackground", "img/EndImages/mmbg.jpg");
         assetStore.loadAndAddBitmap("HealthMonitor", "GameScreenImages/HealthMonitor.png");
@@ -71,11 +70,7 @@ public class RenderGameScreen extends GameScreen {
         assetStore.loadAndAddBitmap(END_TURN_DISABLE, "img/EndTurnDisable.png");
 
 
-
     }
-
-
-
 
 
     public void update(ElapsedTime elapsedTime) {
@@ -89,16 +84,16 @@ public class RenderGameScreen extends GameScreen {
                 placeCardPhase(elapsedTime, touchEvents);
             }
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-            if(!currentGame.isFirstTurn())
+            if (!currentGame.isFirstTurn())
                 attackPhase();
             else
                 currentGame.getNextPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-            if(currentGame.isFirstTurn())
+            if (currentGame.isFirstTurn())
                 currentGame.setFirstTurn(false);
             endTurnPhase();
         } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
-                ignorePlayerInput = true;
+            ignorePlayerInput = true;
             //TODO
         }
 
@@ -112,51 +107,51 @@ public class RenderGameScreen extends GameScreen {
         assetStore.getMusic("BGM").play();
         assetStore.getMusic("BGM").setVolume(1);
         //Draw Background
-       // mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-        Bitmap bg= assetStore.getBitmap("QueensBackground");
+        // mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
+        Bitmap bg = assetStore.getBitmap("QueensBackground");
         setupBackground(iGraphics2D);
-        iGraphics2D.drawBitmap(bg,null,boundBackground,null);
+        iGraphics2D.drawBitmap(bg, null, boundBackground, null);
         //Draw Player
-        drawPlayer(LEVEL_WIDTH,LEVEL_HEIGHT,iGraphics2D );
+        drawPlayer(LEVEL_WIDTH, LEVEL_HEIGHT, iGraphics2D);
 
-        drawEndTurn(elapsedTime,iGraphics2D);
+        drawEndTurn(elapsedTime, iGraphics2D);
 
     }
 
     public void setupBackground(IGraphics2D iGraphics2D) {
-        int bgLeft=0;
-        int bgRight=LEVEL_WIDTH;
-        int bgTop=0;
-        int bgBot=LEVEL_HEIGHT;
-        boundBackground=scalar.scalarect(bgLeft,bgTop,bgRight,bgBot);
+        int bgLeft = 0;
+        int bgRight = LEVEL_WIDTH;
+        int bgTop = 0;
+        int bgBot = LEVEL_HEIGHT;
+        boundBackground = scalar.scalarect(bgLeft, bgTop, bgRight, bgBot);
     }
 
-    public void drawPlayer( int surfaceWidth, int surfaceHeight,IGraphics2D iGraphics2D ) {
-        playerAI.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scalar);
-        player.drawPlayer(iGraphics2D,assetStore, surfaceHeight, surfaceWidth,scalar);
+    public void drawPlayer(int surfaceWidth, int surfaceHeight, IGraphics2D iGraphics2D) {
+        playerAI.drawPlayer(iGraphics2D, assetStore, surfaceHeight, surfaceWidth, scalar);
+        player.drawPlayer(iGraphics2D, assetStore, surfaceHeight, surfaceWidth, scalar);
     }
 
 
-    public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D){
-        if(endTurnDisable == null){
-            endTurnDisable  = assetStore.getBitmap(END_TURN_DISABLE);
+    public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
+        if (endTurnDisable == null) {
+            endTurnDisable = assetStore.getBitmap(END_TURN_DISABLE);
         }
-        if(endTurnActive == null) {
-            endTurnActive  = assetStore.getBitmap(END_TURN_ACTIVE);
+        if (endTurnActive == null) {
+            endTurnActive = assetStore.getBitmap(END_TURN_ACTIVE);
         }
-        if(endTurnRect == null){
+        if (endTurnRect == null) {
             int top, bot, left, right;
             int mid = iGraphics2D.getSurfaceHeight() / 2;
             bot = mid + 50;
             top = mid - 50;
             right = iGraphics2D.getSurfaceWidth();
             left = right - 140;
-            endTurnRect = new Rect(left,top,right,bot);
+            endTurnRect = new Rect(left, top, right, bot);
         }
-        if(currentGame.getCurrentPlayerID() == player.getId())
-            iGraphics2D.drawBitmap(endTurnActive ,null,endTurnRect,null);
+        if (currentGame.getCurrentPlayerID() == player.getId())
+            iGraphics2D.drawBitmap(endTurnActive, null, endTurnRect, null);
         else
-            iGraphics2D.drawBitmap(endTurnDisable ,null,endTurnRect,null);
+            iGraphics2D.drawBitmap(endTurnDisable, null, endTurnRect, null);
     }
 
     private void placeCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
@@ -195,7 +190,7 @@ public class RenderGameScreen extends GameScreen {
 
     private void endTurnPhase() {
         cardPlayedLimit = false;
-        if(!ignorePlayerInput)
+        if (!ignorePlayerInput)
             player.playerHand.endTurn();
         else
             playerAI.playerHand.endTurn();
@@ -204,7 +199,7 @@ public class RenderGameScreen extends GameScreen {
 
     public void playerPlaceCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
 
-        if(!touchEvents.isEmpty()) {
+        if (!touchEvents.isEmpty()) {
             playerEvolving(touchEvents);
             playingCard(elapsedTime, touchEvents);
         }
@@ -220,7 +215,7 @@ public class RenderGameScreen extends GameScreen {
                     cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
                     checkGameOver();
-                    genAlgorithm.useCardAbility(newCard,player,playerAI);
+                    genAlgorithm.useCardAbility(newCard, player, playerAI);
                 }
             }
         }
@@ -229,45 +224,58 @@ public class RenderGameScreen extends GameScreen {
     private void playerEvolving(List<TouchEvent> touchEvents) {
         TouchEvent touchEvent = touchEvents.get(0);
         Rect evRect = player.getPlayerRectEv();
-        if(evRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
-            if(player.getEvTotal() > 0)
+        if (evRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+            if (player.getEvTotal() > 0)
                 player.setEvolving();
         }
-        if(player.isEvolving())
-            player.evolving(touchEvent,playerAI);
+        if (player.isEvolving())
+            player.evolving(touchEvent, playerAI);
 
 
     }
 
 
-
     private void setIgnorePlayer() {
-        if(currentGame.getCurrentPlayerID() == player.id)
+        if (currentGame.getCurrentPlayerID() == player.id)
             ignorePlayerInput = false;
         else
             ignorePlayerInput = true;
     }
 
-    private void startPlayerTurn(String currentTurnId){
-        if(currentTurnId == player.id)
+    private void startPlayerTurn(String currentTurnId) {
+        if (currentTurnId == player.id)
             player.playerStartTurn();
         else
             playerAI.playerStartTurn();
     }
 
-    public void nextCurrentTurn(){
+    public void nextCurrentTurn() {
         currentGame.getNextPhase();
     }
 
-    public void checkGameOver()
-    {
-        if(player.getHp() <= 0)
+    public void checkGameOver() {
+        if (player.getHp() <= 0)
             currentGame.setGameOver(player.getId());
-        if(playerAI.getHp() <= 0)
+        if (playerAI.getHp() <= 0)
             currentGame.setGameOver(playerAI.getId());
     }
-    public boolean checkHp(){
+
+    public boolean checkHp() {
         return player.getHp() > 0 && playerAI.getHp() > 0;
     }
 
+
+    public void proceedEnd(ElapsedTime elapsedTime) {
+        //GO TO GAME OVER SCREEN, I'M NOT SURE HOW IF IT SHOULD END WHEN !PLAYERALIVE
+        Input input = mGame.getInput();
+        List<TouchEvent> touchEvents = input.getTouchEvents();
+        if (touchEvents.size() > 0) {
+            TouchEvent touchEvent = touchEvents.get(0);
+            if (!player.isAlive) {
+                mGame.getScreenManager().removeScreen(this.getName());
+                GameOverState over = new GameOverState("", mGame);
+                mGame.getScreenManager().addScreen(over);
+            }
+        }
+    }
 }
