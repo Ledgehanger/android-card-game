@@ -30,8 +30,8 @@ public class Spot {
     }
 
     public void draw(int top, int bot, int right , int left, genAlgorithm.field side, IGraphics2D iGraphics2D, AssetStore
-            aStore, scaleScreenReso scaler){
-        spotRect = scaler.scaleRect(right, top, left, bot);
+            aStore, scaleScreenReso scalar){
+        spotRect = scalar.scalarect(right, top, left, bot);
 
         if(cardPlaced) {
             spotCard.isPicked = false;
@@ -48,10 +48,7 @@ public class Spot {
     public Boolean getCardPlaced() {
         return cardPlaced;
     }
-    public void update(){
 
-
-    }
     public void dealDamageToCurrentCard(int totalAttack){
         if(spotCard.dealDamageToCard(totalAttack) == true)
             spotCard = null;

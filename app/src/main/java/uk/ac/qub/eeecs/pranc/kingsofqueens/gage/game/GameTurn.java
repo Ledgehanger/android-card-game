@@ -8,14 +8,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
 public class GameTurn {
 
-    public GameTurn(String playerOneID, String playerTwoID){
-        this.playerOneID = playerOneID;
-        this.playerOneTurn = true;
-        this.playerTwoID = playerTwoID;
-        this.playerTwoTurn = false;
-        currentPhase = turnTypes.startPhase;
-        firstTurn = true;
-    }
+
     public enum turnTypes {
                 startPhase,
                 placeCard,
@@ -33,6 +26,14 @@ public class GameTurn {
 
     private turnTypes currentPhase;
 
+    public GameTurn(String playerOneID, String playerTwoID){
+        this.playerOneID = playerOneID;
+        this.playerOneTurn = true;
+        this.playerTwoID = playerTwoID;
+        this.playerTwoTurn = false;
+        currentPhase = turnTypes.startPhase;
+        firstTurn = true;
+    }
 
     public turnTypes getNextPhase(){
 

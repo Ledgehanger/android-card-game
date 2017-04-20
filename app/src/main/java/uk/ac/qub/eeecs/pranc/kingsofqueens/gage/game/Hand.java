@@ -61,7 +61,7 @@ public class  Hand {
     }
 
     public void drawHand(genAlgorithm.field pSide, IGraphics2D iGraphics2D, AssetStore pAssetManger,
-                         boolean pDrawBack, int pSurfaceHeight, int pSurfaceWidth, scaleScreenReso scaler) {
+                         boolean pDrawBack, int pSurfaceHeight, int pSurfaceWidth, scaleScreenReso scalar) {
 
         float top;
         float bot;
@@ -78,7 +78,7 @@ public class  Hand {
             if (pSide == genAlgorithm.field.TOP) {
                 topI = 0;
                 botI = (int) ((bot) - (bot / 1.5) - 75);
-                handRect =scaler.scaleRect(left, topI, right, botI);
+                handRect =scalar.scalarect(left, topI, right, botI);
                 botI -= CARD_OFFSET;
                 left += CARD_OFFSET;
 
@@ -88,14 +88,14 @@ public class  Hand {
 
                 topI = (int) ((top) + (top / 4) + 105);
                 botI = (int) bot;
-                handRect = scaler.scaleRect(left, topI, right, botI);
+                handRect = scalar.scalarect(left, topI, right, botI);
             }
 
         if(iGraphics2D != null)
             iGraphics2D.drawBitmap(handBitmap,null,handRect,null);
 
         for (Card c: myHand) {
-            c.drawCard(botI,left,topI,iGraphics2D,pDrawBack,scaler);
+            c.drawCard(botI,left,topI,iGraphics2D,pDrawBack,scalar);
             left += CARD_GAP_OFFSET;
         }
     }

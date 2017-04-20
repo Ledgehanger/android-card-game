@@ -41,7 +41,7 @@ public class Deck_Test {
     AssetStore              assetStore;
     AssetManager            assetManager;
     CanvasGraphics2D        canvasGraphics2D;
-    scaleScreenReso         scaler;
+    scaleScreenReso         scalar;
     @Before
     public void setUp() throws Exception {
 
@@ -56,7 +56,7 @@ public class Deck_Test {
         assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");
-        scaler = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
+        scalar = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
     }
 
     @Test
@@ -103,35 +103,35 @@ public class Deck_Test {
     public void DrawTestTopWithDraw() throws Exception{
         setUpDeck();
         mDeck.drawFromDeck(100);
-        mDeck.drawDeck(genAlgorithm.field.TOP, canvasGraphics2D,1000,scaler);
+        mDeck.drawDeck(genAlgorithm.field.TOP, canvasGraphics2D,1000,scalar);
     }
     public void DrawTestTop() throws Exception{
         setUpDeck();
-        mDeck.drawDeck(genAlgorithm.field.TOP, canvasGraphics2D,1000,scaler);
+        mDeck.drawDeck(genAlgorithm.field.TOP, canvasGraphics2D,1000,scalar);
     }
     @Test
     public void DrawTestBot() throws Exception{
         setUpDeck();
         Bitmap deckImg = assetStore.getBitmap("deckimg");
         mDeck.setDeckImg(deckImg);
-        mDeck.drawDeck(genAlgorithm.field.BOTTOM, canvasGraphics2D,1000,scaler);
+        mDeck.drawDeck(genAlgorithm.field.BOTTOM, canvasGraphics2D,1000,scalar);
     }
     @Test
     public void DrawTestTopWithDrawWithNull() throws Exception{
         setUpDeck();
         mDeck.drawFromDeck(100);
-        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000,scaler);
+        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000,scalar);
     }
     @Test
     public void DrawTestTopWithNull() throws Exception{
         setUpDeck();
-        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000,scaler);
-        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000,scaler);
+        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000,scalar);
+        mDeck.drawDeck(genAlgorithm.field.TOP, null,1000,scalar);
     }
     @Test
     public void DrawTestBotWithNull() throws Exception{
         setUpDeck();
-        mDeck.drawDeck(genAlgorithm.field.BOTTOM, null,1000,scaler);
+        mDeck.drawDeck(genAlgorithm.field.BOTTOM, null,1000,scalar);
     }
 
 }

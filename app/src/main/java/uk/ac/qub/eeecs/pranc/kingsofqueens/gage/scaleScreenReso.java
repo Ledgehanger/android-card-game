@@ -39,11 +39,11 @@ public class scaleScreenReso {
     public void setHoriScale(int horiScale){this.horiScale=horiScale;}
     public void setVertScale(int vertScale){this.vertScale=vertScale;}
 
-    public Rect scaleRect(int left,int top,int right,int bot)
+    public Rect scalarect(int left,int top,int right,int bot)
     {
-            Rect scaleRect;
-            scaleRect=new Rect((int)(left*horiScale),(int)(top*vertScale),(int)(right*horiScale),(int)(bot*vertScale));
-            return scaleRect;
+            Rect scalarect;
+            scalarect=new Rect((int)(left*horiScale),(int)(top*vertScale),(int)(right*horiScale),(int)(bot*vertScale));
+            return scalarect;
     }
 
     public int scaleHoriVar(int var)

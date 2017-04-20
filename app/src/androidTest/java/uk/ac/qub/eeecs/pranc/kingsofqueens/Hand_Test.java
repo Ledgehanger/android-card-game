@@ -44,7 +44,7 @@ public class Hand_Test {
     AssetStore          assetStore;
     AssetManager        assetManager;
     CanvasGraphics2D    canvasGraphics2D;
-    scaleScreenReso     scaler;
+    scaleScreenReso     scalar;
 
     @Before
     public void setUp() throws Exception {
@@ -56,7 +56,7 @@ public class Hand_Test {
         Canvas n = new Canvas();
         canvasGraphics2D.setCanvas(n);
 
-        scaler = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
+        scalar = new scaleScreenReso(LEVEL_WIDTH,LEVEL_HEIGHT);
 
         assetStore.loadAndAddJson("Psych", "Decks/Psych.json");
         assetStore.loadAndAddJson("Neutral","Decks/Neutral.json");
@@ -86,23 +86,23 @@ public class Hand_Test {
     @Test
     public void drawTop()throws Exception{
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.BOTTOM, canvasGraphics2D, assetStore,false,1000,1000,scaler);
+        pHand.drawHand(genAlgorithm.field.BOTTOM, canvasGraphics2D, assetStore,false,1000,1000,scalar);
     }
     @Test
     public void drawBot()throws Exception{
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,false,1000,1000,scaler);
+        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,false,1000,1000,scalar);
     }
     @Test
     public void drawBack()throws Exception {
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP, canvasGraphics2D, assetStore, true, 1000, 1000,scaler);
+        pHand.drawHand(genAlgorithm.field.TOP, canvasGraphics2D, assetStore, true, 1000, 1000,scalar);
     }
 
     @Test
     public void update()throws Exception{
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,true,720,1184,scaler);
+        pHand.drawHand(genAlgorithm.field.TOP,null, assetStore,true,720,1184,scalar);
         List<TouchEvent> touchEvents = new ArrayList<>();
         TouchEvent touchEvent = new TouchEvent();
         touchEvent.type = 0;
@@ -116,7 +116,7 @@ public class Hand_Test {
     @Test
     public void unSelect()throws Exception {
         setUpHand();
-        pHand.drawHand(genAlgorithm.field.TOP, null, assetStore, true, 720, 1184,scaler);
+        pHand.drawHand(genAlgorithm.field.TOP, null, assetStore, true, 720, 1184,scalar);
         List<TouchEvent> touchEvents = new ArrayList<>();
 
         TouchEvent touchEvent = new TouchEvent();
