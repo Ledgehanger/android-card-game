@@ -98,11 +98,10 @@ public class  Hand {
             left += CARD_GAP_OFFSET;
         }
     }
+
     public void update(ElapsedTime elapsedTime, List<TouchEvent> touchEvents ) {
         if(!touchEvents.isEmpty()){
             TouchEvent touchEvent = touchEvents.get(0);
-            float x = touchEvent.x;
-            float y = touchEvent.y;
             for(int i = 0; i < myHand.size(); i++){
                 Rect c = myHand.get(i).cardRect;
                 if(c.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0) {
@@ -123,6 +122,10 @@ public class  Hand {
             indexOfPickedCard = index;
         }
     }
+    public void endTurn(){
+        cardPlayedThisTurn = false;
+        lastCardPlayed = null;
+    }
 
     private void unselectedPickedCard() {
         if (indexOfPickedCard >= 0) {
@@ -135,7 +138,10 @@ public class  Hand {
             return true;
         return false;
     }
-
+    public ArrayList<Card> getMyHand(){return myHand;}
+    public int getHandSize(){
+        return myHand.size();
+    }
     public Card getLastCardPlayed(){
         return lastCardPlayed;
     }
@@ -144,14 +150,5 @@ public class  Hand {
     }
     public void setCardPlayedThisTurn(boolean bool){
         this.cardPlayedThisTurn = bool;
-    }
-    public ArrayList<Card> getMyHand(){return myHand;}
-    public void endTurn(){
-        cardPlayedThisTurn = false;
-        lastCardPlayed = null;
-    }
-
-    public int getHandSize(){
-        return myHand.size();
     }
 }

@@ -211,7 +211,7 @@ public class RenderGameScreen extends GameScreen {
                     cardPlayedLimit = true;
                     Card newCard = player.playerHand.getLastCardPlayed();
                     checkGameOver();
-                    useCardAbility(newCard);
+                    genAlgorithm.useCardAbility(newCard,player,playerAI);
                 }
             }
         }
@@ -230,14 +230,7 @@ public class RenderGameScreen extends GameScreen {
 
     }
 
-    private void useCardAbility(Card c) {
-        if(c.ability.getHasAbility()){
-            if(c.ability instanceof OwnerEffectedAbility){
-                ((OwnerEffectedAbility) c.ability).addEffectPlayer(player);
-            }
-            c.ability.effect(c.abilityLvl);
-        }
-    }
+
 
     private void setIgnorePlayer() {
         if(currentGame.getCurrentPlayerID() == player.id)

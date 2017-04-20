@@ -7,7 +7,9 @@ import java.util.List;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AddEvAbility;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.DealDamageAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Default;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 
@@ -34,6 +36,18 @@ public class genAlgorithm {
             Card swap = array.get(randomPos);
             array.set(randomPos,array.get(count));
             array.set(count, swap);
+        }
+    }
+
+    public static void useCardAbility(Card pCard,Player pPlayer, Player pEnemyPlayer) {
+        if(pCard.ability.getHasAbility()){
+            if(pCard.ability instanceof OwnerEffectedAbility){
+                ((OwnerEffectedAbility) pCard.ability).addEffectPlayer(pPlayer);
+            }
+            if(pCard.ability instanceof DealDamageAbility){
+                ((DealDamageAbility) pCard.ability).addEffectPlayer(pEnemyPlayer);
+            }
+            pCard.ability.effect(pCard.abilityLvl);
         }
     }
 
