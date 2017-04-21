@@ -32,7 +32,7 @@ public class GameOverState extends GameScreen{
     //CREATED TO REPLACE GAMEOVERSCREEN, USING JAVA INSTEAD OF JAVA AND XML
 
 
-    private int score = 0;
+    private int endscore = 0;
     public Canvas canvas;
 
     //Creates Rect which bound buttons
@@ -45,13 +45,28 @@ public class GameOverState extends GameScreen{
     public GameOverState(String newName ,Game newGame)
     {
         super("GameOverState",newGame);
+
+        //IMAGES and BUTTONS
         aStore.loadAndAddBitmap("title","img/EndImages/GameOverTitle.PNG");
         aStore.loadAndAddBitmap("mainmenu","img/EndImages/endGameBtn.PNG");
-        aStore.loadAndAddBitmap("highscore","img/EndImages/endHighBtn.png");
+        aStore.loadAndAddBitmap("highScore","img/EndImages/endHighBtn.PNG");
         aStore.loadAndAddBitmap("score","img/EndImages/scoreBtn.PNG");
         aStore.loadAndAddBitmap("replay","img/EndImages/replayBtn.PNG");
         aStore.loadAndAddBitmap("background", "img/EndImages/mmbg.jpg");
 
+        //SCORE NUMBERS
+        aStore.loadAndAddBitmap("1","img/EndImages/1.png");
+        aStore.loadAndAddBitmap("2","img/EndImages/2.png");
+        aStore.loadAndAddBitmap("3","img/EndImages/3.png");
+        aStore.loadAndAddBitmap("4","img/EndImages/4.png");
+        aStore.loadAndAddBitmap("5","img/EndImages/5.png");
+        aStore.loadAndAddBitmap("6","img/EndImages/6.png");
+        aStore.loadAndAddBitmap("7","img/EndImages/7.png");
+        aStore.loadAndAddBitmap("8","img/EndImages/8.png");
+        aStore.loadAndAddBitmap("9","img/EndImages/9.png");
+        aStore.loadAndAddBitmap("0","img/EndImages/0.png");
+
+        //MUSIC
         aStore.loadAndAddMusic("BGM","music/DISC5_02.mp3");
 
     }
@@ -91,10 +106,21 @@ public class GameOverState extends GameScreen{
 
             Bitmap overTitle =aStore.getBitmap("title");
             Bitmap menuBtn = aStore.getBitmap("mainmenu");
-            Bitmap highScore = aStore.getBitmap("highscore");
+            Bitmap highScore = aStore.getBitmap("highScore");
             Bitmap score = aStore.getBitmap("score");
             Bitmap replay = aStore.getBitmap("replay");
             Bitmap backGround = aStore.getBitmap("background");
+
+            Bitmap one = aStore.getBitmap("1");
+            Bitmap two = aStore.getBitmap("2");
+            Bitmap three = aStore.getBitmap("3");
+            Bitmap four = aStore.getBitmap("4");
+            Bitmap five = aStore.getBitmap("5");
+            Bitmap six = aStore.getBitmap("6");
+            Bitmap seven = aStore.getBitmap("7");
+            Bitmap eight = aStore.getBitmap("8");
+            Bitmap nine = aStore.getBitmap("9");
+            Bitmap zero = aStore.getBitmap("0");
 
 
             if(boundPlayerScore == null || boundBackground == null || boundMenuBtn == null || boundReplayBtn == null || boundHighScore == null || boundScore == null || boundTitle == null)
@@ -159,16 +185,38 @@ public class GameOverState extends GameScreen{
             iGraphics2D.drawBitmap(score,null,boundScore,null);
             iGraphics2D.drawBitmap(replay,null,boundReplayBtn,null);
 
+            if(endscore == 0){
+                iGraphics2D.drawBitmap(zero, null, boundPlayerScore, null);
+            }
+            else if(endscore == 1){
+                    iGraphics2D.drawBitmap(one, null, boundPlayerScore, null);
+            }
+            else if(endscore == 2){
+                iGraphics2D.drawBitmap(two, null, boundPlayerScore, null);
+            }
+            else if(endscore == 3){
+                iGraphics2D.drawBitmap(three, null, boundPlayerScore, null);
+            }
+            else if(endscore == 4){
+                iGraphics2D.drawBitmap(four, null, boundPlayerScore, null);
+            }
+            else if(endscore == 5){
+                iGraphics2D.drawBitmap(five, null, boundPlayerScore, null);
+            }
+            else if(endscore == 6){
+                iGraphics2D.drawBitmap(six, null, boundPlayerScore, null);
+            }
+            else if(endscore == 7){
+                iGraphics2D.drawBitmap(seven, null, boundPlayerScore, null);
+            }
+            else if(endscore == 8){
+                iGraphics2D.drawBitmap(eight, null, boundPlayerScore, null);
+            }
+            else if(endscore == 9){
+                iGraphics2D.drawBitmap(nine, null, boundPlayerScore, null);
+            }
 
-            Paint paint = new Paint();
-            paint.setColor(Color.WHITE);
-            paint.setStyle(Paint.Style.FILL);
-            canvas.drawPaint(paint);
 
-            paint.setColor(Color.BLACK);
-            paint.setTextSize(20);
-            canvas.drawText(" " + score, 10, 25, paint);
-            canvas.drawText(" " + score, 10, 25, paint);
         }
         catch (Exception e)
         {
