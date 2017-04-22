@@ -111,6 +111,13 @@ public class Card{
 
     }
 
+    //FOR AI USE ONLY
+    public int getWeight()
+    {
+        int weight=hp+atk+abilityLvl;
+        return weight;
+    }
+
     public void evolve() {
         try {
             id++;

@@ -243,8 +243,10 @@ public class RenderGameScreen extends GameScreen {
     private void playerAiPlayCard(int pos)
     {
         Spot placeCard = playerAI.playerField.getSpotFromRow(0,pos);
-        placeCard.setSpotCard(playerAI.playerHand.getCardFromHand(pos));
-        playerAI.playerHand.setIndexOfPickedCard(pos);
+        int posPlay;
+        posPlay=playerAI.pickCardToPlay(playerAI.playerHand);
+        placeCard.setSpotCard(playerAI.playerHand.getCardFromHand(posPlay));
+        playerAI.playerHand.setIndexOfPickedCard(posPlay);
         playerAI.playerHand.getPickedCardFromHand();
     }
 

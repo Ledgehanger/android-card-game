@@ -128,5 +128,26 @@ public class PlayerAi extends Player {
        return canEvolve;
    }
 
+   public int pickCardToPlay(Hand playerHand)
+   {
+       int posInHand=0;
+       int currentWeight;
+       int largeWeight=-1;
+       Card checkCard;
+
+       for(int i=0;i<playerHand.getHandSize();i++)
+       {
+           checkCard=playerHand.getCardFromHand(i);
+           currentWeight=checkCard.getWeight();
+
+           if(currentWeight>=largeWeight)
+           {
+               largeWeight = currentWeight;
+               posInHand=i;
+           }
+       }
+       return posInHand;
+   }
+
 
 }
