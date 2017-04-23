@@ -10,14 +10,12 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
  * Created by markm on 04/03/2017.
  */
 
-//TODO: Implement AI Evolve in RenderGameScreen, properly implement FirstAvailPos
+//TODO: Debug and Fix Evolve
 
 public class PlayerAi extends Player {
 
     public int playPos;
     public int evPos;
-    public int evLvl;
-
 
     public int getPlayPos(){return playPos;}
     public int getEvPos(){return evPos;}
@@ -123,11 +121,13 @@ public class PlayerAi extends Player {
             return false;
     }
 
-   public boolean checkEvolve(int currentEVPoints,Field playerAiField)
+   public boolean checkEvolve(Field playerAiField)
    {
        boolean canEvolve=false;
        evPos=-1;
        Card tempCardStorage;
+
+       int currentEVPoints=getEvTotal();
 
        if(currentEVPoints>=3)
        {
@@ -142,7 +142,7 @@ public class PlayerAi extends Player {
                    if (tempCardStorage.getEv() == 0)
                        canEvolve = false;
                }
-           } while (evPos < playerAiField.getSizeOfRow() && canEvolve == false);
+           } while (evPos < playerAiField.getSizeOfRow()-1 && canEvolve == false);
        }
 
        return canEvolve;
