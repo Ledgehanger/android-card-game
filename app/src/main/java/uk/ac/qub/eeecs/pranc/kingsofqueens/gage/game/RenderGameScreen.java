@@ -9,7 +9,6 @@ import android.util.Log;
 
 import java.util.List;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
@@ -26,7 +25,7 @@ public class RenderGameScreen extends GameScreen {
 
     private final int LEVEL_WIDTH = 1184;
     private final int LEVEL_HEIGHT = 720;
-
+    private String test;
 
     //Game Objects
     private GameTurn currentGame;
@@ -103,6 +102,7 @@ public class RenderGameScreen extends GameScreen {
             }
         }catch (Exception e){
             String format = e.toString();
+            test = format;
             Log.e(TAG, "RenderGameScreen update: ");
         }
     }
@@ -166,7 +166,7 @@ public class RenderGameScreen extends GameScreen {
         if (ignorePlayerInput == false) {
             if (!touchEvents.isEmpty()) {
                 TouchEvent touchEvent = touchEvents.get(0);
-                if (endTurnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                if (genAlgorithm.hasTouchEvent(touchEvent, endTurnRect)) {
                     currentGame.getNextPhase();
                 }
             }
@@ -196,6 +196,8 @@ public class RenderGameScreen extends GameScreen {
 
         }
     }
+
+
 
     private void startPhase() {
         startPlayerTurn(currentGame.getCurrentPlayerID());
@@ -275,7 +277,7 @@ public class RenderGameScreen extends GameScreen {
     private void playerEvolving(List<TouchEvent> touchEvents) {
         TouchEvent touchEvent = touchEvents.get(0);
         Rect evRect = player.getPlayerRectEv();
-        if (evRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+        if (genAlgorithm.hasTouchEvent(touchEvent, evRect)) {
             if (player.getEvTotal() > 0)
                 player.setEvolving();
         }
