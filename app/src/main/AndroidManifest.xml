@@ -39,15 +39,6 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape">
         </activity>
-
-
-
-
-        !--GAME OVER ACTIVITY--!
-        <activity
-            android:name=".gage.game.GameOverScreen"
-            android:label="Kings of Queens"
-            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

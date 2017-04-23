@@ -10,6 +10,8 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
  * Created by markm on 04/03/2017.
  */
 
+//TODO: Implement AI Evolve in RenderGameScreen, properly implement FirstAvailPos
+
 public class PlayerAi extends Player {
 
     public int playPos;
@@ -92,7 +94,25 @@ public class PlayerAi extends Player {
 
         }while(playPos<=sizeOfLoop&&!aiPosAvailable);
 
+        if (!aiPosAvailable)
+            aiPosAvailable=findFirstAvailPos();
+
         return aiPosAvailable;
+    }
+
+    public boolean findFirstAvailPos()
+    {
+        playPos=-1;
+        boolean posFree=false;
+
+        do
+        {
+            playPos++;
+            posFree=checkSpotFree(playPos);
+
+        }while(playPos<=playerField.getSizeOfRow()-1&&!posFree);
+
+        return posFree;
     }
 
     public boolean checkHandFree()
@@ -140,7 +160,7 @@ public class PlayerAi extends Player {
            checkCard=playerHand.getCardFromHand(i);
            currentWeight=checkCard.getWeight();
 
-           if(currentWeight>=largeWeight)
+           if(currentWeight>largeWeight)
            {
                largeWeight = currentWeight;
                posInHand=i;
