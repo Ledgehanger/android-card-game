@@ -1,6 +1,5 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 
@@ -116,7 +115,7 @@ public class Deck{
 
     public void drawDeck(genAlgorithm.field side, IGraphics2D iGraphics2D, int pSurfaceHeight,scaleScreenReso scalar) {
 
-        if (playerDeck.size() <= 0) {
+        if (playerDeck.isEmpty()) {
             deckIsEmpty = true;
             deckRect = null;
         }

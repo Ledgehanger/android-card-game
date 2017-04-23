@@ -79,23 +79,23 @@ public class RenderGameScreen extends GameScreen {
         try {
             Input input = mGame.getInput();
             checkGameOver();
-            if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
+            if (currentGame.getCurrentPhase() == GameTurn.turnTypes.START_PHASE) {
                 startPhase();
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.PLAY_CARD) {
                 if (input != null) {
                     List<TouchEvent> touchEvents = input.getTouchEvents();
                     placeCardPhase(elapsedTime, touchEvents);
                 }
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.ATTACK_PHASE) {
                 if (!currentGame.isFirstTurn())
                     attackPhase();
                 else
                     currentGame.getNextPhase();
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.END_TURN) {
                 if (currentGame.isFirstTurn())
                     currentGame.setFirstTurn(false);
                 endTurnPhase();
-            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.GAME_OVER) {
                 ignorePlayerInput = true;
                 proceedEnd(elapsedTime);
             }

@@ -10,11 +10,11 @@ public class GameTurn {
 
 
     public enum turnTypes {
-                startPhase,
-                placeCard,
-                attackPhase,
-                endTurn,
-                gameOver
+        START_PHASE,
+        PLAY_CARD,
+        ATTACK_PHASE,
+        END_TURN,
+        GAME_OVER
     }
 
     private String playerOneID;
@@ -31,28 +31,29 @@ public class GameTurn {
         this.playerOneTurn = true;
         this.playerTwoID = playerTwoID;
         this.playerTwoTurn = false;
-        currentPhase = turnTypes.startPhase;
+        currentPhase = turnTypes.START_PHASE;
         firstTurn = true;
     }
 
     public turnTypes getNextPhase(){
 
         switch(currentPhase){
-            case startPhase:
-                currentPhase = turnTypes.placeCard;
+            case START_PHASE:
+                currentPhase = turnTypes.PLAY_CARD;
                 break;
-            case placeCard:
-                currentPhase = turnTypes.attackPhase;
+            case PLAY_CARD:
+                currentPhase = turnTypes.ATTACK_PHASE;
                 break;
-            case attackPhase:
-                currentPhase = turnTypes.endTurn;
+            case ATTACK_PHASE:
+                currentPhase = turnTypes.END_TURN;
                 break;
-            case endTurn:
+            case END_TURN:
                 firstTurn = false;
                 endTurn();
-                currentPhase = turnTypes.startPhase;
+                currentPhase = turnTypes.START_PHASE;
+                break;
             default:
-                currentPhase = turnTypes.startPhase;
+                currentPhase = turnTypes.START_PHASE;
                 break;
         }
         return currentPhase;
@@ -76,7 +77,7 @@ public class GameTurn {
 
     public void setGameOver(String loserID){
         this.loseID = loserID;
-        currentPhase = turnTypes.gameOver;
+        currentPhase = turnTypes.GAME_OVER;
     }
 
     public boolean isFirstTurn() {
