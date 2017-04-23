@@ -7,6 +7,6 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 
 public class Default extends NoPlayerAbility {
   public Default(){
-    hasAbility = false;
+    HasAbility = false;
   }
 }
