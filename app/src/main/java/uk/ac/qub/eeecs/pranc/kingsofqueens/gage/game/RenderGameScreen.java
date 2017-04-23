@@ -268,7 +268,7 @@ public class RenderGameScreen extends GameScreen {
         Spot evSpot=playerAI.playerField.getSpotFromRow(0,evPos);
         playerAI.evTotal-=evSpot.getEvolvingCost();
         evSpot.cardEvolving();
-        //evSpot.useCardAbility(playerAI,player);
+        evSpot.useCardAbility(playerAI,player);
 
     }
 

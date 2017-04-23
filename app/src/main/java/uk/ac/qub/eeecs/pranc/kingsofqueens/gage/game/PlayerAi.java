@@ -70,6 +70,7 @@ public class PlayerAi extends Player {
         if (!checkSpot.getCardPlaced())
         {
             posFree = true;
+            playPos=spotPos;
         }
 
         return posFree;
@@ -77,20 +78,22 @@ public class PlayerAi extends Player {
 
     public boolean checkOpponentField(Field oppPlayerField)
     {
-        playPos=-1;
+        int loopCounter=0;
 
         boolean aiPosAvailable=false;
-        int sizeOfLoop=oppPlayerField.getSizeOfRow()-1;
+        int sizeOfLoop=oppPlayerField.getSizeOfRow();
 
         do {
-            playPos++;
-            Spot checkSpot=oppPlayerField.getSpotFromRow(0,playPos);
+            Spot checkSpot=oppPlayerField.getSpotFromRow(0,loopCounter);
+
             if(checkSpot.getCardPlaced())
             {
-               aiPosAvailable=checkSpotFree(playPos);
+               aiPosAvailable=checkSpotFree(loopCounter);
             }
 
-        }while(playPos<=sizeOfLoop&&!aiPosAvailable);
+            loopCounter++;
+
+        }while(loopCounter<sizeOfLoop&&!aiPosAvailable);
 
         if (!aiPosAvailable)
             aiPosAvailable=findFirstAvailPos();
@@ -100,15 +103,15 @@ public class PlayerAi extends Player {
 
     public boolean findFirstAvailPos()
     {
-        playPos=-1;
+        int loopCounter=0;
         boolean posFree=false;
 
         do
         {
-            playPos++;
-            posFree=checkSpotFree(playPos);
+            posFree=checkSpotFree(loopCounter);
+            loopCounter++;
 
-        }while(playPos<=playerField.getSizeOfRow()-1&&!posFree);
+        }while(loopCounter<playerField.getSizeOfRow()&&!posFree);
 
         return posFree;
     }
