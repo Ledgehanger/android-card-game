@@ -97,7 +97,6 @@ public class RenderGameScreen extends GameScreen {
                 endTurnPhase();
             } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
                 ignorePlayerInput = true;
-                //TODO
                 proceedEnd(elapsedTime);
             }
         }catch (Exception e){

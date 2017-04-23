@@ -163,4 +163,27 @@ public class Hand_Test {
         pHand.addToHand(mDeck.drawFromDeck(10));
         assertEquals(pHand.MAX_HAND_SIZE, pHand.getHandSize());
     }
+    @Test
+    public void getCardFromHand()throws Exception {
+        setUpHand();
+        Card c = pHand.getCardFromHand(0);
+        assertNotNull(c);
+    }
+    @Test
+    public void getMyHand()throws Exception {
+        setUpHand();
+        List<Card> hand = pHand.getMyHand();
+        assertNotNull(hand);
+        for(int i = 0; i <hand.size(); i++) {
+            assertEquals(hand.get(i), pHand.getCardFromHand(i));
+        }
+    }
+    @Test
+    public void setIndexOfPickedCard()throws Exception {
+        setUpHand();
+        pHand.setIndexOfPickedCard(1);
+    }
+
+
+
 }

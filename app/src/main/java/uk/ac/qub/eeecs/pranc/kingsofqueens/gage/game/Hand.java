@@ -23,9 +23,7 @@ public class  Hand {
     public static final String HAND_BITMAP_NAME     = "Hand";
 
     //Member Attributes
-    private   Bitmap          handBitmap;
     private   ArrayList<Card> myHand;
-    private   Rect            handRect;
     private   int             indexOfPickedCard = PICKED_DEFAULT_INDEX;
     private   Card            lastCardPlayed;
     private   boolean         cardPlayedThisTurn;
@@ -69,27 +67,24 @@ public class  Hand {
         int   right;
         int   topI;
         int   botI;
+        Rect handRect;
+        Bitmap handBitmap = pAssetManger.getBitmap(HAND_BITMAP_NAME);
 
-         handBitmap = pAssetManger.getBitmap(HAND_BITMAP_NAME);
-            bot = pSurfaceHeight;
-            left =  CARD_GAP_OFFSET;
-            right = pSurfaceWidth - 150;
+        bot = pSurfaceHeight;
+        left =  CARD_GAP_OFFSET;
+        right = pSurfaceWidth - 150;
 
             if (pSide == genAlgorithm.field.TOP) {
                 topI = 0;
                 botI = (int) ((bot) - (bot / 1.5) - 75);
-                handRect =scalar.scalarect(left, topI, right, botI);
-                botI -= CARD_OFFSET;
-                left += CARD_OFFSET;
-
             } else {
                 top = pSurfaceHeight/ 2;
                 bot = pSurfaceHeight;
-
                 topI = (int) ((top) + (top / 4) + 105);
                 botI = (int) bot;
-                handRect = scalar.scalarect(left, topI, right, botI);
             }
+
+        handRect = scalar.scalarect(left, topI, right, botI);
 
         if(iGraphics2D != null)
             iGraphics2D.drawBitmap(handBitmap,null,handRect,null);
@@ -140,7 +135,7 @@ public class  Hand {
             return true;
         return false;
     }
-    public ArrayList<Card> getMyHand(){return myHand;}
+    public List<Card> getMyHand(){return myHand;}
     public int getHandSize(){
         return myHand.size();
     }
