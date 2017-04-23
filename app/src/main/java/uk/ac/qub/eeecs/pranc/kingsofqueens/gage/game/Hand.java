@@ -19,7 +19,6 @@ public class  Hand {
     public static final int    MAX_HAND_SIZE        = 5;
     public static final int    PICKED_DEFAULT_INDEX = -1;
     public static final int    CARD_GAP_OFFSET      = 166;
-    public static final int    CARD_OFFSET          = 10;
     public static final String HAND_BITMAP_NAME     = "Hand";
 
     //Member Attributes

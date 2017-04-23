@@ -25,7 +25,7 @@ public class RenderGameScreen extends GameScreen {
 
     private final int LEVEL_WIDTH = 1184;
     private final int LEVEL_HEIGHT = 720;
-    private String test;
+
 
     //Game Objects
     private GameTurn currentGame;
@@ -100,9 +100,7 @@ public class RenderGameScreen extends GameScreen {
                 proceedEnd(elapsedTime);
             }
         }catch (Exception e){
-            String format = e.toString();
-            test = format;
-            Log.e(TAG, "RenderGameScreen update: ");
+            Log.e(TAG, "RenderGameScreen update: " + e.toString());
         }
     }
 

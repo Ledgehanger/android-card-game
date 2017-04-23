@@ -113,41 +113,47 @@ public class Player {
         if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
             playerHand.addToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }
-    public void drawPlayer(IGraphics2D iGraphics2D, AssetStore assetStore, int SurfaceHeight, int SurfaceWidth,
-                           scaleScreenReso scalar) {
+    public void drawPlayer(IGraphics2D pIGraphics2D, AssetStore pAssetStore, int pSurfaceHeight, int pSurfaceWidth,
+                           scaleScreenReso pScalar) {
 
         if (playerRectIcon == null || playerRectHp == null) {
-            createPlayerRect(assetStore, SurfaceHeight,SurfaceWidth,scalar);
+            createPlayerRect(pAssetStore, pSurfaceHeight,pSurfaceWidth,pScalar);
         }
         if(playerPaint == null)
             playerPaint = setUpPaint();
 
-        int xOffsetHp = 15, yOffset = 5;
+        int xOffsetHp = 15;
+        int yOffset   = 5;
         int xOffsetEv = 40;
 
-        if(iGraphics2D != null) {
-            iGraphics2D.drawBitmap(playerIconBitmap, null, playerRectIcon, null);
-            iGraphics2D.drawBitmap(playerHPBarBitmap, null, playerRectHp, null);
+        if(pIGraphics2D != null) {
+            pIGraphics2D.drawBitmap(playerIconBitmap , null, playerRectIcon, null);
+            pIGraphics2D.drawBitmap(playerHPBarBitmap, null, playerRectHp  , null);
 
-            if(!evolving)
-                iGraphics2D.drawBitmap(playerNotCheckedEVBarBitmap, null, playerRectEv, null);
-            else
-                iGraphics2D.drawBitmap(playerCheckEVBarBitmap, null, playerRectEv, null);
-
-            iGraphics2D.drawText(Integer.toString(hp), playerRectHp.centerX() - xOffsetHp,
+            drawEvolving(pIGraphics2D);
+            pIGraphics2D.drawText(Integer.toString(hp), playerRectHp.centerX() - xOffsetHp,
                     playerRectHp.centerY() + yOffset, playerPaint);
             String ev = "EV: " + evTotal;
-            iGraphics2D.drawText(ev, playerRectEv.centerX() - xOffsetEv,
+            pIGraphics2D.drawText(ev, playerRectEv.centerX() - xOffsetEv,
                     playerRectEv.centerY() + yOffset, playerPaint);
-            playerField.draw(fieldLocation, iGraphics2D, assetStore, SurfaceHeight, SurfaceWidth,scalar);
-            playerDeck.drawDeck(fieldLocation, iGraphics2D, SurfaceHeight,scalar);
-            playerHand.drawHand(fieldLocation, iGraphics2D, assetStore, handDrawCardBack, SurfaceHeight,
-                    SurfaceWidth,scalar);
+
+            playerField.draw   (fieldLocation, pIGraphics2D, pAssetStore, pSurfaceHeight,
+                    pSurfaceWidth,pScalar);
+            playerDeck.drawDeck(fieldLocation, pIGraphics2D, pSurfaceHeight,pScalar);
+            playerHand.drawHand(fieldLocation, pIGraphics2D, pAssetStore, handDrawCardBack,
+                    pSurfaceHeight, pSurfaceWidth,pScalar);
 
         }
 
     }
-    
+
+    public void drawEvolving(IGraphics2D pIGraphics2D) {
+        if(!evolving)
+            pIGraphics2D.drawBitmap(playerNotCheckedEVBarBitmap, null, playerRectEv, null);
+        else
+            pIGraphics2D.drawBitmap(playerCheckEVBarBitmap, null, playerRectEv, null);
+    }
+
 
     public Paint   setUpPaint  (){
         Paint paint = new Paint();
@@ -259,7 +265,7 @@ public class Player {
             for (int column = 0; column < playerField.getSizeOfRow(); column++) {
                 Spot currentSpot = playerField.getSpotFromRow(row, column);
                 if (currentSpot.getCardPlaced()) {
-                    if(currentSpot.getSpotRect().contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type==0){
+                    if(genAlgorithm.hasTouchEvent(touchEvent,currentSpot.getSpotRect())){
                         if(evTotal >= currentSpot.getEvolvingCost() && currentSpot.getEvolvingCost() > 0){
                             evTotal -= currentSpot.getEvolvingCost();
                             currentSpot.cardEvolving();

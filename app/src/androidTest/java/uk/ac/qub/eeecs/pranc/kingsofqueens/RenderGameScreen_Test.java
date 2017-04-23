@@ -94,11 +94,14 @@ public class RenderGameScreen_Test {
         touchEvent.y =  408;
         touchEvents.add(0,touchEvent);
         deckScreen.playerPlaceCardPhase(new ElapsedTime(), touchEvents);
+
+
         deckScreen.nextCurrentTurn();
         deckScreen.update(new ElapsedTime());
         deckScreen.nextCurrentTurn();
         deckScreen.update(new ElapsedTime());
         deckScreen.update(new ElapsedTime());
     }
+
 
 }
