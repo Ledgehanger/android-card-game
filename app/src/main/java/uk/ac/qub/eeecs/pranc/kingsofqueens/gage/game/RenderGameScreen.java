@@ -186,12 +186,12 @@ public class RenderGameScreen extends GameScreen {
             }
 
             //Commented out until fixed - Carl
-            /*if(checkEv==true)
+            if(checkEv==true)
             {
                 evPos=playerAI.getEvPos();
                 playerAIEvolve(evPos);
 
-            }*/
+            }
                 currentGame.getNextPhase();
 
         }

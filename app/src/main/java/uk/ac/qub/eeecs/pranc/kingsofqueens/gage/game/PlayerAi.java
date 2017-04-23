@@ -127,7 +127,7 @@ public class PlayerAi extends Player {
    public boolean checkEvolve(Field playerAiField)
    {
        boolean canEvolve=false;
-       evPos=-1;
+       int loopCounter=0;
        Card tempCardStorage;
 
        int currentEVPoints=getEvTotal();
@@ -135,17 +135,19 @@ public class PlayerAi extends Player {
        if(currentEVPoints>=3)
        {
            do {
-               evPos++;
-               Spot currentSpot = playerAiField.getSpotFromRow(0, evPos);
+               Spot currentSpot = playerAiField.getSpotFromRow(0, loopCounter);
 
                if (currentSpot.getCardPlaced()) {
                    tempCardStorage = currentSpot.getSpotCard();
-                   if (currentEVPoints >= tempCardStorage.getEv())
-                       canEvolve = true;
                    if (tempCardStorage.getEv() == 0)
                        canEvolve = false;
+                   else if (currentEVPoints >= tempCardStorage.getEv()) {
+                       canEvolve = true;
+                       evPos=loopCounter;
+                   }
                }
-           } while (evPos < playerAiField.getSizeOfRow()-1 && canEvolve == false);
+               loopCounter++;
+           } while (loopCounter < playerAiField.getSizeOfRow() && canEvolve == false);
        }
 
        return canEvolve;
