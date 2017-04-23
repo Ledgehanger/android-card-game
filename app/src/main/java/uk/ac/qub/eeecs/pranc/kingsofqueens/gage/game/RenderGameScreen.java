@@ -168,19 +168,25 @@ public class RenderGameScreen extends GameScreen {
             //TODO AI TURN
             boolean checkHand= playerAI.checkHandFree();
             boolean checkPlay=playerAI.checkOpponentField(player.playerField);
-            int pos;
+            boolean checkEv=playerAI.checkEvolve(playerAI.playerField);
+            int playPos;
+            int evPos;
 
             if(checkPlay==true)
             {
-                pos=playerAI.getPlayPos();
-                playerAiPlayCard(pos);
+                playPos=playerAI.getPlayPos();
+                playerAiPlayCard(playPos);
             }
 
-            else
+            //Commented out until fixed - Carl
+            /*if(checkEv==true)
             {
+                evPos=playerAI.getEvPos();
+                playerAIEvolve(evPos);
 
-            }
-            currentGame.getNextPhase();
+            }*/
+                currentGame.getNextPhase();
+
         }
     }
 
@@ -244,6 +250,19 @@ public class RenderGameScreen extends GameScreen {
         placeCard.setSpotCard(playerAI.playerHand.getCardFromHand(posPlay));
         playerAI.playerHand.setIndexOfPickedCard(posPlay);
         playerAI.playerHand.getPickedCardFromHand();
+
+        Card newCard=playerAI.playerHand.getLastCardPlayed();
+        checkGameOver();
+        genAlgorithm.useCardAbility(newCard,playerAI,player);
+    }
+
+    private void playerAIEvolve(int evPos)
+    {
+        Spot evSpot=playerAI.playerField.getSpotFromRow(0,evPos);
+        playerAI.evTotal-=evSpot.getEvolvingCost();
+        evSpot.cardEvolving();
+        //evSpot.useCardAbility(playerAI,player);
+
     }
 
     private void playerEvolving(List<TouchEvent> touchEvents) {
