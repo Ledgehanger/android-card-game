@@ -26,8 +26,6 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 public class PickDeckScreen extends GameScreen {
 
-
-
     private AssetStore aStore;
     HashMap<String,DeckSelection> DeckHashMap = new HashMap<String,DeckSelection>();
     private Rect DeckButton,Left,Right,Play,bg;
@@ -35,7 +33,7 @@ public class PickDeckScreen extends GameScreen {
     private int index = 0;
     private String currentDeck;
     DeckPickerRect Deck1 = new DeckPickerRect(), Deck2 = new DeckPickerRect();
-
+    scaleScreenReso scale;
     public PickDeckScreen(Game newGame, AssetStore assetStore)
     {
         super("PickDeckScreen",newGame);
@@ -85,12 +83,12 @@ public class PickDeckScreen extends GameScreen {
     private void mangeDeckSelection() {
         if(deck1Picked == false && !Deck2.getDeckName().equals(currentDeck)){
             DeckSelection test = DeckHashMap.get(currentDeck);
-            Deck1 = new DeckPickerRect(new Rect(300,31,600,120), test.getBitImage(),currentDeck);
+            Deck1 = new DeckPickerRect(scale.scalarect(300,31,600,120), test.getBitImage(),currentDeck);
             deck1Picked = true;
         }
         else if(deck2Picked == false && deck1Picked == true && !Deck1.getDeckName().equals(currentDeck)){
             DeckSelection test = DeckHashMap.get(currentDeck);
-            Deck2 = new DeckPickerRect(new Rect(600,31,900,120), test.getBitImage(),currentDeck);
+            Deck2 = new DeckPickerRect(scale.scalarect(600,31,900,120), test.getBitImage(),currentDeck);
             deck2Picked = true;
         }
     }
@@ -123,9 +121,7 @@ public class PickDeckScreen extends GameScreen {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
         DeckSelection[] decks = aStore.jsonToDeckCollection("Decks");
-        scaleScreenReso scale = null;
-        if(iGraphics2D != null)
-            scale=new scaleScreenReso(iGraphics2D);
+         scale=new scaleScreenReso(iGraphics2D);
 
         try
         {

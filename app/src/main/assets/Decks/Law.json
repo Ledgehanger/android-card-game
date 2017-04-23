@@ -44,8 +44,8 @@
   {
     "_id"    : 27,
     "name"   : "Law Building",
-    "attack" : 0,
-    "defense": 4,
+    "attack" : 3,
+    "defense": 2,
     "desc"   :"Default",
     "ability": "Default",
     "abilityLvl":0,

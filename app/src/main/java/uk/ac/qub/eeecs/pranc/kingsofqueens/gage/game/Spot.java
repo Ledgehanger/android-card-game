@@ -66,7 +66,8 @@ public class Spot {
     }
 
     public void cardEvolving(){
-        spotCard.evolve();
+        if(spotCard != null)
+            spotCard.evolve();
     }
     public int getEvolvingCost(){
         return spotCard.getEvCost();

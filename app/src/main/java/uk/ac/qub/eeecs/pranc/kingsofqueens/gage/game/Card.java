@@ -240,11 +240,10 @@ public class Card{
 
     public boolean dealDamageToCard(int totalAttack) {
         for (int i = 0; i < totalAttack; i++) {
-            if (hp > 0)
-                hp--;
-             else
-                 return false;
+          hp--;
+          if(hp <= 0)
+              break;
         }
-        return true;
+        return hp > 0;
     }
 }

@@ -5,6 +5,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
+
+import static android.content.ContentValues.TAG;
 
 public class RenderGameScreen extends GameScreen {
 
@@ -74,30 +77,34 @@ public class RenderGameScreen extends GameScreen {
 
 
     public void update(ElapsedTime elapsedTime) {
-        Input input = mGame.getInput();
-        checkGameOver();
-        if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
-            startPhase();
-        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
-            if (input != null) {
-                List<TouchEvent> touchEvents = input.getTouchEvents();
-                placeCardPhase(elapsedTime, touchEvents);
+        try {
+            Input input = mGame.getInput();
+            checkGameOver();
+            if (currentGame.getCurrentPhase() == GameTurn.turnTypes.startPhase) {
+                startPhase();
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.placeCard) {
+                if (input != null) {
+                    List<TouchEvent> touchEvents = input.getTouchEvents();
+                    placeCardPhase(elapsedTime, touchEvents);
+                }
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
+                if (!currentGame.isFirstTurn())
+                    attackPhase();
+                else
+                    currentGame.getNextPhase();
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
+                if (currentGame.isFirstTurn())
+                    currentGame.setFirstTurn(false);
+                endTurnPhase();
+            } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
+                ignorePlayerInput = true;
+                //TODO
+                proceedEnd(elapsedTime);
             }
-        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.attackPhase) {
-            if (!currentGame.isFirstTurn())
-                attackPhase();
-            else
-                currentGame.getNextPhase();
-        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.endTurn) {
-            if (currentGame.isFirstTurn())
-                currentGame.setFirstTurn(false);
-            endTurnPhase();
-        } else if (currentGame.getCurrentPhase() == GameTurn.turnTypes.gameOver) {
-            ignorePlayerInput = true;
-            //TODO
-            proceedEnd(elapsedTime);
+        }catch (Exception e){
+            String format = e.toString();
+            Log.e(TAG, "RenderGameScreen update: ");
         }
-
     }
 
 
