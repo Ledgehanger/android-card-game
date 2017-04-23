@@ -1,4 +1,5 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
+import android.graphics.Rect;
 import android.os.DeadObjectException;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AddEvAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.DealDamageAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Default;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 
@@ -51,6 +53,9 @@ public class genAlgorithm {
         }
     }
 
+    public static boolean hasTouchEvent(TouchEvent touchEvent, Rect pRect) {
+        return pRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0;
+    }
 
 
 }

@@ -17,6 +17,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection.DeckSelection;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
@@ -29,11 +30,13 @@ public class PickDeckScreen extends GameScreen {
     private AssetStore aStore;
     HashMap<String,DeckSelection> DeckHashMap = new HashMap<String,DeckSelection>();
     private Rect DeckButton,Left,Right,Play,bg;
+
     boolean deck1Picked = false, deck2Picked = false;
     private int index = 0;
     private String currentDeck;
     DeckPickerRect Deck1 = new DeckPickerRect(), Deck2 = new DeckPickerRect();
     scaleScreenReso scale;
+
     public PickDeckScreen(Game newGame, AssetStore assetStore)
     {
         super("PickDeckScreen",newGame);
@@ -62,17 +65,16 @@ public class PickDeckScreen extends GameScreen {
     public void updateTouchEvents(List<TouchEvent> touchEvents) {
         if (!touchEvents.isEmpty()) {
             TouchEvent touchEvent = touchEvents.get(0);
-
-            if (DeckButton.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+            if(genAlgorithm.hasTouchEvent(touchEvent,DeckButton)){
                 mangeDeckSelection();
             }
             deck1Picked = checkInputDeckChoices(touchEvent, Deck1, deck1Picked);
             deck2Picked = checkInputDeckChoices(touchEvent, Deck2, deck2Picked);
 
-            if (Left.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+            if (genAlgorithm.hasTouchEvent(touchEvent,Left)) {
                 index--;
             }
-            if (Right.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+            if (genAlgorithm.hasTouchEvent(touchEvent,Right)) {
                 index++;
             }
 
@@ -96,7 +98,7 @@ public class PickDeckScreen extends GameScreen {
     private void checkPlayButtonPressed(TouchEvent touchEvent) {
         try {
             if (deck1Picked && deck2Picked) {
-                if (Play.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                if (genAlgorithm.hasTouchEvent(touchEvent,Play)) {
                     Deck playerDeck = setupForRenderGame();
                     RenderGameScreen gameScreen = new RenderGameScreen(mGame, playerDeck,mGame.getAssetManager());
                     mGame.getScreenManager().addScreen(gameScreen);
@@ -215,8 +217,7 @@ public class PickDeckScreen extends GameScreen {
 
     private boolean checkInputDeckChoices(TouchEvent touchEvent, DeckPickerRect deck, boolean valid) {
         if (valid == true) {
-            if (deck.getButton().contains((int) touchEvent.x, (int) touchEvent.y)
-                    && touchEvent.type == 0) {
+            if (genAlgorithm.hasTouchEvent(touchEvent,deck.getButton())){
                 valid = false;
                 deck.setDeckName("");
             }
