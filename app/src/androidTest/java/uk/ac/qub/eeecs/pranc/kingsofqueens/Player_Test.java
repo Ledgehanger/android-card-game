@@ -181,16 +181,6 @@ public class Player_Test {
         player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
     }
 
-    @Test
-    public void testPaint(){
-        Player player = new Player("ai",null, genAlgorithm.field.BOTTOM);
-
-        AssetStore as = getAssetStore();
-        player.drawPlayer(null,as,100,100,scalar);
-        Paint e = player.setUpPaint();
-        assertNotNull(e);
-    }
-
     @NonNull
     private AssetStore getAssetStore() {
         Context appContext = InstrumentationRegistry.getTargetContext();

@@ -49,7 +49,7 @@ public class GameOverState extends GameScreen{
         //IMAGES and BUTTONS
         aStore.loadAndAddBitmap("title","img/EndImages/GameOverTitle.PNG");
         aStore.loadAndAddBitmap("mainmenu","img/EndImages/endGameBtn.PNG");
-        aStore.loadAndAddBitmap("highScore","img/EndImages/endHighBtn.PNG");
+        aStore.loadAndAddBitmap("highScore","img/EndImages/endHighBtn.png");
         aStore.loadAndAddBitmap("score","img/EndImages/scoreBtn.PNG");
         aStore.loadAndAddBitmap("replay","img/EndImages/replayBtn.PNG");
         aStore.loadAndAddBitmap("background", "img/EndImages/mmbg.jpg");
