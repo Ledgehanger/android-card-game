@@ -87,4 +87,8 @@ public class GameTurn {
     public void setFirstTurn(boolean firstTurn) {
         this.firstTurn = firstTurn;
     }
+
+    public String getLoseID() {
+        return loseID;
+    }
 }

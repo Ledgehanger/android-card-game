@@ -5,6 +5,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.List;
@@ -316,13 +317,11 @@ public class RenderGameScreen extends GameScreen {
     }
 
 
+    @NonNull
     public void proceedEnd(ElapsedTime elapsedTime) {
-        //GO TO GAME OVER SCREEN, I'M NOT SURE HOW IF IT SHOULD END WHEN !PLAYERALIVE
-/*        Input input = mGame.getInput();
-        List<TouchEvent> touchEvents = input.getTouchEvents();
-       if (touchEvents.size() > 0) {
-            TouchEvent touchEvent = touchEvents.get(0);
-            if (!player.isAlive) {*/
+        assetStore.getMusic("BGM").stop();
+                //boolean won = currentGame.getLoseID() != player.getId();
+
                 mGame.getScreenManager().removeScreen(this.getName());
                 GameOverState over = new GameOverState("", mGame);
                 mGame.getScreenManager().addScreen(over);

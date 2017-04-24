@@ -93,6 +93,7 @@ public class MainMenu extends GameScreen {
             if(boundHighBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0){
                 aStore.getMusic("BGM").stop();
                 mGame.getScreenManager().removeScreen(this.getName());
+
                 //REST OF CODE
             }
         }
@@ -153,10 +154,11 @@ public class MainMenu extends GameScreen {
                 boundHighBtn = scale.scalarect(optionsLeft, highTop, optionsRight, highBottom);
 
             }
-            aStore.getMusic("BGM").play();
-            aStore.getMusic("BGM").setVolume(1);
-            aStore.getMusic("BGM").setLopping(true);
-
+            if(settings.soundEnabled = true) {
+                aStore.getMusic("BGM").play();
+                aStore.getMusic("BGM").setVolume(1);
+                aStore.getMusic("BGM").setLopping(true);
+            }
             iGraphics2D.clear(Color.rgb(255, 255, 255));
             iGraphics2D.drawBitmap(bg, null, boundBackground, null);
             iGraphics2D.drawBitmap(koqTitle, null, boundTitle, null);
@@ -170,7 +172,5 @@ public class MainMenu extends GameScreen {
         } catch (Exception e) {
             String error = e.getMessage();
         }
-
     }
-
 }

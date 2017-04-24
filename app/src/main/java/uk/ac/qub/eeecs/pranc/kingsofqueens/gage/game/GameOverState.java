@@ -139,9 +139,9 @@ public class GameOverState extends GameScreen{
 
                 boundTitle= scale.scalarect(titleLeft,titletop,titleRight,titlebottom);
 
-                int menuLeft=375;
+                int menuLeft=620;
                 int menuRight=menuLeft+menuBtn.getWidth();
-                int menuTop=450;
+                int menuTop=500;
                 int menuBottom= menuTop+menuBtn.getHeight();
 
 
@@ -149,21 +149,23 @@ public class GameOverState extends GameScreen{
 
                 boundMenuBtn = scale.scalarect(menuLeft,menuTop,menuRight,menuBottom);
 
-                int highTop=250;
+                int highTop=380;
+                int highLeft = 375;
+                int highRight = highLeft + highScore.getWidth();
                 int highBottom = highTop+highScore.getHeight();
 
-                boundHighScore = scale.scalarect(menuLeft,highTop,menuRight,highBottom);
+                boundHighScore = scale.scalarect(highLeft,highTop,highRight,highBottom);
 
-                int replayLeft = 0;
+                int replayLeft = 140;
                 int replayRight = replayLeft+replay.getWidth();
-                int replayTop = 475;
+                int replayTop = 500;
                 int replayBottom = replayTop+replay.getHeight();
 
                 boundReplayBtn = scale.scalarect(replayLeft, replayTop, replayRight, replayBottom);
 
                 int scoreLeft = 375;
                 int scoreRight = scoreLeft + score.getWidth();
-                int scoreTop = 350;
+                int scoreTop = 250;
                 int scoreBottom = scoreTop + score.getHeight();
 
                 boundScore = scale.scalarect(scoreLeft, scoreTop, scoreRight, scoreBottom);
