@@ -42,11 +42,17 @@ public class GameOverState extends GameScreen{
     //Set up AssetStore
     AssetStore aStore = mGame.getAssetManager();
 
+    Player player;
+    PlayerAi playerAi;
+
     public GameOverState(String newName ,Game newGame)
     {
         super("GameOverState",newGame);
 
         //IMAGES and BUTTONS
+        aStore.loadAndAddBitmap("winner", "img/EndImages/winner.png");
+        aStore.loadAndAddBitmap("loser", "img/EndImages/loser.png");
+
         aStore.loadAndAddBitmap("title","img/EndImages/GameOverTitle.PNG");
         aStore.loadAndAddBitmap("mainmenu","img/EndImages/endGameBtn.PNG");
         aStore.loadAndAddBitmap("highScore","img/EndImages/endHighBtn.PNG");
@@ -103,6 +109,9 @@ public class GameOverState extends GameScreen{
         try
         {
             scaleScreenReso scale= new scaleScreenReso(iGraphics2D);
+
+            Bitmap win = aStore.getBitmap("winner");
+            Bitmap lose = aStore.getBitmap("loser");
 
             Bitmap overTitle =aStore.getBitmap("title");
             Bitmap menuBtn = aStore.getBitmap("mainmenu");
@@ -170,10 +179,10 @@ public class GameOverState extends GameScreen{
 
                 boundScore = scale.scalarect(scoreLeft, scoreTop, scoreRight, scoreBottom);
 
-                int pScoreLeft = 375 + score.getWidth();
-                int pScoreRight = pScoreLeft + 100;
-                int pScoreTop = scoreTop;
-                int pScoreBottom = scoreBottom;
+                int pScoreLeft = 140;
+                int pScoreRight = pScoreLeft + win.getWidth();
+                int pScoreTop = 200;
+                int pScoreBottom = pScoreTop + win.getHeight();
 
                 boundPlayerScore = scale.scalarect(pScoreLeft, pScoreRight, pScoreTop, pScoreBottom);
             }
@@ -189,35 +198,11 @@ public class GameOverState extends GameScreen{
             iGraphics2D.drawBitmap(score,null,boundScore,null);
             iGraphics2D.drawBitmap(replay,null,boundReplayBtn,null);
 
-            if(endscore == 0){
-                iGraphics2D.drawBitmap(zero, null, boundPlayerScore, null);
-            }
-            else if(endscore == 1){
-                    iGraphics2D.drawBitmap(one, null, boundPlayerScore, null);
-            }
-            else if(endscore == 2){
-                iGraphics2D.drawBitmap(two, null, boundPlayerScore, null);
-            }
-            else if(endscore == 3){
-                iGraphics2D.drawBitmap(three, null, boundPlayerScore, null);
-            }
-            else if(endscore == 4){
-                iGraphics2D.drawBitmap(four, null, boundPlayerScore, null);
-            }
-            else if(endscore == 5){
-                iGraphics2D.drawBitmap(five, null, boundPlayerScore, null);
-            }
-            else if(endscore == 6){
-                iGraphics2D.drawBitmap(six, null, boundPlayerScore, null);
-            }
-            else if(endscore == 7){
-                iGraphics2D.drawBitmap(seven, null, boundPlayerScore, null);
-            }
-            else if(endscore == 8){
-                iGraphics2D.drawBitmap(eight, null, boundPlayerScore, null);
-            }
-            else if(endscore == 9){
-                iGraphics2D.drawBitmap(nine, null, boundPlayerScore, null);
+            //MARK 
+            if(player.getHp() > playerAi.getHp()){
+                iGraphics2D.drawBitmap(win, null, boundPlayerScore, null);
+            }else{
+                iGraphics2D.drawBitmap(lose, null, boundPlayerScore, null);
             }
 
 
