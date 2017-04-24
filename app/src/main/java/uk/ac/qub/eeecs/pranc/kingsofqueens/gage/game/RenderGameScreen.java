@@ -321,9 +321,9 @@ public class RenderGameScreen extends GameScreen {
     public void proceedEnd(ElapsedTime elapsedTime) {
         assetStore.getMusic("BGM").stop();
                 //boolean won = currentGame.getLoseID() != player.getId();
-
+                boolean winner = currentGame.getCurrentPlayerID() == player.getId();
                 mGame.getScreenManager().removeScreen(this.getName());
-                GameOverState over = new GameOverState("", mGame);
+                GameOverState over = new GameOverState("", mGame,winner);
                 mGame.getScreenManager().addScreen(over);
 /*            }
         }*/

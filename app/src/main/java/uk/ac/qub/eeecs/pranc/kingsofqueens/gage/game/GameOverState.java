@@ -42,13 +42,11 @@ public class GameOverState extends GameScreen{
     //Set up AssetStore
     AssetStore aStore = mGame.getAssetManager();
 
-    Player player;
-    PlayerAi playerAi;
-
-    public GameOverState(String newName ,Game newGame)
+    Boolean didThePlayerWin;
+    public GameOverState(String newName ,Game newGame, boolean winner)
     {
         super("GameOverState",newGame);
-
+        didThePlayerWin = winner;
         //IMAGES and BUTTONS
         aStore.loadAndAddBitmap("winner", "img/EndImages/winner.png");
         aStore.loadAndAddBitmap("loser", "img/EndImages/loser.png");
@@ -179,12 +177,12 @@ public class GameOverState extends GameScreen{
 
                 boundScore = scale.scalarect(scoreLeft, scoreTop, scoreRight, scoreBottom);
 
-                int pScoreLeft = 140;
-                int pScoreRight = pScoreLeft + win.getWidth();
-                int pScoreTop = 200;
-                int pScoreBottom = pScoreTop + win.getHeight();
-
-                boundPlayerScore = scale.scalarect(pScoreLeft, pScoreRight, pScoreTop, pScoreBottom);
+//                int pScoreLeft = 140;
+//                int pScoreRight = pScoreLeft + win.getWidth();
+//                int pScoreTop = 200;
+//                int pScoreBottom = pScoreTop + win.getHeight();
+//
+//                boundPlayerScore = scale.scalarect(pScoreLeft, pScoreRight, pScoreTop, pScoreBottom);
             }
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
@@ -194,15 +192,16 @@ public class GameOverState extends GameScreen{
             iGraphics2D.drawBitmap(backGround,null,boundBackground,null);
             iGraphics2D.drawBitmap(overTitle,null,boundTitle,null);
             iGraphics2D.drawBitmap(menuBtn,null,boundMenuBtn,null);
-            iGraphics2D.drawBitmap(highScore,null,boundHighScore,null);
             iGraphics2D.drawBitmap(score,null,boundScore,null);
             iGraphics2D.drawBitmap(replay,null,boundReplayBtn,null);
 
-            //MARK 
-            if(player.getHp() > playerAi.getHp()){
-                iGraphics2D.drawBitmap(win, null, boundPlayerScore, null);
+            //iGraphics2D.drawBitmap(highScore,null,boundHighScore,null);
+
+
+            if(didThePlayerWin){
+                iGraphics2D.drawBitmap(win, null, boundHighScore, null);
             }else{
-                iGraphics2D.drawBitmap(lose, null, boundPlayerScore, null);
+                iGraphics2D.drawBitmap(lose, null, boundHighScore, null);
             }
 
 
