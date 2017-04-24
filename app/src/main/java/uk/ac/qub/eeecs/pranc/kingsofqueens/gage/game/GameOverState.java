@@ -156,10 +156,10 @@ public class GameOverState extends GameScreen{
 
                 boundMenuBtn = scale.scalarect(menuLeft,menuTop,menuRight,menuBottom);
 
-                int highTop=380;
-                int highLeft = 375;
-                int highRight = highLeft + highScore.getWidth();
-                int highBottom = highTop+highScore.getHeight();
+                int highTop=270;
+                int highLeft = 580;
+                int highRight = highLeft + win.getWidth();
+                int highBottom = highTop+win.getHeight();
 
                 boundHighScore = scale.scalarect(highLeft,highTop,highRight,highBottom);
 
@@ -170,19 +170,13 @@ public class GameOverState extends GameScreen{
 
                 boundReplayBtn = scale.scalarect(replayLeft, replayTop, replayRight, replayBottom);
 
-                int scoreLeft = 375;
+                int scoreLeft = 250;
                 int scoreRight = scoreLeft + score.getWidth();
-                int scoreTop = 250;
+                int scoreTop = 270;
                 int scoreBottom = scoreTop + score.getHeight();
 
                 boundScore = scale.scalarect(scoreLeft, scoreTop, scoreRight, scoreBottom);
 
-//                int pScoreLeft = 140;
-//                int pScoreRight = pScoreLeft + win.getWidth();
-//                int pScoreTop = 200;
-//                int pScoreBottom = pScoreTop + win.getHeight();
-//
-//                boundPlayerScore = scale.scalarect(pScoreLeft, pScoreRight, pScoreTop, pScoreBottom);
             }
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
