@@ -37,10 +37,9 @@ public class Card{
     public int  abilityLvl;
     public boolean inDeck;
     public Bitmap cardImg;
-    public Rect cardTextRect;
-    public Paint textPaint;
-    public Paint textDesc;
-    public float textSize=9f;
+    public float textSize = 22f;
+    public float textSizeDesc = 10f;
+
     protected Rect cardRect;
     protected final int OFFSET = 133;
     protected AssetStore aStore;
@@ -173,16 +172,6 @@ public class Card{
         cardRect = null;
     }
 
-    public Paint formatText(float textR)
-    {
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        float textRatio = textR;
-        paint.setTextSize(textRatio);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        return paint;
-
-    }
 
     public void drawCard(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack,scaleScreenReso scalar)
     {
@@ -191,10 +180,8 @@ public class Card{
             bot -= 50;
         }
             createCardRect(bot,left,top,scalar);
-        if (textPaint==null)
-            textPaint=formatText(26.5F);
-        if (textDesc==null)
-            textDesc=formatText(10F);
+
+
         if(cardImg == null){
             setUpCardBitmap(top,drawBack);
         }
@@ -204,23 +191,22 @@ public class Card{
 
         if(!drawBack && iG2D != null){
 
-
-            iG2D.drawText(Integer.toString(hp),cardRect.right - 26,cardRect.bottom-10,textPaint);
-            iG2D.drawText(Integer.toString(atk),cardRect.left + 10,cardRect.bottom-10,textPaint);
-            iG2D.drawText(Integer.toString(evCost),cardRect.left + 15,cardRect.top+30,textPaint);
-            iG2D.drawText(desc,cardRect.left +30,cardRect.bottom-50,textDesc);
-
+            scalar.drawScalaText(iG2D,Integer.toString(hp),cardRect.right - 26,cardRect.bottom-10,textSize);
+            scalar.drawScalaText(iG2D,Integer.toString(atk),cardRect.left + 10,cardRect.bottom-10,textSize);
+            scalar.drawScalaText(iG2D,Integer.toString(evCost),cardRect.left + 15,cardRect.top+30,textSize);
+            scalar.drawScalaText(iG2D,desc,cardRect.left +30,cardRect.bottom-50,textSizeDesc);
         }
 
     }
-    public void drawCard(Rect spotRect, IGraphics2D iG2D)
+    public void drawCard(Rect spotRect, IGraphics2D iG2D, scaleScreenReso screenReso)
     {
         setUpCardBitmap(0,false);
         iG2D.drawBitmap(cardImg,null,spotRect,null);
-        iG2D.drawText(Integer.toString(hp)    ,spotRect.right - 26,spotRect.bottom-10,textPaint);
-        iG2D.drawText(Integer.toString(atk)   ,spotRect.left + 10 ,spotRect.bottom-10,textPaint);
-        iG2D.drawText(Integer.toString(evCost),spotRect.left + 15 ,spotRect.top + 30 ,textPaint);
-        iG2D.drawText(desc                    ,spotRect.left +30  ,spotRect.bottom-50,textDesc);
+        screenReso.drawScalaText(iG2D,Integer.toString(hp),spotRect.right - 26,spotRect.bottom-10,textSize);
+        screenReso.drawScalaText(iG2D,Integer.toString(atk)   , spotRect.left + 10,spotRect.bottom-10,textSize);
+        screenReso.drawScalaText(iG2D,Integer.toString(evCost), spotRect.left + 15,spotRect.top   +30,textSize);
+        screenReso.drawScalaText(iG2D,desc                    , spotRect.left + 30,spotRect.bottom-50,textSizeDesc);
+
     }
     public int modHP(Card card,int modHP)
     {

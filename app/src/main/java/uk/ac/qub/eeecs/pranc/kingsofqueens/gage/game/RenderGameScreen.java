@@ -106,20 +106,21 @@ public class RenderGameScreen extends GameScreen {
 
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
-
-        scalar = new scaleScreenReso(iGraphics2D);
-        iGraphics2D.clear(Color.BLACK);
-        assetStore.getMusic("BGM").play();
-        assetStore.getMusic("BGM").setVolume(1);
-        //Draw Background
-        // mQueensBackground.draw(elapsedTime, iGraphics2D, mLayerViewport, mScreenViewport);
-        Bitmap bg = assetStore.getBitmap("QueensBackground");
-        setupBackground(iGraphics2D);
-        iGraphics2D.drawBitmap(bg, null, boundBackground, null);
-        //Draw Player
-        drawPlayer(LEVEL_WIDTH, LEVEL_HEIGHT, iGraphics2D);
-
-        drawEndTurn(elapsedTime, iGraphics2D);
+        try {
+            scalar = new scaleScreenReso(iGraphics2D);
+            iGraphics2D.clear(Color.BLACK);
+            assetStore.getMusic("BGM").play();
+            assetStore.getMusic("BGM").setVolume(1);
+            //Draw Background
+            Bitmap bg = assetStore.getBitmap("QueensBackground");
+            setupBackground(iGraphics2D);
+            iGraphics2D.drawBitmap(bg, null, boundBackground, null);
+            //Draw Player
+            drawPlayer(LEVEL_WIDTH, LEVEL_HEIGHT, iGraphics2D);
+            drawEndTurn(elapsedTime, iGraphics2D);
+        }catch (Exception e){
+            Log.e(TAG, "RenderGameScreen update: " + e.toString());
+        }
 
     }
 

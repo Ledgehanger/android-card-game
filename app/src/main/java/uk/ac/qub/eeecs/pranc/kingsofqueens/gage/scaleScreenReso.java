@@ -5,13 +5,18 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
  * CLASS IS USED TO SCALE TO OTHER DEVICE RESOLUTION'S
  */
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
+
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 public class scaleScreenReso {
     protected static double horiScale;
     protected static double vertScale;
     protected static final int DEVRESOVERT=720;
     protected static final int DEVRESOHORI=1184;
+    Paint paint;
 
     protected IGraphics2D iG2D;
 
@@ -56,5 +61,17 @@ public class scaleScreenReso {
     {
         var*=vertScale;
         return var;
+    }
+
+    public void drawScalaText(IGraphics2D pIGraphics2D, String text, int x, int y, float textSize) {
+        pIGraphics2D.drawText(text, x, y, setUpPaint(textSize));
+    }
+
+    public Paint setUpPaint  (float textSize){
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTextSize((int)(textSize*vertScale));
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        return paint;
     }
 }

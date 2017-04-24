@@ -44,8 +44,6 @@ public class Player {
     protected Rect       playerRectHp;
     protected Rect       playerRectEv;
 
-    protected Paint      playerPaint;
-
     protected Deck       playerDeck;
     protected Hand       playerHand;
     protected Field      playerField;
@@ -119,8 +117,7 @@ public class Player {
         if (playerRectIcon == null || playerRectHp == null) {
             createPlayerRect(pAssetStore, pSurfaceHeight,pSurfaceWidth,pScalar);
         }
-        if(playerPaint == null)
-            playerPaint = setUpPaint();
+
 
         int xOffsetHp = 15;
         int yOffset   = 5;
@@ -131,11 +128,11 @@ public class Player {
             pIGraphics2D.drawBitmap(playerHPBarBitmap, null, playerRectHp  , null);
 
             drawEvolving(pIGraphics2D);
-            pIGraphics2D.drawText(Integer.toString(hp), playerRectHp.centerX() - xOffsetHp,
-                    playerRectHp.centerY() + yOffset, playerPaint);
+            pScalar.drawScalaText(pIGraphics2D, Integer.toString(hp), playerRectHp.centerX() - xOffsetHp, playerRectHp.centerY() + yOffset,textSize);
             String ev = "EV: " + evTotal;
-            pIGraphics2D.drawText(ev, playerRectEv.centerX() - xOffsetEv,
-                    playerRectEv.centerY() + yOffset, playerPaint);
+            pScalar.drawScalaText(pIGraphics2D, ev, playerRectEv.centerX() - xOffsetEv, playerRectEv.centerY() + yOffset,textSize);
+
+
 
             playerField.draw   (fieldLocation, pIGraphics2D, pAssetStore, pSurfaceHeight,
                     pSurfaceWidth,pScalar);
@@ -155,14 +152,7 @@ public class Player {
     }
 
 
-    public Paint   setUpPaint  (){
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        float textRatio = (float) playerRectHp.width()/ playerRectHp.height();
-        paint.setTextSize(textSize*textRatio);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        return paint;
-    }
+
 
     public boolean DamageTaken(int totalDamage) {
         if(!isAlive)

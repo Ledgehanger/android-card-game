@@ -37,7 +37,7 @@ public class Spot {
 
         if(cardPlaced) {
             spotCard.isPicked = false;
-            spotCard.drawCard(spotRect, iGraphics2D);
+            spotCard.drawCard(spotRect, iGraphics2D,scalar);
 
         }
         else{
