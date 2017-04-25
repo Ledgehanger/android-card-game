@@ -64,7 +64,7 @@ public class OptionsState extends GameScreen{
 
             if (soundBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                // aStore.getMusic("BGM").stop();
-                settings.soundEnabled = false;
+                //settings.soundEnabled = false;
             }
             if (plusBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                 aStore.getMusic("BGM").setVolume(4);
@@ -174,7 +174,7 @@ public class OptionsState extends GameScreen{
                 graphics2D.drawBitmap(aMinus, null, minusBtnRect, null);
                 graphics2D.drawBitmap(aBack, null, backBtnRect, null);
 
-                if(settings.soundEnabled = true){
+                if(settings.isSoundEnabled()){
                     graphics2D.drawBitmap(aOn, null, boundBoolean, null);
                 } else{
                     graphics2D.drawBitmap(aOff, null, boundBoolean, null);
