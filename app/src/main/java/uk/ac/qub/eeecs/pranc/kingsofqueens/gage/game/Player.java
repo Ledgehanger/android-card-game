@@ -260,7 +260,8 @@ public class Player {
                             evTotal -= currentSpot.getEvolvingCost();
                             currentSpot.cardEvolving();
                             evolving = false;
-                            currentSpot.useCardAbility(this,enemy);
+                            if(currentSpot.getSpotCard().ability != null)
+                                currentSpot.useCardAbility(this,enemy);
                         }
                     }
                 }

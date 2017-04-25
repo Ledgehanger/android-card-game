@@ -34,7 +34,7 @@
     "defense": 4,
     "desc"   :"Heal 5HP to player",
     "ability": "HealAbility",
-    "ability":3,
+    "abilityLvl":3,
     "picture": "img/Cards/SM.png",
     "inDeck" : false,
     "ev"    : 0,
