@@ -9,8 +9,8 @@ public class HealAbility extends OwnerEffectedAbility {
     public HealAbility(){
         HasAbility = true;
         this.levelOne = 1;
-        this.levelTwo = 2;
-        this.levelThree = 3;
+        this.levelTwo = 3;
+        this.levelThree = 5;
     }
 
 
