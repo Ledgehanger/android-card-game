@@ -74,21 +74,21 @@ public class MainMenu extends GameScreen {
             }
 
             if (boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                aStore.getMusic("BGM").stop();
+                //aStore.getMusic("BGM").stop();
                 mGame.getScreenManager().removeScreen(this.getName());
-                OptionsScreen game = new OptionsScreen("", mGame);
+                OptionsState game = new OptionsState("", mGame);
                 mGame.getScreenManager().addScreen(game);
             }
 
-            if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+            if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0
+                    && aStore.getMusic("BGM").isPlaying()) {
                 aStore.getMusic("BGM").stop(); //MUSIC KEEPS REPLAYING, NEED A SOLUTION
-                settings.soundEnabled = false;
-                //settings.save("");
-                if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                settings.setSoundEnabled(false);
+
+/*                if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                     aStore.getMusic("BGM").play();
-                    settings.soundEnabled = true;
-                    //settings.save("");
-                }
+                    settings.setSoundEnabled(true);
+                }*/
             }
             if(boundHighBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0){
                 aStore.getMusic("BGM").stop();
@@ -105,7 +105,7 @@ public class MainMenu extends GameScreen {
             scaleScreenReso scale = new scaleScreenReso(iGraphics2D);
 
             //SETTINGS
-            Bitmap soundButton = aStore.getBitmap(("sound"));
+            Bitmap soundButton = aStore.getBitmap("sound");
 
             //HIGHSCORE
             Bitmap hscore = aStore.getBitmap("highscore");
@@ -154,7 +154,7 @@ public class MainMenu extends GameScreen {
                 boundHighBtn = scale.scalarect(optionsLeft, highTop, optionsRight, highBottom);
 
             }
-            if(settings.soundEnabled = true) {
+            if(settings.isSoundEnabled()) {
                 aStore.getMusic("BGM").play();
                 aStore.getMusic("BGM").setVolume(1);
                 aStore.getMusic("BGM").setLopping(true);

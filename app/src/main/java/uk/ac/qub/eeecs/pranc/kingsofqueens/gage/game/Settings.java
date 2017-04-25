@@ -19,10 +19,18 @@ public class Settings {
     public static boolean soundEnabled = true;
     public static int[] highScores = new int[]{100, 80, 50, 30, 10};
 
+    public static boolean isSoundEnabled() {
+        return soundEnabled;
+    }
+
+    public static void setSoundEnabled(boolean soundEnabled) {
+        Settings.soundEnabled = soundEnabled;
+    }
+
     public static void load(FileIO files) {
         BufferedReader in = null;
         try {
-            in = new BufferedReader(new InputStreamReader(files.readFile(".koq")));
+            in = new BufferedReader(new InputStreamReader(files.readFile("img/koq.txt")));
             soundEnabled = Boolean.parseBoolean(in.readLine());
             for (int i = 0; i < 5; i++) {
                 highScores[i] = Integer.parseInt(in.readLine());
@@ -45,7 +53,7 @@ public class Settings {
     public static void save(FileIO files) {
         BufferedWriter out = null;
         try {
-            out = new BufferedWriter(new OutputStreamWriter(files.writeFile(".koq")));
+            out = new BufferedWriter(new OutputStreamWriter(files.writeFile("img/koq.txt")));
             out.write(Boolean.toString((soundEnabled)));
             for(int i = 0; i < 5; i++){
                 out.write(Integer.toString(highScores[i]));
