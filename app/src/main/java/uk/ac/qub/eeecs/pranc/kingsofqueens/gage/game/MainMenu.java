@@ -80,6 +80,14 @@ public class MainMenu extends GameScreen {
                 mGame.getScreenManager().addScreen(game);
             }
 
+            if(boundHighBtn.contains((int)touchEvent.x,(int)touchEvent.y)&&touchEvent.type==0){
+                aStore.getMusic("BGM").stop();
+
+                mGame.getScreenManager().removeScreen(this.getName());
+                PlayerStatsScreen game = new PlayerStatsScreen("",mGame);
+                mGame.getScreenManager().addScreen(game);
+            }
+
             if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0
                     && aStore.getMusic("BGM").isPlaying()) {
                 aStore.getMusic("BGM").stop(); //MUSIC KEEPS REPLAYING, NEED A SOLUTION

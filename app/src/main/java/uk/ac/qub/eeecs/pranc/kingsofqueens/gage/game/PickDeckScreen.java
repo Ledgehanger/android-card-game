@@ -154,7 +154,7 @@ public class PickDeckScreen extends GameScreen {
 
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
-           // aStore.getMusic("BGM").isLooping(true);
+            aStore.getMusic("BGM").setLopping(true);
 
 
             mangeIndexs(decks);
