@@ -75,13 +75,13 @@ public class HighState extends GameScreen{
                 int titletop = 60;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
                 int titlebottom = 139;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
 
-                boundTitle= scale.scalarect(titleLeft,titletop,titleRight,titlebottom);
+                //boundTitle= scale.scalarect(titleLeft,titletop,titleRight,titlebottom);
 
             }
 
 
 
-        }catch(IOException e){
+        }catch(Exception e){
             e.printStackTrace();
         }
 
