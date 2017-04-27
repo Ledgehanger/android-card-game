@@ -14,6 +14,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.MainActivity;
 
 public class SplashScreen extends AppCompatActivity {
+    
 
     //TIME TO DISPLAY SPLASH
     private static int SPLAH_TIME_OUT = 3000;
