@@ -63,8 +63,8 @@ public class OptionsState extends GameScreen{
             TouchEvent touchEvent = touchEvents.get(0);
 
             if (soundBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-               // aStore.getMusic("BGM").stop();
-                //settings.soundEnabled = false;
+               aStore.getMusic("BGM").stop();
+                settings.soundEnabled = false;
             }
             if (plusBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                 aStore.getMusic("BGM").setVolume(4);
@@ -74,7 +74,7 @@ public class OptionsState extends GameScreen{
             }
 
             if (backBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                aStore.getMusic("BGM").stop();
+                aStore.getMusic("BGM").dispose();
                 mGame.getScreenManager().removeScreen(this.getName());
                 MainMenu menu = new MainMenu("", mGame);
                 mGame.getScreenManager().addScreen(menu);
@@ -159,10 +159,10 @@ public class OptionsState extends GameScreen{
                     boundBoolean = scale.scalarect(boolLeft, boolTop, boolRight, boolBottom);
                 }
 
-                if(settings.soundEnabled = true) {
-                   // aStore.getMusic("BGM").play();
-                   // aStore.getMusic("BGM").setVolume(1);
-                   // aStore.getMusic("BGM").setLopping(true);
+             if(settings.soundEnabled = true) {
+                    aStore.getMusic("BGM").play();
+                    aStore.getMusic("BGM").setVolume(1);
+                    aStore.getMusic("BGM").setLopping(true);
                 }
 
                 graphics2D.clear(Color.rgb(255, 255, 255));

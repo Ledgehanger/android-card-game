@@ -38,6 +38,8 @@ public class GameOverState extends GameScreen{
     //Creates Rect which bound buttons
     private Rect boundPlayerScore, boundBackground, boundTitle, boundMenuBtn, boundHighScore, boundScore, boundReplayBtn;
 
+    private MainMenu mainMenu;
+
 
     //Set up AssetStore
     AssetStore aStore = mGame.getAssetManager();
@@ -178,6 +180,7 @@ public class GameOverState extends GameScreen{
                 boundScore = scale.scalarect(scoreLeft, scoreTop, scoreRight, scoreBottom);
 
             }
+
             aStore.getMusic("BGM").play();
             aStore.getMusic("BGM").setVolume(1);
             aStore.getMusic("BGM").setLopping(true);
