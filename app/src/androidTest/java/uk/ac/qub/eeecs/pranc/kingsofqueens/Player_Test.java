@@ -51,7 +51,7 @@ public class Player_Test {
         Canvas n = new Canvas();
         canvasGraphics2D.setCanvas(n);
         assetStore.loadAndAddBitmap("PlayerPictureHolder", "img/PlayerIcons/PlayerIcon.png");
-        assetStore.loadAndAddBitmap("Spot", "img/PlayerIcons/Spot.PNG");
+        assetStore.loadAndAddBitmap("Spot", "img/PlayerIcons/extra.png");
         assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
         assetStore.loadAndAddBitmap("Row", "img/PlayerIcons/Row.PNG");

@@ -1,6 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Rect;
 
 import java.io.File;
@@ -16,12 +17,13 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 /**
  * Created by ariftahir on 27/04/2017.
  */
 
-public class HighState extends GameScreen{
+public class HighState extends GameScreen {
 
     private Rect boundBackground, boundTitle, boundHeader, boundHigh1, boundHigh2, boundHigh3, boundHigh4, boundHigh5, boundBack;
     private Settings settings;
@@ -30,7 +32,7 @@ public class HighState extends GameScreen{
     public HighState(String name, Game game) {
         super(name, game);
         aStore.loadAndAddBitmap("background", "img/highstate/background.png");
-        aStore.loadAndAddBitmap("title" , "img/highstate/title.png");
+        aStore.loadAndAddBitmap("title", "img/highstate/title.png");
         aStore.loadAndAddBitmap("header", "img/highstate/header.png");
         aStore.loadAndAddBitmap("highwin", "img/highstate/win.png");
         aStore.loadAndAddBitmap("highlose", "img/highstate/lose.png");
@@ -55,6 +57,8 @@ public class HighState extends GameScreen{
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         try{
+            scaleScreenReso scale = new scaleScreenReso(graphics2D);
+
             Bitmap backGround = aStore.getBitmap("background");
             Bitmap title = aStore.getBitmap("title");
             Bitmap header = aStore.getBitmap("header");
@@ -72,14 +76,57 @@ public class HighState extends GameScreen{
 
                 int titleLeft = 200;
                 int titleRight = titleLeft + title.getWidth();
-                int titletop = 60;//(iGraphics2D.getSurfaceHeight()/4)+(koqTitle.getHeight()/2);
-                int titlebottom = 139;//(iGraphics2D.getSurfaceHeight()/4)-(koqTitle.getHeight()/2);
+                int titletop = 60;
+                int titlebottom = 139;
 
-                //boundTitle= scale.scalarect(titleLeft,titletop,titleRight,titlebottom);
+                boundTitle = scale.scalarect(titleLeft,titletop,titleRight,titlebottom);
+
+                int headerLeft = 200;
+                int headerRight = headerLeft + header.getWidth();
+                int headerTop = 120;
+                int headerBottom = headerTop + header.getHeight();
+
+                boundHeader = new Rect(headerLeft, headerTop, headerRight, headerBottom);
+
+                int high1Left = 200;
+                int high1Right = high1Left + highWin.getWidth();
+                int high1Top = 150;
+                int high1Bottom = high1Top + highWin.getHeight();
+
+                boundHigh1 = scale.scalarect(high1Left, high1Top, high1Right, high1Bottom);
+
+                int high2Left = 200;
+                int high2Right = high2Left + highWin.getWidth();
+                int high2Top = 150;
+                int high2Bottom = high2Top + highWin.getHeight();
+
+                boundHigh2 = scale.scalarect(high2Left, high2Top, high2Right, high2Bottom);
+
+                int high3Left = 200;
+                int high3Right = high3Left + highWin.getWidth();
+                int high3Top = 150;
+                int high3Bottom = high3Top + highWin.getHeight();
+
+                boundHigh3 = scale.scalarect(high3Left, high3Top, high3Right, high3Bottom);
+
+                int high4Left = 200;
+                int high4Right = high4Left + highWin.getWidth();
+                int high4Top = 150;
+                int high4Bottom = high4Top + highWin.getHeight();
+
+                boundHigh4 = scale.scalarect(high4Left, high4Top, high4Right, high4Bottom);
+
+                int high5Left = 200;
+                int high5Right = high5Left + highWin.getWidth();
+                int high5Top = 150;
+                int high5Bottom = high5Top + highWin.getHeight();
+
+                boundHigh5 = scale.scalarect(high5Left, high5Top, high5Right, high5Bottom);
 
             }
 
-
+            graphics2D.clear(Color.rgb(255, 255, 255));
+            graphics2D.drawBitmap(backGround, null, boundBackground, null);
 
         }catch(Exception e){
             e.printStackTrace();

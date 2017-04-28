@@ -119,7 +119,7 @@ public class Ability_Test {
     public void healEffectLevel2(){
 
         test = new Player();
-        test.DamageTaken(3);
+        test.DamageTaken(4);
         ability = AbilityFactory.getAbility(HealPath);
         if(ability instanceof OwnerEffectedAbility) {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
@@ -132,7 +132,8 @@ public class Ability_Test {
     public void healEffectLevel3(){
 
         test = new Player();
-        test.DamageTaken(4);
+        test.DamageTaken(6
+        );
         ability = AbilityFactory.getAbility(HealPath);
         if(ability instanceof OwnerEffectedAbility) {
             ((OwnerEffectedAbility) ability).addEffectPlayer(test);
