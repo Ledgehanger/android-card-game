@@ -10,7 +10,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
  * Created by markm on 04/03/2017.
  */
 
-//TODO: Debug and Fix Evolve
+//TODO: Make AI make best play i.e. Compare Weight of best card in hand against weight of cards in opponents field
 
 public class PlayerAi extends Player {
 

@@ -191,7 +191,7 @@ public class Card{
 
         if(!drawBack && iG2D != null){
 
-            scalar.drawScalaText(iG2D,Integer.toString(hp),cardRect.right - 26,cardRect.bottom-10,textSize);
+            scalar.drawScalaText(iG2D,Integer.toString(hp),cardRect.right - 28,cardRect.bottom-10,textSize);
             scalar.drawScalaText(iG2D,Integer.toString(atk),cardRect.left + 10,cardRect.bottom-10,textSize);
             scalar.drawScalaText(iG2D,Integer.toString(evCost),cardRect.left + 15,cardRect.top+30,textSize);
             scalar.drawScalaText(iG2D,desc,cardRect.left +30,cardRect.bottom-50,textSizeDesc);
