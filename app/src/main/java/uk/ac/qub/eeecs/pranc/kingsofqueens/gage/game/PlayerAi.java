@@ -139,9 +139,9 @@ public class PlayerAi extends Player {
 
                if (currentSpot.getCardPlaced()) {
                    tempCardStorage = currentSpot.getSpotCard();
-                   if (tempCardStorage.getEv() == 0)
+                   if (tempCardStorage.getEvCost() == 0)
                        canEvolve = false;
-                   else if (currentEVPoints >= tempCardStorage.getEv()) {
+                   else if (currentEVPoints >= tempCardStorage.getEvCost()) {
                        canEvolve = true;
                        evPos=loopCounter;
                    }

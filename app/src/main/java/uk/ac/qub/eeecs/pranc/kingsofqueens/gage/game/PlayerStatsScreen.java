@@ -14,7 +14,15 @@ import android.graphics.Rect;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
+
+
 
 /**
  * Created by Carl on 26/04/2017.
@@ -30,10 +38,10 @@ import java.util.List;
 public class PlayerStatsScreen extends GameScreen {
     AssetStore aStore=mGame.getAssetManager();
     private Rect boundPlayerAvatar,boundBackground,boundBackArrow;
-    private int wins;
-    private int loses;
-    private int exp;
-    private int mp;
+    private String wins;
+    private String loses;
+    private String exp;
+    private String mp;
 
     public PlayerStatsScreen(String name,Game game)
     {
@@ -113,10 +121,12 @@ public class PlayerStatsScreen extends GameScreen {
             scaler.drawScalaText(iGraphics2D,"Win/Loss Ratio:",100,550,50f);
             scaler.drawScalaText(iGraphics2D,"Total EXP earned:",100,700,50f);
 
-            scaler.drawScalaText(iGraphics2D,"0",640,250,50f);
-            scaler.drawScalaText(iGraphics2D,"0",640,400,50f);
-            scaler.drawScalaText(iGraphics2D,"0",640,550,50f);
-            scaler.drawScalaText(iGraphics2D,"0",640,700,50f);
+            //readCSV();
+
+            scaler.drawScalaText(iGraphics2D,wins,640,250,50f);
+            scaler.drawScalaText(iGraphics2D,loses,640,400,50f);
+            scaler.drawScalaText(iGraphics2D,exp,640,550,50f);
+            scaler.drawScalaText(iGraphics2D,mp,640,700,50f);
 
         }
 
@@ -125,7 +135,8 @@ public class PlayerStatsScreen extends GameScreen {
             String error=e.getMessage();
 
         }
-
-
     }
+
+
+
 }
