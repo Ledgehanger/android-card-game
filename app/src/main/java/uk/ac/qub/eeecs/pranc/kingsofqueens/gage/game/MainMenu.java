@@ -53,7 +53,6 @@ public class MainMenu extends GameScreen {
 
         aStore.loadAndAddBitmap("playBtn", "img/MainMenuImages/playBtn.png");
         aStore.loadAndAddBitmap("optionsBtn", "img/MainMenuImages/devBtn.png");
-        aStore.loadAndAddBitmap("playerStats","img/button_player-stats.png");
         aStore.loadAndAddBitmap("BG", "img/mmbg.jpg");
         aStore.loadAndAddMusic("BGM", "music/DISC5_02.mp3");
 
@@ -102,13 +101,6 @@ public class MainMenu extends GameScreen {
 
                 //REST OF CODE
             }
-
-            if(boundPlayStats.contains((int)touchEvent.x,(int)touchEvent.y)&&touchEvent.type==0){
-                aStore.getMusic("BGM").stop();
-                mGame.getScreenManager().removeScreen(this.getName());
-                PlayerStatsScreen game = new PlayerStatsScreen("",mGame);
-                mGame.getScreenManager().addScreen(game);
-            }
         }
     }
 
@@ -126,11 +118,11 @@ public class MainMenu extends GameScreen {
             Bitmap koqTitle = aStore.getBitmap("Title");
             Bitmap playGame = aStore.getBitmap("playBtn");
             Bitmap options = aStore.getBitmap("optionsBtn");
-            Bitmap pStats=aStore.getBitmap("playerStats");
+
             Bitmap bg = aStore.getBitmap("BG");
 
 
-            if (boundPlayBtn == null || boundOptionsBtn == null || boundTitle == null || boundBackground == null || boundSoundBtn == null || boundHighBtn == null||boundPlayStats==null) {
+            if (boundPlayBtn == null || boundOptionsBtn == null || boundTitle == null || boundBackground == null || boundSoundBtn == null || boundHighBtn == null) {
                 int bgLeft = 0;
                 int bgRight = iGraphics2D.getSurfaceWidth();
                 int bgTop = 0;
@@ -167,11 +159,6 @@ public class MainMenu extends GameScreen {
 
                 boundHighBtn = scale.scalarect(optionsLeft, highTop, optionsRight, highBottom);
 
-                int statsTop=550;
-                int statsBot=statsTop+pStats.getHeight();
-
-                boundPlayStats=scale.scalarect(optionsLeft,statsTop,optionsRight,statsBot);
-
             }
             if(settings.isSoundEnabled()) {
                 aStore.getMusic("BGM").play();
@@ -187,8 +174,6 @@ public class MainMenu extends GameScreen {
             iGraphics2D.drawBitmap(soundButton, null, boundSoundBtn, null);
 
             iGraphics2D.drawBitmap(hscore, null, boundHighBtn, null);
-
-            iGraphics2D.drawBitmap(pStats,null,boundPlayStats,null);
 
         } catch (Exception e) {
             String error = e.getMessage();
