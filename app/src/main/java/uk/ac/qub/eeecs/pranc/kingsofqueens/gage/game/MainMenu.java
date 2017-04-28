@@ -35,7 +35,7 @@ public class MainMenu extends GameScreen {
     private Settings settings;
 
     //Creates Rect which bound buttons
-    private Rect boundPlayBtn, boundOptionsBtn, boundTitle, boundBackground, boundSoundBtn, boundHighBtn;
+    private Rect boundPlayBtn, boundOptionsBtn, boundTitle, boundBackground, boundSoundBtn, boundHighBtn,boundPlayStats;
 
 
     //Set up AssetStore
@@ -80,6 +80,10 @@ public class MainMenu extends GameScreen {
                 mGame.getScreenManager().addScreen(game);
             }
 
+            if(boundHighBtn.contains((int)touchEvent.x,(int)touchEvent.y)&&touchEvent.type==0){
+                aStore.getMusic("BGM").stop();
+            }
+
             if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0
                     && aStore.getMusic("BGM").isPlaying()) {
                 aStore.getMusic("BGM").stop(); //MUSIC KEEPS REPLAYING, NEED A SOLUTION
@@ -89,6 +93,7 @@ public class MainMenu extends GameScreen {
                     aStore.getMusic("BGM").play();
                     settings.setSoundEnabled(true);
                 }*/
+
             }
             if(boundHighBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0){
                 aStore.getMusic("BGM").stop();
@@ -113,6 +118,7 @@ public class MainMenu extends GameScreen {
             Bitmap koqTitle = aStore.getBitmap("Title");
             Bitmap playGame = aStore.getBitmap("playBtn");
             Bitmap options = aStore.getBitmap("optionsBtn");
+
             Bitmap bg = aStore.getBitmap("BG");
 
 

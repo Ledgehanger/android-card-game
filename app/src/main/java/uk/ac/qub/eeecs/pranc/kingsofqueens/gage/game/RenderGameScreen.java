@@ -112,6 +112,7 @@ public class RenderGameScreen extends GameScreen {
             iGraphics2D.clear(Color.BLACK);
             assetStore.getMusic("BGM").play();
             assetStore.getMusic("BGM").setVolume(1);
+            assetStore.getMusic("BGM").setLopping(true);
             //Draw Background
             Bitmap bg = assetStore.getBitmap("QueensBackground");
             setupBackground(iGraphics2D);
