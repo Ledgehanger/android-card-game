@@ -10,12 +10,11 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
  * Created by markm on 04/03/2017.
  */
 
-//TODO: Make AI make best play i.e. Compare Weight of best card in hand against weight of cards in opponents field
 
 public class PlayerAi extends Player {
 
-    public int playPos;
-    public int evPos;
+    protected int playPos;
+    protected int evPos;
 
     public int getPlayPos(){return playPos;}
     public int getEvPos(){return evPos;}
@@ -76,29 +75,23 @@ public class PlayerAi extends Player {
         return posFree;
     }
 
-    public boolean checkOpponentField(Field oppPlayerField)
+    public boolean checkFieldFree(Field playerAiField)
     {
         int loopCounter=0;
 
-        boolean aiPosAvailable=false;
-        int sizeOfLoop=oppPlayerField.getSizeOfRow();
+        boolean posAvailable=false;
+        int sizeOfLoop=playerAiField.getSizeOfRow();
+        Spot checkSpot;
 
-        do {
-            Spot checkSpot=oppPlayerField.getSpotFromRow(0,loopCounter);
-
-            if(checkSpot.getCardPlaced())
-            {
-               aiPosAvailable=checkSpotFree(loopCounter);
-            }
-
+        do{
+            checkSpot=playerAiField.getSpotFromRow(0,loopCounter);
+            if(!checkSpot.getCardPlaced())
+                posAvailable=true;
             loopCounter++;
 
-        }while(loopCounter<sizeOfLoop&&!aiPosAvailable);
+        }while(loopCounter<sizeOfLoop&&!posAvailable);
 
-        if (!aiPosAvailable)
-            aiPosAvailable=findFirstAvailPos();
-
-        return aiPosAvailable;
+        return posAvailable;
     }
 
     public boolean findFirstAvailPos()
@@ -174,5 +167,36 @@ public class PlayerAi extends Player {
        return posInHand;
    }
 
+   public void bestPlay(Field oppField)
+   {
+       Spot checkSpot;
+       boolean playAvailable=false;
+       int lowestWeight=Integer.MAX_VALUE;
+       int checkWeight;
+       Card checkCard;
+
+       for(int i=0;i<oppField.getSizeOfRow();i++) {
+           checkSpot=oppField.getSpotFromRow(0,i);
+           if(!checkSpot.getCardPlaced()) {
+
+           }
+           else {
+               checkCard=checkSpot.getSpotCard();
+               checkWeight=checkCard.getWeight();
+
+               if(checkWeight<lowestWeight) {
+                   if(checkSpotFree(i)) {
+                       lowestWeight = checkWeight;
+                       playAvailable=true;
+                       playPos=i;
+                   }
+
+               }
+
+           }
+       }
+       if(!playAvailable)
+           findFirstAvailPos();
+   }
 
 }

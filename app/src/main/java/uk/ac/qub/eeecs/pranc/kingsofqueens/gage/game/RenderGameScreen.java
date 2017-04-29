@@ -174,19 +174,19 @@ public class RenderGameScreen extends GameScreen {
         } else {
             //TODO AI TURN
             boolean checkHand= playerAI.checkHandFree();
-            boolean checkPlay=playerAI.checkOpponentField(player.playerField);
+            boolean checkPlay=playerAI.checkFieldFree(playerAI.playerField);
             boolean checkEv=playerAI.checkEvolve(playerAI.playerField);
             int playPos;
             int evPos;
 
-            if(checkPlay==true)
+            if(checkPlay)
             {
+                playerAI.bestPlay(player.playerField);
                 playPos=playerAI.getPlayPos();
                 playerAiPlayCard(playPos);
             }
 
-            //Commented out until fixed - Carl
-            if(checkEv==true)
+            if(checkEv)
             {
                 evPos=playerAI.getEvPos();
                 playerAIEvolve(evPos);
