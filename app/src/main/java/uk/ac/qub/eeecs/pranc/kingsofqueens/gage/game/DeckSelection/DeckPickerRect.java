@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 
 /**
- * Created by markm on 24/11/2016.
+ * Author Mark McAleese (40177285) all methods
  */
 
 public class DeckPickerRect {

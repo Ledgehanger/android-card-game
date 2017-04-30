@@ -16,7 +16,9 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
 import static android.content.ContentValues.TAG;
-
+/**
+ * Author Mark McAleese (40177285) all methods
+ */
 public class Deck{
 
     public static final int SIZE_OF_CLASS_DECK = 3;

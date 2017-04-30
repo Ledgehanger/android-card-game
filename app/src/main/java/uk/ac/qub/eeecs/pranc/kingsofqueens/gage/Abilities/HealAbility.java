@@ -1,7 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 
 /**
- * Created by markm on 23/02/2017.
+ * Author Mark McAleese (40177285) all methods
  */
 
 public class HealAbility extends OwnerEffectedAbility {

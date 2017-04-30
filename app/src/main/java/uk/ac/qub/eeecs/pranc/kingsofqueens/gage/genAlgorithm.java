@@ -18,9 +18,8 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by markm on 06/02/2017.
+ * Author Mark McAleese (40177285) all methods
  */
-
 public class genAlgorithm {
 
 
@@ -53,7 +52,7 @@ public class genAlgorithm {
         }
     }
 
-    public static boolean hasTouchEvent(TouchEvent touchEvent, Rect pRect) {
+    public static boolean hasTouchEventType0(TouchEvent touchEvent, Rect pRect) {
         return pRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0;
     }
 

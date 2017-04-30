@@ -1,7 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 
 /**
- * Created by mark on 20/04/2017.
+ * Author Mark McAleese (40177285) all methods
  */
 
 public class DealDamageAbility extends EnemyEffectedAbility {
