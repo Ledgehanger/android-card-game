@@ -130,7 +130,7 @@ public class FileIO {
 
 		return bitmap;
 	}
-	//Mark : Json Loader
+	//Author Mark McAleese (40177285)
 	public JSONArray loadJson(String fileName)
 			throws IOException {
 		String result = "";
@@ -147,7 +147,10 @@ public class FileIO {
 			result = sb.toString();
 			jObject = new JSONArray(result);
 		} catch(Exception e) {
-			Log.e(TAG, "findAbility: ");
+			String message = mContext.getApplicationContext().getResources()
+					.getString(R.string.WARNING_TAG)
+					+ "Could not load music [" + fileName + "]";
+			throw new IOException(message);
 		}
 
 		return jObject;
