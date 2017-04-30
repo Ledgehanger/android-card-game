@@ -150,6 +150,7 @@ public class  Hand {
 
     public void setIndexOfPickedCard(int indexOfPickedCard){this.indexOfPickedCard=indexOfPickedCard;}
 
+    //Carl
     public Card getCardFromHand(int cIndex){return myHand.get(cIndex);}
 
 }
