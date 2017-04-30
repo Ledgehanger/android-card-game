@@ -1,10 +1,9 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
-
+/**
+ * Author Mark McAleese (40177285) all methods
+ */
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
@@ -255,7 +254,7 @@ public class Player {
             for (int column = 0; column < playerField.getSizeOfRow(); column++) {
                 Spot currentSpot = playerField.getSpotFromRow(row, column);
                 if (currentSpot.getCardPlaced()) {
-                    if(genAlgorithm.hasTouchEvent(touchEvent,currentSpot.getSpotRect())){
+                    if(genAlgorithm.hasTouchEventType0(touchEvent,currentSpot.getSpotRect())){
                         if(evTotal >= currentSpot.getEvolvingCost() && currentSpot.getEvolvingCost() > 0){
                             evTotal -= currentSpot.getEvolvingCost();
                             currentSpot.cardEvolving();

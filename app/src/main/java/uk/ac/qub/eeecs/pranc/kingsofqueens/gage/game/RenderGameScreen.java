@@ -60,6 +60,7 @@ public class RenderGameScreen extends GameScreen {
         currentGame = new GameTurn(player.getId(), playerAI.getId());
     }
 
+    //Author Mark McAleese (40177285)
     private void setUpAssets() {
         assetStore.loadAndAddBitmap("deckimg", "img/PlayerIcons/deckimg.png");
         assetStore.loadAndAddBitmap("Hand", "img/PlayerIcons/HandCanvas.png");
@@ -75,7 +76,7 @@ public class RenderGameScreen extends GameScreen {
 
     }
 
-
+    //Author Mark McAleese (40177285)
     public void update(ElapsedTime elapsedTime) {
         try {
             Input input = mGame.getInput();
@@ -105,7 +106,7 @@ public class RenderGameScreen extends GameScreen {
         }
     }
 
-
+    //Author Mark McAleese (40177285)
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
         try {
             scalar = new scaleScreenReso(iGraphics2D);
@@ -133,13 +134,13 @@ public class RenderGameScreen extends GameScreen {
         int bgBot = LEVEL_HEIGHT;
         boundBackground = scalar.scalarect(bgLeft, bgTop, bgRight, bgBot);
     }
-
+    //Author Mark McAleese (40177285)
     public void drawPlayer(int surfaceWidth, int surfaceHeight, IGraphics2D iGraphics2D) {
         playerAI.drawPlayer(iGraphics2D, assetStore, surfaceHeight, surfaceWidth, scalar);
         player.drawPlayer(iGraphics2D, assetStore, surfaceHeight, surfaceWidth, scalar);
     }
 
-
+    //Author Mark McAleese (40177285)
     public void drawEndTurn(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
         if (endTurnDisable == null) {
             endTurnDisable = assetStore.getBitmap(END_TURN_DISABLE);
@@ -161,12 +162,12 @@ public class RenderGameScreen extends GameScreen {
         else
             iGraphics2D.drawBitmap(endTurnDisable, null, endTurnRect, null);
     }
-
+    //Author Mark McAleese (40177285)  & Karl AI part (else)
     private void placeCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
         if (ignorePlayerInput == false) {
             if (!touchEvents.isEmpty()) {
                 TouchEvent touchEvent = touchEvents.get(0);
-                if (genAlgorithm.hasTouchEvent(touchEvent, endTurnRect)) {
+                if (genAlgorithm.hasTouchEventType0(touchEvent, endTurnRect)) {
                     currentGame.getNextPhase();
                 }
             }
@@ -197,13 +198,13 @@ public class RenderGameScreen extends GameScreen {
     }
 
 
-
+    //Author Mark McAleese (40177285)
     private void startPhase() {
         startPlayerTurn(currentGame.getCurrentPlayerID());
         setIgnorePlayer();
         currentGame.getNextPhase();
     }
-
+    //Author Mark McAleese (40177285)
     private void attackPhase() {
         if (currentGame.isFirstTurn())
             currentGame.getNextPhase();
@@ -216,7 +217,7 @@ public class RenderGameScreen extends GameScreen {
             currentGame.getNextPhase();
         }
     }
-
+    //Author Mark McAleese (40177285)
     private void endTurnPhase() {
         cardPlayedLimit = false;
         if (!ignorePlayerInput)
@@ -225,15 +226,14 @@ public class RenderGameScreen extends GameScreen {
             playerAI.playerHand.endTurn();
         currentGame.getNextPhase();
     }
-
+    //Author Mark McAleese (40177285)
     public void playerPlaceCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
-
         if (!touchEvents.isEmpty()) {
             playerEvolving(touchEvents);
             playingCard(elapsedTime, touchEvents);
         }
     }
-
+    //Author Mark McAleese (40177285)
     private void playingCard(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
         if (!cardPlayedLimit && !player.isEvolving() && checkHp()) {
             player.playerHand.update(elapsedTime, touchEvents);
@@ -276,7 +276,7 @@ public class RenderGameScreen extends GameScreen {
     private void playerEvolving(List<TouchEvent> touchEvents) {
         TouchEvent touchEvent = touchEvents.get(0);
         Rect evRect = player.getPlayerRectEv();
-        if (genAlgorithm.hasTouchEvent(touchEvent, evRect)) {
+        if (genAlgorithm.hasTouchEventType0(touchEvent, evRect)) {
             if (player.getEvTotal() > 0)
                 player.setEvolving();
         }
@@ -286,21 +286,21 @@ public class RenderGameScreen extends GameScreen {
 
     }
 
-
+    //Author Mark McAleese (40177285)
     private void setIgnorePlayer() {
         if (currentGame.getCurrentPlayerID() == player.id)
             ignorePlayerInput = false;
         else
             ignorePlayerInput = true;
     }
-
+    //Author Mark McAleese (40177285)
     private void startPlayerTurn(String currentTurnId) {
         if (currentTurnId == player.id)
             player.playerStartTurn();
         else
             playerAI.playerStartTurn();
     }
-
+    //Author Mark McAleese (40177285)
     public void nextCurrentTurn() {
         currentGame.getNextPhase();
     }

@@ -5,9 +5,8 @@ import java.util.Random;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
-
 /**
- * Created by markm on 04/03/2017.
+ * Author Mark McAleese (40177285)
  */
 
 
@@ -37,7 +36,7 @@ public class PlayerAi extends Player {
         handDrawCardBack=true;
     }
 
-    //Move to AI Class
+    //Author Mark McAleese
     public void generateAIDeck(AssetStore aStore){
 
         int firstChoice = -1;

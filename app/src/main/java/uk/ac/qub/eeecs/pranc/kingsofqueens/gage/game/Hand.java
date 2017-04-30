@@ -1,7 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
 
 /**
- * Created by Paddy_Lenovo on 22/11/2016.
+ * Author Mark McAleese (40177285) all methods
  */
 import android.graphics.Bitmap;
 import android.graphics.Rect;

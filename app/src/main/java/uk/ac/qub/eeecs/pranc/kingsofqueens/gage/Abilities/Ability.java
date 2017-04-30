@@ -4,7 +4,7 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
 
 /**
- * Created by markm on 08/02/2017.
+ * Author Mark McAleese (40177285) all methods
  */
 
 public abstract class Ability {

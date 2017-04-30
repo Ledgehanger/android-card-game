@@ -1,9 +1,6 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
-
-
-
 /**
- * Created by mark on 09/04/2017.
+ * Author Mark McAleese (40177285) all methods
  */
 
 public class GameTurn {

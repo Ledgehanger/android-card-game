@@ -71,7 +71,7 @@ public class scaleScreenReso {
         var*=vertScale;
         return var;
     }
-
+    //Author Mark McAleese (40177285)
     public void drawScalaText(IGraphics2D pIGraphics2D, String text, int x, int y, float textSize) {
         pIGraphics2D.drawText(text, x, y, setUpPaint(textSize));
     }

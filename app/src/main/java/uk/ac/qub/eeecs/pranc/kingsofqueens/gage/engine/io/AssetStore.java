@@ -87,6 +87,7 @@ public class AssetStore {
         return true;
     }
 
+    //Author Mark McAleese (40177285)
     public boolean add(String assetName, JSONArray asset){
         if (mJson.containsKey(assetName))
             return false;
@@ -191,7 +192,7 @@ public class AssetStore {
         return success;
     }
 
-
+    //Author Mark McAleese (40177285)
     public boolean loadAndAddJson(String AssetName, String JsonFile){
         boolean success = true;
         try {
@@ -242,6 +243,7 @@ public class AssetStore {
         return mJson.get(assetName);
     }
 
+    //Author Mark McAleese (40177285)
     public DeckSelection[] jsonToDeckCollection(String JsonFileName){
         JSONArray jsonArray = this.getJson(JsonFileName);
         DeckSelection[] deck = new DeckSelection[jsonArray.length()];
