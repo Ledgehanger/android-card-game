@@ -20,6 +20,7 @@ public class scaleScreenReso {
 
     protected IGraphics2D iG2D;
 
+    //Carl
     public scaleScreenReso(IGraphics2D iG2D)
     {
         this.iG2D=iG2D;
@@ -30,6 +31,7 @@ public class scaleScreenReso {
         horiScale=hori/DEVRESOHORI;
         vertScale=vert/DEVRESOVERT;
     }
+
     public scaleScreenReso(int width, int height)
     {
         this.iG2D=iG2D;
@@ -41,9 +43,13 @@ public class scaleScreenReso {
         vertScale=vert/DEVRESOVERT;
     }
 
+    //Carl
     public void setHoriScale(int horiScale){this.horiScale=horiScale;}
+    //Carl
     public void setVertScale(int vertScale){this.vertScale=vertScale;}
 
+
+    //Carl
     public Rect scalarect(int left,int top,int right,int bot)
     {
             Rect scalarect;
@@ -51,12 +57,15 @@ public class scaleScreenReso {
             return scalarect;
     }
 
+    //Carl
     public int scaleHoriVar(int var)
     {
         var*=horiScale;
         return var;
     }
 
+
+    //Carl
     public int scaleVertVar(int var)
     {
         var*=vertScale;

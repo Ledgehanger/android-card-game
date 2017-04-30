@@ -41,6 +41,7 @@ public class MainMenu extends GameScreen {
     //Set up AssetStore
     AssetStore aStore = mGame.getAssetManager();
 
+    //Carl
     public MainMenu(String newName, Game newGame) {
         super("MainMenuScreen", newGame);
         aStore.loadAndAddBitmap("Title", "img/MainMenuImages/Title.PNG");
@@ -105,6 +106,7 @@ public class MainMenu extends GameScreen {
     }
 
     @Override
+    //Carl
     public void draw(ElapsedTime elapsedTime, IGraphics2D iGraphics2D) {
         try {
             scaleScreenReso scale = new scaleScreenReso(iGraphics2D);

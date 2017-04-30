@@ -20,7 +20,7 @@ public class PlayerAi extends Player {
     public int getEvPos(){return evPos;}
 
 
-
+    //Carl
     public PlayerAi(String aiImage, AssetStore aStore,genAlgorithm.field fieldLocation)
     {
         this.fieldLocation=fieldLocation;
@@ -59,7 +59,7 @@ public class PlayerAi extends Player {
         playerDeck = new Deck(aStore,pickedDecks[0], pickedDecks[1]);
 
     }
-
+    //Carl
     public boolean checkSpotFree(int spotPos)
     {
         boolean posFree=false;
@@ -74,7 +74,7 @@ public class PlayerAi extends Player {
 
         return posFree;
     }
-
+    //Carl
     public boolean checkFieldFree(Field playerAiField)
     {
         int loopCounter=0;
@@ -93,7 +93,7 @@ public class PlayerAi extends Player {
 
         return posAvailable;
     }
-
+    //Carl
     public boolean findFirstAvailPos()
     {
         int loopCounter=0;
@@ -108,7 +108,7 @@ public class PlayerAi extends Player {
 
         return posFree;
     }
-
+    //Carl
     public boolean checkHandFree()
     {
         if(playerHand.getMyHand().isEmpty()==true)
@@ -116,7 +116,7 @@ public class PlayerAi extends Player {
         else
             return false;
     }
-
+    //Carl
    public boolean checkEvolve(Field playerAiField)
    {
        boolean canEvolve=false;
@@ -145,7 +145,7 @@ public class PlayerAi extends Player {
 
        return canEvolve;
    }
-
+    //Carl
    public int pickCardToPlay(Hand playerHand)
    {
        int posInHand=0;
@@ -166,7 +166,7 @@ public class PlayerAi extends Player {
        }
        return posInHand;
    }
-
+    //Carl
    public void bestPlay(Field oppField)
    {
        Spot checkSpot;
@@ -177,10 +177,7 @@ public class PlayerAi extends Player {
 
        for(int i=0;i<oppField.getSizeOfRow();i++) {
            checkSpot=oppField.getSpotFromRow(0,i);
-           if(!checkSpot.getCardPlaced()) {
-
-           }
-           else {
+           if(checkSpot.getCardPlaced()){
                checkCard=checkSpot.getSpotCard();
                checkWeight=checkCard.getWeight();
 

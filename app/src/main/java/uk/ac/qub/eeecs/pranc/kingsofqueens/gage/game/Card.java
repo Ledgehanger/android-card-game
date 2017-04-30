@@ -54,7 +54,7 @@ public class Card{
 
     public boolean isPicked = false;
 
-
+    //Carl
     public Card(String name ,int id, String type, int hp, int atk, int ev, int evCost, boolean inDeck, String cardDraw,String Ability,String desc,int abilityLvl, AssetStore aStore) {
         this.name = name;
         this.id = id;
@@ -74,7 +74,7 @@ public class Card{
         this.aStore  = aStore;
 
     }
-
+    //Carl
     public Card(int id,String type, AssetStore aStore)
     {
         this.id=id;
@@ -83,6 +83,7 @@ public class Card{
         cardJSON(id,type);
     }
 
+    //Carl
     public void cardJSON(int id,String type)
     {
         try {
@@ -111,12 +112,14 @@ public class Card{
     }
 
     //FOR AI USE ONLY
+    //Carl
     public int getWeight()
     {
         int weight=hp+atk+abilityLvl;
         return weight;
     }
 
+    //Carl
     public void evolve() {
         try {
             id++;
@@ -145,6 +148,7 @@ public class Card{
         }
     }
 
+    //Carl
     public void setUpCardBitmap(int top, boolean drawBack)
     {
             if(drawBack){
@@ -173,6 +177,7 @@ public class Card{
     }
 
 
+    //Carl
     public void drawCard(int bot, int left, int top, IGraphics2D iG2D, boolean drawBack,scaleScreenReso scalar)
     {
         if(isPicked){

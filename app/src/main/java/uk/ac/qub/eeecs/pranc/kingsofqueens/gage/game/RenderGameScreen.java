@@ -172,8 +172,7 @@ public class RenderGameScreen extends GameScreen {
             }
             playerPlaceCardPhase(elapsedTime, touchEvents);
         } else {
-            //TODO AI TURN
-            boolean checkHand= playerAI.checkHandFree();
+            //Carl
             boolean checkPlay=playerAI.checkFieldFree(playerAI.playerField);
             boolean checkEv=playerAI.checkEvolve(playerAI.playerField);
             int playPos;
@@ -250,7 +249,7 @@ public class RenderGameScreen extends GameScreen {
             }
         }
     }
-
+    //Carl
     private void playerAiPlayCard(int pos)
     {
         Spot placeCard = playerAI.playerField.getSpotFromRow(0,pos);
@@ -264,7 +263,7 @@ public class RenderGameScreen extends GameScreen {
         checkGameOver();
         genAlgorithm.useCardAbility(newCard,playerAI,player);
     }
-
+    //Carl
     private void playerAIEvolve(int evPos)
     {
         Spot evSpot=playerAI.playerField.getSpotFromRow(0,evPos);
