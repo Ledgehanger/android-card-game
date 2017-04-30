@@ -67,10 +67,10 @@ public class OptionsState extends GameScreen{
                 settings.soundEnabled = false;
             }
             if (plusBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                aStore.getMusic("BGM").setVolume(4);
+                aStore.getMusic("BGM").setVolume(+1);
             }
             if (minusBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                aStore.getMusic("BGM").setVolume(1);
+                aStore.getMusic("BGM").setVolume(-1);
             }
 
             if (backBtnRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
@@ -179,7 +179,6 @@ public class OptionsState extends GameScreen{
                 } else{
                     graphics2D.drawBitmap(aOff, null, boundBoolean, null);
                 }
-
 
         }catch(Exception e){
                 e.printStackTrace();

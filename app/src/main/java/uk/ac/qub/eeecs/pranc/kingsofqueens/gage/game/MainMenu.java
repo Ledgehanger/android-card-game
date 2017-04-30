@@ -82,6 +82,9 @@ public class MainMenu extends GameScreen {
 
             if(boundHighBtn.contains((int)touchEvent.x,(int)touchEvent.y)&&touchEvent.type==0){
                 aStore.getMusic("BGM").stop();
+                mGame.getScreenManager().removeScreen(this.getName());
+                HighState game = new HighState("", mGame);
+                mGame.getScreenManager().addScreen(game);
             }
 
             if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0
