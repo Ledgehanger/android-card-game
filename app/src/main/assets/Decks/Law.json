@@ -21,7 +21,7 @@
     "desc"   : "TEST",
     "ability": "Default",
     "abilityLvl": 2,
-    "picture": "img/Cards/LAWYER.png",
+    "picture": "img/Cards/Lawyer.png",
     "inDeck" : false,
     "evCost" : 5,
     "ev"     : 26,
