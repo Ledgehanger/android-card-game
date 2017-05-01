@@ -66,7 +66,7 @@ public class MainMenu extends GameScreen {
             }
 
             if (boundOptionsBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
-                //aStore.getMusic("BGM").stop();
+                aStore.getMusic("BGM").stop();
                 mGame.getScreenManager().removeScreen(this.getName());
                 OptionsState game = new OptionsState("", mGame);
                 mGame.getScreenManager().addScreen(game);
@@ -79,15 +79,13 @@ public class MainMenu extends GameScreen {
                 mGame.getScreenManager().addScreen(game);
             }
 
-            if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0
-                    && aStore.getMusic("BGM").isPlaying()) {
-                aStore.getMusic("BGM").stop(); //MUSIC KEEPS REPLAYING, NEED A SOLUTION
-                settings.setSoundEnabled(false);
-
-/*                if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+            if (boundSoundBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
+                if(!aStore.getMusic("BGM").isPlaying())
                     aStore.getMusic("BGM").play();
-                    settings.setSoundEnabled(true);
-                }*/
+                else
+                    aStore.getMusic("BGM").stop();
+
+                settings.setSoundEnabled(false);
 
             }
             if(boundHighBtn.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0){
