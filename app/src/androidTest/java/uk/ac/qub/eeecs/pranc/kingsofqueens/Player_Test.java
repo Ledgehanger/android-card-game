@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
@@ -149,6 +150,15 @@ public class Player_Test {
         player.playerAttackPhase(playerWithAssetStore);
 
     }
+    @Test
+    public void evolving(){
+        Player player = new Player(playerImage, assetStore, genAlgorithm.field.BOTTOM);
+        Player player2 = new Player(playerImage, assetStore, genAlgorithm.field.TOP);
+        player.setEvolving();
+        TouchEvent touch = new TouchEvent();
+        player.evolving(touch,player2);
+
+    }
 
     @Test
     public void testDrawPlayersWithNullCanvas(){
@@ -174,11 +184,12 @@ public class Player_Test {
         Player player =     new Player("PlayerPictureHolder",assetStore, new Deck(), genAlgorithm.field.BOTTOM);
         Player player2 =    new Player("PlayerPictureHolder",assetStore, new Deck(), genAlgorithm.field.TOP   );
         assertEquals("Player",player.getId());
+        player2.setHandDrawCardBack(true);
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
+        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
+        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
 
-        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
-        player.drawPlayer (canvasGraphics2D,assetStore,100,100,scalar);
-        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
-        player2.drawPlayer(canvasGraphics2D,assetStore,100,100,scalar);
     }
 
     @NonNull
@@ -187,5 +198,21 @@ public class Player_Test {
         return new AssetStore(new FileIO(appContext));
     }
 
+
+    @Test
+    public void setEvolving(){
+        Deck player1d = new Deck();
+
+        assetStore.loadAndAddJson("Psych", "Decks/Psych.json");
+        assetStore.loadAndAddJson("Neutral","Decks/Neutral.json");
+        player1d.setDeckUp(assetStore, "Psych", "Psych");
+        Player player = new Player("PlayerPictureHolder",assetStore, new Deck(), genAlgorithm.field.BOTTOM);
+
+        assertEquals(false,player.isEvolving());
+        player.setEvolving();
+        assertEquals(true,player.isEvolving());
+        player.setEvolving();
+        assertEquals(false,player.isEvolving());
+    }
 
 }
