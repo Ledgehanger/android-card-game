@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens;
 
 /**
  * Created by Arif_Tahir on 11/04/2017.

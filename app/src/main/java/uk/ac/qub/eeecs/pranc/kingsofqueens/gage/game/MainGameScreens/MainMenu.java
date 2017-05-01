@@ -1,34 +1,25 @@
 /**
  * Created by Carl on 14/11/2016.
  */
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainGameScreens;
 
-import java.io.File;
 import java.util.List;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.audio.Music;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ScreenManager;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens.HighState;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens.OptionsState;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens.Settings;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.os.Bundle;
-import android.util.Log;
-import android.content.res.AssetFileDescriptor;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class MainMenu extends GameScreen {
     //SETTINGS FOR VOLUME

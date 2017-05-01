@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainMenu;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainGameScreens.MainMenu;
 
 
 /**

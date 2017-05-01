@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects;
 /**
  * Author Mark McAleese (40177285) all methods
  */

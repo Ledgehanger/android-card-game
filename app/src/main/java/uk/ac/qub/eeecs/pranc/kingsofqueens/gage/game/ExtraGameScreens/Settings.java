@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

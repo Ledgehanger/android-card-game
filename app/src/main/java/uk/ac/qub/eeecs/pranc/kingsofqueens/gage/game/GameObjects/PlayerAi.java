@@ -1,8 +1,7 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects;
 
 import java.util.Random;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 /**

@@ -1,7 +1,7 @@
 /**
  * Created by Carl on 13/11/2016.
  */
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;

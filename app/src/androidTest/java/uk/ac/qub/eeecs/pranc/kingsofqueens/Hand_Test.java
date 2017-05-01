@@ -18,10 +18,10 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Hand;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Card;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Deck;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Hand;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Player;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 

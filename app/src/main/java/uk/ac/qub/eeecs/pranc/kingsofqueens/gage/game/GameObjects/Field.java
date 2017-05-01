@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects;
 
 import java.util.ArrayList;
 import java.util.List;

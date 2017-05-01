@@ -16,13 +16,12 @@ import java.util.List;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.CardGame;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.RenderGameScreen;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Deck;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainGameScreens.RenderGameScreen;
 
 /**
  * Created by mark on 15/04/2017.

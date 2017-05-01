@@ -1,7 +1,7 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities;
 
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Player;
 
 /**
  * Author Mark McAleese (40177285) all methods

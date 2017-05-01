@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.core.deps.guava.collect.BiMap;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
@@ -15,8 +14,8 @@ import org.junit.runner.RunWith;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Card;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Deck;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 

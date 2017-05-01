@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects;
 /**
  * Author Mark McAleese (40177285) all methods
  */
@@ -29,7 +29,7 @@ public class Player {
     protected float      textSize = 25f;
 
     protected int        hp;
-    protected int        evTotal;
+    public int           evTotal;
     protected String     id;
     protected String     playerImgFile;
 
@@ -43,9 +43,9 @@ public class Player {
     protected Rect       playerRectHp;
     protected Rect       playerRectEv;
 
-    protected Deck       playerDeck;
-    protected Hand       playerHand;
-    protected Field      playerField;
+    public Deck          playerDeck;
+    public Hand          playerHand;
+    public Field         playerField;
 
     protected genAlgorithm.field fieldLocation;
 

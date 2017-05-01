@@ -1,28 +1,19 @@
 
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.media.AudioManager;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.View;
-import android.widget.SeekBar;
 
-import java.io.IOException;
 import java.util.List;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainGameScreens.MainMenu;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 

@@ -3,7 +3,6 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -16,8 +15,8 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Deck;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Player;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 

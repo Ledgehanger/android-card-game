@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;

@@ -9,8 +9,8 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AbilityFactory;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.EnemyEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Player;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 

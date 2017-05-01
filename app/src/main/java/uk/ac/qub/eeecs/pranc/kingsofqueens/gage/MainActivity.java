@@ -2,22 +2,11 @@ package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.io.InputStream;
-import java.util.List;
-
 import uk.ac.qub.eeecs.pranc.kingsofqueens.R;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ScreenManager;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.PickDeckScreen;
-
-import static android.R.attr.name;
 
 
 /**

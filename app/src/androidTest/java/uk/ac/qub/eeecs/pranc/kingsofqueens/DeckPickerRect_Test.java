@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.CanvasGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Deck;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Deck;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.DeckSelection.DeckPickerRect;
 
 import static org.junit.Assert.assertEquals;

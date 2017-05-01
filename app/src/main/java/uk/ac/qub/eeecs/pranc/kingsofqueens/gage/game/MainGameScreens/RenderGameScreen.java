@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainGameScreens;
 /**
  * Created by markm on 25/11/2016.
  */
@@ -13,6 +13,13 @@ import java.util.List;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Card;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Deck;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.GameTurn;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Player;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.PlayerAi;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Spot;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens.GameOverState;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
@@ -288,14 +295,14 @@ public class RenderGameScreen extends GameScreen {
 
     //Author Mark McAleese (40177285)
     private void setIgnorePlayer() {
-        if (currentGame.getCurrentPlayerID() == player.id)
+        if (currentGame.getCurrentPlayerID() == player.getId())
             ignorePlayerInput = false;
         else
             ignorePlayerInput = true;
     }
     //Author Mark McAleese (40177285)
     private void startPlayerTurn(String currentTurnId) {
-        if (currentTurnId == player.id)
+        if (currentTurnId == player.getId())
             player.playerStartTurn();
         else
             playerAI.playerStartTurn();

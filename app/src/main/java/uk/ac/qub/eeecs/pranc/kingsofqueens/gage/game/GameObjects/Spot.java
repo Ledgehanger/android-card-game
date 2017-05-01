@@ -1,9 +1,8 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects;
 
         import android.graphics.Bitmap;
         import android.graphics.Rect;
 
-        import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
         import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
         import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
         import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;

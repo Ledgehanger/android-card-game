@@ -1,11 +1,9 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects;
 /**
  * Created by Carl on 20/11/2016.
  */
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AbilityFactory;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Game;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.genAlgorithm;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
@@ -13,12 +11,9 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.content.res.AssetManager;
+
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 
 public class Card{
 

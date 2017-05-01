@@ -20,7 +20,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.PickDeckScreen;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainGameScreens.PickDeckScreen;
 
 /**
  * Created by mark on 15/04/2017.

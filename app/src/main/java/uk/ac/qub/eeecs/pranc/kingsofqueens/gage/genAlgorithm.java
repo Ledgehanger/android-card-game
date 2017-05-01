@@ -1,21 +1,13 @@
 package uk.ac.qub.eeecs.pranc.kingsofqueens.gage;
 import android.graphics.Rect;
-import android.os.DeadObjectException;
-import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Ability;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.AddEvAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.DealDamageAbility;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.Default;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.Abilities.OwnerEffectedAbility;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Card;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.Player;
-
-import static android.content.ContentValues.TAG;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Card;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.GameObjects.Player;
 
 /**
  * Author Mark McAleese (40177285) all methods

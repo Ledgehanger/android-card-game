@@ -1,16 +1,11 @@
-package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game;
+package uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.ExtraGameScreens;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +15,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.Input;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.AssetStore;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.ElapsedTime;
-import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.engine.io.FileIO;
+import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.game.MainGameScreens.MainMenu;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.scaleScreenReso;
 
