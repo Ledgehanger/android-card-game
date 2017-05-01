@@ -229,6 +229,8 @@ public class HighState extends GameScreen {
                     graphics2D.drawBitmap(highLose, null, boundHigh55, null);
                 }
 
+                
+
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
