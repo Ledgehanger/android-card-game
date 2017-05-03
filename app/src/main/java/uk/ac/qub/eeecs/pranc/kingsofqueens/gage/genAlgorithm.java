@@ -29,15 +29,21 @@ public class genAlgorithm {
     }
 
     // Based on Knuth's shuffle algorithm
+    // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
     public static void knuthShuffle(List<Card> array){
         int totalSize = array.size();
+        int randomPos;
         for(int count = 0; count < totalSize; count++){
-            int randomPos = count + (int) (Math.random() * (totalSize - count));
+            if(count != totalSize/2)
+                randomPos = (int) (Math.random() * (totalSize - count));
+            else
+                randomPos = count + (int) (Math.random() * (totalSize - count));
 
             Card swap = array.get(randomPos);
             array.set(randomPos,array.get(count));
             array.set(count, swap);
         }
+
     }
 
     public static void useCardAbility(Card pCard,Player pPlayer, Player pEnemyPlayer) {
