@@ -46,7 +46,7 @@
     "name": "Medical Biology Centre",
     "attack": 0,
     "defense": 4,
-    "desc"   :"DEFAULT",
+    "desc"   :"",
     "ability": "Default",
     "abilityLvl":0,
     "picture": "img/Cards/MBC.png",

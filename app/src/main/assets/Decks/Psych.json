@@ -46,7 +46,7 @@
     "name": "David Keir Building",
     "attack": 0,
     "defense": 4,
-    "desc": "DEFAULT",
+    "desc": "",
     "ability": "AddEvAbility",
     "abilityLvl": 0,
     "picture": "img/Cards/DKB.png",
