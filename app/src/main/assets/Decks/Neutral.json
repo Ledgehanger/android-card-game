@@ -2,8 +2,8 @@
   {
     "_id": 17,
     "name": "Lanyon Building",
-    "attack": 0,
-    "defense": 4,
+    "attack": 2,
+    "defense": 2,
     "desc"   : "Deal 2 Damage",
     "ability": "DealDamageAbility",
     "abilityLvl":2,
@@ -16,8 +16,8 @@
   {
     "_id": 18,
     "name": "McClay Library",
-    "attack": 0,
-    "defense": 4,
+    "attack": 2,
+    "defense": 3,
     "desc"   :"Deal 1 Damage",
     "ability": "DealDamageAbility",
     "abilityLvl":1,
@@ -30,8 +30,8 @@
   {
     "_id": 19,
     "name": "Student's Union",
-    "attack": 0,
-    "defense": 4,
+    "attack": 2,
+    "defense": 1,
     "desc"   :"Deal 3 Damage",
     "ability": "DealDamageAbility",
     "abilityLvl":3,

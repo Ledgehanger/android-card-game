@@ -44,8 +44,8 @@
   {
     "_id": 12,
     "name": "Institute of Theology",
-    "attack": 1,
-    "defense": 1,
+    "attack": 3,
+    "defense": 3,
     "desc": "DEFAULT",
     "ability": "Default",
     "abilityLvl":0,

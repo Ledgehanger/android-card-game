@@ -44,7 +44,7 @@
   {
     "_id": 8,
     "name": "Computer Science Building",
-    "attack": 1,
+    "attack": 2,
     "defense": 4,
     "desc":"DEFAULT",
     "ability": "Default",

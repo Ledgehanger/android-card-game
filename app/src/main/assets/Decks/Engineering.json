@@ -48,7 +48,7 @@
     "_id": 4,
     "name": "Ashby Building",
     "attack": 1,
-    "defense": 2,
+    "defense": 6,
     "desc":"DEFAULT",
     "ability": "Default",
     "abilityLvl":0,

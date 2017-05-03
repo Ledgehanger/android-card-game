@@ -44,8 +44,8 @@
   {
     "_id": 16,
     "name": "David Keir Building",
-    "attack": 0,
-    "defense": 4,
+    "attack": 3,
+    "defense": 3,
     "desc": "DEFAULT",
     "ability": "AddEvAbility",
     "abilityLvl": 0,
