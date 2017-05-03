@@ -107,6 +107,7 @@ public class Player {
     }
     public void playerStartTurn(){
         evTotal++;
+        evolving = false;
         if(playerHand != null && playerDeck != null && playerDeck.getSize() > 0)
             playerHand.addToHand(playerDeck.drawFromDeck(CARDS_PER_TURN));
     }

@@ -6,10 +6,7 @@ import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.util.Vector2;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.GameScreen;
 import uk.ac.qub.eeecs.pranc.kingsofqueens.gage.world.Sprite;
 
-/**
- * Created by markm on 25/11/2016.
- */
-
+// Author Arif
 public class PlayerCards extends Sprite {
 
     private Vector2 screenCentre = new Vector2();
