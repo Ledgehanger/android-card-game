@@ -84,8 +84,12 @@ public class PlayerAi extends Player {
             loopCounter++;
             Spot checkSpot = oppPlayerField.getSpotFromRow(0, loopCounter);
             if (!checkSpot.getCardPlaced()) {
-                playPos=loopCounter;
-                posAvailable=true;
+                posAvailable=checkSpotFree(loopCounter);
+                if(posAvailable)
+                {
+                    playPos = loopCounter;
+                    posAvailable = true;
+                }
             }
         } while (loopCounter <= sizeOfLoop && !posAvailable);
     }
