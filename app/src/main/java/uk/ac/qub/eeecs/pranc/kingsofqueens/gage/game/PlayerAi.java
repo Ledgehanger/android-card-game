@@ -77,11 +77,9 @@ public class PlayerAi extends Player {
     }
     //Carl
     public boolean findFreePosOppField(Field oppPlayerField) {
-        int loopCounter = -1;
+        int loopCounter = 0;
         boolean posAvailable = false;
-        int sizeOfLoop = oppPlayerField.getSizeOfRow() - 1;
         do {
-            loopCounter++;
             Spot checkSpot = oppPlayerField.getSpotFromRow(0, loopCounter);
             if (!checkSpot.getCardPlaced()) {
                 posAvailable=checkSpotFree(loopCounter);
@@ -91,7 +89,8 @@ public class PlayerAi extends Player {
                     posAvailable = true;
                 }
             }
-        } while (loopCounter <= sizeOfLoop && !posAvailable);
+            loopCounter++;
+        } while (loopCounter <oppPlayerField.getSizeOfRow() && !posAvailable);
 
         return posAvailable;
     }
