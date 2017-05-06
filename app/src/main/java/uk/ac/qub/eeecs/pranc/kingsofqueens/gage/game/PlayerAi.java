@@ -76,7 +76,7 @@ public class PlayerAi extends Player {
         return posFree;
     }
     //Carl
-    public void findFreePosOppField(Field oppPlayerField) {
+    public boolean findFreePosOppField(Field oppPlayerField) {
         int loopCounter = -1;
         boolean posAvailable = false;
         int sizeOfLoop = oppPlayerField.getSizeOfRow() - 1;
@@ -92,6 +92,8 @@ public class PlayerAi extends Player {
                 }
             }
         } while (loopCounter <= sizeOfLoop && !posAvailable);
+
+        return posAvailable;
     }
     //Carl
     public boolean checkFieldFree(Field playerAiField)
@@ -158,7 +160,7 @@ public class PlayerAi extends Player {
                    }
                }
                loopCounter++;
-           } while (loopCounter < playerAiField.getSizeOfRow() && canEvolve == false);
+           } while (loopCounter < playerAiField.getSizeOfRow() && !canEvolve);
        }
 
        return canEvolve;
@@ -215,7 +217,7 @@ public class PlayerAi extends Player {
            }
        }
        if(playerWeight<lowestWeight)
-           findFreePosOppField(oppField);
+           playAvailable=findFreePosOppField(oppField);
 
        if(!playAvailable)
            findFirstAvailPos();
