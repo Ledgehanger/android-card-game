@@ -14,7 +14,9 @@ public class PlayerAi extends Player {
 
     protected int playPos;
     protected int evPos;
+    protected int cardPos;
 
+    public int getCardPos(){return cardPos;}
     public int getPlayPos(){return playPos;}
     public int getEvPos(){return evPos;}
 
@@ -74,6 +76,20 @@ public class PlayerAi extends Player {
         return posFree;
     }
     //Carl
+    public void findFreePosOppField(Field oppPlayerField) {
+        int loopCounter = -1;
+        boolean posAvailable = false;
+        int sizeOfLoop = oppPlayerField.getSizeOfRow() - 1;
+        do {
+            loopCounter++;
+            Spot checkSpot = oppPlayerField.getSpotFromRow(0, loopCounter);
+            if (!checkSpot.getCardPlaced()) {
+                playPos=loopCounter;
+                posAvailable=true;
+            }
+        } while (loopCounter <= sizeOfLoop && !posAvailable);
+    }
+    //Carl
     public boolean checkFieldFree(Field playerAiField)
     {
         int loopCounter=0;
@@ -93,7 +109,7 @@ public class PlayerAi extends Player {
         return posAvailable;
     }
     //Carl
-    public boolean findFirstAvailPos()
+    public void findFirstAvailPos()
     {
         int loopCounter=0;
         boolean posFree=false;
@@ -105,7 +121,6 @@ public class PlayerAi extends Player {
 
         }while(loopCounter<playerField.getSizeOfRow()&&!posFree);
 
-        return posFree;
     }
     //Carl
     public boolean checkHandFree()
@@ -147,7 +162,7 @@ public class PlayerAi extends Player {
     //Carl
    public int pickCardToPlay(Hand playerHand)
    {
-       int posInHand=0;
+       cardPos=0;
        int currentWeight;
        int largeWeight=-1;
        Card checkCard;
@@ -160,10 +175,10 @@ public class PlayerAi extends Player {
            if(currentWeight>largeWeight)
            {
                largeWeight = currentWeight;
-               posInHand=i;
+               cardPos=i;
            }
        }
-       return posInHand;
+       return cardPos;
    }
     //Carl
    public void bestPlay(Field oppField)
@@ -172,7 +187,11 @@ public class PlayerAi extends Player {
        boolean playAvailable=false;
        int lowestWeight=Integer.MAX_VALUE;
        int checkWeight;
+       int playerWeight;
        Card checkCard;
+       Card playCard=playerHand.getCardFromHand(cardPos);
+       playerWeight=playCard.getWeight();
+
 
        for(int i=0;i<oppField.getSizeOfRow();i++) {
            checkSpot=oppField.getSpotFromRow(0,i);
@@ -191,6 +210,9 @@ public class PlayerAi extends Player {
 
            }
        }
+       if(playerWeight<lowestWeight)
+           findFreePosOppField(oppField);
+
        if(!playAvailable)
            findFirstAvailPos();
    }

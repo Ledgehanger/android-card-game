@@ -162,7 +162,7 @@ public class RenderGameScreen extends GameScreen {
         else
             iGraphics2D.drawBitmap(endTurnDisable, null, endTurnRect, null);
     }
-    //Author Mark McAleese (40177285)  & Karl AI part (else)
+    //Author Mark McAleese (40177285)  & Carl AI part (else)
     private void placeCardPhase(ElapsedTime elapsedTime, List<TouchEvent> touchEvents) {
         if (ignorePlayerInput == false) {
             if (!touchEvents.isEmpty()) {
